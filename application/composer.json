@@ -1,0 +1,7 @@
+{
+    "require": {
+        "monolog/monolog": "1.2.*",
+        "phpoffice/phpexcel": "dev-develop",
+        "adldap2/adldap2": "8.0.*"
+    }
+}

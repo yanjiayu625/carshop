@@ -1,0 +1,140 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            配置信息管理
+          </li>
+          <li>
+            添加新机房
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-barcode"></i> 添加新机房 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <form class="box-content" id="location_form" novalidate>
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>位置名</h4></td>
+                    <td>
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" name="name" value="">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>简称</h4></td>
+                    <td>
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" name="short_name" value="">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-edit"></i> 提交 </button>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </form>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery jquery.validate.js-->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/jquery/jquery.validate.js"></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#config-location').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Config').addClass('active').find('ul').slideToggle();
+
+
+    $("#location_form").validate({
+      rules: {
+        name: {
+          required: true,
+          remote: {
+            url: "/api/idcos_general/checkIdcName",
+            type: "get",
+            dataType: "json",
+            data: {
+              name: function() {
+                return $("input[name='name']").val();
+              }
+            }
+          }
+        },
+        short_name: "required",
+      },
+      messages: {
+        name: {
+          required: "请输入位置名",
+          remote: "位置名不能重复"
+        },
+        short_name: "请输入简称"
+      },
+      submitHandler: function() {
+        var datas = {
+          "code": $("input[name='short_name']").val(),
+          "name": $("input[name='name']").val()
+        };
+        $.ifosAjax({
+          type: "post",
+          dataType: "json",
+          url: "/api/idcos_config/addIdc",
+          data: {
+            'idcJson': JSON.stringify(datas)
+          },
+          error: function(err) {
+            console.log(err);
+          },
+          success: function(result) {
+            if (!!result.status) {
+              $.alert('添加成功', function() {
+                window.location.href = "/idcos/config/location";
+              });
+            } else {
+              $.alert('添加失败', function() {});
+            }
+          }
+        });
+      },
+      debug: true
+    });
+  });
+  </script>

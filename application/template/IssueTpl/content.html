@@ -1,0 +1,21 @@
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 306px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">URL地址</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="一行一个URL，如http://www.ifeng.com" data-original-title="URL地址" style="width: 610px;">
+		<input type="hidden" name="t_url" id="urllist" data-label="URL地址">
+		<textarea type="text" class="form-control urllist" required="" name="h_url" data-label="URL地址" value="" rows="3" data-msg-regex="URL输入有误" aria-required="true"></textarea>
+		<p class="info_special_ps">URL中不能有中文</p>
+		<script>
+			$(function() {
+				$(".urllist").keyup(function() {
+					var urllist = $(".urllist").val();
+					urllist = urllist.replace(/[\r\n]/g,"<br>");
+					$("#urllist").val(urllist);
+				})
+			})
+		</script>
+	</td>
+	<td width="25%" style="width: 381px;"></td>
+	<td width="15%" style="width: 228px;"></td>
+</tr>

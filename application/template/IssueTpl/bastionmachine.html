@@ -1,0 +1,49 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">日志是否报告异常</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="日志是否报告异常" data-original-title="日志是否报告异常">
+        <input type="radio" name="t_log_status" data-label="日志是否报告异常" value="1" required="" checked="checked" aria-required="true">
+        <label>否</label>
+        <input type="radio" name="t_log_status" data-label="日志是否报告异常" value="2" required="" aria-required="true">
+        <label>是</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">日志截图</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="日志截图">
+        <input type="text" class="form-control" required="" name="t_log_pic" data-label="日志截图" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">日至报告异常时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="日至报告异常时间">
+        <input type="text" class="form-control" name="t_report_time" data-label="日至报告异常时间" value="" data-rule-regex="" data-msg-regex="">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">出现异常原因</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="出现异常原因">
+        <textarea type="text" class="form-control" name="t_reason" data-label="出现异常原因" value="" rows="3"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">问题是否解决</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="问题是否解决">
+        <input type="radio" name="t_solve" data-label="问题是否解决" value="1" required="" checked="checked" aria-required="true">
+        <label>是</label>
+        <input type="radio" name="t_solve" data-label="问题是否解决" value="2" required="" aria-required="true">
+        <label>否</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script style="">
+    $(function() {
+        $(".submit").attr("disabled",true);  
+    })
+</script>

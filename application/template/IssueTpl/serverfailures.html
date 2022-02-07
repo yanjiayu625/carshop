@@ -1,0 +1,273 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">业务负责人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="业务负责人域账号" data-original-title="业务负责人">
+        <input type="text" class="form-control valid" required="" name="t_name_business" data-label="业务负责人" value="" data-rule-regex="" data-msg-regex="" placeholder="请输入业务负责人域账号" data-rule-remote="/api/issue_check/checkHeadName" aria-required="true" aria-invalid="false"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器故障描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器故障描述" data-original-title="服务器故障描述">
+        <input type="text" class="form-control valid" required="" name="t_custom_machine" data-label="服务器故障描述" value="" data-rule-regex="" data-msg-regex="" placeholder="请输入机器" aria-required="true" aria-invalid="false"> </td>
+        <td width="15%"></td>
+        <td width="15%"></td>
+</tr>
+<!-- <tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器维修结果</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器维修结果" data-original-title="服务器维修结果">
+        <input type="text" class="form-control valid" required="" name="t_custom_machine_exe" data-label="服务器维修结果" value="" data-rule-regex="" data-msg-regex="" placeholder="请输入机器" aria-required="true" aria-invalid="false"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<!-- <tr>
+    <td width="20%"></td>
+    <td width="40%">
+        <p class="alert alert-danger" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">内网IP、公网IP不能都为空!</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<tr class="machine_area">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i> <span class="js_name">内网IP/公网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="内网IP">
+        <input type="text" class="form-control iptest h_int_ip  js_int_ip" required="" name="h_int_ip0" data-label="内网IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true" placeholder="请输入公网IP或内网IP">
+    </td>
+    <td width="40%" colspan="2" class="js_intIPErr"></td>
+</tr>
+<!-- <tr class="machine_area">
+    <td width="20%"><span class="js_name">公网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="公网IP">
+        <input type="text" class="form-control iptest h_exi_ip" name="h_exi_ip0" data-label="公网IP" value="" data-rule-regex="" data-msg-regex="">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<tr class="machine_area js_machineInfoArea">
+    <td width="20%"><span class="js_name">服务器信息</span></td>
+    <td width="40%" >
+        <div class="js_machineInfo form-control" style="height: auto;"></div>
+        
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr class="machine_area">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">故障描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="故障描述">
+        <textarea type="text" minlength="15" class="form-control h_desc" required="" name=h_desc0" data-label="故障描述" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="machine_area">
+    <td width="20%"><span class="js_name">故障截图</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="故障截图">
+        <div id="uploader" name="h_img" class="wu-example">
+            <div id="thelist" class="uploader-list"></div>
+            <div class="btns">
+                <div id="picker"  >选择文件</div>
+                <input type="hidden" class="form-control h_img" name="h_img0" data-label="故障截图" value="">
+            </div>
+        </div>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+ <!--detail  Modal -->
+<div class="modal fade" id="serverDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80% !important">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12">
+                <h4 class="title">提案详情</h4>
+                <div id="serverDetatilIframe" class="">
+                    
+                </div>
+                </div>
+            </div>
+            <div class="backarea">
+                <a class="btn btn-default goback"><i class="glyphicon glyphicon-minus-sign"></i> 关闭</a>
+            </div>
+        </div>
+    </div>
+</div><!--end detail Modal-->
+            
+<script type="text/javascript">
+    $( function() {
+        var repairBox = {
+            init: function() {
+                var that = this;
+                $(".js_machineInfoArea").hide()
+                $('input[name="i_title"]').attr("readonly", true);
+                $('input[name="i_title"]').parents("tr").hide()
+                // $(".submit").attr("disabled", true).removeClass("btn-primary").addClass("btn-default");
+                $(".js_int_ip").blur(function() {
+                    that.getInof($(this).val());
+                })
+
+                $(".submit").click( function() {
+                    that.setMachineInfo()
+                })
+
+                $(document).on('click', '.js_showDetail', function(event) {
+                    $('#serverDetail').modal('show');
+                    $("#serverDetatilIframe").html('<iframe src="/issue/server/detail?id=' + $(this).attr('serverId') + '&no-cache=' + Math.random()+'"></iframe>')
+                })
+
+                $(document).on('click', '.goback', function(event) {
+                   $('#serverDetail').modal('hide');
+                   $("#serverDetatilIframe").html('')
+                })
+
+            },
+            machineInfo: {},
+            getInof: function(ip) {
+                var that = this;
+                $(".js_machineInfo").empty();
+                $(".js_intIPErr").empty();
+                that.machineInfo = {}
+                $(".submit").attr("disabled", true).removeClass("btn-primary").addClass("btn-default");
+                $.ajax({
+                    url: "/api/issue_check/getServerFailuresInfo",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        ip: ip
+                    },
+                    success: function(result) {
+                        // brand - model- sn - int_ip
+                        if(result.status) {
+                            that.machineInfo = result.data
+                            $('input[name="i_title"]').val("报修"+result.data.brand+"-"+result.data.model+"-"+result.data.sn+"-"+result.data.int_ip)
+                            $(".submit").attr("disabled", false).removeClass("btn-default").addClass("btn-primary");
+                            $(".js_machineInfoArea").show();
+
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">品牌型号</span>: 　'+result.data.brand+' '+result.data.model+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">SN</span>: 　'+result.data.sn+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">主机名</span>: 　'+result.data.hostname+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">内网IP</span>: 　'+result.data.int_ip+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">公网IP</span>: 　'+result.data.ext_ip+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">管理卡IP</span>: 　'+result.data.oob_ip+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">机房位置</span>: 　'+result.data.idc_name+' '+result.data.idc_module+' '+result.data.cabinet_num+' '+result.data.u_bit+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">入账日期</span>: 　'+result.data.arrival+'</p>');
+                            $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">已报修次数</span>: 　'+result.data.num+'</p>');
+                            if(result.data.server.length){
+                                btnHtml = "";
+                                $.each(result.data.server, function(key, val) {
+                                    btnHtml += '<span class="btn btn-primary btn-sm js_showDetail" serverId="'+val+'">'+val+'</span>';
+
+                                })
+                                $(".js_machineInfo").append('<p><span style="display: inline-block;width: 90px; ">已报修提案</span>: 　'+btnHtml+'</p>');
+                            }
+
+                        }else {
+                            $(".js_intIPErr").html('<label class="error">'+result.msg+'.</label>')
+                            $(".js_machineInfoArea").hide()
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+
+                })
+
+            },
+            setMachineInfo: function() {//监听机器信息变化
+                var that= this
+                var machineArr = []
+                var int_ipArr = []
+                var submitFlag = true
+                var machineNum = 0
+                while($(".js_int_ip").eq(machineNum).val()){
+                    if(int_ipArr.indexOf($(".h_int_ip").eq(machineNum).val()) == -1){
+                        int_ipArr.push($(".h_int_ip").eq(machineNum).val())
+                        machineArr.push({int_ip:$(".h_int_ip").eq(machineNum).val(),desc:$(".h_desc").eq(machineNum).val(),img: $(".h_img").eq(machineNum).val() })
+                        Object.assign(machineArr[0], that.machineInfo )
+                        machineNum++
+                    }else{
+                        submitFlag = false;
+                        $(".h_int_ip").eq(machineNum).parent().next().html('<label class="error">内网IP重复</label>')
+                        break;
+                    }
+                }
+
+                $('[name="t_custom_machine"]').val(JSON.stringify(machineArr))
+                return submitFlag
+
+            },
+
+        };
+        repairBox.init();
+
+    })
+
+    //上传插件
+    $(function() {
+        var uploader = WebUploader.create({
+
+            // swf文件路径
+            swf: '/js/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '/api/issue_server/uploadfile?type='+$.getUrlParam('name'),
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '.picker',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            duplicate: true,
+            auto:true
+            // fileNumLimit:1
+        });
+        // 当有文件被添加进队列的时候
+        uploader.on( 'fileQueued', function( file ) {
+            $("#thelist").append( '<div id="' + file.id + '" class="item">' +
+                '<h4 class="info">' + file.name + '</h4>' +
+                '<p class="state">等待上传...</p>' +
+            '</div>' );
+        });
+        uploader.on( 'uploadSuccess', function( file,response ) {
+            // 根据返回结果展示相应信息
+            $( '#'+file.id ).find('p.state').text(response.msg);
+            if(response.status){
+                var imgsArr = []
+                if(!!$(".picker").next("input").val()){
+                    imgsArr = $(".picker").next("input").val().split(',')
+                }
+                imgsArr.push(response.data)
+                $(".picker").next("input").val(imgsArr.join(','));
+            }
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<div class="progress progress-striped active">' +
+                  '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                  '</div>' +
+                '</div>').appendTo( $li ).find('.progress-bar');
+            }
+
+            $li.find('p.state').text('上传中');
+
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        uploader.on( 'uploadError', function( file,reason ) {
+            $( '#'+file.id ).find('p.state').text('上传出错');
+        });
+        uploader.on( 'error', function( type ) {
+            $( '#'+file.id ).find('p.state').text('上传出错');
+        });
+
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').fadeOut();
+        });
+    });
+    
+</script>

@@ -1,0 +1,111 @@
+@-moz-document url-prefix()    /*Firefox兼容代码*/
+{
+    .label {
+      padding: .5em .6em .3em;
+    }
+}
+.btn-gray{background: #999; color: #fff;}
+input.error, select.error {
+  border-color: rgb(255, 0, 0) !important;
+}
+textarea.error {
+  border-color: rgb(255, 0, 0);
+}
+label.error {
+  color: rgb(255, 0, 0);
+  position: absolute;
+}
+.disabled{ cursor: not-allowed !important;  pointer-events: auto !important; }
+
+td .btn.btn-sm {
+  margin-right: 6px;
+}
+
+.select2 {
+  position: relative;
+}
+
+.select2 .error {
+  bottom: -26px;
+  left: 15px;
+  display: block;
+}
+
+#mirrorconf-editor {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
+#ksconf-editor {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+select[disabled="true"],
+input[disabled="true"] {
+  background-color: #eee;
+}
+
+.table-id {
+  display: none;
+}
+
+.table td.second {
+  padding: 8px 0 10px 30px;
+  position: relative;
+}
+.table td.second .autogrow {
+  width: 594px;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  border-radius: 3px;
+  line-height: 34px;
+}
+.table td.second a {
+  position: absolute;
+  left: 654px;
+}
+/*index sidebar*/
+.sidebar-nav-first {
+  margin-top: 0;
+  }
+.sidebar-nav {
+  margin-top: 15px;
+}
+.sidebar-nav .nav-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/*index box*/
+.breadcrumb {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+.box-header-title {
+  float: left;
+}
+.box-content {
+  padding: 20px 10px;
+}
+.page-header {
+  margin: 0;
+}
+body{min-height: 670px;}
+footer{width: 100%;position: absolute;bottom: 20px;left: 0;padding: 0 20px;z-index: -1;}
+footer .clear{zoom:1}
+footer .clear:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
+.modal-lg{margin-top: 10% !important;}
+.btn-round{padding-top: 2px!important;}
+.dataTables_wrapper{overflow: auto;}
+.progress-bar-end{background-color: #ccc !important;}
+
+table.dataTable thead th, table.dataTable.no-footer{
+  border-bottom: 1px solid #ddd !important;
+
+}
+.dataTables_wrapper .dataTables_paginate{
+  text-align: center;
+  float:inherit;
+}

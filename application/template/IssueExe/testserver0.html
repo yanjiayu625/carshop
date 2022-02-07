@@ -1,0 +1,388 @@
+<style>
+.form-control {
+    height: 32px;
+}
+
+.daily_exe_tpl tr td:first-child {
+    text-align: right;
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.daily_exe_tpl tr td:nth-child(2) {
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.daily_exe_tpl tr td:nth-child(3) {
+    vertical-align: middle;
+    border-top: 0px;
+    position: relative;
+}
+
+.daily_exe_tpl tr td:nth-child(3) label {
+    width: 200px;
+    height: 48px;
+    position: absolute;
+    top: 0px;
+    line-height: 48px;
+}
+
+.daily_exe_tpl tr td:nth-child(4) {
+    border-top: 0px;
+}
+
+.daily_exe_tpl select {
+    height: 32px;
+}
+
+#info textarea {
+    height: auto !important;
+}
+
+#info select {
+    height: 32px !important;
+}
+
+#info label {
+    padding-left: 10px;
+}
+
+.modal-dialog table select {
+    padding-top: 5px!important;
+}
+
+.box-content .table tr td select {
+    width: 100%;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+#modal_validate table tr td {
+    position: relative;
+}
+
+#modal_validate table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+#editTableModal table tr td {
+    position: relative;
+}
+
+#editTableModal table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+.option_filds {
+    display: none;
+}
+
+.option_filds textarea {
+    height: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-color: #ccc !important;
+}
+
+#createServerForm .form_atcion .reset {
+    margin-left: 30%;
+}
+
+#createServerForm .form_atcion .submit {
+    margin-left: 30px;
+}
+
+.info_special_ps {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+    padding: 5px;
+    margin: 5px 0 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.dailytitle {
+    text-align: center !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.server_item {
+    border: 1px solid #ddd;
+    margin-bottom: 18px;
+    position: relative;
+}
+.remove_server{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    z-index: 100;
+}
+.btn_area{width: 100%}
+</style>
+<form action="" id="vsan">
+    <h3 class="js_dailytitle center">迁移上线‘服务器装机信息’文件上传</h3>
+    <div class="server_item">
+        <table class="table daily_exe_tpl">
+            <tbody>
+                <tr>
+                    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+                        <span class="js_field">Vm名称</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input type="text" class="form-control vname" name="vname" required placeholder="">
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+                <tr>
+                    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+                        <span class="js_field">IP地址+端口</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input type="text" class="form-control ip" name="ip" required placeholder="">
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+                <tr>
+                    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+                        <span class="js_field">主机名</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input type="text" class="form-control hostname" required name="hostname" placeholder="">
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+                <tr>
+                    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+                        <span class="js_field">状态</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input class="state" type="radio" name="state" value="0"> DOWN
+                        <input class="state" type="radio" name="state" value="1" checked> UP
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <span class="js_field">公网ip/Nat</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input type="text" class="form-control ext_ip" name="ext_ip" placeholder="">
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <span class="js_field">备注</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <textarea type="text" class="form-control remarks" name="remarks" value="" rows="3" placeholder=""></textarea>
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <table class="btn_area js_servers">
+        <tbody>
+            <tr>
+                <td width="30%">
+                    <span class="js_field"></span>
+                </td>
+                <td width="60%" colspan="2">
+                    <p class="error js_numErr" style="color:#f00;" >补充信息数量与申请数量不一致.</p>
+                   
+                    <p class="form_atcion">
+                        <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>提交</button>
+                        <span class="btn btn-success js_addserver"><i class="glyphicon glyphicon-plus"></i> 添加</span>
+                    </p>
+                </td>
+                <td width="10%"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var list = {
+        init: function() {
+            var that = this;
+            // $('.DailyServer-list').eq(0).css({
+            //     "background-color": "#eeeeee"
+            // });
+
+            // $('#DailyServer-list').css({
+            //     "background-color": "#eeeeee"
+            // });
+            // $('#DailyServer').addClass('active').find('ul').slideToggle();
+            $("#vsan").validate({
+                ignore: [],
+                errorPlacement: function(error, element) {
+                    $(element).closest("tr").children('td').eq(2).html(error);
+                },
+                //验证通过后提交数据
+                submitHandler: function(form) {
+                    $(".submit").attr('disabled', true)
+                    that.saveVsanInfo();
+                },
+                debug: true
+            });
+            $(".js_numErr").hide();
+            $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 申请测试主机')
+            $("[name='server_id']").val($.getUrlParam('id'))
+
+            $(".js_addserver").click(function() {
+                that.addServer();
+            })
+            // $(".js_remove_server").click(function() {
+            //     $(this).parent().remove();
+            // })
+            $(document).on("click", ".js_remove_server", function() {
+                $(this).parent().remove();
+            })
+        },
+        serverindex:0,
+        addServer: function() {
+            var that = this;
+            that.serverindex++;
+            var server_item_htm =[];
+            server_item_htm.push('<div class="server_item">');
+            server_item_htm.push(' <i class="glyphicon glyphicon-remove remove_server js_remove_server"></i>');
+
+            server_item_htm.push('    <table class="table daily_exe_tpl">');
+            server_item_htm.push('        <tbody>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('                <td width="20%"> <i class="glyphicon glyphicon-star red"></i>');
+            server_item_htm.push('                   <span class="js_field">Vm名称</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('               <td width="60%" colspan="2">');
+            server_item_htm.push('                    <input type="text" class="form-control vname" name="vname'+that.serverindex+'" required placeholder="">');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('               <td width="20%"> <i class="glyphicon glyphicon-star red"></i>');
+            server_item_htm.push('                    <span class="js_field">IP地址+端口</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="60%" colspan="2">');
+            server_item_htm.push('                    <input type="text" class="form-control ip" name="ip'+that.serverindex+'" required placeholder="">');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('                <td width="20%"> <i class="glyphicon glyphicon-star red"></i>' );
+            server_item_htm.push('                    <span class="js_field">主机名</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="60%" colspan="2">');
+            server_item_htm.push('                    <input type="text" class="form-control hostname" name="hostname'+that.serverindex+'" placeholder="">');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('                <td width="20%"> <i class="glyphicon glyphicon-star red"></i>');
+            server_item_htm.push('                    <span class="js_field">状态</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="60%" colspan="2">');
+            server_item_htm.push('                    <input  class="state" type="radio" name="state'+that.serverindex+'" value="0"> DOWN');
+            server_item_htm.push('                    <input  class="state" type="radio" name="state'+that.serverindex+'" value="1" checked> UP');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('                <td width="20%">');
+            server_item_htm.push('                    <span class="js_field">公网ip/Nat</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="60%" colspan="2">');
+            server_item_htm.push('                    <input type="text" class="form-control ext_ip" name="ext_ip'+that.serverindex+'" placeholder="">');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('            <tr>');
+            server_item_htm.push('                <td width="20%">');
+            server_item_htm.push('                    <span class="js_field">备注</span>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="60%" colspan="2">');
+            server_item_htm.push('                    <textarea type="text" class="form-control remarks" name="remarks'+that.serverindex+'"  value="" rows="3" placeholder=""></textarea>');
+            server_item_htm.push('                </td>');
+            server_item_htm.push('                <td width="10%"></td>');
+            server_item_htm.push('            </tr>');
+            server_item_htm.push('        </tbody>');
+            server_item_htm.push('    </table>');
+            server_item_htm.push('</div>');
+            
+            $(".js_servers").before(server_item_htm.join(""))
+
+        },
+        saveVsanInfo: function() {
+            $(".js_numErr").hide()
+            var vsanJson = [];
+            var num = $("[name='t_num']").text()
+            if($("[name='t_num']").text() == $(".server_item").size()){
+
+                $.each($(".server_item"), function(k, v) {
+                    vsanJson.push({
+                        vname: $(".server_item").eq(k).find(".vname").val(),
+                        ip: $(".server_item").eq(k).find(".ip").val(),
+                        state: $(".server_item").eq(k).find(".state:checked").val(),
+                        ext_ip: $(".server_item").eq(k).find(".ext_ip").val(),
+                        remarks: $(".server_item").eq(k).find(".remarks").val(),
+                        hostname: $(".server_item").eq(k).find(".hostname").val(),
+                    })
+                })
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/Issue_Exe/saveVsanInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                    data: {
+                        vsanJson:JSON.stringify(vsanJson),
+                    },
+                    success: function(data) { //提交成功的回调函数
+                        $('.js_remark').val(data.msg)
+                        if (data.code == "400") {
+                            $(".submit").attr('disabled', false)
+                        }
+                    }
+                });
+            }else{
+                $(".js_numErr").show()
+                $(".submit").attr('disabled', false)
+            }
+        },
+    }
+
+    list.init();
+
+});
+</script>

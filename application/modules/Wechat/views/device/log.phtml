@@ -1,0 +1,93 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="/index">首页</a></li>
+          <li>IFOS装机平台</li>
+          <li>物理机管理</li>
+          <li>安装日志</li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-edit"></i> 安装日志</h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content">
+              <div class="tab-pane active" id="text">
+                <table class="table table-bordered table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th width="20%"> 时间</th>
+                      <th width="20%"> 主题</th>
+                      <th width="40%"> 内容</th>
+                      <th width="10%"> 进度</th>
+                    </tr>
+                  </thead>
+                  <tbody class="js_adddata">
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <a class="btn btn-default" href="javascript:history.go(-1)">
+                <i class="glyphicon glyphicon-backward"></i> 返回</a>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+  <?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.dataTables.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+    //获取日志信息并渲染
+    $.ifosAjax({
+      url: "/api/idcos_device/getDeviceInstallLog",
+      type: "get",
+      data: {
+        id: window.location.search.substr(4)
+      },
+      dataType: "json",
+      async: false,
+      contentType: 'application/json',
+      success: function(data) {
+        for(var i=data.length-1;i>=0;i--){
+          var progress = data[i].progress + "%";
+          if (data[i].progress == -1) {
+            progress = '<span class="red">安装失败</span>';
+             $(".js_adddata").append('<tr><td>' + data[i].time + '</td><td>' + data[i].topic + '</td><td><pre>' + data[i].content + '</pre></td><td>' + progress + '</td></tr>');
+          }else{
+            $(".js_adddata").append('<tr><td>' + data[i].time + '</td><td>' + data[i].topic + '</td><td>' + data[i].content + '</td><td>' + progress + '</td></tr>');
+          }
+        }
+      }
+    });
+
+
+  });
+  </script>

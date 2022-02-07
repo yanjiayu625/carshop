@@ -1,0 +1,354 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    select{width: 162px !important;}
+    .approver .addapprover{position: relative;}
+    .approver .addapprover .err{width: 150px;height: 40px;position:absolute;bottom: -52px;right: 0;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .groups{position: relative;}
+    .groups .group_tip{width: 320px;height: 40px;position:absolute;top: -10px;left: 25%;background: url(/img/tip1.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .groups .group_err{width: 290px;height: 40px;position:absolute;bottom: 0px;left: 100px;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .box-inner .box-content .action {text-align: center;}
+    .box-inner .box-content .action .saveProcess{margin-right:40px;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>设置提案流程</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> 设置提案流程</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>流程名称</th>
+                                    <th>参入人员</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="label-info label">提案建立</span>
+                                    </td>
+                                    <td>
+                                        申请人建立提案
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="label-success label">提案审批</span>
+                                    </td>
+                                    <td>
+                                        提案审批由审批人和会签人来完成
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">审批人员</th>
+                                                <th width="60%">是否有添加会签人权限</th>
+                                                <th width="20%">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="approver">
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="label-warning label">提案执行</span>
+                                    </td>
+                                    <td class="groups">
+                                        提案审批由该提案的执行组来完成
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">执行组</th>
+                                                <th width="30%">执行人员</th>
+                                                <th width="30%">是否能添加执行组</th>
+                                                <th width="20%">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="js_executor_group">
+                                            <tr>
+                                                <td>
+                                                    <select class="js_group">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea class="form-control" name="persons" readonly></textarea>
+                                                </td>
+                                                <td>
+                                                    <select class="js_addGroup"><option value="0">否</option><option value="1">是</option></select>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-default btn-sm js_plusExe">
+                                                        <i class="glyphicon glyphicon-plus"></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="group_tip">执行组信息有变，请重新保存流程信息，谢谢。</p>
+                                        <p class="group_err">执行组有重复，请删除重复组后重新提交。</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="label label-default">提案关闭</span>
+                                    </td>
+                                    <td>
+                                        提案执行完成后,自动关闭
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="action">
+                                <span class="btn btn-primary submit_diyinfo saveProcess js_saveProcess"><i class="glyphicon glyphicon-share"></i>保存</span>
+                                <a href="javascript:history.go(-1)" class="btn btn-default submit_diyinfo js_cancelExecutor"><i class="glyphicon glyphicon-remove"></i>取消</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end Edit  Modal -->
+
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
+<script src="/js/ifos.js"></script>
+<script>
+    $(document).ready(function(){
+        var field = {
+            init: function(){
+                $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+                $('#IssueAdmin-set').css({
+                    "background-color": "#eeeeee"
+                });
+
+                //增加审批人员
+                $(document).on('click', '.js_approveradd', function() {
+                    var tr = $(this).parent().parent();
+                    tr.after(field.trPlus);
+                });
+
+                //增加执行组
+                $(document).on('click', '.js_plusExe', function() {
+                    var tr = $(this).parent().parent();
+                    var ele_clone = tr.clone();
+                    if(!tr.index()){
+                        ele_clone.find("td:eq(3)").append('<button class="btn btn-default btn-sm minusCheck"><i class="glyphicon glyphicon-minus"></i>');
+                    }
+                    tr.after(ele_clone);
+                    $($(".js_executor_group textarea")[tr.index()+1]).val(field.executor_group['e1'].person.join("\r\n"));
+                });
+                //减一行
+                $(document).on('click', '.minusCheck', function() {
+                    var tr = $(this).parent().parent();
+                    tr.remove();
+                });
+
+                //审批人员失去焦点验证存在
+                $(document).on('blur', '.js_approver', function() {
+                    var this_element = $(this);
+                    this_element.siblings().hide().html("");
+                    if(!$.trim($(this).val())){
+                        this_element.siblings().fadeIn().html("输入内容不能为空！");
+                        field.approverIsNull = false;
+                    }else{
+                        $.ajax({
+                            url: "/api/issue_check/checkApprover",
+                            type: "GET",
+                            data:{user:$(this).val()},
+                            async:false,
+                            dataType: "json",
+                            success: function(data) {
+                                if(!data.status){
+                                    this_element.siblings().fadeIn().html(data.msg);
+                                    field.approverIsNull = false;
+                               }
+                            }
+                        });
+                    }
+                });
+                $(document).on('click', '.js_group', function() {
+                    var persons = field.executor_group[$(this).val()].person.join("\r\n");
+                    $(this).parent().next().find("textarea").val(persons);
+                });
+                $(document).on('change', '.js_group', function() {
+                    var persons = field.executor_group[$(this).val()].person.join("\r\n");
+                    $(this).parent().next().find("textarea").val(persons);
+                });
+                 //点击保存数据
+                $(".js_saveProcess").click(function(){
+                    field.saveData();
+                })
+                field.getExeInfo();
+
+            },
+            type: $.getUrlParam("name"),
+            executor_group:{},
+            approverIsNull:true,
+            trPlus:'<tr><td><div class="addapprover"><input class="form-control js_approver" type="text" value="" ><p class="err"></p></div> </td><td><select><option value="0">否</option><option value="1">是</option></select></td>'+
+             '<td><button class="btn btn-default btn-sm plusCheck js_approveradd"><i class="glyphicon glyphicon-plus"></i></button> <button class="btn btn-default btn-sm minusCheck"><i class="glyphicon glyphicon-minus"></i></button></td>'+
+             '</tr>',
+             trPlusEmpty:'<tr><td colspan = "2"> 无审批人，如需要请添加.　</td>'+
+             '<td><button class="btn btn-default btn-sm plusCheck js_approveradd"><i class="glyphicon glyphicon-plus"></i></button> </td>'+
+             '</tr>',
+            getExeInfo: function(){
+                //获取执行组数据渲染到下拉列表中
+                $.ajax({
+                    url: "/api/issue_admin/getExeInfo",
+                    type: "GET",
+                    data:{name:field.type},
+                    dataType: "json",
+                    success: function(result) {
+                        field.executor_group = result.data;
+                        if(!parseInt(result.status)){
+                            //执行组信息有更新
+                            $(".groups .group_tip").show();
+                        }
+                        field.getProcess();
+                        $.each(result.data,function(k,v){
+                            $(".js_executor_group .js_group").append('<option value="'+k+'">'+v.name+'</option>')
+                            if(k == 'e1'){
+                                $(".js_executor_group tr:eq(0) td:eq(1) textarea").val(v.person.join("\r\n"));
+                            }
+                        })
+                    }
+                });
+            },
+            getProcess: function(){
+                // 获取设置的流程信息
+                $.ajax({
+                    url: "/api/issue_admin/getProcess",
+                    type: "GET",
+                    data:{name:field.type},
+                    dataType: "json",
+                    success: function(data) {
+                        //渲染审批人员信息
+                        var count=0;
+                        $.each(data.approver.list.check,function(name,value) {
+                            $(".approver").append(field.trPlus);
+                            $(".approver input").eq(count).val(name);
+                            $(".approver select").eq(count).val(value.add);
+                            count++;
+                        });
+                        if(!count){
+                            $(".approver").append(field.trPlusEmpty);
+                        }
+                      
+                        //渲染执行人组信息
+                        var index = 0;
+                        $.each(data.executor,function(key,val){
+                            if(data.executor.msg =="update"){//执行组信息有更新
+                                $(".groups .group_tip").show();
+
+                            }else{//执行组信息无更新
+                                if(index !=0){
+                                    $(".js_executor_group tr:eq("+(index-1)+") .js_plusExe").trigger("click");
+                                }
+                                $(".js_executor_group .js_group").eq(index).val(key);
+                                $(".js_executor_group textarea").eq(index).val(data.executor[key].member.join("\r\n"));
+                                $(".js_executor_group .js_addGroup").eq(index).val(data.executor[key].add);
+                            }
+                            index++;
+                        })
+                    }
+
+                })
+
+            },
+            saveData: function(){
+                $(".groups .group_err").hide();
+                field.approverIsNull = true;
+                $(".js_approver").trigger("blur");
+                var approvers = new Object();
+                var executors = {};
+                //获取审批人
+                var check = new Object();
+                $.each($(".approver input"),function(index){
+                    var approver = new Object();
+                    approver.status=0;
+                    approver.add = $(".approver select:eq("+(index)+")").val();
+                    check[$(this).val()]=approver;
+                })
+                var list = new Object()
+                list.check=check;
+                approvers.status = 0;
+                approvers.list=list;
+                //获取执行组
+                $.each($(".js_executor_group .js_group"),function(index){
+                    
+                    var executor = new Object();
+                    executor.name = $(this).find("option:selected").text();
+                    executor.page = field.executor_group[$(this).val()].page;
+                    executor.member = $.ignoreSpaces($(".js_executor_group textarea:eq("+index+")").val()).split(/\n/);
+                    executor.member = $.unique(executor.member);
+                    executor.member = $.delnull(executor.member);//去空
+                    executors[$(this).val()] = executor;
+                    var numIndex = parseInt($(this).val());
+                    executor.type = field.executor_group[$(this).val()].type;
+                    executor.add = parseInt($(".js_executor_group .js_addGroup").eq(index).val());
+                })
+                //判断执行组有没有重复
+                var repeat =true;
+                var group = [];
+                $.each($(".js_executor_group .js_group"),function(){
+                    group.push($(this).val())
+                })
+                var norepeat = $.uniqueitem(group)
+                if(norepeat.length !=group.length){
+                    repeat =false;
+                    $(".groups .group_err").show();
+                }
+                if(field.approverIsNull && repeat){
+                    $.ajax({
+                        url: "/api/issue_admin/saveProcess",
+                        type: "POST",
+                        data:{name:field.type,
+                            approver:JSON.stringify(approvers),
+                            executor:JSON.stringify(executors)
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if(data.status){
+                                $.alert("信息提交成功",field.suc);
+                            }else{
+                                $.alert("抱歉，信息没有保存成功",field.unsuc);
+                            }
+                        }
+                    });
+                }
+            },
+            unsuc: function(){
+                return false;
+            },
+            suc: function(){
+                window.location.reload();
+            }
+        }
+
+        field.init();
+    })
+</script>

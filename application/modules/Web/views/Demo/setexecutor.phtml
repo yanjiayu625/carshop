@@ -1,0 +1,401 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    tbody .group_name{position: relative;}
+    tbody .group_name .err{width: 150px;height: 40px;position:absolute;bottom: -52px;right: 0;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;display: none;z-index: 10;}
+    table td .td_inner{position: relative;}
+    table td .td_inner .err{width: 150px;position:absolute;bottom: -52px;right: 0;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;display: none;z-index: 10;}
+    table .asign_type{position: relative;}
+    table .asign_type .err{width: 150px;position:absolute;bottom: -52px;right: 0;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;display: none;z-index: 10;}
+    .box-inner .box-content .action {text-align: center;}
+    .box-inner .box-content .action .saveExecutor{margin-right:40px;}
+    .max{display: none;}
+    .signType{margin-bottom: 10px;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>设置执行人组</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> 设置执行人组</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th width="30%">执行人组名称</th>
+                                    <th width="30%">组内人员</th>
+                                    <th width="10%">分配方式</th>
+                                    <th width="10%">执行模板</th>
+                                    <th width="20%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody class="js_executor">
+                                <tr>
+                                    <td>
+                                        <div class="group_name">
+                                            <input type="text" class="form-control" placeholder="执行人组名" name="group1" value="">
+                                            <p class="err">输入内容不能为空！</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_inner">
+                                            <textarea class="form-control" name="persons" placeholder="执行组人员,一行一个"></textarea>
+                                            <p class="err"></p>
+                                        </div>
+                                    </td>
+                                    <td class="asign_type">
+                                        <div>
+                                            <select name="" class="form-control signType js_asignType">
+                                                <option value="1">个人领取</option>
+                                                <option value="2">自动分配</option>
+                                                <option value="3">组长指派</option>
+                                            </select>
+                                            <input type="number" class="form-control max js_max" placeholder="请输入最大任务数" value="3">
+                                            <input type="text" class="form-control max js_appoint" placeholder="请输入组长" name="name">
+                                            <p class="err"></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <select name="page" class="form-control signType js_page">
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default btn-sm plusCheck">
+                                            <i class="glyphicon glyphicon-plus"></i></button>
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="action">
+                                <span class="btn btn-primary submit_diyinfo saveExecutor js_saveExecutor"><i class="glyphicon glyphicon-share"></i>保存</span>
+                                <a href="javascript:history.go(-1)" class="btn btn-default submit_diyinfo js_cancelExecutor"><i class="glyphicon glyphicon-remove"></i>取消</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end Edit  Modal -->
+
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
+<script src="/js/ifos.js"></script>
+<script>
+
+    var list = {
+        init: function(){
+            $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+            $('#IssueAdmin-set').css({
+                "background-color": "#eeeeee"
+            });
+
+            //增加一行
+            $(document).on('click', '.plusCheck', function() {
+                var tr = $(this).parent().parent();
+                tr.after(list.trPlus);
+                tr.next().find('.js_page').append(list.tpl_option)
+                $(".js_asignType").change(function(){
+                    if($(this).val() == '2'){
+                        $(this).next().show();
+                        $(this).next().next().hide();
+                    }else if($(this).val() == '3'){
+                        $(this).next().hide();
+                        $(this).next().next().show();
+                    }else{
+                        $(this).next().hide();
+                        $(this).next().next().hide();
+                    }
+                })
+            });
+
+            list.getExePageList();
+            list.bingListen();
+            // list.getExeInfo();
+            //删除一行
+            $(document).on('click', '.minusCheck', function() {
+                var tr = $(this).parent().parent();
+                tr.remove();
+            });
+            //点击保存
+            $(".js_saveExecutor").click(function(){
+                //非空判断
+                $(".js_executor .err").hide();
+                var isnull = true;
+                $.each($(".js_executor .group_name input"),function(index){
+                    var val = $(this).val();
+                    if($.trim(val)==""){
+                        $(this).siblings().fadeIn(100);
+                        isnull = false;
+                    }else{
+                        $(this).siblings().fadeOut(100);    
+                    }
+                })
+                $.each($(".js_executor textarea"),function(index){
+                    var val = $(this).val();
+                    if($.trim(val)==""){
+                        $(this).siblings().fadeIn(100).html("输入内容不能为空！");
+                        isnull = false;
+                    }else{
+                        $(this).siblings().fadeOut(100).html("");    
+                    }
+                })
+                $.each($(".js_executor .js_appoint"),function(index){
+                    var val = $(this).val();
+                    var visible = $(this).is(":visible")
+                    if(($.trim(val)=="") && visible){
+                        $(this).next().fadeIn(100).html("输入内容不能为空！");
+                        isnull = false;
+                    }else{
+                        $(this).next().fadeOut(100).html("");    
+                    }
+                })
+                
+                if(isnull){
+                    list.check_flag = true;
+                    list.status_flag=true;
+                    $(".js_executor textarea").each(function(index){
+                        var persons = $.ignoreSpaces($(this).val()).split(/\n/);
+                        persons = $.delnull(persons);
+                        persons = persons.join(",");
+                        //验证组长是否存在
+                        list.checkExecutor(index,persons);
+                    })
+                }
+            })
+        },
+        getExePageList: function() {
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_admin/getExePageList?type=" + $.getUrlParam("name"),
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        list.tpl_option = '<option value="0">默认</option>'
+                        $.each(result.data, function(key, val) {
+                            list.tpl_option += '<option value="'+val.id+'">'+val.name+'</option>'
+                        })
+                        list.getExeInfo();
+                    }
+                })
+            },
+        status_flag: false,
+        check_flag: true,
+        tpl_option: '',
+        trPlus: `<tr>
+                    <td><div class="group_name"><input type="text" class="form-control" placeholder="执行人组名" name="group1" value=""><p class="err">输入内容不能为空！</p></div>
+                    </td>
+                    <td><div class="td_inner"><textarea class="form-control" name="persons" placeholder="执行组人员,一行一个"></textarea><p class="err"></p></div>
+                    </td>
+                    <td class="asign_type">
+                        <div>
+                            <select name="" class="form-control signType js_asignType">
+                                <option value="1">个人领取</option>
+                                <option value="2">自动分配</option>
+                                <option value="3">组长指派</option>
+                            </select>
+                            <input type="number" class="form-control max js_max" placeholder="请输入最大任务数" value="3">
+                            <input type="text" class="form-control max js_appoint" placeholder="请输入组长" name="name">
+                            <p class="err"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <select name="page" class="form-control signType js_page">
+                                
+                            </select>
+                        </div>
+                    </td>
+                    <td><button class="btn btn-default btn-sm plusCheck"><i class="glyphicon glyphicon-plus"></i></button> <button class="btn btn-default btn-sm minusCheck"><i class="glyphicon glyphicon-minus"></i></button>
+                    </td>
+             </tr>`,
+        type: $.getUrlParam("name"),
+        getExeInfo: function() {
+            //获取数据渲染到表格中
+            $.ajax({
+                url: "/api/issue_admin/getExeInfo",
+                type: "GET",
+                data:{name:list.type},
+                dataType: "json",
+                success: function(result) {
+                    var index = 0;
+                    $.each(result.data,function(k,v){
+                        if(k != 'e1'){
+                            $(".js_executor").append(list.trPlus);
+                            list.bingListen();
+                        }
+                        $(".js_executor .js_page").eq(index).append(list.tpl_option);
+                        $(".js_executor .group_name input").eq(index).val(v.name);
+                        $(".js_executor .js_page").eq(index).val(v.page);
+                        $('.js_executor textarea').eq(index).val(v.person.join("\r\n"));
+                        if(v.type.name =="receive"){
+                            $('.js_executor .js_asignType').eq(index).val("1");
+                        }else{
+                            var  val = v.type.max ? "2":"3"; 
+                            $('.js_executor .js_asignType').eq(index).val(val);
+                            if(val == "2"){
+                                $('.js_executor .js_asignType').eq(index).val('2');
+                                $('.js_executor .js_asignType').eq(index).next().val(v.type.max).show();
+                            }else {
+                                $('.js_executor .js_asignType').eq(index).val('3');
+                                $('.js_executor .js_asignType').eq(index).next().next().val(v.type.leader).show();
+                            }
+                        }
+                        index++;
+
+                    })
+                }
+            });
+        },
+        saveExecutor: function(exeJson) {
+            $.ajax({
+                url: "/api/issue_admin/saveExecutor",
+                type: "POST",
+                data: {name:list.type,
+                    exeJson:exeJson
+                },
+                dataType: "json",
+                success: function(data) {
+                    if(data.status){
+                        $.alert("信息提交成功",list.suc);
+                    }else{
+                        $.alert("抱歉，信息没有保存成功",list.unsuc);
+                    }
+                }
+            });
+
+        },
+        checkExeGroupLeader: function(index,persons) {
+            if($(".js_appoint").eq(index).is(":visible")){
+                $.ajax({
+                    type:"get",
+                    dataType:"json",
+                    async:false,
+                    url:"/api/issue_check/checkExeGroupLeader",
+                    data:{
+                        name:$(".js_appoint").eq(index).val()
+                    },
+                    success:function(data){ //提交成功的回调函数
+                        if(data.status){
+                            list.saveExcutor(index,persons);//用户存在，可以提交数据
+
+                        }else{
+                            list.check_flag = false;
+                            $(".js_appoint").eq(index).next().fadeIn(100).html(data.msg);
+                            
+                        }
+                    }
+                });
+            }else{
+                list.saveExcutor(index,persons);//不是指派方式，不用验证用户是否存在，直接提交数据
+            }
+        },
+        saveExcutor: function(index,persons){
+            //允许提交数据
+            if((index == $(".js_executor textarea").length-1) && list.status_flag &&list.check_flag ){
+                var data = new Object();
+                data["name"] = list.type;
+                var exeJson ={};
+                $(".js_executor .group_name input").each(function(index){
+                    var group = new Object();
+                    group["name"] = $.trim($(this).val());
+                    group["page"]  = $(".js_executor .js_page").eq(index).val();
+                    var person = $.ignoreSpaces($(".js_executor textarea").eq(index).val()).split(/\n/);
+                    person = $.unique(person);
+                    person = $.delnull(person);//去空
+                    group["person"] = person;
+                  
+                    var assignType = new Object();
+                    if($(".js_asignType").eq(index).val() =="1"){//领取模式
+                        assignType["name"] = "receive";
+                    }else if($(".js_asignType").eq(index).val() =="2"){//自动分配模式
+                        assignType["name"] = "assign";
+                        var numMax = $(".js_asignType").eq(index).next().val()
+                        assignType["max"] = numMax ? numMax:0;
+                    }else{//指派模式
+                        assignType["name"] = "appoint";
+                        var leader = $(".js_asignType").eq(index).next().val()
+                        assignType["leader"] = $(".js_asignType").eq(index).next().next().val()
+
+                    }
+
+                    group["type"] = assignType;
+
+
+                    var group_num = new Object();
+                    exeJson["e"+(index+1)] = group;
+                })
+                data.exeJson= exeJson;
+
+                // 提交数据
+                list.saveExecutor(JSON.stringify(data["exeJson"]));
+            }
+        },
+        checkExecutor: function( num, persons) {
+             $.ajax({
+                url: "/api/issue_check/checkExecutor",
+                type: "GET",
+                data:{person:persons},
+                async:false,
+                dataType: "json",
+                success: function(data) {
+                    list.status_flag = list.status_flag && data.status;
+                    list.checkExeGroupLeader(num,persons);
+                    if(!data.status){
+                        $(".js_executor tr:eq("+num+") td:eq(1) .err").fadeIn().html(data.msg);
+                    }
+                }
+            });
+        },
+        suc: function() {
+            return false;
+        },
+        unsun: function() {
+            window.location.reload();
+        },
+        bingListen:  function() {
+            $(".js_asignType").change(function(){
+                if($(this).val() == '2'){
+                    $(this).next().show();
+                    $(this).next().next().hide();
+                }else if($(this).val() == '3'){
+                    $(this).next().hide();
+                    $(this).next().next().show();
+                }else{
+                    $(this).next().hide();
+                    $(this).next().next().hide();
+                }
+            })
+        }
+    }
+    list.init();
+
+</script>

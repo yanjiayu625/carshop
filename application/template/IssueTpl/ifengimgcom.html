@@ -1,0 +1,90 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">添加域名</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="添加域名" data-original-title="添加域名" colspan="2">
+		<div id="domain">
+			<input type="hidden" class="form-control" required="" name="t_custom_ifengimg_domain" data-label="添加域名" value="" aria-required="true">
+			<p>
+				<select class="isp" required="" name="h_isp" data-label="下拉框" style="width:10%;margin-right:10px;display:inline;    padding-right: 0px;    padding-right: 0px;" onchange="addOperator()" aria-required="true"><option value="默认">默认</option><option value="移动">移动</option><option value="联通">联通</option><option value="电信">电信</option></select><input type="text" class="form-control hostname" placeholder="" name="ifeng_domain0" required="" data-rule-remote="/api/issue_check/checkIfengDomain?type=ifengimgcom" style="width:21%;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true" onblur="addOperator()"><input type="text" name="h_second_level_domain" class="form-control second_level_domain" style="width:20%;margin-right:10px;display:inline;" value=".ifengimg.com" disabled=""><select class="AC js_ACChange" required="" name="h_AC" data-label="下拉框" style="width:14%;margin-right:10px;display:inline;    padding-right: 0px;" aria-required="true"><option value="A记录">A记录</option><option value="CNAME">CNAME</option></select><input type="text" name="h_addr" class="form-control iptest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value="" onblur="addOperator()"><span style="cursor: pointer;" class="glyphicon glyphicon-plus" onclick="insertAfter()"></span>
+			</p>
+		</div>
+		<p class="info_special_ps">线路:可以做智能解析，没需求选择默认。主机名:是你要申请的.ifengimg.com前面的东西.目标地址是你要解析到的主机IP或地址，不知道可以不填。</p>
+		<script>
+		$("body").off("change.aa").on("change.aa",".js_ACChange", function() {
+			addOperator();
+			$(this).next().remove();
+			$(this).next().removeClass("error");
+			$("#domain").parent().next().html("")
+			if($(this).val() == "CNAME") {
+				$(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control addr" style="width:21%;margin-right:10px;display:inline;" placeholder="请输入域名" value=""  onblur="addOperator()" data-rule-regex= "/([a-z0-9][a-z0-9\-]*?\.(?:com\.|cn\.|net\.|org\.|gov\.|info\.|la\.|cc\.|co\.)(?:\.(?:cn\.|jp\.))?)$/"  data-msg-regex= "域名格式错误,请以’.‘结尾" required>');
+			}else{
+				$(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control iptest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value="" onblur="addOperator()">');
+			}
+		})
+
+	
+		//信息写到hidden input 中
+		function addOperator() {
+			
+			var jsonObjs = {};
+			var disabled_flag = false
+			$.each($("#domain p"), function(index,element){
+				var jsonObj = {};
+				jsonObj.isp = $(element).find(".isp").val();
+				jsonObj.hostname = $(element).find(".hostname").val();
+				jsonObj.secondLevelDomain = $(element).find(".second_level_domain").val();
+				jsonObj.AC = $(element).find(".AC").val();
+				jsonObj.addr = $(element).find(".addr").val();
+				jsonObjs[index] = jsonObj;
+
+				if(($(element).find(".js_ACChange").val()=="CNAME") && ($(element).find(".addr").val().substring($(element).find(".addr").val().length-1) !='.')){
+					$("#domain").parent().next().html('<label class="error" for="h_addr1">域名格式错误,请以’.‘结尾</label>')
+					disabled_flag = true
+				}else {
+					$("#domain").parent().next().html('')
+				}
+			})
+			$(".submit").attr("disabled",disabled_flag)
+
+			$("[name='t_custom_ifengimg_domain']").val(JSON.stringify(jsonObjs));
+		}
+
+		// 自定义函数向后插入
+		var numNode = 1;
+		function insertAfter() 
+		{ 
+			var node = '<p><select class="isp" required="" name="h_isp'+numNode+'" data-label="下拉框" style="width:10%;margin-right:10px;display:inline;    padding-right: 0px;    padding-right: 0px;" onchange="addOperator()" aria-required="true"><option value="默认">默认</option><option value="移动">移动</option><option value="联通">联通</option><option value="电信">电信</option></select><input type="text" class="form-control hostname" placeholder="" name="ifeng_domain'+numNode+'" required="" data-rule-remote="/api/issue_check/checkIfengDomain?type=ifengimgcom" style="width:21%;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true" placeholder="主机名" onblur="addOperator()"><input type="text" name="h_second_level_domain'+numNode+'" class="form-control second_level_domain" style="width:20%;margin-right:10px;display:inline;" value=".ifengimg.com" disabled=""><select class="AC js_ACChange" required="" name="h_AC'+numNode+'" data-label="下拉框" style="width:14%;margin-right:10px;display:inline;    padding-right: 0px;" aria-required="true"><option value="A记录">A记录</option><option value="CNAME">CNAME</option></select><input type="text" name="h_addr'+numNode+'" class="form-control addr iptest" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value="" onblur="addOperator()"><span style="cursor: pointer;" class="glyphicon glyphicon-minus js_delNode" ></span></p>';
+			$("#domain").append(node);
+			numNode++;
+		}
+
+		$(document).on("click",".js_delNode", function() {
+			$(this).parent().remove();
+
+		})
+
+	</script>
+	</td>
+	<td width="15%"></td>
+
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 306px;">
+		<span class="js_name">停用时间</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择停用时间" data-original-title="停用时间" style="width: 610px;">
+		<input type="text" class="form-control form_datetime" name="t_end_time" data-label="停用时间" readonly="" size="16"></td>
+	<td width="25%" style="width: 381px;"></td>
+	<td width="15%" style="width: 228px;"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<span class="js_name">申请说明</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请说明">
+		<textarea type="text" class="form-control" name="t_detail" data-label="申请说明" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

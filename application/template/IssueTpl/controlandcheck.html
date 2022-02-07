@@ -1,0 +1,36 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">系统名称</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统名称"><input type="text" class="form-control" required="" name="t_sysname" data-label="系统名称" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 306px;"><span class="js_name">系统域名</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统域名" style="width: 611px;"><input type="text" class="form-control" name="t_sysdomain" data-label="系统域名" value="" data-rule-regex="" data-msg-regex=""></td>
+    <td width="25%" style="width: 381px;"></td>
+    <td width="15%" style="width: 229px;"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">系统负责人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统负责人"><input type="text" class="form-control" required="" name="t_sysadmin" data-label="系统负责人" value=""  data-msg-regex="" aria-required="true" data-rule-remote="/api/issue_check/checkLdapUser">
+        <p class="info_special_ps">多个用英文逗号隔开</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">系统审核员</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统审核员"><input type="text" class="form-control" required="" name="t_sysauditor" data-label="系统审核员" value="" data-msg-regex="" aria-required="true"  data-rule-remote="/api/issue_check/checkLdapUser">
+        <p class="info_special_ps">多个用英文逗号隔开</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">系统说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统说明"><textarea type="text" class="form-control" required="" name="t_sysdesc" data-label="系统说明" value="" rows="3" aria-required="true"></textarea>
+        <p class="info_special_ps">不得少于20字</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>

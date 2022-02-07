@@ -1,0 +1,355 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">查询类别</span></td>
+    <td width="40%">
+        <select style="width: 80%;" id="searchType" value="server">
+            <option value="server">服务器信息</option>
+            <option value="switch">交换机信息</option>
+            <option value="sum">服务器统计信息</option>
+        </select>
+    </td>
+    <td width="40%"></td>
+</tr>
+<tr class="select-server">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">SN/内网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN或内网IP" data-original-title="SN/内网IP">
+        <div><p class="info_special_ps" style="width: 80%;">该类别只做服务器信息查询使用  (多个SN或IP请换行)</p></div>
+
+        <div class="clearfix">
+            <textarea style="width: 80%;" type="text" class="form-control pull-left" required="" name="t_h_search" data-label="SN/内网IP" value="" rows="5" aria-required="true"></textarea>
+            <span style="margin-top: 64px;" class="btn btn-success js_add_machine pull-right"><i class="glyphicon glyphicon-plus"></i> 查询</span>
+        </div>
+
+    </td>
+    <td width="25%" class="siggle_error" id="select-server-error"></td>
+    <td width="15%"></td>
+
+    <script type="text/javascript">
+    $(function() {
+
+        $(".submit").attr('disabled',true);
+        $(".submit").addClass("btn-default").removeClass('btn-primary')
+        $(document).on('click', '.js_add_machine', function() {
+            if($("[name='t_h_search']").val()==''){
+                $(".siggle_error").html('<label class="error">SN/内网IP 不能为空</label>')
+            }else{
+                $.ajax({
+                    url: "/api/issue_check/getServerInfo",
+                    type: "POST",
+                    dataType: "json",
+                    data:{
+                        h_search:$("[name='t_h_search']").val(),
+                    },
+                    success: function(result) {
+                        $("#select-server-excel").html('');
+                        if(result.status){
+                            var htm = '';
+                            $.each(result.data, function(key, val) {
+                                htm += '<tr class="marchine_item">' +
+                                        '<td style="text-align: center; padding: 5px 3px; ">'+val.sn+'</td>' +
+                                        // '<td>'+val.int_ip+'</td>' +
+                                        // '<td>'+val.ext_ip+'</td>' +
+                                        '<td>'+val.model+'</td>' +
+                                        '<td>'+val.idc_name+'</td>' +
+                                        '<td>'+val.idc_module+'</td>' +
+                                        '<td>'+val.cabinet_num+'</td>' +
+                                        '<td>'+val.u_bit+'</td></tr>';
+                            })
+                            htm += '<tr class="marchine_item">' +
+                                        '<td style="text-align: left; padding: 5px 40px; "colspan="6">服务器总计: '+result.server_total+'台</td></tr>';
+                            $("#select-server-error").html('');
+                            $("#select-server-excel").append(htm);
+                            $(".machine_empty_error").html('');
+
+                        }else{
+                            $("#select-server-error").html('<label class="error">'+result.msg+'</label>')
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })
+            }
+        })
+
+    })
+</script>
+</tr>
+
+<tr class="select-server">
+    <td width="20%">
+        <span class="js_name">服务器信息</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="文件详情" colspan="2">
+        <div id="tablehtml">
+            <table class="table-bordered" style="text-align: center;width:100%">
+                <tbody>
+                <tr>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">SN
+                    </th>
+                    <!-- <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">内网IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">外网IP
+                    </th> -->
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">型号
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机房
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">模块
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机柜
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">U位
+                    </th>
+                </tr>
+                </tbody>
+                <tbody id="select-server-excel">
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td width="15%" class="machine_empty_error"></td>
+</tr>
+
+
+
+
+<tr class="select-switch" style="display: none;">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">SN/内网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN或内网IP" data-original-title="SN/内网IP">
+        <div><p class="info_special_ps" style="width: 80%;">该类别只做交换机信息查询使用  (多个SN或IP请换行)</p></div>
+
+        <div class="clearfix">
+            <textarea style="width: 80%;" type="text" class="form-control pull-left" required="" name="t_h_search_switch" data-label="SN/内网IP" value="" rows="5" aria-required="true"></textarea>
+            <span style="margin-top: 64px;" class="btn btn-success js_add_switch pull-right"><i class="glyphicon glyphicon-plus"></i> 查询</span>
+        </div>
+
+    </td>
+    <td width="25%" class="switch_siggle_error" id="select-switch-error"></td>
+    <td width="15%"></td>
+
+    <script type="text/javascript">
+    $(function() {
+
+        $(document).on('click', '.js_add_switch', function() {
+            if($("[name='t_h_search_switch']").val()==''){
+                $(".switch_siggle_error").html('<label class="error">SN/内网IP 不能为空</label>')
+            }else{
+                $.ajax({
+                    url: "/api/issue_check/getSwitchInfo",
+                    type: "POST",
+                    dataType: "json",
+                    data:{
+                        h_search:$("[name='t_h_search_switch']").val(),
+                    },
+                    success: function(result) {
+                        $("#select-switch-excel").html('');
+                        if(result.status){
+                            var htm = '';
+                            $.each(result.data, function(key, val) {
+                                htm += '<tr class="switch_item">' +
+                                        '<td style="text-align: center; padding: 5px 3px; ">'+val.sn+'</td>' +
+                                        // '<td>'+val.int_ip+'</td>' +
+                                        // '<td>'+val.ext_ip+'</td>' +
+                                        '<td>'+val.model+'</td>' +
+                                        '<td>'+val.idc_name+'</td>' +
+                                        '<td>'+val.idc_module+'</td>' +
+                                        '<td>'+val.cabinet_num+'</td>' +
+                                        '<td>'+val.u_bit+'</td></tr>';
+                            })
+                            htm += '<tr class="switch_item">' +
+                                        '<td style="text-align: left; padding: 5px 40px; "colspan="6">交换机总计: '+result.server_total+'台</td></tr>';
+                            $("#select-switch-error").html('');
+                            $("#select-switch-excel").append(htm);
+                            $(".switch_empty_error").html('');
+
+                        }else{
+                            $("#select-switch-error").html('<label class="error">'+result.msg+'</label>')
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })
+            }
+        })
+
+    })
+</script>
+</tr>
+
+<tr class="select-switch" style="display: none;">
+    <td width="20%">
+        <span class="js_name">交换机信息</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="文件详情" colspan="2">
+        <div id="tablehtml">
+            <table class="table-bordered" style="text-align: center;width:100%">
+                <tbody>
+                <tr>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">SN
+                    </th>
+                    <!-- <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">内网IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">外网IP
+                    </th> -->
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">型号
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机房
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">模块
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机柜
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">U位
+                    </th>
+                </tr>
+                </tbody>
+                <tbody id="select-switch-excel">
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td width="15%" class="switch_empty_error"></td>
+</tr>
+
+
+
+
+<tr class="select-sum" style="display: none;">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">机房名称</span></td>
+    <td width="40%">
+        <select style="width: 80%;" id="select-sum-room">
+            <option value="">--请选择--</option>
+        </select>
+    </td>
+    <td width="25%" class="siggle_error" id="select-sum-error"></td>
+</tr>
+
+<tr class="select-sum" style="display: none;">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">机房模块</span></td>
+    <td width="40%" class="clearfix">
+        <input style="width: 80%;" type="text" class="form-control pull-left" placeholder="请填写机房模块" name="i_select_sum_module" data-label="机房模块">
+        <span style="" class="btn btn-success pull-right" id="select-sum-submit"><i class="glyphicon glyphicon-plus"></i> 查询</span>
+    </td>
+</tr>
+
+<tr class="select-sum" style="display: none;">
+    <td width="20%">
+        <span class="js_name">统计信息</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="文件详情" colspan="2">
+        <div id="tablehtml">
+            <table class="table-bordered" style="text-align: center;width:40%">
+                <tbody>
+                <tr>
+                    <!-- <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机房 -->
+                    </th>
+                    <!-- <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">模块 -->
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">机柜
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">数量
+                    </th>
+                </tr>
+                </tbody>
+                <tbody id="select-sum-excel">
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td width="15%" class="machine_num_empty_error"></td>
+</tr>
+
+<script>
+    $(function() {
+        var searchType = $('#searchType');
+        var serverDom = $('.select-server');
+        var switchDom = $('.select-switch');
+        var sumDom = $('.select-sum');
+
+        searchType.on('change', function(val) {
+            if (searchType.val() === 'sum') {
+                for (var i = 0; i < serverDom.length; i++) {
+                    serverDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < switchDom.length; i++) {
+                    switchDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < sumDom.length; i++) {
+                    sumDom.eq(i).css('display', 'table-row');
+                }
+            } else if (searchType.val() === 'switch') {
+                for (var i = 0; i < serverDom.length; i++) {
+                    serverDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < sumDom.length; i++) {
+                    sumDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < switchDom.length; i++) {
+                    switchDom.eq(i).css('display', 'table-row');
+                }
+            } else {
+                for (var i = 0; i < sumDom.length; i++) {
+                    sumDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < switchDom.length; i++) {
+                    switchDom.eq(i).css('display', 'none');
+                }
+                for (var i = 0; i < serverDom.length; i++) {
+                    serverDom.eq(i).css('display', 'table-row');
+                }
+            }
+        }) 
+
+
+        $.ajax({
+            url: "/api/issue_check/getServerIdcList",
+            type: "get",
+            dataType: "json",
+            data: '',
+            success: function(result) {
+                var sumOptionsHtml = '';
+                result.data.forEach(function(item) {
+                    sumOptionsHtml += '<option value="' + item.id + '">' + item.name + '</option>'
+                })
+                $('#select-sum-room').html(sumOptionsHtml)
+            }
+        })
+
+
+        $('#select-sum-submit').on('click', function() {
+           $.ajax({
+               url: "/api/issue_check/getCabinetServerNum",
+               type: "post",
+               dataType: "json",
+               data:{
+                        room_id:$("#select-sum-room").val(),
+                        module_name:$("input[name='i_select_sum_module']").val(),
+                    },
+               success: function(result) {
+                    $("#select-sum-excel").html('');
+                        if(result.status){
+                            var serverNumHtml = '';
+                            $.each(result.data, function(key, val) {
+                                serverNumHtml += '<tr class="marchine_item">' +
+                                        '<td style="text-align: center; padding: 5px 3px; ">'+val.cabinet_num+'</td>' +
+                                        '<td>'+val.server_num+'</td></tr>';
+                            })
+                            serverNumHtml += '<tr class="marchine_item">' +
+                                        '<td style="text-align: center; padding: 5px 3px; ">机柜总计: '+result.cabinet_total+'</td>' +
+                                        '<td>服务器总计: '+result.server_total+'</td></tr>';
+                            $("#select-sum-error").html('');
+                            $("#select-sum-excel").append(serverNumHtml);
+                            $(".machine_num_empty_error").html('');
+
+                        }else{
+                            $("#select-sum-error").html('<label class="error">'+result.msg+'</label>')
+                        }
+               },
+               error: function() {
+                    console.log("ajax request error");
+                }
+           })
+        })
+    })
+</script>

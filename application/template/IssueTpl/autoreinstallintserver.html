@@ -1,0 +1,101 @@
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 276px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">SN</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN" data-original-title="SN" style="width: 553px;">
+		<input type="text" class="form-control valid" required="" name="t_SN" data-label="SN" value="" data-rule-regex="/^[A-Za-z0-9]+$/" data-msg-regex="SN格式错误" aria-required="true" aria-invalid="false"></td>
+	<td width="25%" style="width: 345px;"></td>
+	<td width="15%" style="width: 206px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 276px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">内网IP</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网IP" data-original-title="内网IP" style="width: 553px;">
+		<!-- <input type="text" class="form-control valid" required="" name="t_ipaddr" data-label="内网IP" value="" data-rule-regex="/^10.[0-9]+$/" data-msg-regex="内网IP格式错误" aria-required="true" aria-invalid="false"></td> -->
+		<!-- <input type="text" class="form-control valid" required="" name="t_ipaddr" data-label="内网IP" value="" data-rule-regex="/^((\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5]))$/" data-msg-regex="内网IP格式错误" aria-required="true" aria-invalid="false"></td> -->
+		<input type="text" class="form-control valid" required="" name="t_ipaddr" data-label="内网IP" value="" data-rule-regex="/^((10)\.(32|50|90)\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5]))$/" data-msg-regex="非三元桥、石景山IP" aria-required="true" aria-invalid="false"></td>
+	<td width="25%" style="width: 345px;"></td>
+	<td width="15%" style="width: 206px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 276px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">内网Mac</span></td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入mac" data-original-title="内网Mac" style="width: 553px;"><input type="text" class="form-control" required="" name="t_macaddr" data-label="内网Mac" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+
+	<td width="25%" style="width: 345px;"></td>
+	<td width="15%" style="width: 206px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 276px;">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">硬件装机系统安装模板信息</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入硬件装机系统安装模板信息" data-original-title="硬件装机系统安装模板信息" style="width: 553px;">
+		<input type="hidden" class="form-control" required="" name="t_HardwareList" data-label="硬件装机系统安装模板信息" value="IBM-System-x3530-RAID5" aria-required="true">
+		<input type="hidden" class="form-control" required="" name="t_HardwareListid" data-label="硬件装机系统安装模板信息id" value="2e135f1a763e3bac06eb76a61ff21877" aria-required="true">
+		<select type="text" class="form-control valid" required="" name="h_HardwareList" data-label="硬件装机系统安装模板信息" value="" rows="1" aria-required="true" aria-invalid="false"><option value="2e135f1a763e3bac06eb76a61ff21877">IBM-System-x3530-RAID5</option><option value="7a69b51a5b28c625cbfd613e83bdba74">IBM-System-x3550-RAID5</option><option value="bf686141e849af3b1f50efa2f5899020">IBM-X3550-M5-RAID5</option><option value="d427f8f99c4fa520fd806dd8e40cc5e0">IBM-System-x3650-RAID5</option><option value="d7ca3c999797c3d8eace943d775fa89e">IBM-xSeries-x3530-M4-RAID5</option><option value="27518c3d20a1d114c685b20950360caa">IBM-xSeries-x3630-M4-RAID5</option><option value="578cbebd173e81c4c785323b0134049b">HP-ProLiant-DL380-G7-RAID5</option><option value="1b10c5a59a9a0f24b156e9ac691a8597">HP-ProLiant-DL360-G7-RAID5</option><option value="f74a53a5f8f6faf6c5512f1583e8c524">HP-ProLiant-BL460c-G7-RAID5</option><option value="7e9a516c340857f454011505094cb2ad">HP-ProLiant-DL160-G6-RAID5</option><option value="21e334e9895936425b78e3f2be13f6f4">HP-ProLiant-BL460c-G1-RAID5</option><option value="12d9f07a9dd41ed162a2e8e3bce86d22">HP-ProLiant-BL460c-G6-RAID5</option><option value="5e0d5b8905b7535d1a5146a2c3f17a2a">HP-ProLiant-DL580-G5-RAID5</option><option value="3284502f48e36a134281a15b664b0b7c">HP-ProLiant-DL360-G5-RAID5</option><option value="7d47792acae64b4b7eec69a744483372">HP-ProLiant-DL185-G5-RAID5</option><option value="d1143eb71693a482c9adf4c69ed61962">HP-ProLiant-DL170e-G6-RAID5</option><option value="f31d21fb4eb39481724c0a5a7c80676b">HP-ProLiant-DL180-G6-RAID5</option><option value="da2463d0f1540bb5fd7f9734b5d75e8f">Dell-PowerEdge-C2100-RAID5</option><option value="cb70138d3bba430489760c49725ee577">Dell-PowerEdge-C6100-RAID5</option><option value="214c6b46196cf10f989bd1dc9b3ddad8">Dell-PowerEdge-C6220-RAID5</option><option value="f652723710a8f309507997387ad388f4">Dell-PowerEdge-2950-RAID5</option><option value="43f7454c42093b0daca7593ebbcf69e9">Dell-PowerEdge-1950-RAID5</option><option value="aef979cd269df646c3313d38c9a76d1b">Dell-PowerEdge-R410-RAID5</option><option value="19e0f46d7fba15b7069b58719f2b0bf0">Dell-PowerEdge-R420-RAID5</option><option value="028857ffefc1bca0153ac5e4495918b2">Dell-PowerEdge-R510-RAID5</option><option value="da31ef24580ccf5d4ca03e3a1651f22a">Dell-PowerEdge-R530xd-RAID5</option><option value="080df0ffad0e6ebeec037500aa520cb1">Dell-PowerEdge-R610-RAID5</option><option value="8aca88f54ec19a290cc601aa2ed57a6d">Dell-PowerEdge-R710-RAID5</option><option value="a444ad73cc96df8f72d179499e27f6ad">Dell-PowerEdge-R720-RAID5</option><option value="f4138b7e4fd15f651f4e1ee6d0b690c4">Dell-PowerEdge-R720xd-RAID5</option><option value="dbfcce820eeaf559e46363995516a62d">LENOVO-ThinkServer-RD550-RAID5</option><option value="fa908ba015fc34ee025c98d7422180d0">HP-ProLiant-DL160 G9-RAID0</option><option value="471096d53b4f8cb48433c6f28c0a11c1">Dell-PowerEdge-DSS1500-RAID0</option><option value="44454b22fcf74e8185c6b510977ff661">HP-ProLiant-DL160 G9-NORAID</option><option value="32ea6f100091fb0ec11dec60faba9f53">LENOVO-ThinkServer-RD650-RAID5</option><option value="da387668b2d8977defa961cc27dfbfd5">LENOVO-ThinkServer-RD650-NORAID</option><option value="272497905aa506cdad24287737fc50cf">Dell-PowerEdge-DSS1500-RAID5</option><option value="5dac4a5f8fe7d4813d6ed874e93e6721">Dell-PowerEdge-DSS1500-NORAID</option><option value="de1ee127f4862cde90aed4699a41bd42">LENOVO-ThinkServer-RD350X-NORAID</option><option value="f218d5a649e7cfa0450a3b54d46a9772">LENOVO-ThinkServer-RD350X-RAID0</option><option value="c53be73e1b7559358c164654444347c3">LENOVO-ThinkServer-RD650-F3-RAID5</option><option value="6c01a797f463b12f62d330f8e6ff2a71">Dell-PowerEdge-DSS2500-RAID5</option><option value="390de7948157bff6e6dcb6ff82f30c2b">Dell-PowerEdge-DSS2500-RAID0</option><option value="7cc39f581977f07705d874691416d469">Dell-PowerEdge-DSS2500-NORAID</option><option value="afd8266c4aac17ebab8fa6c0acf4dea1">Inspur-Rack Mount Chassis-NF5170M3-</option><option value="7b5f0178c0c2f34240181cdf3eb7c3f6">Dell-PowerEdge-R720xd-RAID5-NORAID</option><option value="ffa6acf2a94f96427005d4b9b70546da">Dell-PowerEdge-R720xd-NORAID</option><option value="77c057886e77813a91b8bdc39b9a98fb">IBM-X3530-M4-NORAID</option></select>
+		<script>
+			$(function() {
+				$.ajax({
+					type: "get",
+                    dataType: "json",
+                    url: "/api/Issue_Extdata/getHardwareList",
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                    	var Hdoption_html = "";
+                    	$.each(result, function(index, val) {
+                    		Hdoption_html += '<option value="'+val.id+'">'+val.text+'</option>'
+                    	})
+                    	$("[name = 'h_HardwareList']").html(Hdoption_html);
+                    	$("[name = 'h_HardwareList']").trigger("change");
+                    }
+				})
+				$("[name = 'h_HardwareList']").change(function() {
+					$("[name = 't_HardwareList']").val($("[name = 'h_HardwareList']").find("option:selected").text());
+					$("[name = 't_HardwareListid']").val($(this).val());
+				})
+			})
+		</script>
+	</td>
+	<td width="25%" style="width: 345px;"></td>
+	<td width="15%" style="width: 206px;"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">系统安装模板信息</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入系统安装模板" data-original-title="系统安装模板信息">
+		<input type="hidden" class="form-control" required="" name="t_ostp" data-label="系统安装模板信息" value="centos65-syq" aria-required="true">
+		<input type="hidden" class="form-control" required="" name="t_ostpid" data-label="系统安装模板信息id" value="727ec11cffcbe5a6d1949595d302a2a4" aria-required="true">
+		<select type="text" required="" name="h_ostp" data-label="系统安装模板信息" value="" rows="1" aria-required="true"><option value="727ec11cffcbe5a6d1949595d302a2a4">centos65-syq</option><option value="1627748f3d1f0e20c8b429033e73f15f">centos65-sjs</option><option value="eda64221ef2638e0f9119d4aaeafd906">centos65-syq-sdx</option><option value="eb18fd95dd951e26a104c9c8e7e58e9b">centos70-syq</option><option value="da002774169002d3ca004696a4792938">centos65-syq-path</option><option value="4da6ab4b0c41063bf11e8f403e30f69a">centos65-storage-syq</option><option value="2748006d1d3dab774768ee80b610d2fe">centos70-sjs</option><option value="a401c81eb0764a21d5f72e4337d77c38">centos70-syq-sdx</option><option value="e664a30ac9977aebc8bb51e3aed60210">ubuntu1404-sjs</option></select>
+		<script>
+			$(function() {
+				$.ajax({
+					type: "get",
+                    dataType: "json",
+                    url: "/api/Issue_Extdata/getOsTmpSelect",
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                    	var Ostpoption_html = "";
+                    	$.each(result, function(index, val) {
+                    		Ostpoption_html += '<option value="'+val.id+'">'+val.text+'</option>'
+                    	})
+                    	$("[name = 'h_ostp']").html(Ostpoption_html);
+                    	$("[name = 'h_ostp']").trigger("change");
+                    }
+				})
+				$("[name = 'h_ostp']").change(function() {
+					$("[name = 't_ostp']").val($("[name = 'h_ostp']").find("option:selected").text());
+					$("[name = 't_ostpid']").val($(this).val());
+				})
+			})
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

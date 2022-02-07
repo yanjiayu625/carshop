@@ -1,0 +1,55 @@
+<tr>
+    <td width="20%" style="width: 305px;"><i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">开发人员权限</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="跳板机" style="width: 610px;">
+        <input type="hidden" class="form-control" required="" name="h_SteppingStones" data-label="开发人员权限" value="2" data-rule-regex="/^1/" data-msg-regex="您还没有申请开发人员权限" aria-required="true">
+        <p class="js_SteppingStones info_special_ps">您还没有申请开发人员权限　　 <a href="/issue/server/create?name=developerrights">点击申请开发人员权限</a></p>
+        <script>
+            $(function () {
+                $.ajax({
+                    url: "/api/issue_check/checkDeveloperRights",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.status) {
+                            $(".js_SteppingStones").html(result.msg);
+                            $("[name ='h_SteppingStones']").val(1);
+                            $("[name ='i_father']").val(result.data);
+                            $(".submit").attr("disabled", false);
+                            $("[name ='t_type']").attr("disabled", false);
+                            $("[name ='t_iplist']").attr("disabled", false);
+
+                        } else {
+                            $("[name ='h_SteppingStones']").val(2);
+                            $(".js_SteppingStones").html("您还没有申请开发人员权限　　 <a href='/issue/server/create?name=developerrights'>点击申请开发人员权限</a>")
+                            $(".submit").attr("disabled", true);
+                            $("[name ='t_type']").attr("disabled", true);
+                            $("[name ='t_iplist']").attr("disabled", true);
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+
+                })
+            })
+        </script>
+
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">权限类型</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="权限类型"><select type="text" class="form-control" required="" name="t_type" data-label="权限类型" value="" rows="1" aria-required="true" disabled="disabled"><option value="1">接收报警</option><option value="2">mysql只读</option><option value="3">redis只读</option><option value="4">kafka只读</option><option value="5">elasticSearch只读</option><option value="6">mongo只读</option><option value="7">MapReduce</option></select> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">腾讯云实例标签</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="如不清楚，请咨询运维人员" data-original-title="腾讯云实例标签" style="width: 611px;"><textarea type="text" class="form-control" required="" name="t_iplist" data-label="腾讯云实例标签" value="" rows="3"></textarea> <p class="info_special_ps">如不清楚，请咨询运维人员</p></td>
+    <td width="25%" style="width: 381px;"></td>
+    <td width="15%" style="width: 229px;"></td>
+</tr>

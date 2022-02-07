@@ -1,0 +1,308 @@
+<style>
+    .form-control {
+        height: 32px;
+    }
+    
+    .exe_table_tpl tr td:first-child {
+        text-align: right;
+        vertical-align: middle;
+        border-top: 0px;
+    }
+    
+    table tr td:nth-child(2) {
+        vertical-align: middle;
+        border-top: 0px;
+    }
+    
+    table tr td:nth-child(3) {
+        vertical-align: middle;
+        border-top: 0px;
+        position: relative;
+    }
+    
+    table tr td:nth-child(3) label {
+        width: 200px;
+        height: 48px;
+        position: absolute;
+        top: 0px;
+        line-height: 48px;
+    }
+    
+    table tr td:nth-child(4) {
+        border-top: 0px;
+    }
+    
+    table select {
+        height: 32px;
+    }
+    
+    #info select {
+        padding-top: 5px!important;
+    }
+    
+    #info textarea {
+        height: auto !important;
+    }
+    
+    #info label {
+        padding-left: 10px;
+    }
+    
+    .modal-dialog table select {
+        padding-top: 5px!important;
+    }
+    
+    .box-content .table tr td select {
+        width: 100%;
+    }
+    
+    .modal-footer {
+        text-align: center!important;
+    }
+    
+    #modal_validate table tr td {
+        position: relative;
+    }
+    
+    #modal_validate table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+    
+    #editTableModal table tr td {
+        position: relative;
+    }
+    
+    #editTableModal table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+    
+    .option_filds {
+        display: none;
+    }
+    
+    .option_filds textarea {
+        height: auto !important;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+        border-color: #ccc !important;
+    }
+    
+    .form_atcion {
+        text-align: center;
+    }
+    
+    .info_special_ps {
+        background-color: #f2dede;
+        border-color: #eed3d7;
+        color: #b94a48;
+        padding: 5px;
+        margin: 5px 0 0 0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    
+    .modal-backdrop {
+        z-index: 1110 !important;
+    }
+    
+    .modal {
+        z-index: 1111 !important;
+    }
+    
+    #idc_info {
+        display: none;
+    }
+</style>
+<p class="title">更新域名操作
+    <p>
+        <form action="" id="domainForm">
+            <table class="table exe_table_tpl" id="info">
+                <tbody>
+                    <tr>
+                        <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                            <span class="js_filed">申请域名</span>
+                        </td>
+                        <td width="70%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="添加域名" data-original-title="添加域名" colspan="2">
+                            <div id="domain">
+                                <input type="hidden" class="form-control" required="" name="t_custom_ifeng_domain" data-label="申请域名" value="" aria-required="true">
+                                <p><select class="form-control isp" required="" name="h_isp" data-label="下拉框" style="width:10%;margin-right:10px;display:inline;    padding-right: 0px;    padding-right: 0px;" aria-required="true">
+                                                    <option value="默认">默认</option>
+                                                    <option value="移动">移动</option>
+                                                    <option value="联通">联通</option>
+                                                    <option value="电信">电信</option>
+                                                </select><input type="text" class="form-control hostname" placeholder="" name="ifeng_domain0" required="" style="width:21%;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true"><input type="text" name="h_second_level_domain" class="form-control second_level_domain" style="width:20%;margin-right:10px;display:inline;" ><select class="form-control AC js_ACChange" required="" name="h_AC" data-label="下拉框" style="width:14%;margin-right:10px;display:inline;    padding-right: 0px;" aria-required="true">
+                                                    <option value="A记录">A记录</option>
+                                                    <option value="CNAME">CNAME</option>
+                                                </select><input type="text" name="h_addr0" required="" class="form-control iptest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value="">
+                                    <span style="cursor: pointer;" class="glyphicon glyphicon-plus" onclick="insertAfter()"></span>
+                                </p>
+                            </div>
+                            <p class="info_special_ps">说明:只有域名执行组人员可以在这里修改用户提交域名申请信息。</p>
+                            <script>
+                                $("body").off("change.aa").on("change.aa", ".js_ACChange", function() {
+                                    $(this).next().remove();
+                                    $(this).next().removeClass("error");
+                                    if ($(this).val() == "CNAME") {
+                                        $(this).after('<input type="text" name="h_addr' + numNode + '" class="form-control domaintest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value=""   required>');
+                                    } else {
+                                        $(this).after('<input type="text" name="h_addr' + numNode + '" class="form-control iptest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value=""   required="">');
+                                    }
+                                })
+
+                                // 自定义函数向后插入
+                                var numNode = 1;
+
+                                function insertAfter() {
+                                    var node = '<p><select class="form-control isp" required="" name="h_isp' + numNode + '" data-label="下拉框" style="width:10%;margin-right:10px;display:inline;    padding-right: 0px;    padding-right: 0px;" aria-required="true"><option value="默认">默认</option><option value="移动">移动</option><option value="联通">联通</option><option value="电信">电信</option></select><input type="text" class="form-control hostname" placeholder="" name="ifeng_domain' + numNode + '" required="" style="width:21%;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true" placeholder="主机名" ><input type="text" name="h_second_level_domain' + numNode + '" class="form-control second_level_domain" style="width:20%;margin-right:10px;display:inline;"><select class="form-control AC js_ACChange" required="" name="h_AC' + numNode + '" data-label="下拉框" style="width:14%;margin-right:10px;display:inline;    padding-right: 0px;" aria-required="true"><option value="A记录">A记录</option><option value="CNAME">CNAME</option></select><input type="text" name="h_addr' + numNode + '" class="form-control addr iptest" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value=""  required=""><span style="cursor: pointer;" class="glyphicon glyphicon-minus js_delNode" ></span></p>';
+                                    $("#domain").append(node);
+                                    numNode++;
+                                }
+
+                                $(document).on("click", ".js_delNode", function() {
+                                    $(this).parent().remove();
+
+                                })
+                            </script>
+                        </td>
+                        <td width="10%"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <p class="form_atcion">
+                <!-- <button class="btn btn-danger reset js_reset" type="reset"><i class="glyphicon glyphicon-share"></i>重置</button> -->
+                <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>更新域名</button>
+            </p>
+
+        </form>
+
+        <!-- jQuery -->
+        <script src="/js/jquery/jquery.validate.js"></script>
+        <script src="/js/jquery.tools.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                var list = {
+                    init: function() {
+                        var that = this;
+                        $('#DomainServer-issuelist').css({
+                            "background-color": "#eeeeee"
+                        });
+                        $('#DomainServer').addClass('active').find('ul').slideToggle();
+                        that.getIfengComInfo();
+                        $("#domainForm").validate({
+                            errorPlacement: function(error, element) {
+                                $(element).closest("tr").children('td').eq(2).html(error);
+                            },
+                            //验证通过后提交数据
+                            submitHandler: function(form) {
+                                that.addOperator();
+                                that.updateIfengComInfo();
+                            },
+                            debug: true
+                        });
+                        var type = $.getUrlParam("type")
+                        if (type == "ifengidccom") {
+                            $("#info").remove();
+                            $("#idc_info").show()
+                        } else {
+                            $("#idc_info").remove();
+                        }
+                    },
+                    getIfengComInfo: function(vals) {
+                        $.ajax({
+                            type: "get",
+                            dataType: "json",
+                            url: "/api/issue_exe/getIfengComInfo",
+                            data: {
+                                id: $.getUrlParam("id"),
+                                role: $.getUrlParam("role")
+                            },
+                            success: function(result) { //提交成功的回调函数
+                                if (result.status) {
+                                    if ($.getUrlParam("type") == 'ifengcom') {
+                                        $.each(result.data, function(key, obj) {
+                                            var index = parseInt(key);
+                                            if (index != 0) {
+                                                insertAfter();
+                                            }
+                                            $("#domain .isp").eq(index).val(obj.isp);
+                                            $("#domain .hostname").eq(index).val(obj.hostname);
+                                            $("#domain .second_level_domain").eq(index).val(obj.secondLevelDomain);
+                                            $("#domain .AC").eq(index).val(obj.AC);
+                                            $(".js_ACChange").eq(index).trigger("change");
+                                            $("#domain .addr").eq(index).val(obj.addr);
+                                        })
+
+                                    } else {
+                                        console.log(result.data)
+                                        $.each(result.data, function(key, obj) {
+                                            var index = parseInt(key);
+                                            if (index != 0) {
+                                                insertAfter();
+                                            }
+                                            console.log(obj.hostname)
+                                            $("#domain .isp").eq(index).val(obj.isp);
+                                            $("#domain .hostname").eq(index).val(obj.hostname);
+                                            $("#domain .second_level_domain").eq(index).val(obj.secondLevelDomain);
+                                            $("#domain .AC").eq(index).val(obj.AC);
+                                            $(".js_ACChange").eq(index).trigger("change");
+                                            $("#domain .addr").eq(index).val(obj.addr);
+                                        })
+
+                                    }
+
+                                }
+                            }
+                        });
+                    },
+                    updateIfengComInfo: function() {
+                        $.ajax({
+                            type: "post",
+                            dataType: "json",
+                            url: "/api/issue_exe/updateIfengComInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                            data: {
+                                info: $('[name="t_custom_ifeng_domain"]').val() ? $('[name="t_custom_ifeng_domain"]').val() : $('[name="t_custom_other_domain"]').val()
+                            },
+                            success: function(data) { //提交成功的回调函数
+                                $('.js_remark').val(data.msg)
+                            }
+                        });
+                    },
+                    unsuc: function() {
+                        return false;
+                    },
+                    suc: function() {
+                        window.location.href = "/domain/server/issueList";
+                    },
+                    addOperator: function() {
+                        var jsonObjs = {};
+                        $.each($("#domain p"), function(index, element) {
+                            var jsonObj = {};
+                            jsonObj.isp = $(element).find(".isp").val();
+                            jsonObj.hostname = $(element).find(".hostname").val();
+                            jsonObj.secondLevelDomain = $(element).find(".second_level_domain").val();
+                            jsonObj.AC = $(element).find(".AC").val();
+                            jsonObj.addr = $(element).find(".addr").val();
+                            jsonObjs[index] = jsonObj;
+
+                        })
+                        $("[name='t_custom_ifeng_domain']").val(JSON.stringify(jsonObjs));
+                    }
+                }
+
+                list.init();
+
+            });
+        </script>

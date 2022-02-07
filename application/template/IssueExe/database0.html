@@ -1,0 +1,377 @@
+<style>
+.form-control {
+    height: 32px;
+}
+
+table>tbody>tr>td {
+    border-top: 0;
+    padding:10px 0;
+}
+
+table tr td:nth-child(1) {
+    text-align: right;
+    border-top: 0px;
+}
+table tr td:nth-child(2) {
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+table tr td:nth-child(3) {
+    vertical-align: middle;
+    border-top: 0px;
+    position: relative;
+}
+
+table tr td:nth-child(3) label {
+    width: 200px;
+    height: 48px;
+    position: absolute;
+    top: 0px;
+    line-height: 48px;
+}
+
+table tr td:nth-child(4) {
+    border-top: 0px;
+}
+
+table select {
+    height: 32px;
+}
+
+#info textarea {
+    height: auto !important;
+}
+
+#info select {
+    height: 32px !important;
+}
+
+#info label {
+    padding-left: 10px;
+}
+
+.modal-dialog table select {
+    padding-top: 5px!important;
+}
+
+.box-content .table tr td select {
+    width: 100%;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+#modal_validate table tr td {
+    position: relative;
+}
+
+#modal_validate table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+#editTableModal table tr td {
+    position: relative;
+}
+
+#editTableModal table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+.option_filds {
+    display: none;
+}
+
+.option_filds textarea {
+    height: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-color: #ccc !important;
+}
+
+#createServerForm .form_atcion .reset {
+    margin-left: 30%;
+}
+
+#createServerForm .form_atcion .submit {
+    margin-left: 30px;
+}
+
+.info_special_ps {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+    padding: 5px;
+    margin: 5px 0 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.dailytitle {
+    text-align: center !important;
+}
+
+.title {
+    margin-top: 30px;
+}
+</style>
+<form action="" id="database">
+    <h3 class="js_dailytitle center dailytitle">提案ID</h3>
+    <table width="100%">
+        <tr>
+            <td class="title">数据库所属业务　　</td>
+            <td>
+                <textarea class="form-control" name="t_business" id="" rows="5"></textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">数据库备份SQL大小　　</td>
+            <td>
+                <textarea class="form-control" name="t_backup" id="" rows="5"></textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">数据库恢复过程截图　　</td>
+            <td>
+                <div id="uploader" name="recover_pic" class="wu-example">
+                    <div id="thelist" class="uploader-list"></div>
+                    <div class="btns">
+                        <div id="picker">选择图片上传</div>
+                    </div>
+                </div>
+                <input type="hidden" required="" aria-required="true" name="t_recover_pic">
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width="0%" class="title">恢复数据库是否异常</td>
+            <td width="40%">
+                <input type="radio" required="" aria-required="true" name="t_recover_status" value="1" checked> 否　
+                <input type="radio" required="" aria-required="true" name="t_recover_status" value="2"> 是
+            </td>
+            <td width="30%"></td>
+        </tr>
+        <tr>
+            <td class="title">报告异常时间　　</td>
+            <td>
+                <input class="form-control form_datetime" type="" name="t_report_time" placeholder="请选择">
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">出现异常原因　　</td>
+            <td>
+                <textarea class="form-control" name="t_reason" id="" rows="5"></textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">问题是否解决　　</td>
+            <td>
+                <input type="radio" name="t_solve" value="1" checked> 是　
+                <input type="radio" name="t_solve" value="2"> 否
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    
+    <p class="form_atcion center">
+        <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>确定</button>
+    </p>
+</form>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".form_datetime").datetimepicker({
+        'language': 'zh-CN',
+        'format': "yyyy-mm-dd hh:ii",
+        'autoclose': true,
+        'showMeridian': true,
+        'todayBtn': true
+    });
+
+    $("[name='t_recover_status']").click(function() {
+        if ($(this).val() == 2) {
+            $("[name='t_report_time']").attr('disabled', false).val('')
+            $("[name='t_reason']").attr('disabled', false).val('')
+            $("[name='t_solve']").attr('disabled', false).val('1')
+        } else {
+            $("[name='t_report_time']").attr('disabled', true).val('')
+            $("[name='t_reason']").attr('disabled', true).val('')
+            $('input:radio[name=t_solve]').eq(0).prop("checked", true);
+            $("[name='t_solve']").attr('disabled', true)
+
+        }
+    })
+    $("[name='t_recover_status']").eq(0).trigger('click');
+
+    $(".js_remark_title").hide();
+    $(".js_remark").hide();
+    $(".inform_area").remove();
+    $(".modal-footer").hide();
+    $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 数据库巡检')
+
+    var uploader;
+    $("#addCheck").on("shown.bs.modal", function() {
+
+        if(!!uploader){
+            uploader.destroy();
+        }
+
+        uploader = WebUploader.create({
+
+            // swf文件路径
+            swf: '/js/Uploader.swf',
+
+            // 文件接收服务端。
+            server: "/api/issue_server/uploadfile?type=database",
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#picker',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            duplicate: true,
+            auto: true
+            // fileNumLimit:1
+        });
+        $('.webuploader-pick').next().css({
+            'z-index': 9999
+        })
+        // 当有文件被添加进队列的时候
+        uploader.on('fileQueued', function(file) {
+            $(".upload_error").remove();
+            $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                '<h4 class="info">' + file.name + '</h4>' +
+                '<p class="state">等待上传...</p>' +
+                '</div>');
+        });
+        uploader.on('uploadSuccess', function(file, response) {
+            // 根据返回结果展示相应信息
+
+
+            // 根据返回结果展示相应信息
+            $('#' + file.id).find('p.state').text(response.msg);
+
+            if (response.status) {
+                $('#' + file.id).find('p.state').text(response.msg);
+                $("[name='t_recover_pic']").val(response.data);
+
+            } else {
+                $("[name='t_recover_pic']").val();
+            }
+
+            //为保证只有一个文件上传：如果多个文件上传，取消第一个文件
+            if ($("#thelist .item").size() > 1) {
+                uploader.removeFile(file);
+                $("#thelist .item").eq(0).remove()
+
+            }
+            // $('.js_remark').val(response.msg)
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function(file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress progress-striped active">' +
+                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                    '</div>' +
+                    '</div>').appendTo($li).find('.progress-bar');
+            }
+
+            $li.find('p.state').text('上传中');
+
+            $percent.css('width', percentage * 100 + '%');
+        });
+        uploader.on('uploadError', function(file, reason) {
+            $('#' + file.id).find('p.state').text('上传出错');
+            if ($("#thelist .item").size() > 1) {
+                uploader.removeFile(file);
+                $("#thelist .item").eq(0).remove()
+            }
+        });
+        uploader.on('error', function(type) {
+            $('#' + file.id).find('p.state').text('上传出错');
+        });
+
+        uploader.on('uploadComplete', function(file, response) {
+            $('#' + file.id).find('.progress').fadeOut();
+        });
+    })
+    //关闭模态框销毁WebUploader，解决再次打开模态框时按钮越变越大问题
+    $('#addCheck').on('hide.bs.modal', function() {
+        $("#responeseText").text("");
+        // uploader.destroy();
+    });
+
+    $("#database").validate({
+        ignore: [],
+        errorPlacement: function(error, element) {
+            $(element).closest("tr").children('td').eq(2).html(error);
+        },
+        //验证通过后提交数据
+        submitHandler: function(form) {
+            $.ajax({
+                url: "/api/issue_exe/updateDatabaseInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                type: "POST",
+                dataType: "json",
+                data: {
+                    t_recover_status: $("[name='t_recover_status']:checked").val(),
+                    t_recover_pic: $("input[name='t_recover_pic']").val(),
+                    t_business: $("textarea[name='t_business']").val(),
+                    t_backup: $("textarea[name='t_backup']").val(),
+                    t_report_time: $(".form_datetime").val(),
+                    t_reason: $("textarea[name='t_reason']").val(),
+                    t_solve: $("[name='t_solve']:checked").val(),
+                },
+                success: function(result) {
+                    if (result.status) {
+                        $(".js_remark").val(result.msg)
+                        $("#callback1").trigger('click');
+
+                    } else {
+                        $(".form_atcion").before('<label id="t_recover_pic-error" class="error" for="t_recover_pic">' + result.msg + '.</label>');
+
+                    }
+                }
+            })
+
+        },
+        debug: true
+    });
+
+});
+</script>

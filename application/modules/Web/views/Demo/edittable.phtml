@@ -1,0 +1,442 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    .form-control{height:32px !important;}
+    table tr td:first-child{text-align:right;vertical-align:middle;border-top:0px;}
+    table tr td:nth-child(2){vertical-align:middle;border-top:0px;}
+    table tr td:nth-child(3){vertical-align:middle;border-top:0px;position: relative;}
+    table tr td:nth-child(3) label{width: 200px;height: 48px;position: absolute;top: 0px;line-height: 48px;}
+    table tr td:nth-child(4){border-top:0px;}
+    table select{height:32px;}
+    #info select{padding-top:5px!important;}
+    #info textarea{height: auto !important;}
+    #info label{padding-left: 10px;}
+    .modal-dialog table select{padding-top:5px!important;}
+    .box-content .table tr td select{width:100%;}
+    .modal-footer{text-align:center!important;}
+    #modal_validate table tr td{position: relative;}
+    #modal_validate table tr td label.error{width: 200px;color:#f00;font-size:12px;position: absolute;left: 100%;top: 15px;}
+    #editTableModal table tr td{position: relative;}
+    #editTableModal table tr td label.error{width: 200px;color:#f00;font-size:12px;position: absolute;left: 100%;top: 15px;}
+    .option_filds{display: none;}
+    .option_filds textarea{height: auto !important;}
+    .select2-container--default .select2-selection--multiple{border-color: #ccc !important;}
+    #commentForm .form_atcion .check{margin-left: 30%;}
+    #commentForm .form_atcion .submit_diyinfo{margin-left: 30px;}
+    .info_special_ps{ background-color: #d9edf7; border-color: #bce8f1; color: #3a87ad;padding: 5px; margin: 5px 0 0 0; border: 1px solid transparent; border-radius: 4px;}
+    .modal-backdrop{z-index: 1110 !important;}
+    .modal{z-index: 1111 !important;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>提案管理</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> 编辑提案内容</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <button class="btn btn-success btn-sm" onclick="customTable.new()"><i class="glyphicon glyphicon-plus-sign"></i> 添加自定义表单</button>
+                        </div>
+                    </div>
+                </div>
+                <form role="form" id="commentForm">
+
+                    <?php include TPL_ISSUE_MAIN ?>
+
+                    <!-- 自定义信息 -->
+                    <div class="box col-md-12">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-edit"></i> 自定义信息</h2>
+                            </div>
+                            <div class="box-content">
+                                <table class="table">
+                                    <tbody id="info">
+                                    <?php if($dir !== null){ include $dir;} ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="form_atcion">
+                        <span class="btn btn-primary check" type="submit">
+                                <i class="glyphicon glyphicon-check"></i>
+                                验证
+                        </span>
+                        <input class="btn btn-primary hidden" type="submit" value="验证">
+                        <span class="btn btn-primary submit_diyinfo js_submit_diyinfo"><i class="glyphicon glyphicon-share"></i>提交</span>
+
+                    </p>
+                </form>
+            </div>
+        </div>
+        <!--new  Modal -->
+        <div class="modal fade" id="customTableModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="modal_validate" action="">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>添加自定义表单内容</h3>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 标签名称</td>
+                                    <td width="50%">
+                                        <input type="text" name="label_name" class="form-control" value="">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 标签代码</td>
+                                    <td width="50%">
+                                        <input type="text" name="label_code" class="form-control" value="" placeholder="用于API接口，只能为英文字符">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"> 说明</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control js_new_ps" name="new_ps" value="" placeholder="标签的介绍说明">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%">特别提示</td>
+                                    <td width="50%">
+                                       <input type="text" class="form-control js_special_ps" name="pecial_ps" value="" placeholder="请输入特别提示">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 数据类型</td>
+                                    <td width="50%">
+                                        <select class="form-control js_data_type" name="data_type">
+                                            <option value='inputText'>文本输入框</option>
+                                            <option value='select'>下拉单选列表</option>
+                                            <!-- <option value='selectMultiple'>下拉多选列表</option> -->
+                                            <option value='checkbox'>复选框</option>
+                                            <option value='radio'>单选按钮</option>
+                                            <option value='textarea'>文本输入域</option>
+                                            <option value='date'>时间插件</option>
+                                            <option value='ueditor'>富文本编辑器</option>
+                                            <option value='upload'>上传插件</option>
+                                        </select>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i>是否必填</td>
+                                    <td width="50%">
+                                        <select class="form-control" name="label_required">
+                                            <option value='1'>是</option>
+                                            <option value='0'>否</option>
+                                        </select>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+
+                                <tr class="fild_on reg_rule">
+                                    <td width="20%"></i>数据校验</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control" name="label_rule" value="" placeholder="请输入正则表达式">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr class="fild_on reg_rule">
+                                    <td width="20%">错误提示</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control" name="label_remsg" value="" placeholder="请输入错误提示">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr class="fild_on option_filds">
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i>选项值</td>
+                                    <td width="50%">
+                                        <textarea name="textarea_options" id="" class="form-control" rows="3" placeholder="请输入选项值，每行为一项"></textarea>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">确定</button>
+                            <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!--end new Modal-->
+        <!--Edit  Modal -->
+        <div class="modal fade" id="editTableModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="edit_validate" action="">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3>修改自定义表单内容</h3>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 标签名称</td>
+                                    <td width="50%">
+                                        <input type="text" name="label_name" class="form-control js_edit_name" value="">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 标签代码</td>
+                                    <td width="50%">
+                                        <input type="text" name="label_code" class="form-control js_edit_code" value="" placeholder="用于API接口，只能为英文字符">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"> 说明</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control js_edit_ps" name="edit_ps" value="" placeholder="标签的介绍说明">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%">特别提示</td>
+                                    <td width="50%">
+                                       <input type="text" class="form-control js_edit_special_ps" name="edit_special_ps" value="" placeholder="请输入特别提示">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 数据类型</td>
+                                    <td width="50%">
+                                        <select class="form-control js_data_type" name="data_type">
+                                            <option value='inputText'>文本输入框</option>
+                                            <option value='select'>下拉单选列表</option>
+                                            <!-- <option value='selectMultiple'>下拉多选列表</option> -->
+                                            <option value='checkbox'>复选框</option>
+                                            <option value='radio'>单选按钮</option>
+                                            <option value='textarea'>文本输入域</option>
+                                            <option value='date'>时间插件</option>
+                                            <option value='ueditor'>富文本编辑器</option>
+                                            <option value='upload'>上传插件</option>
+                                        </select>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i>是否必填</td>
+                                    <td width="50%">
+                                        <select class="form-control js_edit_require" name="label_required">
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+
+                                <tr class="fild_on reg_rule">
+                                    <td width="20%"></i>数据校验</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control" name="label_rule" value="" placeholder="请输入正则表达式">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr class="fild_on reg_rule">
+                                    <td width="20%">错误提示</td>
+                                    <td width="50%">
+                                        <input type="text" class="form-control" name="label_remsg" value="" placeholder="请输入错误提示">
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr class="fild_on option_filds">
+                                    <td width="20%"><i class="glyphicon glyphicon-star red"></i>选项值</td>
+                                    <td width="50%">
+                                        <textarea name="textarea_options" class="form-control" rows="3" placeholder="请输入选项值，每行为一项"></textarea>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">确定</button>
+                            <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!--end Edit  Modal -->
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src='/js/jquery/jquery.select2.min.js'></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery/jquery.uploadify.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
+<script src="/uedit/ueditor.config.js"></script>
+<script src="/uedit/ueditor.all.min.js"></script>
+<script src="/uedit/lang/zh-cn/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/ifos.js"></script>
+<script src="/js/dif_ifo.js"></script>
+
+<script>
+    if($("#editor").size()){
+        var ue = UE.getEditor('editor');
+    }
+    $(".form_datetime").datetimepicker({
+        'language': 'zh-CN',
+        'minView': "month",
+        'format': "yyyy-mm-dd",
+        'autoclose':true,
+        'showMeridian':true,
+        'todayBtn':true
+
+    });
+
+    $(function(){
+
+        $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+        $('#IssueAdmin-set').css({
+            "background-color": "#eeeeee"
+        });
+        $(".js_servicename").val(decodeURI(decodeURI($.getUrlParam("servicename"))));
+        $(".form_atcion .check").click(function(){
+            $("#commentForm").submit();
+        })
+
+        $('[data-toggle="popover"]').popover();
+        //添加自定义信息后边的三个按钮
+        var buttons = '<div class="box-icon">' +
+            '<a class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>' +
+            '<a class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-move"></i></a>' +
+            '<a class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>' +
+            '</div>';
+        $("#info > tr").each(function(){
+            $(this).children().eq(3).html(buttons);
+        })
+
+
+
+        //提交自定义信息
+        $(".js_submit_diyinfo").click(function(){
+
+            var info_element = $("#info").clone();
+            info_element.children().each(function(){
+                $(this).children().eq(2).html("");
+                $(this).children().eq(3).html("");
+                $(this).children().eq(1).children().removeClass("error");
+            })
+
+            var tpl_api=new Object();
+            var tpl_text=new Object();
+            var values=$("#commentForm").serializeArray();
+            $.each(values,function(k,v){
+                if(v.name.substring(0,1) != "h"){
+                    tpl_text[v.name] = $('[name="'+v.name+'"]').attr("data-label");
+                    var api = new Object();
+
+                    api["data-msg-regex"]= $('[name="'+v.name+'"]').attr("data-msg-regex")?$('[name="'+v.name+'"]').attr("data-msg-regex"):"";
+                    api["data-rule-regex"]= $('[name="'+v.name+'"]').attr("data-rule-regex")?$('[name="'+v.name+'"]').attr("data-rule-regex"):"";
+                    api["required"] = $('[name="'+v.name+'"]').attr("required")?true:false;
+                    tpl_api[v.name] = api;
+                }
+            })
+            if($("#editor").size()){
+                tpl_text['t_rich_text'] = $("#editor").parent().attr("data-label");
+            }
+
+            var tpl_config=new Object();
+            //select
+            $("#commentForm select").each(function(){
+                var config = new Object();
+                $(this).find("option").each(function(){
+
+                    config[$(this).val()] = $(this).text();
+                })
+                tpl_config[$(this).attr("name")] = config;
+            })
+            //checkbox
+            var checkbox_names=[];
+            $("#commentForm input[type='checkbox']").each(function(){
+                var has = checkbox_names.indexOf($(this).attr("name"));
+                if(has == -1){
+                    checkbox_names.push($(this).attr("name"));
+                }
+            })
+            $.each(checkbox_names,function(k,v){
+                var config = new Object();
+                $.each($('[name="'+v+'"]'),function(index,elment){
+
+                    config[index+1] = $(this).parent().find("label").eq(index).html();
+                    tpl_config[$(this).attr("name")] = config;
+                })
+
+            })
+            //radio
+            var radio_names=[];
+            $("#commentForm input[type='radio']").each(function(){
+                var has = radio_names.indexOf($(this).attr("name"));
+                if(has == -1){
+                    radio_names.push($(this).attr("name"));
+                }
+            })
+            $.each(radio_names,function(k,v){
+                var config = new Object();
+                $.each($('[name="'+v+'"]'),function(index,elment){
+                    config[index+1] = $(this).parent().find("label").eq(index).html();
+                    tpl_config[$(this).attr("name")] = config;
+                })
+            })
+            
+            $.ajax({
+                url: "/api/issue_admin/saveIssueTpl",
+                type: "POST",
+                data: {tpl_name:$.getUrlParam("name"),
+                    tpl_html:info_element.html(),
+                    tpl_api:JSON.stringify(tpl_api),
+                    tpl_text:JSON.stringify(tpl_text),
+                    tpl_config:JSON.stringify(tpl_config)
+                },
+                dataType: "json",
+                success: function(data) {
+                    $.alert("信息提交成功", reload);
+                }
+            });
+            return false;
+        })
+
+        function reload() {
+            window.location.reload();
+        }
+
+    })
+</script>

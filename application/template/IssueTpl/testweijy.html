@@ -1,0 +1,354 @@
+<tr>
+		<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">SN</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN" data-original-title="SN">
+			<input type="text" class="form-control" required="" name="t_SNCode" data-label="SN" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">内网IP</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网IP" data-original-title="内网IP">
+			<input type="text" class="form-control iptest" required="" name="t_IPCode" data-label="内网IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">内网掩码</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网掩码" data-original-title="内网掩码">
+			<input type="text" class="form-control" required="" name="t_markCode" data-label="内网掩码" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">内网网关</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网网关" data-original-title="内网网关">
+			<input type="text" class="form-control" required="" name="t_Gateway" data-label="内网网关" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">系统</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择操作系统" data-original-title="系统">
+			<input type="radio" name="t_os" data-label="系统" value="1" required="" checked="checked" aria-required="true">
+			<label>Linux　　</label>
+			<input type="radio" name="t_os" data-label="系统" value="2" required="" aria-required="true">
+			<label>Win　　</label>
+			<input type="radio" name="t_os" data-label="系统" value="3" required="" aria-required="true">
+			<label>Esxi</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr class="" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">操作系统版本</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择操作系统版本" data-original-title="操作系统版本" style="width: 610px;">
+			<select class="" required="" name="t_OSVersion" data-label="操作系统版本" aria-required="true">
+				<option value="1">window2003</option>
+				<option value="2">window2008 R2</option>
+				<option value="3">CentOs5.5</option>
+				<option value="4">CentOs6.0</option>
+				<option value="5">CentOs6.5</option>
+				<option value="6">CentOs7.0</option>
+				<option value="7">5.5</option>
+				<option value="8">6.0</option>
+			</select>
+		</td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+		<script>
+		$(function() {
+			var oschangemethods = {
+				init: function(){
+					var that = this;
+					//操作系统变化
+					$("[name='t_os']").click(function() {
+						var os_val = $(this).val();
+						if(os_val == 2){
+							$("[name = 't_OSVersion']").html('<option value="1">window2003</option><option value="2">window2008 R2</option>');
+							$(".js_partitions").show();
+							$("[name = 'h_partitions']").eq(0).show().next().show();
+							$("[name = 'h_partitions']").eq(1).show().next().show();
+							$("[name = 'h_partitions']").eq(2).hide().next().hide();
+							$("[name = 'h_partitions']").eq(0).trigger("click");
+
+						}else if(os_val == 1){
+							$("[name = 't_OSVersion']").html('<option value="3">CentOs5.5</option><option value="4">CentOs6.0</option><option value="5">CentOs6.5</option><option value="6">CentOs7.0</option>');
+							$(".js_partitions").show();
+							$("[name = 'h_partitions']").eq(0).show().next().show();
+							$("[name = 'h_partitions']").eq(1).hide().next().hide();
+							$("[name = 'h_partitions']").eq(2).show().next().show();
+							$("[name = 'h_partitions']").eq(0).trigger("click");
+						}else{
+							$("[name = 't_OSVersion']").html('<option value="7">5.5</option><option value="8">6.0</option>');
+							$(".js_partitions").hide();
+							$("[name = 'h_partitions']").eq(0).hide().next().hide();
+							$("[name = 'h_partitions']").eq(1).hide().next().hide();
+							$("[name = 'h_partitions']").eq(2).hide().next().hide();
+
+						}
+						that.patitionchange()
+					})
+
+					$("[name = 'h_partitions']").click(function() {
+						that.patitionchange();
+					})
+
+					that.patitionchange();
+					$("[name='t_os']").eq(0).trigger("click");
+
+				},
+				patitionchange: function() {
+					$(".js_partitioninfo").remove();
+					var os =  $('input:radio[name="t_os"]:checked').val();
+					var patition =  $('input:radio[name="h_partitions"]:checked').val();
+					var os_patition = parseInt(os+patition);
+					switch(os_patition){
+						case 11:
+						   $(".js_partitions").after('<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);"><td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Linux默认分区</span></td><td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入/分区大小" data-original-title="/" style="width: 610px;"><input type="hidden" class="form-control" required="" name="t_defaultpatition" data-label="Linux默认分区" value="  /boot　200M<br> swap　　8G<br> /      10G<br> /home  10G<br> /var  20G<br>/tmp  10G<br> /usr  20G<br> /data other<br>" data-rule-regex="" data-msg-regex="" aria-required="true" hidden> <table><tr><td style="text-align:left" width=50>/boot</td><td>200M</td></tr><tr><td style="text-align:left" width=50>swap</td><td>8G</td></tr><tr><td style="text-align:left" width=50>/</td><td>10G</td></tr><tr><td style="text-align:left" width=50>/home</td><td>10G</td></tr><tr><td style="text-align:left" width=50>/var</td><td>20G</td></tr><tr><td style="text-align:left" width=50>/tmp</td><td>10G</td></tr><tr><td style="text-align:left" width=50>/usr</td><td>20G</td></tr><tr><td style="text-align:left" width=50>/data</td><td>other</td></tr></table></td><td width="25%" style="width: 381px;"></td><td width="15%" style="width: 228px;"></td></tr>');
+						   break;
+						   case 13:
+						   $(".js_partitions").after('<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);"><td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Linux存储分区</span></td><td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入/分区大小" data-original-title="/" style="width: 610px;"><input type="hidden" class="form-control" required="" name="t_colonypatition" data-label="Linux存储分区" value="/boot  200M<br> swap  16G<br>/  15G<br>/home  10G<br>/var  15G<br>/tmp  51G<br> /usr  51G<br>/opt  512G<br>/data  other" data-rule-regex="" data-msg-regex="" aria-required="true"> <table><tr><td style="text-align:left" width=50>/boot</td><td>200M</td></tr><tr><td style="text-align:left" width=50>swap</td><td>16G</td></tr><tr><td style="text-align:left" width=50>/</td><td>15G</td></tr><tr><td style="text-align:left" width=50>/home</td><td>10G</td></tr><tr><td style="text-align:left" width=50>/var</td><td>15G</td></tr><tr><td style="text-align:left" width=50>/tmp</td><td>51G</td></tr><tr><td style="text-align:left" width=50>/usr</td><td>51G</td></tr><tr><td style="text-align:left" width=50>/opt</td><td>512G</td></tr><tr><td style="text-align:left" width=50>/data</td><td>other</td></tr></table></td><td width="25%" style="width: 381px;"></td><td width="15%" style="width: 228px;"></td></tr>');
+						   break;
+						case 21:
+							$(".js_partitions").after('<tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);"><td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">默认分区</span></td><td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入C盘分区大小" data-original-title="C盘" style="width: 610px;">C/<br>D/<!-- <input type="text" class="form-control" required="" name="t_Cpatition" data-label="C盘" placeholder="请输入C盘分区大小" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td> --><td width="25%" style="width: 381px;"></td><td width="15%" style="width: 228px;"></td></tr>');
+
+							break;
+						case 22:
+						   $(".js_partitions").after('<tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);"><td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">C盘分区</span></td><td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入C盘分区大小" data-original-title="C盘" style="width: 610px;"><input type="text" class="form-control" required="" name="t_Cpatition" data-label="C盘" placeholder="请输入C盘分区大小" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td><td width="25%" style="width: 381px;"></td><td width="15%" style="width: 228px;"></td></tr><tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);"><td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">D盘分区</span></td><td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入D盘分区大小" data-original-title="D盘" style="width: 610px;"><input type="text" class="form-control" required="" name="t_Dpatition" data-label="D盘" placeholder="请输入D盘分区大小" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td><td width="25%" style="width: 381px;"></td><td width="15%" style="width: 228px;"></td></tr>');
+						   break;
+						default:
+						  	$(".js_partitions").after('');
+					}
+				}
+
+			}
+			oschangemethods.init();
+
+			$("[name = 't_raid']").click(function(){
+				$(".js_makeraid").remove();
+				if($(this).val() ==2){
+					$(".js_raid").after('<tr class="js_makeraid"><td width="20%"><span class="js_name">自定义Raid</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入自定义Raid" data-original-title="自定义Raid"><textarea type="text" class="form-control" name="t_makeraid" data-label="自定义Raid" value="" rows="3"></textarea></td><td width="25%"></td><td width="15%"></td></tr>');
+
+				}
+			})
+			$("[name = 't_raid']").eq(0).trigger("click");
+		})
+		</script>
+	</tr>
+	<tr class="js_partitions" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">分区</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="分区" style="width: 610px;">
+			<input type="radio" name="h_partitions" data-label="分区" value="1" required="" checked="checked" aria-required="true">
+			<label>默认</label>
+			<input type="radio" name="h_partitions" data-label="分区" value="2" required="" aria-required="true">
+			<label>自定义</label>
+			<input type="radio" name="h_partitions" data-label="分区" value="3" required="" aria-required="true">
+			<label>存储</label>
+		</td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">Win默认分区</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入C盘分区大小" data-original-title="C盘" style="width: 610px;">
+			C/<br>
+			D/
+			<input type="hidden" class="form-control" required="" name="t_windefaultpatition" data-label="win默认分区" placeholder="请输入C盘分区大小" value="C/<br>D/" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">C盘分区</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入C盘分区大小" data-original-title="C盘" style="width: 610px;">
+			<input type="text" class="form-control" required="" name="t_Cpatition" data-label="C盘" placeholder="请输入C盘分区大小" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_win" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">D盘分区</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入D盘分区大小" data-original-title="D盘" style="width: 610px;">
+			<input type="text" class="form-control" required="" name="t_Dpatition" data-label="D盘" placeholder="请输入D盘分区大小" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">Linux默认分区</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入/分区大小" data-original-title="/" style="width: 610px;">
+			<input type="hidden" class="form-control" required="" name="t_defaultpatition" data-label="Linux默认分区" value="  /boot　200M<br>
+			 swap　　8G<br>
+			 /      10G<br>
+			 /home  10G<br>
+			 /var  20G<br>
+			 /tmp  10G<br>
+			 /usr  20G<br>
+			 /data other<br>" data-rule-regex="" data-msg-regex="" aria-required="true" hidden>
+			 <table>
+				<tr><td style="text-align:left" width=50>/boot</td><td>200M</td></tr>
+				<tr><td style="text-align:left" width=50>swap</td><td>8G</td></tr>
+				<tr><td style="text-align:left" width=50>/</td><td>10G</td></tr>
+				<tr><td style="text-align:left" width=50>/home</td><td>10G</td></tr>
+				<tr><td style="text-align:left" width=50>/var</td><td>20G</td></tr>
+				<tr><td style="text-align:left" width=50>/tmp</td><td>10G</td></tr>
+				<tr><td style="text-align:left" width=50>/usr</td><td>20G</td></tr>
+				<tr><td style="text-align:left" width=50>/data</td><td>other</td></tr>
+			 </table>
+		</td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">Linux存储分区</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入/分区大小" data-original-title="/" style="width: 610px;">
+			<input type="hidden" class="form-control" required="" name="t_colonypatition" data-label="Linux存储分区" value="/boot  200M<br> 
+			swap  16G<br>
+			/  15G<br>
+			/home  10G<br>
+			/var  15G<br>
+			/tmp  51G<br> 
+			/usr  51G<br>
+			/opt  512G<br>
+			/data  other" data-rule-regex="" data-msg-regex="" aria-required="true">
+			 <table>
+				<tr><td style="text-align:left" width=50>/boot</td><td>200M</td></tr>
+				<tr><td style="text-align:left" width=50>swap</td><td>16G</td></tr>
+				<tr><td style="text-align:left" width=50>/</td><td>15G</td></tr>
+				<tr><td style="text-align:left" width=50>/home</td><td>10G</td></tr>
+				<tr><td style="text-align:left" width=50>/var</td><td>15G</td></tr>
+				<tr><td style="text-align:left" width=50>/tmp</td><td>51G</td></tr>
+				<tr><td style="text-align:left" width=50>/usr</td><td>51G</td></tr>
+				<tr><td style="text-align:left" width=50>/opt</td><td>512G</td></tr>
+				<tr><td style="text-align:left" width=50>/data</td><td>other</td></tr>
+			 </table>
+			</td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">/</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入/分区大小" data-original-title="/" style="width: 610px;">
+			<input type="text" class="form-control" required="" name="t_rootpatition" data-label="/" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">/boot</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入boot分区大小" data-original-title="boot" style="width: 610px;">
+			<input type="text" class="form-control" required="" name="t_bootpatition" data-label="/boot" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_partitioninfo js_linux" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">SWAP</span>
+		</td>
+		<td width="40%" class="info_special_ps" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SWAP分区大小" data-original-title="SWAP" style="width: 610px;">
+			<input type="text" class="form-control" required="" name="t_SWAPpatition" data-label="SWAP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+	</tr>
+	<tr class="js_raid">
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">Raid</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入Raid" data-original-title="Raid">
+			<input type="radio" name="t_raid" data-label="Raid" value="1" required="" checked="checked" aria-required="true">
+			<label>保持不变</label>
+			<input type="radio" name="t_raid" data-label="Raid" value="2" required="" aria-required="true">
+			<label>自定义</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr class="js_makeraid">
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">自定义Raid</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入自定义Raid" data-original-title="自定义Raid">
+			<textarea type="text" class="form-control" name="t_makeraid" data-label="自定义Raid" required="" value="" rows="3"></textarea>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>	
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">安装包</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择安装包安装包" data-original-title="安装包">
+			<input type="radio" name="t_package" data-label="安装包" value="1" required="" checked="checked" aria-required="true">
+			<label>基础安装包</label>
+			<input type="radio" name="t_package" data-label="安装包" value="2" required="" aria-required="true">
+			<label>开发包</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">安装时间</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择安装时间" data-original-title="安装时间">
+			<input type="radio" name="t_installtime" data-label="安装时间" value="1" required="" checked="checked" aria-required="true">
+			<label>已关机可以安装</label>
+			<input type="radio" name="t_installtime" data-label="安装时间" value="2" required="" aria-required="true">
+			<label>需要安装窗口</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+
+	<tr>
+		<td width="20%">
+			<span class="js_name">特殊要求</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入特殊要求" data-original-title="特殊要求">
+			<textarea type="text" class="form-control" name="t_specialrequire" data-label="特殊要求" value="" rows="3"></textarea>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>

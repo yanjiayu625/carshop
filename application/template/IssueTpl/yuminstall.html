@@ -1,0 +1,126 @@
+<style>
+.sorfwares{position: relative;height: 38px;}
+.sorfware_list{position:absolute;z-index:100;background:#ddd;display:none;top: 32px;list-style:none}
+.sorfware_item{cursor: pointer;padding: 10px;margin-left: -38px;}
+.sorfware_item:hover{background: #ccc;}
+.items{width: 50% !important;height: 32px !important;float: left;display: none;padding: 0 0 !important;}
+.add_btn,.del_btn{cursor: pointer;position: absolute;right: 0;top: 2px;margin-right: 0 !important;}
+</style>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">安装软件</span>
+	</td>
+	<td width="40%" id="add_sorfware" position="relative" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择软件" data-original-title="请输入软件">
+		<script type="text/javascript">
+		$(function(){
+			$(document).on('keyup','.sorfware', function(){
+				var that = this;
+				var inputVal = $(that).val()
+				$(that).next(".sorfware_list").html('')
+				if(inputVal.length >= 2){
+					$.ajax({
+						url: "/api/Issue_Extdata/getYumList?name="+inputVal,
+		                type: "GET",
+		                dataType: "json",
+		                success: function(result) {
+		                	$(that).next(".sorfware_list").html('')
+		                   	$.each(result.data, function(index, val) {
+		                   		$(that).next(".sorfware_list").append('<li class="sorfware_item">'+val.name+'</li>')
+		                   	})
+		                   	$(that).next(".sorfware_list").show()
+		                },
+		                error: function() {
+		                	console.log("error");
+		                }
+					})
+				}
+
+			})
+
+			$(document).on('click', '.sorfware_item', function() {
+				var that = this;
+				var item = $(this).html()
+				$(that).parent().hide()
+				$(that).parent().prev(".sorfware").val(item)
+				$.ajax({
+					url: "/api/Issue_Extdata/getYumVersion?name="+item,
+	                type: "GET",
+	                dataType: "json",
+	                success: function(result) {
+	                   $(that).parent().next(".items").html('')
+	                   $.each(result.data, function(k,v) {
+	                   		$(that).parent().next(".items").append('<option value="'+v.version+'" class="version">'+v.version+'</option>')
+	                   })
+	                   $(that).parent().next(".items").show()
+	                   add_sorfware_items()
+	                   // $('[name = "t_custom_yum_software"]').val(JSON.stringify({name:$(".sorfware").val(),version:$(".items").val()}))
+	                  
+	                },
+	                error: function() {
+	                	console.log("error");
+	                }
+				})
+			})
+
+			$(document).on('change', '.items', function() {
+				add_sorfware_items()
+				$('[name = "t_custom_yum_software"]').val(JSON.stringify({name:$("#sorfware").val(),version:$(".items").val()}))
+			})
+
+			$(document).on('click', '.add_btn', function() {
+				$('#add_sorfware').append('<div class="sorfwares"><input type="text"class="form-control sorfware"required="" name="h_sorfware"data-label="请输入软件"value=""data-rule-regex=""data-msg-regex=""placeholder="请输入软件名称"style="width: 40%;display:inline;float:left;margin-right:10px;"><ul class="sorfware_list"style=""></ul><select class="items"name="h_version"></select><span class="btn btn-sm del_btn"> <i class="glyphicon glyphicon-minus"></i></span></div>')
+			})
+			$(document).on('click', '.del_btn', function() {
+				$(this).parent().remove()
+				add_sorfware_items()
+
+			})
+			
+		})
+		function add_sorfware_items() {
+				var sorfware_obj = []
+				$.each($(".sorfwares"), function(index, val) {
+
+					var name = $(".sorfwares").eq(index).find(".sorfware").val()
+					var version = $(".sorfwares").eq(index).find(".items").val()
+					sorfware_obj.push({name:name,version:version})
+				})
+
+				$('[name = "t_custom_yum_software"]').val(JSON.stringify(sorfware_obj))
+		}
+		</script>
+		<input type="hidden" class="form-control" required="" name="t_custom_yum_software" data-label="请输入软件" value="" data-rule-regex="" data-msg-regex="" placeholder="请输入软件名称" aria-required="true">
+		<div class="sorfwares">
+			<input type="text" class="form-control sorfware" required="" name="h_sorfware" data-label="请输入软件" value="" data-rule-regex="" data-msg-regex="" placeholder="请输入软件名称" style="width: 40%;display:inline;float:left;margin-right:10px;" aria-required="true">
+			<ul class="sorfware_list" style=""></ul>
+			<select class="items" name="h_version" onchange="add_sorfware_items()"></select>
+			<span class="btn btn-sm add_btn"> <i class="glyphicon glyphicon-plus"></i>
+			</span>
+		</div>
+
+
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">IP列表</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="IP列表" data-original-title="IP列表">
+		<textarea type="hidden" id="t_host" class="hidden" required="" name="t_host" data-label="IP列表名称" value="" rows="3" aria-required="true" aria-invalid="true"></textarea>
+		<textarea type="text" id="host" class="form-control" required="" name="h_host" data-label="IP列表名称" value="" rows="3" aria-required="true" aria-invalid="true" data-rule-remote="/api/issue_check/checkPushKeyIpList/"></textarea>
+		<p class="info_special_ps">连续IP请整理为10.50.1.[10-20]格式</p>
+		<script>
+		$(function(){
+			$("#host").on('keyup', function() {
+				$("#t_host").val($(this).val())
+			})
+		})
+
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

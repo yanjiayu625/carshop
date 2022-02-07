@@ -1,0 +1,187 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            配置信息管理
+          </li>
+          <li>
+            添加厂商产品
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-barcode"></i> 添加厂商产品 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <form class="box-content" id="location_form" novalidate>
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>品牌</h5></td>
+                    <td>
+                      <input type="hidden" class="form-control" name="id" value="">
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="brand" value="">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>产品线</h5></td>
+                    <td>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="line" value="">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>型号</h5></td>
+                    <td>
+                      <div class="form-group col-md-6" style="position: absolute;">
+                        <input type="text" class="form-control" name="brandlinemodel" value="brandlinemodel" style="filter:alpha(opacity=0); -moz-opacity:0; opacity:0;">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="model" value="">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-edit"></i> 提交 </button>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </form>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery jquery.validate.js-->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/jquery/jquery.validate.js"></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#company-brand').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Company').addClass('active').find('ul').slideToggle();
+    // 获取数据
+    $.ifosAjax({
+      type: "get",
+      dataType: "json",
+      url: "/api/idcos_company/getBrandLineModelInfo",
+      data: {
+        "id": $.getUrlParam("id")
+      },
+      error: function(err) {
+        console.log(err);
+      },
+      success: function(result) {
+        if (!!result) {
+          var data = result;
+          $("input[name='id']").val(data.id);
+          $("input[name='brand']").val(data.brand);
+          $("input[name='line']").val(data.line);
+          $("input[name='model']").val(data.model);
+        } else {
+          console.log("没有数据");
+        }
+      }
+    });
+    $("#location_form").validate({
+      onsubmit: true,
+      rules: {
+        brand: "required",
+        line: "required",
+        model: "required",
+        brandlinemodel: {
+          required: false,
+          remote: {
+            url: "/api/idcos_general/checkServerBrandLineModel",
+            type: "get",
+            dataType: "json",
+            data: {
+              brand: function() {
+                return $("input[name='brand']").val();
+              },
+              line: function() {
+                return $("input[name='line']").val();
+              },
+              model: function() {
+                return $("input[name='model']").val();
+              }
+            }
+          }
+        }
+      },
+      messages: {
+        brand: "请输入品牌",
+        line: "请输入产品线",
+        model: "请输入型号",
+        brandlinemodel: {
+          required: "请输入型号",
+          remote: '该 "品牌＋产品线＋型号" 已存在'
+        }
+      },
+      submitHandler: function() {
+        var datas = {
+          id: $("input[name='id']").val(),
+          brand: $("input[name='brand']").val(),
+          line: $("input[name='line']").val(),
+          model: $("input[name='model']").val()
+        };
+
+        $.ifosAjax({
+          type: "post",
+          dataType: "json",
+          url: "/api/idcos_company/updateBrandLineModel",
+          data: {
+            'brandJson': JSON.stringify(datas)
+          },
+          error: function(err) {
+            console.log(err);
+          },
+          success: function(result) {
+            if (!!result.status) {
+              $.alert('添加成功', function() {
+                window.location.href = "/idcos/company/brand";
+              });
+            } else {
+              $.alert('添加失败', function() {});
+            }
+          }
+        });
+      },
+      debug: true
+    });
+  });
+  </script>

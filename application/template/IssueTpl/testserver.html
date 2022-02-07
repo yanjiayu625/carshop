@@ -1,0 +1,105 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请人手机号</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="申请人手机号码" data-original-title="申请人手机号">
+        <input type="text" class="form-control" required="" name="t_mobile" data-label="申请人手机号" value="" data-rule-regex="/^(((1[0-9][0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|145|147|170|176|177|178)+\d{8})$/" data-msg-regex="手机号错误" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">项目名称</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="使用服务器的项目名称" data-original-title="项目名称">
+        <input type="text" class="form-control" required="" name="t_project_name" data-label="项目名称" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 283px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">项目说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="项目详细说明" data-original-title="项目说明" style="width: 566px;">
+        <textarea type="text" class="form-control" required="" name="t_description" data-label="项目说明" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%" style="width: 353px;"></td>
+    <td width="15%" style="width: 211px;"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">操作系统版本</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器使用的操作系统版本" data-original-title="操作系统版本"><select type="text" class="form-control" required="" name="t_system_version" data-label="操作系统版本" value="" rows="1" aria-required="true"><option value="1">Centos6.5</option><option value="2">Centos7.2</option><option value="3">Windows2008R2</option><option value="4">Windows2012</option><option value="5">Ubuntu16.04.2LTS</option></select> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">CPU</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器CPU" data-original-title="CPU">
+        <select class="valid" required="" name="t_cpu" data-label="CPU" aria-required="true" aria-invalid="false">
+            <option value="1">2核</option>
+            <option value="2">4核</option>
+            <option value="3">6核</option>
+            <option value="4">8核</option>
+            <option value="5">16核</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">内存</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器内容" data-original-title="内存">
+        <select class="valid" required="" name="t_memory" data-label="内存" aria-required="true" aria-invalid="false">
+            <option value="1">2G</option>
+            <option value="2">4G</option>
+            <option value="3">6G</option>
+            <option value="4">8G</option>
+            <option value="5">16G</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">硬盘</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="服务器硬盘" data-original-title="硬盘">
+        <select class="valid" required="" name="t_disk" data-label="硬盘" aria-required="true" aria-invalid="false">
+           <!--  <option value="1">100G</option>
+            <option value="2">160G</option>
+            <option value="3">200G</option>
+            <option value="4">250G</option>
+            <option value="5">400G</option>
+            <option value="6">600G</option> -->
+            <option value="7">150G</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 300px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请台数</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="申请服务器台数" data-original-title="申请台数" style="width: 598px;">
+        <input type="text" class="form-control" required="" name="t_num" data-label="申请台数" value="" data-rule-regex="/^(0|[1-9][0-9]*)$/" data-msg-regex="数量必须为自然数" aria-required="true" aria-invalid="true">
+    </td>
+    <td width="25%" style="width: 374px;"></td>
+    <td width="15%" style="width: 224px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 304px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">运维负责人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="运维中心负责运维人员" data-original-title="运维负责人" style="width: 608px;">
+        <input type="text" class="form-control" required="" name="t_operator" data-rule-remote="/api/issue_check/checkOperator" data-label="运维负责人" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%" style="width: 380px;"></td>
+    <td width="15%" style="width: 227px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 300px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用周期</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="使用周期为0-90的整数" data-original-title="使用周期" style="width: 599px;">
+        <input type="text" style="width: 80px !important;display: inline !important;margin-right: 6px;" class="form-control" required="" name="t_days" data-label="使用周期" value="" data-rule-regex="/^[1-8][0-9]?$|90/" data-msg-regex="使用周期为0-90的整数" aria-required="true">/天
+        <p class="info_special_ps" style="width: 80px !important;display: inline !important;margin-left: 18px;">使用周期最长90天，到期可以续约</p>
+    </td>
+    <td width="25%" style="width: 374px;"></td>
+    <td width="15%" style="width: 224px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 283px;"><span class="js_name">特殊需求说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="项目详细说明" data-original-title="特殊需求说明" style="width: 566px;">
+        <textarea type="text" class="form-control" placeholder="上述配置如无法满足测试需求，请在此填写，例:硬盘容量、多网卡需求等。(若无特殊需求，请不要填写此项！！！)" name="t_needdesc" data-label="特殊需求说明" value="" rows="3"></textarea>
+    </td>
+    <td width="25%" style="width: 353px;"></td>
+    <td width="15%" style="width: 211px;"></td>
+</tr>

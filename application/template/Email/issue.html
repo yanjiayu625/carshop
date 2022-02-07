@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>发邮件</title>
+    <style>
+        body{background:#2E363F;overflow-x:hidden;font-family:"Microsoft YaHei" ! important;font-size:12px;color:#666;width:90%;}
+        #content-header{width:100%;margin-top:10px;font-size:28px;margin-bottom:10px;background:#2E363F;}
+        #content-header h1{color:#fff;font-size:28px;font-weight:normal;float:none;text-shadow:0 1px 0 #ffffff;margin-left:20px;position:relative;}
+        .widget-box{width:100%;background:none repeat scroll 0 0 #F9F9F9;position:relative;}
+        .widget-title{width:100%;background:#efefef;border-left:1px solid #CDCDCD;border-top:1px solid #CDCDCD;border-right:1px solid #CDCDCD;padding-left:18px;font-size:18px;height:25px;}
+        .widget-content{padding:15px;}
+        .content-box{width:100%;background:none repeat scroll 0 0 #F9F9F9;border-left:1px solid #CDCDCD;border-top:1px solid #CDCDCD;border-right:1px solid #CDCDCD;}
+        .table-bordered{width:98%;border-top:1px solid #ddd;border-left:1px solid #ddd;}
+        .table-info{width:98%;border-top:1px solid #ddd;border-left:1px solid #ddd;}
+        .table-button{width:98%;border:0;}
+        .table-info thead{font-size:12px;font-weight:bold;background:#efefef;}
+        .table-bordered thead{font-size:12px;font-weight:bold;background:#efefef;}
+        .table-bordered td,th{border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
+        .table-info td,th{height: 20px;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
+    </style>
+</head>
+<body>
+<div id="content-header">
+    <span style="color: #ffffff;">运维中心 </span><span style="color:#27a9e3;">P</span><span style="color: #28b779;">M</span><span style="color: #ffb848;">S</span><span style="color: #ffffff;"> 系统——信息提醒邮件</span>
+</div>
+<div class="widget-content">
+    <table class="widget-title">
+        <tr>
+            <td height="30"> 提案信息通知</td>
+        </tr>
+    </table>
+    <table class="content-box" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align=center>　
+                <table class="table-button">
+                    <tr>
+                        <td>
+                            <table class="table-info">
+                                <thead >
+                                <tr>
+                                    <th width="100">说明项</th>
+                                    <th >内容</th>
+                                </tr>
+                                </thead>  
+                                <tbody>
+                                %{ServerInfo}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align=center>　
+                <table  class="table-button">
+                    %{EmailCheck}
+                    <tr>
+                        <td> %{LinkInfo} </td>
+                    </tr>
+                    <tr height="20"></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

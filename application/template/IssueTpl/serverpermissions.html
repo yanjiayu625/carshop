@@ -1,0 +1,237 @@
+<tr>
+	<td width="20%" style="width: 305px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">跳板机</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="跳板机" style="width: 610px;">
+		<input type="hidden" class="form-control" required="" name="h_SteppingStones" data-label="跳板机" value="1" data-rule-regex="/^1/" data-msg-regex="您还没有成功申请跳板机" aria-required="true">
+		<p class="js_SteppingStones info_special_ps">您已申请跳板机</p>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/api/issue_check/checkSteppingStones",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(result) {
+                        if(result.status){
+                        	$(".js_SteppingStones").html(result.msg);
+                        	$("#iplist").removeAttr("readonly");
+                        	$("[name ='h_SteppingStones']").val(1);
+                        	$(".submit").attr("disabled",false);
+                        }else{
+                        	$("[name ='h_SteppingStones']").val(2);
+                        	$(".js_SteppingStones").html("您还没有申请跳板机　　 <a href='/issue/server/create?name=steppingstones'>点击申请跳板机</a>")
+                        	$(".submit").attr("disabled",true);                     
+                        }
+                    },
+                    error: function() {
+                    	console.log("error");
+                    }
+
+				})
+			})
+		</script>
+
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">服务器列表</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要推送公钥的服务器IP或hostname" data-original-title="服务器列表">
+	<p class="alert alert-danger" style="margin-bottom:14px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">默认显示用户已存在的所有服务器分组,可以添加新IP到某个分组;<br>
+		无任何修改的分组,请点击"-"按钮删除该分组;<br>
+		新增服务器分组，点击下方"+添加新分组"按钮;<br>
+		注意:IP后无端口号默认为22端口,若为其他端口号请注明对应端口，如果该服务器对应的SSH端口是33 的话 ，那么写入:10.30.50.25:33。如果您不确认，请联系配合您工作的相关运维。<br>
+	</p>
+		<div id="servers">
+			<input type="hidden" class="form-control" required="" name="t_custom_server_permission_ip_list" data-label="服务器列表" value="" aria-required="true">
+
+			<p id="firstSelectGroup">	
+				<select name="group0" class="form-control js_group" required="" style="width:180px;margin-right:10px;display:inline;  padding-right: 0px;">
+				</select><!-- <input type="text" class="form-control hostname" placeholder="" name="group0" required="" style="width:180px;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true" onblur="addOperator()" data-rule-remote="/api/issue_check/checkIpGroupName/"> --><textarea style=" width: 44%;vertical-align: middle; display: inline;" type="text" class="form-control" required="" name="h_host0" data-label="服务器列表" value="" rows="3" aria-required="true" aria-invalid="true" onblur="addOperator()" data-rule-remote="/api/issue_check/checkIpList/"></textarea> <span style="cursor: pointer;" class="glyphicon glyphicon-plus js_addNode"></span> <span style="cursor: pointer;" class="glyphicon glyphicon-minus js_delNode"></span>
+			</p>
+		</div>
+		<input type="hidden" class="form-control" required="" name="h_submitFlag" data-label="组有重复" value="" data-rule-regex="/^1/" data-msg-regex="组有重复" aria-required="true">
+		<input type="hidden" class="form-control" required="" name="h_IPsubmitFlag" data-label="IP" value="" data-rule-regex="/^1/" data-msg-regex="IP重复" aria-required="true">
+		<span style="cursor: pointer;" class="btn btn-success btn-sm" onclick="insertInputAfter()"><i class="glyphicon glyphicon-plus"></i>添加新分组</span>
+		<p class="info_special_ps">每行一个IP</p>
+		<script>
+	
+		//信息写到hidden input 中
+		//
+		var UserIpGroup = [];
+
+		function addOperator() {
+			$("[name='t_custom_server_permission_ip_list']").val('');
+			var jsonObjs = {};
+			var groups =[];
+			var IPs =[];
+			$.each($("#servers p"), function(index,element){
+				var jsonObj = {};
+				jsonObj.name = $(element).find(".js_group").val()
+				if(groups.indexOf(jsonObj.name) == -1){
+					groups.push(jsonObj.name)
+					$("[name ='h_submitFlag']").val(1);
+					$("#h_submitFlag-error").remove()
+				}else {
+					$(this).find('.js_group').addClass('error');
+					$("#servers").parent().next().html('<label id="h_submitFlag-error" class="error" for="h_submitFlag">'+jsonObj.name+'组有重复</label>');
+					$("[name ='h_submitFlag']").val(2);
+					return false
+				}
+				if(UserIpGroup.indexOf(jsonObj.name) == -1){
+					jsonObj.status = 1
+				} else {
+					jsonObj.status = 0
+				}
+				var options = valIgnoreSpaces($(element).find("textarea").val()).split(/\n/)
+                // options = options.unique();//去重
+                options = options.delnull();//去空
+                $.each(options, function(k, v) {
+					if(IPs.indexOf(options[k]) == -1){
+						IPs.push(options[k])
+						$("[name ='h_IPsubmitFlag']").val(1);
+						$("#h_IPsubmitFlag-error").remove()
+					}else {
+						$("#servers p").eq(index).find('textarea').addClass('error');
+						$("#servers").parent().next().html('<label id="h_IPsubmitFlag-error" class="error" for="h_IPsubmitFlag">IP有重复</label>');
+						$("[name ='h_IPsubmitFlag']").val(2);
+						return false
+					}
+                })
+                if(options.length !=0){
+					jsonObj.IPlist = $.trim(options).split(/\n/)
+					jsonObjs[index] = jsonObj;	
+                }
+
+
+			})
+			if(JSON.stringify(jsonObjs) != "{}"){
+				$("[name='t_custom_server_permission_ip_list']").val(JSON.stringify(jsonObjs));
+			}
+		}
+		function valIgnoreSpaces(string) {
+			var temp = "";
+            string = '' + string;
+            splitstring = string.split(" ");
+            for (i = 0; i < splitstring.length; i++)
+                temp += splitstring[i];
+            return temp;
+
+		}
+		 //数组去重
+        Array.prototype.unique = function() {
+            var resultArray_line=[];
+            for(var i = 0,len = this.length;i < len;i++){ 
+                !RegExp(this[i],"g").test(resultArray_line.join(",")) && (resultArray_line.push(this[i])); 
+            }
+            return resultArray_line;
+        }
+        //数组去空
+        Array.prototype.delnull = function() {
+            for(var i = 0 ;i<this.length;i++){
+                 if(this[i] == "" || typeof(this[i]) == "undefined")
+                 {
+                  this.splice(i,1);
+                  i= i-1;
+                 }
+            }
+            return this;
+        }
+		// 自定义函数向后插入
+		var numNode = 1;
+		var optinhtml = [];
+		function insertInputAfter() { 
+			var node = '<p><input name="group'+numNode+'" required="" class="form-control js_group" style="width:180px;margin-right:10px;display:inline;  padding-right: 0px;"><textarea style=" width: 44%;vertical-align: middle; display: inline;margin-left:4px;" type="text" class="form-control" required="" name="h_host'+numNode+'" data-label="服务器列表" value="" rows="3" aria-required="true" aria-invalid="true" onblur="addOperator()"  data-rule-remote="/api/issue_check/checkIpList"></textarea><span style="cursor: pointer;" class="glyphicon glyphicon-minus js_delNode" ></span></p>';
+			$("#servers").append(node);
+			numNode++;
+		}
+
+		$(document).on("click",".js_addNode", function() {
+			var node = '<p><select name="group'+numNode+'" required="" class="form-control js_group" style="width:180px;margin-right:10px;display:inline;  padding-right: 0px;">'+optinhtml.join("")+'</select><textarea style=" width: 44%;vertical-align: middle; display: inline;margin-left:4px;" type="text" class="form-control" required="" name="h_host'+numNode+'" data-label="服务器列表" value="" rows="3" aria-required="true" aria-invalid="true" onblur="addOperator()"  data-rule-remote="/api/issue_check/checkIpList"></textarea> <span style="cursor: pointer;" class="glyphicon glyphicon-plus js_addNode"></span> <span style="cursor: pointer;" class="glyphicon glyphicon-minus js_delNode" ></span></p>';
+			$(this).parent().after(node);
+			numNode++;
+		})
+		$(document).on("click",".js_delNode", function() {
+			$(this).parent().remove();
+			addOperator();
+		})
+		$(document).on("change",".js_group", function() {
+			addOperator();
+		})
+
+		$(function() {
+			if(window.location.pathname == "/issue/server/create"){
+				$.ajax({
+					url: "/api/issue_check/checkUserIpGroup",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(result) {
+                    	if(result.length == 0){
+                    		$("#firstSelectGroup").remove()
+                    	}else{
+	                        $.each(result, function(key, val) {
+	                        	UserIpGroup.push(val.name)
+	                        	$("[name = 'group"+key+"']").val(val.name)
+	                        	optinhtml.push('<option value="'+val.name+'">'+val.name+'</option>')
+	                        })
+	                        $("[name = 'group0']").html(optinhtml.join(""))
+                    	}
+                    },
+                    error: function() {
+                    	console.log("error");
+                    }
+				})
+			}
+		})
+
+	</script>
+	</td>
+	<td width="15%"></td>
+</tr>
+<tr class="js_sodupower hidden">
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">是否需要sudo权限</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="是否需要sudo权限">
+		<select class="valid js_sudoPowChange" required="" name="t_sudo" data-label="是否需要sudo权限" aria-required="true" aria-invalid="false">
+			<option value="1" checked>否</option>
+			<option value="2">是</option>
+		</select>
+		<script>
+			$(function(){
+				if($('input[name="i_department"]').val().indexOf("运维中心") != -1  ) {
+                    $(".js_sudoPowChange").val("2")
+					$(".js_sudoPowChange").trigger('change');
+
+				}
+				$(".js_sudoPowChange").change(function() {
+					if($(this).val() == 2){
+						$(".js_sodupower").after('<tr class="js_sudoPowerReason hidden"><td width="20%"> <i class="glyphicon glyphicon-star red"></i><span class="js_name">需要sudo权限原因</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="需要sudo权限原因"><textarea type="text" class="form-control" name="t_reason" data-label="需要sudo权限原因" value="" required="" rows="3"></textarea></td><td width="25%"></td><td width="15%"></td></tr>');
+						$("[name='t_reason']").val("运维人员申请");
+					}else {
+						$(".js_sudoPowerReason").remove();
+					}
+				})
+				$(".js_sudoPowChange").trigger("change");
+			})
+
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<span class="js_name">备注</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="其他未尽事宜" data-original-title="备注">
+		<textarea type="text" class="form-control" name="t_remarks" data-label="备注" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

@@ -1,0 +1,74 @@
+<style>
+    .userloginlog{border:0;}
+    .userloginlog td{border:0 !important;}
+   
+    
+  
+   
+</style>
+
+<table class="table userloginlog" id="info">
+       
+        <tr>
+            <td width="30%">
+                <span class="js_field">日志保存是否正常</span>
+            </td>
+            <td width="60%" colspan="2">
+                <input type="radio" name="t_save" value="1" checked> 正常
+                <input type="radio" name="t_save" value="2"> 不正常
+
+            </td>
+            <td width="5%"></td>
+        </tr>
+       
+        <tr>
+            <td width="30%">
+                <span class="js_field">留存是否6个月以上</span>
+            </td>
+            <td width="60%" colspan="2">
+                <input type="radio" name="t_savetime" value="1" checked> 是
+                <input type="radio" name="t_savetime" value="2"> 否
+
+            </td>
+            <td width="5%"></td>
+        </tr>
+      <tr>
+            <td width="10%">
+                <span class="js_field"></span>
+            </td>
+            <td width="60%" colspan="2">
+                <p class="form_atcion">
+                    <button class="btn btn-primary js_userloginlog_submit" type="submit"><i class="glyphicon glyphicon-share"></i>提交</button>
+                </p>
+            </td>
+            <td width="5%"></td>
+        </tr>
+</table>
+<script type="text/javascript" >
+$(function(){
+	$(".js_remark_title").remove()
+	$(".inform_area").remove()
+	$(".js_remark").hide()
+	$(".modal-footer").hide()
+	$(".modal-dialog").removeClass("modal-lg")
+
+	$(".js_userloginlog_submit").click(function() {
+		$.ajax({
+	        type: "post",
+	        dataType: "json",
+	        url: "/api/issue_exe/updateUserLogin?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+	        data: {
+	            t_save: $('input[name = "t_save"]:checked').val(),
+	            t_savetime: $('input[name = "t_savetime"]:checked').val(),
+	        },
+	        success: function(data) { //提交成功的回调函数
+	            $('.js_remark').val(data.msg)
+	            if(data.status){
+	            	$("#callback1").trigger("click");
+	            }
+	        }
+	    });
+		
+	})
+})
+</script>

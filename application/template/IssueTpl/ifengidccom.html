@@ -1,0 +1,827 @@
+<tr>
+    <td width="20%"></td>
+    <td width="40%">
+				<p class="alert alert-danger js_hasAuth" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">
+						域名类型：静态指所有机房都解析到一个IP，动态指不同机房解析到不同的IP<br>
+						　　类型：可选类型为A 和 CNAME<br>
+						目标地址：要解析到的IP或者域名。CNAME的目标地址以“.”结尾。<br>
+						　　　ttl：记录过期时间，默认为600（单位秒）<br>
+				</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name"> 域名</span></td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择域名" data-original-title="域名" style="width: 610px;"><input type="text" class="form-control js_host_input" style="display: inline-block; width: 80%!important;margin-right: 10px;" required="" name="host" data-label="域名" value="" data-rule-regex="" data-msg-regex="" />.ifengidc.com </td>
+	<td width="25%" colspan="2" class="js_hostErr"></td>
+	<!-- <td width="15%" style="width: 228px;"></td> -->
+</tr>
+<script type="text/javascript">
+$(function() {
+	$(".js_allHostInfo").hide();
+	$(".js_allHostChange").hide();
+	$(".js_hostType").hide();
+	$(".js_addnewStadic").hide();
+	$(".js_addnewMoving").hide();
+	$(".js_actionArea").hide();
+
+	$(".submit").attr("disabled", "disabled");
+
+	var allIdcs = "";
+	var hostType = "";
+	var hostInfos = [];
+
+	$(".js_host_input").blur(function() {
+
+			$(".submit").attr("disabled", "disabled");
+			$(".js_hostErr").html("");
+			$(".js_host_input").removeClass("error");
+
+			$(".js_allHostInfo").hide();
+			$(".js_allHostChange").hide();
+			$(".js_hostType").hide();
+			$(".js_addnewStadic").hide();
+			$(".js_addnewMoving").hide();
+			$(".js_actionArea").hide();
+
+			$(".js_hostInfo").empty();
+			$(".js_hostChange").empty();
+
+			$(".js_host").val($(this).val());
+			$(".js_aHostTypeChange").attr("disabled", false).css({background: "#fff"});
+
+			$(".js_idcItem").remove();
+			$(".js_aData").remove();
+
+			$(".js_hostAcionInfo").val("");
+			$(".js_err").html("");
+
+			$.ajax({
+					url: "/api/issue_check/checkHost",
+					type: "GET",
+					dataType: "json",
+					data: {
+							host: $(this).val()
+					},
+					success: function(result) {
+							// $("input[name = h_type]").val(result.type);
+							$("input:radio[name=h_type][value='" + result.type + "']").prop("checked", true);
+							if (result.code == 200) { //域名可操作： 新增、增加、删除、修改
+									hostType = result.type
+									// $(".submit").attr("disabled", false);
+									$(".js_hostType").show();
+									$(".js_allHostInfo").show();
+									
+									$("input[name = h_type]").attr("disabled", true);
+									$(".js_aData").remove()
+
+									$("input[name = h_type]").attr("disabled", false);
+									
+									
+									if (result.data.length) { //已存在的域名
+											hostInfos = result.data
+											$(".js_aHostTypeChange").val(result.data[0].type);
+											$.each(result.data, function(key, val) {
+													$(".js_hostInfo").append('<tr><td style="text-align: left !important">' + val.host + '</td><td>' + val.type + '</td><td>' + val.data + '</td><td>' + val.ttl + '</td><td>' + val.idc + '</td></tr>');
+											})
+											$(".js_addnewStadic").show();
+											$(".js_addAItem").show();
+											if(result.type == "静态") {
+
+													$.each(result.data, function(key, val) {
+															var index = $(".js_data").length?(parseInt($(".js_data").last().attr("name").substring(4))+1) : 0;
+
+															if(val.type == "A") {
+
+																	$(".js_stadicArea").append('<p class="js_aData"><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>目标地址:</span><input class="js_id" name="dataId'+val.id+'" value="'+val.id+'" style="display: none;" /><input class="form-control js_data iptest" style="width: 200px; display: inline-block;" type="text" name="data'+val.id+'" required disabled value="'+val.data+'" /><input value="'+val.ttl+'" class="form-control js_ttl number" value="600" name="ttl'+val.id+'" style="width: 80px;; display: inline-block; margin-left: 5px;" disabled/><select name="change_type'+val.id+'" class="form-control js_change_type" style="width: 200px; display: inline-block; margin-left: 5px;"><option value="no_change">无操作</option><option value="add" disabled>增加</option><option value="update">修改</option><option value="delete">删除</option></select></p>');
+															}else {
+																	$(".js_addAItem").hide();
+																	$(".js_stadicArea").append('<p class="js_aData"><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>目标地址:</span><input class="js_id" name="dataId'+val.id+'" value="'+val.id+'" style="display: none;" /><input class="form-control js_data" data-rule-regex="/([a-z0-9][a-z0-9-]*?.(?:com.|cn.|net.|org.|gov.|info.|la.|cc.|co.)(?:.(?:cn.|jp.))?)$/" data-msg-regex="CNAME格式错误,请以域名开头,并’.‘结尾" style="width: 200px; display: inline-block;" type="text" name="data'+val.id+'" required disabled value="'+val.data+'" /><input value="'+val.ttl+'" class="form-control js_ttl number" value="600" name="ttl'+val.id+'" style="width: 80px;; display: inline-block; margin-left: 5px;" disabled/><select name="change_type'+val.id+'" class="form-control js_change_type" style="width: 200px; display: inline-block; margin-left: 5px;"><option value="no_change">无操作</option><option value="add" disabled>增加</option><option value="update">修改</option><option value="delete">删除</option></select></p>');
+															}
+															
+													})
+
+											} else {//动态域名
+													$(".js_addnewStadic").hide();
+													$(".js_addnewMoving").show();
+													$('input[name="h_type"]').trigger("click");
+											}
+
+									} else { //
+											$(".js_aHostTypeChange").val("A");
+											$(".js_allHostInfo").hide();
+											$(".js_addnewStadic").show();
+											$(".js_addAItem").trigger("click").show();
+
+									}
+
+							} else { //域名正在更新
+									$(".submit").attr("disabled", "disabled");
+									$(".js_host_input").addClass("error")
+									$(".js_hostErr").html('<label style="width: 100% !important;" id="i_title-error" class="error" for="i_title">' + result.msg + '.</label>');
+									if($(".js_host_input").val() && !!result.data) {
+											if (result.data.length) { //有数据则显示
+													$(".js_allHostInfo").show();
+													$.each(result.data, function(key, val) {
+
+															$(".js_hostInfo").append('<tr><td style="text-align: left !important">' + val.host + '</td><td>' + val.type + '</td><td>' + val.data + '</td><td>' + val.ttl + '</td><td>' + val.idc + '</td></tr>')
+													})
+											}
+											if (result.change.length) { //有数据则显示
+													$(".js_allHostChange").show();
+													$.each(result.change, function(key, val) {
+
+															$(".js_hostChange").append('<tr><td style="text-align: left !important">' + val.host + '</td><td>' + val.type + '</td><td>' + val.data + '</td><td>' + val.ttl + '</td><td>' + val.idc + '</td><td>' + val.change + '</td><td>' + val.user + '</td></tr>')
+													})
+											}
+
+									}
+
+							}
+					}
+			})
+			
+	})
+
+	$(document).on("change", ".js_change_type", function() {//域名   修改或删除
+			var id = $(this).attr("name").substring(11);
+			if($(this).val() == 'update') {
+					$('input[name="data'+id+'"]').attr("disabled", false)
+					$('input[name="ttl'+id+'"]').attr("disabled", false)
+			}else {// 域名信息回写
+					var item = {};
+					$.each(hostInfos, function(key, val) {
+							if(val.id == id) {
+									item = val;
+							}
+					})
+					$('input[name="data'+id+'"]').attr("disabled", true).val(!!item.data? item.data:'').removeClass("error");
+					$('input[name="ttl'+id+'"]').attr("disabled", true).val(!!item.ttl? item.ttl:600).removeClass("error");
+			}
+
+			if(hostType =="动态") {//动态不能单个删除
+					if($(this).val() == 'delete') {
+							$(".js_combine").hide();
+							$(".js_split").hide();
+							$(".js_change_type").val("delete").attr("disabled", false);;
+							$(".js_data").attr("disabled", true);
+							$(".js_ttl").attr("disabled", true);
+
+							$.each( $(".js_idcItem"), function(key, ele) {
+									if($(ele).find(".js_id").val()) {
+											$.each(hostInfos, function(k, v) {
+													if(v.id == $(ele).find(".js_id").val()) {
+															$(ele).find(".js_data").val(v.data).removeClass("error");
+															$(ele).find(".js_ttl").val(v.ttl);
+													}
+											})
+
+									}else {
+											$(ele).remove();
+									}
+							})
+							$(".js_err").html("");
+					}else {
+							if($(".js_idcItem").length>2) {
+									$(".js_combine").show();
+									$(".js_split").hide();
+							}else {
+									$(".js_combine").hide();
+									$(".js_split").show();
+
+							}
+							$.each( $(".js_idcItem"), function(key, ele) {
+									// if($(ele).find(".js_change_type").val() == "delete") {
+											// $(ele).find(".js_change_type").val("no_change").attr("disabled", false);
+									// }
+
+							})
+					}
+
+			}
+			writeHostInfo()
+	})
+
+	$(document).on('click', '.js_addAItem', function() {//增加一条静态域名
+			
+			var index = $(".js_data").length?(parseInt($(".js_data").last().attr("name").substring(4))+1) : 0;
+		$(".js_stadicArea").append('<p class="js_aData"><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>目标地址:</span><input class="form-control js_data iptest" style="width: 200px; display: inline-block;" type="text" placeholder="目标地址" name="data'+index+'" required/><input class="form-control js_ttl number" value="600" required name="ttl'+index+'" value="600" placeholder="ttl" style="width: 80px;; display: inline-block; margin-left: 5px;" /><select name="change_type'+index+'" class="form-control js_change_type" style="width: 200px; display: inline-block; margin-left: 5px;"><option value="add">增加</option><option value="update" disabled>修改</option><option value="delete" disabled>删除</option></select><span class="glyphicon glyphicon-minus js_delAItem" style="cursor: pointer; margin-left: 18px; color: #178acc"></span></p>');
+
+	})
+	$(document).on('click', '.js_delAItem', function() {//静态 新增的 data删除
+			$(this).parent().remove();
+			writeHostInfo();
+	})
+	$(document).on('change', '.js_aHostTypeChange', function() {//静态 新增 type 切换：A可以有多个data, CNAME只有一个data
+		if( $(this).val() == "A" ) {//
+					
+					$.each( $(".js_aData"), function(key, elem) {
+
+							if($(elem).find(".js_id").length) {
+									$.each(hostInfos, function(key, val) {
+											if(val.id == $(elem).find(".js_id").val()) {
+													$(elem).find(".js_data").val(val.data).attr("diabled", true).removeClass("error");
+													$(elem).find(".js_ttl").val(val.ttl).attr("diabled", true).removeClass("error");
+
+													if(val.type == "A") {
+															$(elem).find(".js_change_type").val("no_change");
+															$(elem).find(".js_change_type option[value=add]").attr("disabled", true).siblings().attr("disabled", false)
+													}else {
+															$(elem).find(".js_change_type").val("delete");
+															$(elem).find(".js_change_type option[value=delete]").attr("disabled", false).siblings().attr("disabled", true)
+
+													}
+											}
+									})
+							}else {
+									$(elem).remove();
+							}
+					})
+					$(".js_addAItem").trigger("click").show();
+
+
+		}else{
+
+					var flag = false; 
+					$.each( $(".js_aData"), function(key, elem) {
+
+							if($(elem).find(".js_id").length) {
+
+									
+									$.each(hostInfos, function(key, val) {
+											if(val.id == $(elem).find(".js_id").val()) {
+													$(elem).find(".js_data").val(val.data);
+													$(elem).find(".js_ttl").val(val.ttl);
+													
+													if(val.type == "A" ) {
+															flag = true
+															$(elem).find(".js_change_type").val("delete");
+															$(elem).find(".js_data").attr("disabled", true).removeClass("error");
+															$(elem).find(".js_ttl").attr("disabled", true).removeClass("error");
+															$(elem).find(".js_change_type option[value=delete]").siblings().attr("disabled", true)
+													} else {
+															flag = false
+															$(elem).find(".js_change_type").val("no_change");
+															$(elem).find(".js_data").attr("disabled", true).removeClass("error");
+															$(elem).find(".js_ttl").attr("disabled", true).removeClass("error");
+															$(elem).find(".js_change_type option[value=add]").attr("disabled", true).siblings().attr("disabled", false)
+													}
+											}
+									})
+
+							}else {
+									$(elem).remove();
+							}
+					})
+
+					if(flag) {
+
+							var index = $(".js_aData").length?(parseInt($(".js_aData").find(".js_data").last().attr("name").substring(4))+1) : 0;
+							$(".js_stadicArea").append('<p class="js_aData"><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>目标地址:</span><input class="form-control js_data" placeholder="目标地址" style="width: 200px; display: inline-block;" type="text" data-rule-regex="/([a-z0-9][a-z0-9-]*?.(?:com.|cn.|net.|org.|gov.|info.|la.|cc.|co.)(?:.(?:cn.|jp.))?)$/" data-msg-regex="CNAME格式错误,请域名格式开头,并以’.‘结尾" placeholder="目标地址" name="data'+index+'" required/><input class="form-control js_ttl number" required name="ttl'+index+'" value="600" placeholder="ttl" style="width: 80px;; display: inline-block; margin-left: 5px;" /><select name="change_type'+index+'" class="form-control js_change_type" style="width: 200px; display: inline-block; margin-left: 5px;"><option value="add">增加</option><option value="update" disabled>修改</option><option value="delete" disabled>删除</option></select></p>');
+					} else {
+
+							if( !$(".js_aData").length ) {
+									var index = 0;
+									$(".js_stadicArea").append('<p class="js_aData"><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>目标地址:</span><input class="form-control js_data" style="width: 200px; display: inline-block;" type="text" data-rule-regex="/([a-z0-9][a-z0-9-]*?.(?:com.|cn.|net.|org.|gov.|info.|la.|cc.|co.)(?:.(?:cn.|jp.))?)$/" data-msg-regex="CNAME格式错误,请域名格式开头,并以’.‘结尾" placeholder="目标地址" name="data'+index+'" required/><input class="form-control js_ttl number" required name="ttl'+index+'" placeholder="ttl" value="600" style="width: 80px;; display: inline-block; margin-left: 5px;" /><select name="change_type'+index+'" class="form-control js_change_type" style="width: 200px; display: inline-block; margin-left: 5px;"><option value="add">增加</option><option value="update" disabled>修改</option><option value="delete" disabled>删除</option></select></p>');
+
+							}
+
+					}
+
+					$(".js_addAItem").hide();
+
+			}
+
+			setTimeout( writeHostInfo, 1000 )
+			;
+	})
+
+	$(document).on('click', '.js_combine', function() {//合并为内网
+			$(this).hide()
+			$(".js_split").show()
+			var allIdc = $(".js_idcItem").length-1;
+			$.each($(".js_idcItem"), function(index, ele) {
+					if(index < allIdc) {
+							if($(ele).find(".js_id").val()) {
+									$.each(hostInfos, function(k, v) {
+											if(v.id == $(ele).find(".js_id").val()) {
+													$(ele).find(".js_data").val(v.data).removeClass("error").attr("disabled", true);
+													$(ele).find(".js_ttl").val(v.ttl).removeClass("error").attr("disabled", true);
+											}
+									})
+									$(ele).find(".js_change_type").val("delete").attr("disabled", true);
+
+									if($(".js_idc_id").val() == 4) {
+											$(ele).remove();
+									}
+							}else {
+									$(ele).remove();
+							}
+					}
+
+			})
+			var hostItem = {};
+			$.each(hostInfos, function(key, val) {
+					if(val.idc_id == 4) {
+							hostItem = val
+					}
+					
+			})
+			
+			var flag = !!hostItem.data
+
+			var inIdcHtml= '<p class="js_idcItem">';
+			inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+			inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="idc" required value="内网" disabled />';
+			inIdcHtml+= '<input class="form-control js_idc_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="idc_id" required value="4" disabled />';
+			inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="host" required value="'+$(".js_host").val()+'" disabled />';
+			inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="type" required value="A" disabled />';
+			inIdcHtml+= '<input class="form-control js_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="id'+(flag? hostItem.id:'4' )+'" '+(flag? 'disabled':'')+' value="'+(flag? hostItem.id:'' )+'" />';
+			inIdcHtml+= '<input class="form-control js_data" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="data'+(flag? hostItem.id:'4' )+'" required '+(flag? 'disabled':'')+' value="'+(flag? hostItem.data:'' )+'" data-rule-remote="/api/issue_check/checkIfengIp" />';
+			inIdcHtml+= '<input class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" name="ttl'+(flag? hostItem.id:'4' )+'" required '+(flag? 'disabled':'')+' value="'+(flag? hostItem.ttl:'600')+'" />';
+			inIdcHtml+= '<select name="change_type'+(flag? hostItem.id:'4' )+'" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="no_change" '+(flag? '':'disabled')+'>无更新</option><option value="add" '+(flag? 'disabled':'')+'>增加</option><option value="update" '+(flag? ' ':'disabled')+'>修改</option><option value="delete" '+(flag? ' ':'disabled')+'>删除</option></select>';
+			inIdcHtml+= ' </p>';
+			$(".js_movingArea").prepend(inIdcHtml);
+			
+	})
+	$(document).on('click', '.js_split', function() {//拆分为各机房
+			$(this).hide()
+			$(".js_combine").show();
+			var allIdc = $(".js_idcItem").length-1;
+			$.each($(".js_idcItem"), function(index, ele) {
+					if(index < allIdc) {
+							if($(ele).find(".js_id").val() && $(ele).find(".js_change_type").val()!="delete") {
+									$.each(hostInfos, function(k, v) {
+											if(v.id == $(ele).find(".js_id").val()) {
+													$(ele).find(".js_data").val(v.data).removeClass("error").attr("disabled", true);
+													$(ele).find(".js_ttl").val(v.ttl).removeClass("error").attr("disabled", true);
+											}
+									})
+									$(ele).find(".js_change_type").val("delete").attr("disabled", true);
+							}else {
+									$(ele).remove();
+							}
+					}
+			})
+
+			var inIdcHtml = '';
+			$.each(allIdcs[4].son, function(key, val) {
+					var hostItem = {};
+
+					$.each(hostInfos, function(k, v) {
+							if(v.idc_id == val.id) {
+									hostItem = v
+							}
+
+					})
+					var flag = !!hostItem.data
+
+					inIdcHtml+= '<p class="js_idcItem">';
+					inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+					inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="name'+hostItem.id +'" required value="'+val.name+'" disabled />';
+					inIdcHtml+= '<input class="form-control js_idc_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="idc_id" required value="'+val.id+'" disabled />';
+					inIdcHtml+= '<input class="form-control js_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="idc_id" required value="'+(flag? hostItem.id:'' )+'" disabled />';
+					inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="host'+hostItem.id +'" required value="'+$(".js_host").val()+'" disabled />';
+					inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="type'+hostItem.id +'" required value="A" disabled />';
+					inIdcHtml+= '<input name="data'+hostItem.id +'" class="form-control js_data" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" required '+(flag? 'disabled':'')+' value="'+(flag? hostItem.data:'' )+'" data-rule-remote="/api/issue_check/checkIfengIp" />';
+					inIdcHtml+= '<input name="ttl'+hostItem.id+'"  class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" required '+(flag? 'disabled':'')+' value="'+(flag? hostItem.ttl:'600')+'" />';
+					inIdcHtml+= '<select name="change_type'+hostItem.id+'" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="no_change" '+(flag? '':'disabled')+'>无更新</option><option value="add" '+(flag? 'disabled':'')+'>增加</option><option value="update" '+(flag? '':'disabled')+'>修改</option><option value="delete" '+(flag? '':'disabled')+'>删除</option></select>';
+					inIdcHtml+= ' </p>';
+
+			});
+			$(".js_movingArea").prepend(inIdcHtml);
+
+	})
+
+	$('input[name="h_type"]').on('click', function () {// 域名类型 变换
+			$(".js_err").html("");
+			if($(this).val() == "动态") {// 点击 静态 radio 
+					$(".js_combine").show();
+					$(".js_split").hide();
+					$(".js_addAItem").hide();
+					$(".js_aHostTypeChange").attr("disabled", true).css({background: "#eee"});
+					if($(".js_aData").length) {
+
+							$.each( $(".js_aData"), function(key, elem) {
+
+									if($(elem).find(".js_id").length) {//有静态数据 ，则静态数据显示为删除操作 且不可更改
+											$(elem).find(".js_data").attr("disabled", true).removeClass("error");
+											$(elem).find(".js_ttl").attr("disabled", true).removeClass("error");;
+											$(elem).find(".js_change_type").val("delete");
+											$(elem).find(".js_change_type option[value=delete]").siblings().attr("disabled", true)
+
+											$.each(hostInfos, function(k, v) {
+													if(v.id == $(elem).find(".js_id").val()) {
+															$(elem).find(".js_data").val(v.data);
+															$(elem).find(".js_ttl").val(v.ttl);
+													}
+
+											})
+									}else {
+											$(elem).remove();//没有id的静态数据为用户新增数据  直接 remove 
+									}
+							})
+
+					}
+
+					if(!$(".js_aData").length) {// 以上$(".js_aData") 遍历、操作后 $(".js_aData")为空 表示该域名没有静态记录，不显示 操作静态域名 tr
+							$(".js_addnewStadic").hide();
+					}
+					$(".js_addnewMoving").show();
+					$(".js_idcItem").remove();
+					//获取机房信息
+					$.ajax({
+							url: "/api/issue_check/getIdcList",
+							type: "GET",
+							dataType: "json",
+							success: function(result) {
+									allIdcs = result;
+
+									var inIdcHtml = '';
+									if(hostType == "动态") { //域名为动态域名 并且有记录，遍历域名信息
+
+											var itemDefault ={};
+											$.each(hostInfos, function(key, val) {
+													if(val.idc_id == 3) {
+															itemDefault = val
+													}else {
+															inIdcHtml+= '<p class="js_idcItem">';//内网
+															inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+															inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="name'+val.id+'" required value="'+val.idc+'" disabled />';
+															inIdcHtml+= '<input class="form-control js_idc_id" style="width: 100px; display: none;margin-right: 10px" type="text" name="idc_id" required value="'+val.idc_id+'" disabled />';
+															inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="host'+val.id+'" required value="'+$(".js_host").val()+'" disabled />';
+															inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="type'+val.id+'" required value="A" disabled />';
+															inIdcHtml+= '<input class="form-control js_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="id'+val.id+'" required value="'+val.id+'"/>';
+															inIdcHtml+= '<input class="form-control js_data" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="data'+val.id+'" required value="'+val.data+'" data-rule-remote="/api/issue_check/checkIfengIp" disabled />';
+															inIdcHtml+= '<input class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" name="ttl'+val.id+'" required value="'+val.ttl+'" disabled />';
+															inIdcHtml+= '<select name="change_type'+val.id+'" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="no_change">无更新</option><option value="add" disabled>增加</option><option value="update">修改</option><option value="delete">删除</option></select>';
+															inIdcHtml+= ' </p>';
+													}
+											})
+											// inIdcHtml+='<hr class="js_line" />'
+											inIdcHtml+= '<p class="js_idcItem">';//默认
+											inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+											inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="name'+itemDefault.id+'" required value="'+itemDefault.idc+'" disabled />';
+											inIdcHtml+= '<input class="form-control js_idc_id" style="width: 100px; display: none;margin-right: 10px" type="text" name="idc_id" required value="'+itemDefault.idc_id+'" disabled />';
+											inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="host'+itemDefault.id+'" required value="'+$(".js_host").val()+'" disabled />';
+											inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="type'+itemDefault.id+'" required value="A" disabled />';
+											inIdcHtml+= '<input class="form-control js_id" style="width: 150px; display: none;margin-right: 10px" type="text" name="id'+itemDefault.id+'" required value="'+itemDefault.id+'"/>';
+											inIdcHtml+= '<input class="form-control js_data iptest" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="data'+itemDefault.id+'" required value="'+itemDefault.data+'" disabled />';
+											inIdcHtml+= '<input class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" name="ttl'+itemDefault.id+'" required value="'+itemDefault.ttl+'" disabled />';
+											inIdcHtml+= '<select name="change_type'+itemDefault.id+'" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="no_change">无更新</option><option value="add" disabled>增加</option><option value="update">修改</option><option value="delete">删除</option></select>';
+											inIdcHtml+= ' </p>';
+
+											if(hostInfos.length == 2) {
+													$(".js_split").show();
+													$(".js_combine").hide();
+
+											}else {
+													$(".js_split").hide();
+													$(".js_combine").show();
+											}
+
+									} else {//域名为静态域名变为动态域名  遍历 allIdcs
+
+											$.each(result[4].son, function(key, val) {// 各机房
+												 
+													inIdcHtml+= '<p class="js_idcItem">';
+													inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+													inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="h_moving_idc" required value="'+val.name+'" disabled />';
+													inIdcHtml+= '<input class="form-control js_idc_id" style="width: 100px; display: none;margin-right: 10px" type="text" name="idc_id" required value="'+val.id+'" disabled />';
+													inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="h_moving_host" required value="'+$(".js_host").val()+'" disabled />';
+													inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="h_moving_type" required value="A" disabled />';
+													inIdcHtml+= '<input class="form-control js_data" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="data'+val.id+'" required value="" data-rule-remote="/api/issue_check/checkIfengIp" />';
+													inIdcHtml+= '<input class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" name="ttl'+val.id+'" required value="600" />';
+													inIdcHtml+= '<select name="change_type'+val.id+'" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="add">增加</option><option value="update" disabled>修改</option><option value="delete" disabled>删除</option></select>';
+													inIdcHtml+= ' </p>';
+	
+											})
+											// inIdcHtml+='<hr class="js_line" />'
+											inIdcHtml+= '<p class="js_idcItem">';//默认
+											inIdcHtml+= '<span style="display: inline-block; padding-right: 10px;"><em style="color: #f00;">* </em></span>';
+											inIdcHtml+= '<input class="form-control js_idc" style="width: 100px; display: inline-block;margin-right: 10px" type="text" name="idc" required value="默认" disabled />';
+											inIdcHtml+= '<input class="form-control js_idc_id" style="width: 100px; display: none;margin-right: 10px" type="text" name="idc_id" required value="3" disabled />';
+											inIdcHtml+= '<input class="form-control js_host" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="h_moving_host" required value="'+$(".js_host").val()+'" disabled />';
+											inIdcHtml+= '<input class="form-control js_type" style="width: 50px; display: inline-block;margin-right: 10px" type="text" name="h_moving_type" required value="A" disabled />';
+											inIdcHtml+= '<input class="form-control js_data iptest" placeholder="目标地址" style="width: 150px; display: inline-block;margin-right: 10px" type="text" name="data3" required value="" />';
+											inIdcHtml+= '<input class="form-control js_ttl number" style="width: 80px; display: inline-block;margin-right: 10px" type="text" name="ttl3" required value="600" />';
+											inIdcHtml+= '<select name="change_type3" class="form-control js_change_type" style="width: 100px; display: inline-block; margin-left: 5px;"><option value="add">增加</option><option value="update" disabled>修改</option><option value="delete" disabled>删除</option></select>';
+											inIdcHtml+= ' </p>';
+									}
+
+									$(".js_movingArea").append(inIdcHtml)
+
+
+							}
+					})
+
+			}else {//点击静态 radio
+
+					
+
+					if(hostType == "静态") {
+							$(".js_addAItem").show();
+							$(".js_aHostTypeChange").attr("disabled", false).css({background: "#fff"});
+							if($(".js_aData").length) {
+	
+									$.each( $(".js_aData"), function(key, elem) {
+	
+											if($(elem).find(".js_id").length) {
+													$(elem).find(".js_change_type").val("no_change");
+													$(elem).find(".js_change_type option[value=add]").attr("disabled", true).siblings().attr("disabled", false)
+											}else {
+													$(elem).remove();
+											}
+									})
+	
+							}else {
+									$(".js_addAItem").trigger("click");
+							}
+							$.each($(".js_idcItem"), function(key, ele) {
+									if(!$(ele).find(".js_id").val()) {
+											$(ele).remove();
+
+									}
+							})
+
+							
+							$(".js_addnewStadic").show();
+							$(".js_addnewMoving").hide();
+							$(".js_aHostTypeChange").trigger("change");
+
+					} else {//动态域名更新为CNMAE
+							$(".js_aHostTypeChange").val("CNAME").trigger("change").attr("disabled", true);
+
+							$.each($(".js_idcItem"), function(key, ele) {
+									if( $(ele).find(".js_id").val()) {
+											var item = {}
+											$.each(hostInfos, function(key, val) {
+													if(val.id == $(ele).find(".js_id").val()) {
+															item = val
+													}
+											})
+											$(ele).find('.js_data').val(item.data).attr("disabled", true);
+											$(ele).find('.js_ttl').val(item.ttl).attr("disabled", true);
+											$(ele).find(".js_change_type").val("delete").attr("disabled", true).css({background: "#eee"});
+
+									}else {
+											$(ele).remove();
+									}
+									// if($(ele).find(".js_change_type").length) {
+											
+									//     var idcID = $(ele).find(".js_change_type").attr("name").substring(11);
+									//     var item = {}
+									//     $.each(hostInfos, function(key, val) {
+									//         if(val.id == $(ele).find(".js_id").val()) {
+									//             item = val
+									//         }
+									//     })
+									//     $(ele).find('input[name="data'+idcID+'"]').val(item.data).attr("disabled", true);
+									//     $(ele).find('input[name="ttl'+idcID+'"]').val(item.ttl).attr("disabled", true);
+									//     $(ele).find(".js_change_type").val("delete").attr("disabled", true).css({background: "#eee"});
+									// }
+							})
+
+							$(".js_combine").hide();
+							$(".js_split").hide();
+
+							$(".js_addnewStadic").show();
+							$(".js_addnewMoving").show();
+
+					}
+					
+			}
+
+	})
+
+	function writeBackDataAndTtl(ele, hostInfos) {
+
+	}
+
+	function writeHostInfo() {
+
+			$(".js_idcItem").length;
+			$(".js_aData").length;
+
+			var data = []
+			$.each($(".js_idcItem"), function(key, ele) {
+					var type = $(ele).find(".js_change_type").val();
+					if( !!type && type == "delete") {
+							data.push({
+									id: $(ele).find(".js_id").val(), 
+									zone_id: 1, 
+									zone: "ifengidc.com", 
+									host: $(ele).find(".js_host").val(), 
+									type: $(ele).find(".js_type").val(), 
+									data: $(ele).find(".js_data").val(),
+									ttl: $(ele).find(".js_ttl").val(),
+									change_type: $(ele).find(".js_change_type").val(),
+									idc: $(ele).find(".js_idc").val(),
+									idc_id: $(ele).find(".js_idc_id").val()
+							})
+
+
+					}else if( !!type && type =="update") {
+							data.push({
+									id: $(ele).find(".js_id").val(), 
+									data: $(ele).find(".js_data").val(),
+									ttl: $(ele).find(".js_ttl").val(),
+									change_type: $(ele).find(".js_change_type").val(), 
+							})
+
+					}else if( !!type && type =="no_change") {
+							data.push({
+									zone_id: 1, 
+									idc_id: $(ele).find(".js_idc_id").val(),
+									host: $(ele).find(".js_host").val(),
+									type: $(ele).find(".js_type").val(),
+									id: $(ele).find(".js_id").val(), 
+									data: $(ele).find(".js_data").val(),
+									ttl: $(ele).find(".js_ttl").val(),
+									change_type: $(ele).find(".js_change_type").val(), 
+							})
+					}else if( !!type ) {
+							data.push({
+									zone_id: 1, 
+									idc_id: $(ele).find(".js_idc_id").val(),
+									host: $(".js_host").val(),
+									type: "A",
+									data: $(ele).find(".js_data").val(),
+									ttl: $(ele).find(".js_ttl").val(),
+									change_type: $(ele).find(".js_change_type").val(), 
+							})
+
+					}
+
+
+			})
+			$.each($(".js_aData"), function(key, ele) {
+					var type = $(ele).find(".js_change_type").val();
+					if( type == "add") {// 静态add
+							
+							data.push({
+									zone_id: 1, 
+									host: $(".js_host").val(),
+									type: $(".js_aHostTypeChange").val(),
+									data: $(ele).find(".js_data").val(),
+									ttl: $(ele).find(".js_ttl").val(),
+									change_type: $(ele).find(".js_change_type").val()
+							})
+					}else if( type == "delete") {//静态 delete
+
+							data.push({
+									id: $(ele).find(".js_id").val(), 
+									host: $(".js_host").val(), 
+									change_type: $(ele).find(".js_change_type").val()
+							})
+					}else {//静态 no_change update
+							data.push({
+									id: $(ele).find(".js_id").val(), 
+									data: $(ele).find(".js_data").val(), 
+									ttl: $(ele).find(".js_ttl").val(), 
+									change_type: $(ele).find(".js_change_type").val()
+							})
+					}
+			})
+
+			console.log(data)
+			$(".js_hostAcionInfo").val(JSON.stringify(data));
+			$(".submit").attr("disabled", false);
+
+
+	}
+
+	$(document).on("blur", ".js_data, .js_ttl", function() {
+			writeHostInfo();
+	})
+})
+</script>
+<tr class="js_hostType">
+	<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i><span class="js_name">域名类型</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="域名类型">
+			<input type="radio" name="h_type" value="静态">　静态　　　
+			<input type="radio" name="h_type" value="动态">　动态
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="js_actionArea">
+	<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i><span class="js_name"> 操作</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="操作">
+			<span class="js_actionItem"><input type="radio" name="h_action" value="新增" class="js_addnewStadicBtn">　新增　　</span>
+			<span class="js_actionItem"><input type="radio" name="h_action" value="增加" class="js_add"> 　增加　　</span>
+			<span class="js_actionItem"><input type="radio" name="h_action" value="修改" class="js_update"> 　修改　　</span>
+			<span class="js_actionItem"><input type="radio" name="h_action" value="删除" class="js_delete"> 　删除　　</span>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="js_allHostInfo">
+	<td>域名详情</td>
+	<td colspan="2">
+			<table class="table table-striped table-bordered">
+					<thead>
+							<tr>
+									<th>域名前缀</th>
+									<th>类型</th>
+									<th>目标地址</th>
+									<th>TTL</th>
+									<th>分流</th>
+							</tr>
+					</thead>
+					<tbody class="js_hostInfo">
+					</tbody>
+			</table>
+	</td>
+	<td></td>
+</tr>
+<tr class="js_addnewStadic">
+	<!-- 新增静态 -->
+	<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i><span class="js_name"> 操作静态域名</span>
+	</td>
+	<td width="40%" colspan="2"  >
+			<div class="js_stadicArea" style="min-height: 130px; position: relative;">
+					<p><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>域名前缀:</span><input class="form-control js_host" style="width: 200px; display: inline-block;" type="text" name="host" required disabled /></p>
+					<p><span style="width: 100px; text-align: right; display: inline-block; padding-right: 20px;"><em style="color: #f00;">* </em>类型:</span>
+							<select name="hostType" class="js_aHostTypeChange" style="width: 200px; display: inline-block;">
+									<option value="A">A</option>
+									<option value="CNAME">CNAME</option>
+							</select>
+					</p>
+					<span class="glyphicon glyphicon-plus js_addAItem" style="position: absolute; top: 108px; left: 600px;; cursor: pointer; margin-left: 10px; color: #178acc;z-index: 100;"></span>
+
+			</div>
+	</td>
+	<td width="15%" class="js_err"></td>
+</tr>
+<tr class="js_addnewMoving">
+	<!-- 新增静态 -->
+	<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i><span class="js_name"> 操作动态域名</span>
+	</td>
+	<td width="40%" colspan="2">
+			<div class="js_movingArea" style="position: relative;">
+					<span class="js_combine btn btn-primary" style="position: absolute; top: 48px; left: 718px; z-index: 100;">合并为内网</span>
+					<span class="js_split btn btn-primary" style="position: absolute; top: 48px; left: 718px; display: none; z-index: 100;">拆分为各机房</span>
+			</div>
+	</td>
+	<td width="15%" class="js_err"></td>
+</tr>
+
+<tr class="js_allHostChange">
+	<td>变更中信息</td>
+	<td colspan="2">
+			<table class="table table-striped table-bordered">
+					<thead>
+							<tr>
+									<th>域名前缀</th>
+									<th>类型</th>
+									<th>目标地址</th>
+									<th>TTL</th>
+									<th>分流</th>
+									<th>操作类型</th>
+									<th>操作人</th>
+							</tr>
+					</thead>
+					<tbody class="js_hostChange">
+					</tbody>
+			</table>
+	</td>
+	<td></td>
+</tr>
+<tr class="hidden">
+	<td width="20%">
+			<span class="js_name"><i class="glyphicon glyphicon-star red"></i> 域名变更</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="域名变更">
+			<input type="text" class="form-control js_hostAcionInfo" name="t_custom_ifengidc_domain" data-label="域名变更" value="" required />
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 306px;">
+		<span class="js_name">停用时间</span>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择停用时间" data-original-title="停用时间" style="width: 610px;">
+			<input type="text" class="form-control form_datetime" name="t_end_time" data-label="停用时间" readonly="" size="16"  /></td>
+	<td width="25%" style="width: 381px;"></td>
+	<td width="15%" style="width: 228px;"></td>
+</tr>
+	
+
+<tr>
+	<td width="20%">
+			<span class="js_name">申请说明</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请说明">
+			<textarea type="text" class="form-control" name="t_detail" data-label="申请说明" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

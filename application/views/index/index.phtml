@@ -1,0 +1,386 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.title{padding: 10px 15px;}
+#createModal .goback{margin: -10px 0 10px 85%;}
+#type-treeview{margin: 0 15px;}
+.OftenUseServer,.OftenUseChange{padding: 0px 0px;}
+.OftenUseServer p,.OftenUseChange p{height: 40px;line-height: 40px;padding-left: 20px;margin: 0px 0px;border-bottom: 1px solid #dedede;color: #555;position: relative;}
+.OftenUseServer p span,.OftenUseChange p span{color: #2fa4e7;cursor: pointer;position: absolute;right: 25px;}
+</style>
+
+<div class="ch-container">
+    <div class="row">
+
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div style="position:relative;">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/index">首页</a>
+                    </li>
+                </ul>
+                <input id="fastsearch" class="form-control" type="text" style="width: 140px; height:28px; position:absolute;left: 62px;top: 3px;z-index:999;padding:2px 10px;" placeholder="提案号快速搜索"> 
+                <button id="fastsearch_btn" class="btn-primary" style="width: 60px; height:27px; position:absolute;left: 200px;top: 3px;z-index:999;">搜索</button>
+            </div><!--/row-->
+
+            <div class="row">
+                <div class="box-content" style="padding-bottom:0px;">
+                    <div class=" row">
+                        <!-- <div class="col-md-2 col-sm-2 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="新建服务和变更" class="well top-block alert-danger"
+                                href="/issue/server/create?name=token">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-tags red"></i>
+                                <div class="red">申请凤凰令牌</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div> -->
+                        <div class="col-md-2 col-sm-2 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="新建服务和变更" class="well top-block"
+                                href="/issue/server/index">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-pencil blue"></i>
+                                <div>新建服务</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="分配给我处理的服务和变更" class="well top-block js_myNum"
+                                href="/issue/server/myAssignment">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-envelope red"></i>
+                                <div>分配给我的</div>
+                                <div>&nbsp;</div>
+                                
+                            </a>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="我申请的服务和变更" class="well top-block"
+                                href="/issue/server/myApply">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-edit yellow"></i>
+                                <div>我申请的</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="我操作过的服务和变更" class="well top-block"
+                                href="/issue/server/myOperated">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-wrench green"></i>
+                                <div>我操作过的</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-4" style="width:15%">
+                            <a data-toggle="tooltip" title="我关注的服务和变更" class="well top-block"
+                                href="/issue/server/myFocus">
+                                <div>&nbsp;</div>
+                                <i class="glyphicon glyphicon-star"></i>
+                                <div>我的关注</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class=" row">
+                        <div class="col-md-12">
+                           <div class="box-inner">
+                                <div class="box-header well" data-original-title="">
+                                    <h2><i class="glyphicon glyphicon-volume-down"></i> 公告说明</h2>
+
+                                    <div class="box-icon">
+                                        <a class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    </div>
+                                </div>
+                                <div class="box-content">
+                                    <dl>
+                                        <dt style="color: #fa2031;margin-bottom:10px;"> <span class="label label-warning">说明</span>“新建服务” 与 “新建变更” 的说明</dt>
+                                        <ul>
+                                            <li>服务：本人提出申请,审批后,其他人来执行完成.如申请公网映射,审批后由运维中心网络组同事来执行完成.</li>
+                                            <li>变更：本人提出申请,审批后,本人执行完成.如运维中心同事申请数据中心网络变更,审批后由申请人本人来执行完成.</li>
+                                        </ul>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class=" row">
+                         <div class="col-md-6">
+                           <div class="box-inner">
+                                <div class="box-header well" data-original-title="">
+                                    <h2><i class="glyphicon glyphicon-align-justify"></i> 我常用的服务</h2>
+
+                                    <div class="box-icon">
+                                        <a class="btn btn-round btn-default js_addService"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <a class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    </div>
+                                </div>
+                                <div class="box-content OftenUseServer">
+                                    <!-- <p type="vpn1" name="申请VPN"><a href="http://baidu.com">申请VPN1</a> <span class="js_dele"><i class="glyphicon glyphicon-remove"></i></span></p> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                           <div class="box-inner">
+                                <div class="box-header well" data-original-title="">
+                                    <h2><i class="glyphicon glyphicon-align-justify"></i> 我常用的变更</h2>
+
+                                    <div class="box-icon">
+                                        <a class="btn btn-round btn-default js_addChange"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <a class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    </div>
+                                </div>
+                                <div class="box-content OftenUseChange">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/row-->
+
+        </div>
+    </div>
+    
+      <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="title"> 请选择服务类型</h4>
+                    <div id="type-treeview" class=""></div>
+                  </div>
+                </div>
+                <a class="btn btn-default goback js_cancel">取消</a>
+            </div>
+        </div>
+    </div><!--end  Modal-->
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/ifos.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#IssueServer').addClass('active').find('ul').slideToggle();
+
+        var list = {
+            init: function(){
+                var that = this;
+                $(".js_addService").click(function(){
+                    $('#createModal').modal('show');
+                    $('#createModal .title').html(" 请选择服务类型")
+                    that.getTree("getIssueServerTree","server");
+                })
+                $(".js_addChange").click(function(){
+                    $('#createModal').modal('show');
+                    $('#createModal .title').html(" 请选择变更类型")
+                    that.getTree("getIssueChangeTree","change");
+                })
+
+                $(".js_cancel").click(function(){
+                    $('#createModal').modal('hide');
+                })
+
+                $(document).on("click",".js_delServer",function(){
+                    list.delOftenUseServer("server",$(this).parent().attr("name"),$(this).parent().attr("text"));
+                })
+               $(document).on("click",".js_delChange",function(){
+                    list.delOftenUseChange("change",$(this).parent().attr("name"),$(this).parent().attr("text"));
+                })
+               
+                that.getOftenUseServerList();
+                that.getOftenUseChangeList();
+                that.getNum();
+
+                $(document).on("click",".list-group-item",function(){
+                    //找到当前节点id
+                    var nodeid = $(this).attr('data-nodeid');  
+                    var tree = $('#type-treeview');  
+                    //获取当前节点对象  
+                    var node = tree.treeview('getNode', nodeid);  
+                      
+                    if(node.state.expanded){   
+                        //处于展开状态则折叠  
+                        tree.treeview('collapseNode', node.nodeId);    
+                    } else {  
+                        //展开  
+                        tree.treeview('expandNode', node.nodeId);  
+                    }  
+                })
+
+                $(".js_tdcode").hover(function(){
+                    $(this).next().next().toggle();
+                }) 
+
+                $("#fastsearch_btn").click(function() {
+                    if($("#fastsearch").val()){
+                        window.location.href = '/issue/server/detail?id='+$("#fastsearch").val()+'&no-cache=' + Math.random()
+                    }
+                }) 
+                $('#fastsearch').on('keypress', function(event) {  
+                    if ((event.keyCode == "13") && $("#fastsearch").val()) {   
+                        event.preventDefault();   
+                        window.location.href = '/issue/server/detail?id='+$("#fastsearch").val()+'&no-cache=' + Math.random()  
+                    }  
+                })
+
+            },
+            getTree: function(url,type){
+                $('#type-treeview').empty();
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_server/"+url,
+                    data: {},
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (!!result) {
+                            var data = result;
+                            $('#type-treeview').treeview({
+                            levels: 1,
+                            color: "#428bca",
+                            expandIcon: 'glyphicon glyphicon-chevron-right',
+                            collapseIcon: 'glyphicon glyphicon-chevron-down',
+                            nodeIcon: 'glyphicon glyphicon-bookmark',
+                            onNodeSelected: function (event, node) {
+                                if ( typeof(node.href) !== 'undefined') {
+                                    $('#createModal').modal('hide');
+                                    list.addOftenUseServer(type,node.href,node.name);
+
+                                }
+                            },
+                            data: data
+                          });
+                        } else {
+                          console.log("没有数据");
+                        }
+                    }
+                });
+            },
+            addOftenUseServer: function(type,name,text){
+                $.ifosAjax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/api/issue_server/addOftenUseServer",
+                    data: {
+                        type:type,
+                        name:name,
+                        text:text
+                    },
+                    success: function(result) {
+                        if(type == 'server'){
+                            $.alert(result.msg,list.getOftenUseServerList);
+                        }else{
+                            $.alert(result.msg,list.getOftenUseChangeList);
+                        }
+                    }
+                });
+            },
+            delOftenUseServer: function(type,name,text){
+                $.ifosAjax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/api/issue_server/delOftenUseServer",
+                    data: {
+                        type:type,
+                        name:name,
+                        text:text
+                    },
+                    success: function(result) {
+                        $.alert(result.msg,list.getOftenUseServerList)
+
+                    }
+                });
+            },
+            delOftenUseChange: function(type,name,text){
+                $.ifosAjax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/api/issue_server/delOftenUseServer",
+                    data: {
+                        type:type,
+                        name:name,
+                        text:text
+                    },
+                    success: function(result) {
+                        $.alert(result.msg,list.getOftenUseChangeList)
+
+                    }
+                });
+            },
+            getOftenUseServerList: function(){
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_server/getOftenUseServerList",
+                    data: {
+                        type:'server'
+                    },
+                    success: function(result) {
+                        $(".OftenUseServer").empty();
+                        var index = 1;
+                        $.each(result.data,function(k,v){
+                            $(".OftenUseServer").append('<p name="'+k+'" text="'+v+'"><a href="/issue/server/create?servicename='+encodeURI(encodeURI(v))+'&name='+k+'">'+index+' '+v+' </a><span class="js_delServer"><i class="glyphicon glyphicon-remove"></i></span></p>');
+                            index++;
+
+                        })
+
+                    }
+                });
+            },
+            getOftenUseChangeList: function(){
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_server/getOftenUseServerList",
+                    data: {
+                        type:'change'
+                    },
+                    success: function(result) {
+                        $(".OftenUseChange").empty();
+                        var index = 1;
+                        $.each(result.data,function(k,v){
+                            $(".OftenUseChange").append('<p name="'+k+'" text="'+v+'"><a href="/issue/server/create?servicename='+encodeURI(encodeURI(v))+'&name='+k+'">'+index+' '+v+' </a><span class="js_delChange"><i class="glyphicon glyphicon-remove"></i></span></p>');
+                            index++;
+
+                        })
+
+                    }
+                });
+            },
+            getNum: function(){
+                 $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_server/getCountAssignServer",
+                    data: {},
+                    success: function(result) {
+                       if(result.status){
+                        $(".js_myNum").append('<span class="notification red ">'+result.data.total+'</span>' )
+                       }
+
+                    }
+                });
+            }
+        }
+
+        list.init();
+
+    });
+</script>

@@ -1,0 +1,58 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请人手机号</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="申请人手机号码" data-original-title="申请人手机号"><input type="text" class="form-control" required="" name="t_mobile" data-label="申请人手机号" value="" data-rule-regex="/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|145|147|170|176|177|178)+\d{8})$/" data-msg-regex="手机号错误" aria-required="true" aria-invalid="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<!-- <tr>
+    <td width="20%"><span class="js_name">交接人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要填写详细的交接人信息" data-original-title="交接人"><textarea type="text" class="form-control valid" name="t_transfer" data-label="交接人" value="" rows="3" aria-invalid="false"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要填写详细的说明信息" data-original-title="说明"><textarea type="text" class="form-control valid" name="t_comment" data-label="说明" value="" rows="3" aria-invalid="false"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">需求描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要填写详细的需求描述信息" data-original-title="需求描述"><textarea type="text" class="form-control valid" required="" name="t_description" data-label="需求描述" value="" rows="3" aria-required="true" aria-invalid="false"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">内网服务器IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要映射的内网服务器IP" data-original-title="内网服务器IP"><input type="text" class="form-control" required="" name="t_int_ip" data-label="内网服务器IP" value="" data-rule-regex="/^((\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5]))$/" data-msg-regex="IP地址错误" aria-required="true" aria-invalid="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">内网服务器端口</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要映射的内网服务器端口" data-original-title="内网服务器端口"><input type="text" class="form-control" required="" name="t_int_port" data-label="内网服务器端口" value="" data-rule-remote="/api/issue_check/checkServerPort" aria-required="true">
+        <p class="info_special_ps">多个端口请使用','分割，连续端口请用'-'连接，如100,600-660</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">公网的服务器端口</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要映射到公网的服务器端口" data-original-title="公网的服务器端口"><input type="text" class="form-control" required="" name="t_ext_port" data-label="公网的服务器端口" value="" data-rule-remote="/api/issue_check/checkServerPort" aria-required="true">
+        <p class="info_special_ps">常用端口如80、443、389、21等不允许使用，如有需求，审批流程 会提升至总监级</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用时间-开始</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="使用开始时间" data-original-title="使用时间-开始"><input type="text" class="form-control form_datetime" required="" name="t_use_startTime" data-label="使用时间-开始" readonly="" size="16" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用时间-结束</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="使用结束>时间" data-original-title="使用时间-结束"><input type="text" class="form-control form_datetime" required="" name="t_use_endTime" data-label="使用时间-结束" readonly="" size="16" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>

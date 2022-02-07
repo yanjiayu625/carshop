@@ -1,0 +1,80 @@
+<!-- left menu starts -->
+<div class="col-sm-2 col-lg-2">
+  <div class="sidebar-nav sidebar-nav-first">
+    <div class="nav-canvas">
+      <ul class="nav nav-pills nav-stacked main-menu">
+        <li><a href="/index"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a></li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-canvas">
+      <ul class="nav nav-pills nav-stacked main-menu">
+        <!--IdcOs装机系统-->
+        <li class="nav-header"><i class="glyphicon glyphicon-wrench"></i><span> IFOS装机平台</span></li>
+        <li class="accordion" id="IdcOS">
+          <a href="#"><i class="glyphicon glyphicon-hdd"></i><span> 物理机管理</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="device-new"><a href="/idcos/device/new"> 录入新设备</a></li>
+            <li id="device-list"><a href="/idcos/device/list"> 所有设备列表</a></li>
+            <li id="device-waiting"><a href="/idcos/device/waiting"> 等待安装 <span class="yellow js_wait_num"></span></a></li>
+            <li id="device-installing"><a href="/idcos/device/installing"> 正在安装 <span class="blue js_installing_num"></span></a></li>
+            <li id="device-failure"><a href="/idcos/device/failure"> 安装失败 <span class="red js_failure_num"></span></a></li>
+            <li id="device-complete"><a href="/idcos/device/complete"> 安装完成</a></li>
+          </ul>
+        </li>
+        <li class="accordion" id="Config">
+          <a href="#"><i class="glyphicon glyphicon-qrcode"></i><span> 模板管理</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="config-os"><a href="/idcos/config/os"> 系统安装模板管理</a></li>
+            <li id="config-hardware"><a href="/idcos/config/hardware"> 硬件配置模板管理</a></li>
+            <li id="config-network"><a href="/idcos/config/network"> 网段管理</a></li>
+            <li id="config-location"><a href="/idcos/config/location"> 机房信息管理</a></li>
+          </ul>
+        </li>
+        <li class="accordion">
+          <a href="#"><i class="glyphicon glyphicon-signal"></i><span> 统计报表</span></a>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="#"> 设备状态统计</a></li>
+          </ul>
+        </li>
+        <li class="accordion" id="Company">
+          <a href="#"><i class="glyphicon glyphicon-align-justify"></i><span> 厂商及型号</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="company-brand"><a href="/idcos/company/brand">厂商和产品</a></li>
+            <!-- <li id="company-hardware"><a href="/idcos/company/hardware">硬件模板配置</a></li> -->
+          </ul>
+        </li>
+        <li class="nav-header hidden-md">Other System</li>
+        <!--<li><a href="#"><i class="glyphicon glyphicon-calendar"></i><span> Vlan</span></a>-->
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script>
+  $(function() {
+    function get_num() {
+      //获取数量信息
+      $.ajax({
+        url: "/api/idcos_general/getDeviceStatusNum",
+        type: "get",
+        dataType: "json",
+        contentType: 'application/json',
+        success: function(data) {
+          $(".js_wait_num").html(data.waiting);
+          $(".js_installing_num").html(data.installing);
+          $(".js_failure_num").html(data.failure);
+        }
+      });
+    }
+    get_num();
+    setInterval(function(){get_num()}, 30000);
+
+  })
+  </script>
+</div>
+<!-- left menu ends-->

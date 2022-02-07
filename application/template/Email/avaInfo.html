@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>可用性邮件</title>
+    <style>
+    body {
+        background: #2E363F;
+        overflow-x: hidden;
+        font-family: "Microsoft YaHei" ! important;
+        font-size: 12px;
+        color: #666;
+        width: 90%;
+    }
+
+    table thead {
+        font-size: 12px;
+        font-weight: bold;
+        background: #eee;
+    }
+
+    .item {
+        width: 500px;
+        line-height: 1.2;
+        border: 1px solid #ddd;
+        background-color: #eee;
+        border-radius: 4px;
+        padding: 10px;
+    }
+
+    table td {
+        border-collapse: collapse;
+    }
+    </style>
+</head>
+
+<body>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background: #2E363F;font-size: 28px;padding:10px 10px;">
+        <tr>
+            <td style="border: 0;"><span style="color: #ffffff;">运维中心 可用性</span><span style="color: #ffffff;">--</span><span style="color: #ffb848;">故障报告</span><span style="color: #ffffff;">提醒邮件</span></td>
+        </tr>
+    </table>
+    <table width="100%" style="background: #2E363F;">
+        <tr>
+            <td style="padding: 15px;border: 0;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background: #fff;">
+                    <tr>
+                        <td align=center>
+                            <br>
+                            <table cellpadding="0" cellspacing="0" class="table-purper" style="width: 98%;border: 1px solid #ff5d00;margin-bottom: 20px;">
+                                <caption style="height: 30px;line-height: 30px;text-align: center; padding-top: 10px;padding-bottom: 10px;font-size: 16px;border-top: 1px solid #ff5d00;border-left: 1px solid #ff5d00;border-right: 1px solid #ff5d00;background: #ff5d00;color: #fff;">故障报告详情</caption>
+                                <tbody>
+                                    <tr>
+                                        <td width="20%" align=right style="padding: 10px 10px;">故障标题</td>
+                                        <td width="70%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{title}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">创建人</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{user}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">所属服务/业务</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{business}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">受影响用户种类</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{level}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">故障类型</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{type}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">影响功能</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{effect}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">故障开始时间</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{start_time}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">服务恢复时间</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{end_time}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">故障时长</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{time}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">故障原因</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{reason}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">责任部门</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{duty_department}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">责任人</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{duty_user}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=right style="padding: 10px 10px;">改进措施</td>
+                                        <td width="60%" style="padding: 10px 10px;">
+                                            <table width="100%" style="padding: 10px 10px;border: 1px solid #ddd;background-color: #eee;border-radius: 4px;">
+                                                <tr>
+                                                    <td style="padding: 10px 10px; line-height: 1.2;">
+                                                        %{improvement}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="40"> </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

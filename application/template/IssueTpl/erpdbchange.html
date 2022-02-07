@@ -1,0 +1,93 @@
+<tr>
+    <td width="20%"></td>
+    <td width="40%">
+        <p class="alert alert-danger" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">该系统只有信息系统部的同学可以申请！!</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">数据库名称</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库名称"><select class="form-control js_dbname valid" required="" name="t_dataname" data-label="数据库名称" aria-required="true" aria-invalid="false">
+            <option value="1">财务系统</option>
+            <option value="2">人力资源系统</option>
+            <option value="3">法律部系统</option>
+            <option value="4">行政部系统</option>
+            <option value="5">其他系统</option>
+        </select></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="js_diretor">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">部门总监</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="部门总监"><input type="text" class="form-control js_diretorChange" data-rule-remote="/api/issue_check/checkHeadName" name="t_name_diretor" data-label="部门总监" value="" data-rule-regex="" data-msg-regex="" aria-required="true" placeholder="请输入部门总监" /></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原因及操作内容</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原因及操作内容"><textarea type="text" class="form-control" required="" name="t_reason" data-label="原因及操作内容" value="" rows="3" aria-required="true"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">业务部门VP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="业务部门VP"><input type="text" class="form-control js_dbvpChange" required="" data-rule-remote="/api/issue_check/checkHeadName" name="t_name_bdvp" data-label="业务部门VP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">知会人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="一行一个域账号" data-original-title="知会人"><textarea type="text" class="form-control" required="" name="t_notify" data-label="知会人" value="" rows="3" aria-required="true"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+    <script>
+        $(function() {
+    
+            var erpdbChangeBox = {
+                init: function() {
+                    var that = this;
+                    $(".js_diretor").hide();
+                    $("#info").append('<input type="hidden" name="i_director" value="">');
+                    $("#info").append('<input type="hidden" name="i_bdvp" value="">');
+                    
+                    $(".js_dbvpChange").blur( function() {
+                        $("input[name='i_bdvp']").val($(this).val())
+                    })
+
+                    $(".js_dbname").change( function() {
+                        var index = $(this).val()
+                        if( index == 5 ) {
+                            $(".js_diretor").show();
+                            $(".js_diretorChange").attr("required", true)
+
+                        }else {
+                            $(".js_diretor").hide();
+                            $("input[name='i_director']").val(that.deretorArr[index]);
+                            $(".js_diretorChange").attr("required", false)
+                        }
+                    })
+
+                    $(".js_dbname").trigger("change");
+
+                    $(".js_diretorChange").change( function() {
+                        $("input[name='i_director']").val($(this).val())
+
+                    })
+
+                    var departName = $("input[name='i_department']").val()
+
+                    if(departName.indexOf("信息系统部") ==-1) {
+                        $(".submit").addClass("btn-default").removeClass("btn-primary").attr("disabled", true);
+                    }
+                },
+                deretorArr: ["", "weijy3", "zhangyang7", "likx1", "yanhong"]
+    
+    
+            };
+
+            erpdbChangeBox.init();
+    
+        })
+    </script>

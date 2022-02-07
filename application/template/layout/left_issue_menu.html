@@ -1,0 +1,59 @@
+<!-- left menu starts -->
+<div class="col-sm-2 col-lg-2" id="leftIssueMenu">
+  <div class="sidebar-nav sidebar-nav-first">
+    <div class="nav-canvas">
+      <ul class="nav nav-pills nav-stacked main-menu">
+        <li><a href="/index"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a></li>
+
+      </ul>
+    </div>
+  </div>
+  
+  <div class="sidebar-nav">
+    <div class="nav-canvas">
+      <ul class="nav nav-pills nav-stacked main-menu">
+        <!--PMS 流程管理-->
+        <li class="nav-header"><i class="glyphicon glyphicon-random"></i><span> PMS 流程管理</span></li>
+        <li class="accordion" id="IssueServer">
+          <a href="#"><i class="glyphicon glyphicon-calendar"></i><span> 常用服务</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="IssueServer-index"><a href="/issue/server/index"> 新建服务</a></li>
+            <li id="IssueChange-index"><a href="/issue/server/change"> 新建变更</a></li>
+            <li id="IssueServer-myApply"><a href="/issue/server/myApply"> 我申请的</a></li>
+            <li id="IssueServer-myAssignment"><a href="/issue/server/myAssignment">分配给我的</a></li>
+            <li id="IssueServer-myOperated"><a href="/issue/server/myOperated"> 我操作过的</a></li>
+            <li id="IssueServer-myFocus"><a href="/issue/server/myFocus"> 我关注的</a></li>
+            <li id="IssueServer-search"><a href="/issue/server/search"> 搜索提案</a></li>
+          </ul>
+        </li>
+        <li class="accordion" id="IssueData">
+          <a href="#"><i class="glyphicon glyphicon-th"></i><span> 数据统计</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="IssueData-total"><a href="/issue/admin/totaldata"> 总体统计</a></li>
+            <li id="IssueData-sub"><a href="/issue/admin/subdata"> 分类统计</a></li>
+            <li id="IssueData-time"><a href="/issue/admin/timedata"> 时间统计</a></li>
+            <li id="IssueData-domain"><a href="/issue/admin/domaindata"> 域名统计</a></li>
+            <li id="IssueData-repairlist"><a href="/issue/admin/repairlist"> 报修统计</a></li>
+          </ul>
+        </li>
+        <li class="accordion " id="IssueUsability">
+          <a href="#"><i class="glyphicon glyphicon-signal"></i><span> 可用性</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="Usability-add"><a href="/issue/server/availabilityadd"> 故障报告录入</a></li>
+            <li id="Usability-search"><a href="/issue/server/availabilitysearch"> 故障报告搜索</a></li>
+            <li id="Usability-report"><a href="/issue/server/availabilityreport"> 可用性报告</a></li>
+            <li id="Usability-Norm"><a href="/issue/server/availabilitynorm"> 可用性指标</a></li>
+          </ul>
+        </li>
+        <li class="accordion" id="IssueAdmin">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i><span> 设置管理</span></a>
+          <ul class="nav nav-pills nav-stacked secondary-menu">
+            <li id="IssueAdmin-set"><a href="/issue/admin/index"> 提案管理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<!-- left menu ends-->

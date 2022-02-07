@@ -1,0 +1,301 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">机房操作</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择机房操作类型" data-original-title="机房操作">
+        <input type="radio" name="h_idc" data-label="机房" value="1" required="" checked="checked" aria-required="true">
+        <label>增加</label>　
+        <input type="radio" name="h_idc" data-label="机房" value="2" required="" aria-required="true">
+        <label>删除</label>　
+        <input type="radio" name="h_idc" data-label="机房" value="3" required="" aria-required="true">
+        <label>无操作</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="js_add_idc">
+    <td width="20%"></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入新增机房信息" data-original-title="新增机房">
+        <div style="border:1px solid #ddd;padding:10px 10px;border-radius: 4px;background: #f9f9f9;">
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>机房名称:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_name" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>机房缩写:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_short" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>机房地址:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_address" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>客户经理:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_account_manager" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　<i class="glyphicon glyphicon-star red"></i>客户经理电话:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_mobile" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　<i class="glyphicon glyphicon-star red"></i>客户经理邮箱:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_email" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　<i class="glyphicon glyphicon-star red"></i>机房值班电话:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_duty_phone" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                　　　　<i class="glyphicon glyphicon-star red"></i>授权人:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_licensor" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+            <p>
+                <i class="glyphicon glyphicon-star red"></i>下工单申请邮箱:
+                <input type="text" class="form-control" style="display: inline-block;width:60%" required="" name="h_work_order_email" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+            </p>
+        </div>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="js_del_idc" style="display: none;">
+    <td width="20%" style="width: 306px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">删除机房</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择要删除的机房" data-original-title="删除机房" style="width: 611px;">
+        <select class="form-control" required="" name="h_idcs" data-label="删除机房" aria-required="true">
+        </select>
+    </td>
+    <td width="25%" style="width: 381px;"></td>
+    <td width="15%" style="width: 229px;"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">机柜操作</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择机柜操作类型" data-original-title="机柜操作">
+        <input type="radio" name="h_cabinet" data-label="机柜" value="1" required="" checked="checked" aria-required="true">
+        <label>增加</label>　
+        <input type="radio" name="h_cabinet" data-label="机柜" value="2" required="" aria-required="true">
+        <label>删除</label>　
+        <input type="radio" name="h_cabinet" data-label="机柜" value="3" required="" aria-required="true">
+        <label>无操作</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="js_add_cabinet">
+    <td width="20%"></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入新增机柜信息" data-original-title="新增机柜">
+        <div class="add_cabinet_area" style="border:1px solid #ddd;padding:10px 10px;border-radius: 4px;background: #f9f9f9;">
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>机房名称:
+                <select class="form-control valid" style="display: inline-block;width:60%" required="" name="h_add_cabinets_idc" aria-required="true" aria-invalid="false">
+                </select>
+            </p>
+            <p class="add_cabinet_item">
+                　　　<i class="glyphicon glyphicon-star red"></i>机房模块:<input type="text" class="form-control js_idc_modul" style="display: inline-block;width:20%" required="" name="h_idc_module0" value="" data-rule-regex="" data-msg-regex="" aria-required="true">　<i class="glyphicon glyphicon-star red"></i>机柜号:　<input type="text" class="form-control js_cabinet_num" style="display: inline-block;width:20%" required="" name="h_cabinet_num0" value="" data-rule-regex="" data-msg-regex="" aria-required="true">　<a><i class="glyphicon glyphicon-plus js_add_cabinet_item" style="cursor: pointer;"></i></a>
+            </p>
+            
+           
+        </div>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="js_del_cabinet" style="display: none;">
+    <td width="20%"></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入新增机柜信息" data-original-title="新增机柜">
+        <div style="border:1px solid #ddd;padding:10px 10px;border-radius: 4px;background: #f9f9f9;">
+            <p>
+                　　　<i class="glyphicon glyphicon-star red"></i>机房名称:
+                <select class="form-control valid" style="display: inline-block;width:60%" required="" name="h_del_cabinets_idcs" data-label="目的机房" aria-required="true" aria-invalid="false">
+                    <option value=""></option>
+                </select>
+            </p>
+            <p>
+                　　　　<i class="glyphicon glyphicon-star red"></i>机柜号:
+                <select class="form-control js_multiple select2-hidden-accessible" multiple="" style="display: inline-block;width:60%" required="" name="h_del_cabinets" data-label="机柜" aria-required="true" tabindex="-1" aria-hidden="true">
+                </select>
+            </p>
+        </div>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">机房变更</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="机房变更" data-original-title="机房变更">
+        <input class="form-control" type="text" name="t_custom_idc_change" data-label="机房变更" value="" required="" checked="checked" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">变更说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="变更说明" data-original-title="变更说明">
+        <textarea class="form-control" name="t_comment" data-label="变更说明" value="1" required="" checked="checked" aria-required="true" minlength="20"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script src="/js/jquery/jquery.select2.min.js" style=""></script>
+<script type="text/javascript" style="">
+$(function() {
+    $(".js_multiple").select2({
+        placeholder: "请选择机柜号"
+    });
+    $(".select2-search__field").attr('name','cabinets')
+    $(".js_del_idc").hide()
+    $(".js_del_cabinet").hide()
+    $(document).on('click', 'input[name=h_idc]', function() {
+        if ($(this).val() == 1) {
+            $(".js_add_idc").show()
+            $(".js_del_idc").hide()
+        } else if ($(this).val() == 2) {
+            $(".js_add_idc").hide()
+            $(".js_del_idc").show()
+            $(".js_new_idc").remove();//
+        } else {
+            $(".js_add_idc").hide()
+            $(".js_del_idc").hide()
+            $(".js_new_idc").remove();//
+        }
+    })
+
+    $(document).on('click', 'input[name=h_cabinet]', function() {
+        if ($(this).val() == 1) {
+            $(".js_add_cabinet").show()
+            $(".js_del_cabinet").hide()
+        } else if ($(this).val() == 2) {
+            $(".js_add_cabinet").hide()
+            $(".js_del_cabinet").show()
+        } else {
+            $(".js_add_cabinet").hide()
+            $(".js_del_cabinet").hide()
+        }
+    })
+    var addCabinetIndex =1
+    $(document).on('click', '.js_add_cabinet_item', function() {
+        $(".add_cabinet_area").append('<p class="add_cabinet_item">　　　<i class="glyphicon glyphicon-star red"></i>机房模块:<input type="text" class="form-control js_idc_modul" style="display: inline-block;width:20%" required="" name="h_idc_module'+addCabinetIndex+'" value="" data-rule-regex="" data-msg-regex="" aria-required="true">　<i class="glyphicon glyphicon-star red"></i>机柜号:　<input type="text" class="form-control js_cabinet_num" style="display: inline-block;width:20%" required="" name="h_cabinet_num'+addCabinetIndex+'" value="" data-rule-regex="" data-msg-regex="" aria-required="true">　<a><i style="cursor: pointer;" class="glyphicon glyphicon-minus js_remove_cabinet"></i></a></p>')
+    })
+    $(document).on('click', '.js_remove_cabinet', function() {
+        $(this).parents('p').remove()
+    })
+
+    $(document).on('change', 'select[name=h_del_cabinets_idcs]', function() {
+        getCanbinet($(this).val())
+        $(".js_multiple").val(null).trigger("change")
+
+    })
+
+    $(document).on('blur', 'input[name=h_name]', function() {
+        if($(".js_new_idc").size()){
+            $(".js_new_idc").html($(this).val())
+        }else{
+            $("select[name=h_add_cabinets_idc]").append('<option class="js_new_idc" value="0">' + $(this).val() + '</option>');
+        }
+    })
+
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/api/Issue_Extdata/getCmdbIdcInfo",
+        error: function(err) {
+            console.log(err);
+        },
+        success: function(result) {
+            $.each(result.data, function(key, val) {
+                $("select[name=h_idcs]").append('<option value="' + val.id + '">' + val.name + '</option>');
+                $("select[name=h_add_cabinets_idc]").append('<option value="' + val.id + '">' + val.name + '</option>');
+                $("select[name=h_del_cabinets_idcs]").append('<option value="' + val.id + '">' + val.name + '</option>');
+            })
+        }
+    })
+
+    function getCanbinet(id) {
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "/api/Issue_Extdata/getCmdbCabinetInfo?idc_id="+id,
+            error: function(err) {
+                console.log(err);
+            },
+            success: function(result) {
+                if(result.code==200){
+                    $("select[name=h_del_cabinets]").html('');
+                    $.each(result.data,function(key, val) {
+                        $("select[name=h_del_cabinets]").append('<option value="' + key+ '">' + val + '</option>');
+                    })
+                }
+            }
+        })
+    }
+
+    $(document).on('click', '.submit,.check', function() {
+        var changInfo = {
+            idc:{ 
+                "type": "",
+                // "idc_info":{}
+            },
+            cabinet:{
+                "type": "",
+                // "idc_name":[],
+                // "idc_info":[],
+
+            }
+        }
+        if($('input[name=h_idc]:checked').val()=='1'){
+
+            $(".js_del_idc").remove();
+            changInfo['idc']['type'] ='add'; 
+            changInfo['idc']['idc_info'] ={
+                "name": $("input[name='h_name']").val(),
+                "short": $("input[name='h_short']").val(),
+                "address": $("input[name='h_address']").val(),
+                "account_manager": $("input[name='h_account_manager']").val(),
+                "mobile": $("input[name='h_mobile']").val(),
+                "email": $("input[name='h_email']").val(),
+                "duty_phone": $("input[name='h_duty_phone']").val(),
+                "licensor": $("input[name='h_licensor']").val(),
+                "work_order_email": $("input[name='h_work_order_email']").val()
+            }; 
+        }else if($('input[name=h_idc]:checked').val()=='2'){
+
+            $(".js_add_idc").remove();
+            changInfo['idc']['type'] ='del'; 
+            changInfo['idc']['idc_info'] ={id:$("select[name='h_idcs']").val(),name:$("select[name='h_idcs'] option:checked").text()}
+        }else{
+            $(".js_del_idc").remove();
+            $(".js_add_idc").remove();
+            $(".js_del_idc").remove();
+            changInfo['idc']['type'] ='none'; 
+        }
+
+        if($('input[name=h_cabinet]:checked').val()=='1'){
+            $(".js_del_cabinet").remove();
+
+            changInfo['cabinet']['type'] ='add'; 
+            changInfo['cabinet']['idc_info'] = {id: $("select[name='h_add_cabinets_idc']").val(),name: $("select[name='h_add_cabinets_idc'] option:checked").text()};
+            changInfo['cabinet']['cabinet_info'] = [];
+            $.each($(".add_cabinet_area .add_cabinet_item"), function() {
+                changInfo['cabinet']['cabinet_info'].push({"idc_module": $(this).find(".js_idc_modul").val(),"cabinet_num": $(this).find(".js_cabinet_num").val()}); 
+            })
+
+        }else if($('input[name=h_cabinet]:checked').val()=='2'){
+            $(".js_add_cabinet").remove();
+            changInfo['cabinet']['type'] ='del'; 
+            changInfo['cabinet']['idc_info'] = {id:$("select[name='h_del_cabinets_idcs']").val(),name:$("select[name='h_del_cabinets_idcs'] option:checked").text()}; 
+           
+            changInfo['cabinet']['cabinet_info'] = []
+            $(".js_multiple").select2("data")
+            $.each($(".js_multiple").select2("data"), function(key, val) {
+                changInfo['cabinet']['cabinet_info'].push({id:val.id,name:val.text})
+            })
+
+        }else{
+            $(".js_del_cabinet").remove();
+            $(".js_add_cabinet").remove();
+            changInfo['cabinet']['type'] ='none'; 
+        }
+        $("input[name='t_custom_idc_change']").val(JSON.stringify(changInfo))
+
+
+    })
+
+
+
+})
+</script>

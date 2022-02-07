@@ -1,0 +1,325 @@
+<tr>
+    <td width="20%"><span class="js_name">信息录入</span></td>
+    <td width="40%" id="siggleAddMachine" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网IP、系统版本" data-original-title="服务器">
+        <div style="background: #f5f5f5;padding: 10px 10px;">
+            <p style="height: 34px;margin-bottom: 20px;margin-top: 10px;">
+                <span style="width: 70px;display: inline-block;">系统版本：</span><select class="form-control" style="width: 70%;display: inline;" name="h_os">
+                    <option value=""></option>
+                    <option value="CentOS-6.5-Server">CentOS-6.5-Server</option>
+                    <option value="CentOS-7.2-Server">CentOS-7.2-Server</option>
+                    <option value="CentOS-7.6-Server">CentOS-7.6-Server</option>
+                    <option value="Ubuntu-16.04-Server">Ubuntu-16.04-Server</option>
+                    <option value="Windows-2008R2">Windows-2008R2</option>
+                    <option value="Windows-2012R2">Windows-2012R2</option>
+                    <option value="VMware-ESXi6.5">VMware-ESXi6.5</option>
+                    <option value="VMware-ESXi6.7">VMware-ESXi6.7</option>
+
+                </select><label class="error" style="padding: 10px 5px;">*</label>
+            </p>
+            <p style="height: 64px;">
+                <span style="width: 70px;display: inline-block;">内网IP ：</span><textarea type="text" style="width: 70%;display: inline;margin-bottom: -20px;" class="form-control" name="h_siggle_ips" data-label="服务器" value="" aria-required="true"> </textarea><label class="error" style="padding: 10px 5px;">*</label>
+            </p>
+            <p class="info_special_ps" style="margin-bottom: 10px;margin-left: 66px;background: #f5f5f5;margin-top: -14px;">连续IP可整理为10.50.1.[10-20]格式</p>
+           
+            <span class="btn btn-success js_add_machine"><i class="glyphicon glyphicon-plus"></i> 录入</span>
+            
+        </div>
+    </td>
+    <td width="25%" class="siggle_error"></td>
+    <td width="15%"></td>
+    <script type="text/javascript">
+    $(function() {
+
+
+
+        $(".submit").attr('disabled',true);
+        $(".submit").addClass("btn-default").removeClass('btn-primary')
+        var submitFlag = true;
+        $(document).on('click', '.js_add_machine', function() {
+            if($("[name='h_os']").val()==''|| $.trim($("[name='h_siggle_ips']").val())==''){
+                $(".siggle_error").html('<label class="error">内网IP、系统版本不能为空</label>')
+            }else{
+                $.ajax({
+                    url: "/api/issue_check/checkIpAndOs",
+                    type: "POST",
+                    dataType: "json",
+                    data:{
+                        h_os:$("[name='h_os']").val(),
+                        h_ip:$.trim($("[name='h_siggle_ips']").val()),
+                    },
+                    success: function(result) {
+                        
+
+                        if(result.status){
+
+                            var batch = [];
+                            var machines = $("[name = 't_custom_server_batch_refresh']").val();
+                            if(!!machines){//有机器
+                                var pushFlag = true;
+                                
+                                var readyMachines = JSON.parse(machines);
+
+                                $.each(result.data, function(key, val) {
+                                    if(val.type=='batchosrefreshexsi'){
+                                        $.each(readyMachines.batchosrefreshexsi, function(i, j){
+                                            if(val.ip == j.ip){
+                                                $(".siggle_error").html('<label class="error">'+j.ip+'服务器信息重复</label>')
+                                                pushFlag = false;
+                                                return false
+                                            }
+                                        })
+                                    }
+                                    if(val.type=='batchosrefreshvsan'){
+                                        $.each(readyMachines.batchosrefreshvsan, function(i, j){
+                                            if(val.ip == j.ip){
+                                                $(".siggle_error").html('<label class="error">'+j.ip+'服务器信息重复</label>')
+                                                pushFlag = false;
+                                                return false
+                                            }
+                                        })
+                                    }
+                                    if(val.type=='batchosrefreshphysicalin'){
+                                        $.each(readyMachines.batchosrefreshphysicalin , function(i, j){
+                                            if(val.ip == j.ip){
+                                                $(".siggle_error").html('<label class="error">'+j.ip+'服务器信息重复</label>')
+                                                pushFlag = false;
+                                                return false
+                                            }
+                                        })
+                                    }
+                                    if(val.type=='batchosrefreshphysicalout'){
+                                        $.each(readyMachines.batchosrefreshphysicalout , function(i, j){
+                                            if(val.ip == j.ip){
+                                                $(".siggle_error").html('<label class="error">'+j.ip+'服务器信息重复</label>')
+                                                pushFlag = false;
+                                                return false
+                                            }
+                                        })
+                                    }
+
+                                    if(!pushFlag) {
+                                        return false;
+                                    }
+                                })
+
+                                if(pushFlag){
+                                   
+                                    var newSubmitFlag = true;
+                                    var htm = '';
+                                    var styleCss = 'padding:5px 3px;text-align:center;color:red;'
+                                    $.each(result.data, function(key, val) {
+                                        if(val.error!='') {
+                                            newSubmitFlag = false;
+                                        }
+
+                                        if(val.type=='batchosrefreshexsi') {
+                                            readyMachines.batchosrefreshexsi.push(val)
+                                        } else if( val.type == 'batchosrefreshvsan') {
+                                            readyMachines.batchosrefreshvsan.push(val)
+                                        }else if( val.type == 'batchosrefreshphysicalin'){
+                                            readyMachines.batchosrefreshphysicalin .push(val)
+                                        }else if( val.type == 'batchosrefreshphysicalout'){
+                                            readyMachines.batchosrefreshphysicalout .push(val)
+                                        }
+
+
+
+                                        htm += '<tr class="marchine_item"><td style="text-align: center;">'+val.ip+'</td><td>'+val.hostname+'</td><td>'+val.os+'</td><td class="machine_error" style="' + styleCss + '">'+val.error+'</td><td><i class="glyphicon glyphicon-remove js_remove_marchine" ip="'+val.ip+'" kind="'+val.type+'" style="color:#b94a48;cursor:pointer;"></i></td></tr>';
+                                    })
+                                    $(".siggle_error").html('');
+                                    $("[name='h_os']").val('');
+                                    $("[name='h_siggle_ips']").val('');
+                                    $("#ExcelData").append(htm);
+                                    $(".machine_empty_error").html('');
+
+                                    $("[name = 't_custom_server_batch_refresh']").val(JSON.stringify(readyMachines))
+                                    submitFlag = submitFlag && newSubmitFlag;
+                                    
+                                    if(!submitFlag){//禁止提交
+                                        $(".submit").attr('disabled', true);
+                                        $(".submit").addClass("btn-default").removeClass('btn-primary')
+                                    }else{
+                                        $(".submit").attr('disabled', false);
+                                        $(".submit").addClass("btn-primary").removeClass('btn-default')
+                                    }
+                                  
+
+                                }
+                            }else{//没有机器 
+
+                                var batchosrefreshexsi = []
+                                var batchosrefreshvsan = []
+                                var batchosrefreshphysicalin  = []
+                                var batchosrefreshphysicalout  = []
+
+                                var styleCss = 'padding:5px 3px;text-align:center;color:red;'
+                                var htm = ''
+                                $.each(result.data, function(key, val) {
+                                    if(val.error!='') {
+                                        submitFlag = false;
+                                    }
+                                    if(val.type=='batchosrefreshexsi') {
+                                        batchosrefreshexsi.push(val)
+                                    } else if( val.type == 'batchosrefreshvsan') {
+                                        batchosrefreshvsan.push(val)
+                                    }else if( val.type == 'batchosrefreshphysicalin'){
+                                        batchosrefreshphysicalin .push(val)
+                                    }else if( val.type == 'batchosrefreshphysicalout'){
+                                        batchosrefreshphysicalout .push(val)
+                                    }
+
+                                    machines = {batchosrefreshexsi:batchosrefreshexsi,batchosrefreshvsan:batchosrefreshvsan,batchosrefreshphysicalin :batchosrefreshphysicalin,batchosrefreshphysicalout :batchosrefreshphysicalout }
+
+                                    htm += '<tr class="marchine_item"><td style="text-align: center;">'+val.ip+'</td><td>'+val.hostname+'</td><td>'+val.os+'</td><td class="machine_error" style="' + styleCss + '">'+val.error+'</td><td><i class="glyphicon glyphicon-remove js_remove_marchine" ip="'+val.ip+'" kind="'+val.type+'" style="color:#b94a48;cursor:pointer;"></i></td></tr>';
+                                })
+                                $(".siggle_error").html('');
+                                $("[name='h_os']").val('');
+                                $("[name='h_siggle_ips']").val('');
+                                $("#ExcelData").append(htm)
+                                $(".machine_empty_error").html('');
+                                $("[name = 't_custom_server_batch_refresh']").val(JSON.stringify(machines));
+
+                                if(!submitFlag){//禁止提交
+                                    $(".submit").attr('disabled', true);
+                                    $(".submit").addClass("btn-default").removeClass('btn-primary')
+                                }else{
+                                    $(".submit").attr('disabled', false);
+                                    $(".submit").addClass("btn-primary").removeClass('btn-default')
+                                }
+                            }
+                        }else{
+                            $(".siggle_error").html('<label class="error">'+result.msg+'</label>')
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })
+            }
+        })
+
+        $(document).on('click', '.js_remove_marchine', function() {//删除机器
+            var that = this;
+            $(".machine_empty_error").html('<label id="t_custom_server_batch_refresh-error" class="error" for="t_custom_server_batch_refresh">'+$(this).parents(".marchine_item").find('td').eq(0).html()+'已移除.</label>');
+            setTimeout(function(){
+                $(".machine_empty_error").html('');
+            },1000)
+            $(this).parents(".marchine_item").remove();
+            var machinesArr = JSON.parse($("[name = 't_custom_server_batch_refresh']").val())
+            if($(that).attr('kind')=='batchosrefreshexsi') {
+                $.each(machinesArr.batchosrefreshexsi, function(key, val) {
+                    if(val.ip == $(that).attr('ip')) {
+                        machinesArr.batchosrefreshexsi.splice(key,1);
+                        return false;
+                    }
+                })
+            }else if($(that).attr('kind')=='batchosrefreshvsan') {
+                $.each(machinesArr.batchosrefreshvsan, function(key, val) {
+                    if(val.ip == $(that).attr('ip')) {
+                        machinesArr.batchosrefreshvsan.splice(key,1);
+                        return false;
+                    }
+                })
+
+            }else if($(that).attr('kind')=='batchosrefreshphysicalin'){
+                $.each(machinesArr.batchosrefreshphysicalin , function(key, val) {
+                    if(val.ip == $(that).attr('ip')) {
+                        console.log(123)
+                        machinesArr['batchosrefreshphysicalin'].splice(key,1);
+                        return false;
+                    }
+                })
+
+            }else if($(that).attr('kind')=='batchosrefreshphysicalout'){
+                $.each(machinesArr.batchosrefreshphysicalout , function(key, val) {
+                    if(val.ip == $(that).attr('ip')) {
+                        machinesArr['batchosrefreshphysicalout'].splice(key,1);
+                        return false;
+                    }
+                })
+
+            }
+
+            $.each($(".machine_error"), function() {
+                if($(this).html()!=''){
+                    submitFlag = false;
+                    return false
+                }else{
+                    submitFlag = true;
+                }
+            })
+
+            if(!submitFlag){//禁止提交
+                $(".submit").attr('disabled', true);
+                $(".submit").addClass("btn-default").removeClass('btn-primary')
+            }else{
+                $(".submit").attr('disabled', false);
+                $(".submit").addClass("btn-primary").removeClass('btn-default')
+            }
+            $("[name = 't_custom_server_batch_refresh']").val(JSON.stringify(machinesArr))
+
+            if($(".marchine_item").length==0){
+                $("[name = 't_custom_server_batch_refresh']").val('');
+                $(".submit").attr('disabled',true)
+                $(".submit").addClass("btn-default").removeClass('btn-primary')
+            }else {
+                // $("[name = 't_custom_server_batch_refresh']").val(JSON.stringify(machinesArr))
+            }
+
+        })
+        
+    })
+    </script>
+</tr>
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">服务器重装信息</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="文件详情" colspan="2">
+        <input type="hidden" class="form-control" required="" name="t_custom_server_batch_refresh" data-label="批量服务器重装信息" value="" aria-required="true">
+        <div id="tablehtml">
+            <table class="table-bordered" style="text-align: center;width:100%">
+                <tbody>
+                <tr>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">HOST
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">系统
+                    </th>  
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">结果
+                    </th> 
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="8%">移除
+                    </th>
+                </tr>
+                </tbody>    
+                <tbody id="ExcelData">
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td width="15%" class="machine_empty_error"></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="info_special_ps" style="height: 40px;line-height: 40px;background: rgb(249, 217, 171);color: #c71c22;font-weight: bold;padding:0 10px;">注意！请认真填写重装原因，否则系统会自动驳回！</td>
+	<td></td>
+	<td></td>
+</tr>	
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">重装原因</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入重装原因" data-original-title="重装原因">
+        <textarea type="text" minlength="20" class="form-control" required="" name="t_reason" data-label="重装原因" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">特殊需求</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入特殊需求" data-original-title="特殊需求">
+        <textarea type="text" class="form-control" name="t_exrequire" data-label="特殊需求" value="" rows="3"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>

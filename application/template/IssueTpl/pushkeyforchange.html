@@ -1,0 +1,67 @@
+<tr>
+	<td width="20%"></td>
+	<td width="40%">
+		<p class="alert alert-danger js_hasAuth" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">您可以申请该提案</p>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/api/issue_check/checkUserDepartment?type="+$.getUrlParam('name'),
+                    type: "GET",
+                    dataType: "json",
+                    success: function(result) {
+                    	$(".submit").attr("disabled",!result.status); 
+                    	$(".js_hasAuth").html(result.msg)
+                    },
+                    error: function() {
+                    	console.log("error");
+                    }
+				})
+			})
+		</script>
+
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 306px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">服务器列表</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要推送公钥的服务器IP或hostname" data-original-title="服务器列表" style="width: 610px;">
+		<textarea id="t_host" type="hidden" class="form-control hidden" required="" name="t_host" data-label="服务器列表" value="" rows="3" aria-required="true" aria-invalid="true"></textarea>
+		<textarea id="host" type="text" class="form-control" required="" name="h_host" data-label="服务器列表" value="" rows="3" aria-required="true" aria-invalid="true" data-rule-remote="/api/issue_check/checkPushKeyIpList/"></textarea>
+		<p class="info_special_ps">连续IP请整理为10.50.1.[10-20]格式</p>
+		<script>
+		$(function(){
+			$("#host").on('keyup', function() {
+				$("#t_host").val($(this).val())
+			})
+		})
+
+		</script>
+	</td>
+	<td width="25%" style="width: 381px;"></td>
+	<td width="15%" style="width: 228px;"></td>
+</tr>
+<tr class="js_sodupower">
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">是否需要sudo权限</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="是否需要sudo权限">
+		<select class="valid js_sudoPowChange" required="" name="t_sudo" data-label="是否需要sudo权限" aria-required="true" aria-invalid="false">
+			<option value="2">是</option>
+		</select>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<span class="js_name">备注</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="其他未尽事宜" data-original-title="备注">
+		<textarea type="text" class="form-control" name="t_remarks" data-label="备注" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

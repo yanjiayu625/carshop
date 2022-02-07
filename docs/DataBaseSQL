@@ -1,0 +1,551 @@
+系统数据表
+
+DROP TABLE IF EXISTS `car_brand`;
+CREATE TABLE `car_brand` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_name` varchar(50) NOT NULL DEFAULT '' COMMENT '品牌名称',
+  `sort_letter` varchar(10) NOT NULL DEFAULT '' COMMENT '排序字母',
+  `sort_id` int(11)  NOT NULL DEFAULT 1 COMMENT '字母排序',
+  `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:停用,1:启用',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `car_brand_tags`;
+CREATE TABLE `car_brand_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '车系名称',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '车系代码',
+  `sort_id` int(11) NOT NULL DEFAULT 1 COMMENT '字母排序',
+  `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:停用,1:启用',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `car_sell_list`;
+CREATE TABLE `car_sell_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
+  `tags_id` int(11)  NOT NULL DEFAULT 1 COMMENT '标签ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用,2:,3,4,5',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `car_sell_content`;
+CREATE TABLE `car_sell_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
+  `tags_id` int(11)  NOT NULL DEFAULT 1 COMMENT '标签ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容,ueditor的内容',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `car_sell_pic_list`;
+CREATE TABLE `car_sell_pic_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sell_content_id` int(11) NOT NULL DEFAULT 0 COMMENT '内容ID',
+  `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+========================HRC=========================
+部门树
+DROP TABLE IF EXISTS `hrc_dept_tree`;
+CREATE TABLE `hrc_dept_tree` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `dept_id` varchar(50) NOT NULL DEFAULT '' COMMENT '部门ID:D000012',
+ `parent_id` varchar(50) NOT NULL DEFAULT '' COMMENT '上级部门ID:D000012',
+ `name` varchar(255) NOT NULL DEFAULT '' COMMENT '部门名称',
+ `manager_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人Uid',
+ `manager_name` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人姓名',
+ `vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VPuid',
+ `vp_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP姓名',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '部门树';
+
+部门变动信息表
+DROP TABLE IF EXISTS `hrc_dept_change`;
+CREATE TABLE `hrc_dept_change` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `change_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '变动类型: 1:更新,2:新增,3:删除',
+ `dept_id` varchar(50) NOT NULL DEFAULT '' COMMENT '部门ID:D000012',
+ `prev_name` varchar(255) NOT NULL DEFAULT '' COMMENT '前名称',
+ `new_name` varchar(255) NOT NULL DEFAULT '' COMMENT '新名称',
+ `prev_parent_id` varchar(50) NOT NULL DEFAULT '' COMMENT '前部门ID',
+ `new_parent_id` varchar(50) NOT NULL DEFAULT '' COMMENT '新部门ID',
+ `prev_manager_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人',
+ `new_manager_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人',
+ `prev_manager_name` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人姓名',
+ `new_manager_name` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人姓名',
+ `prev_vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP',
+ `new_vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP',
+ `prev_vp_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP姓名',
+ `new_vp_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP姓名',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '部门变动信息表';
+
+
+人员离职信息表
+DROP TABLE IF EXISTS `hrc_dept_info`;
+CREATE TABLE `hrc_dept_info` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `sys_id` tinyint(1) NOT NULL DEFAULT 0 COMMENT '系统ID: 0:默认',
+ `dept_id` varchar(50) NOT NULL DEFAULT '' COMMENT '部门ID:D000012',
+ `name` varchar(255) NOT NULL DEFAULT '' COMMENT '部门名称',
+ `manager_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人Uid',
+ `manager_name` varchar(50) NOT NULL DEFAULT '' COMMENT '部门负责人姓名',
+ `vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VPuid',
+ `vp_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP姓名',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '人员离职信息表';
+
+人员信息
+DROP TABLE IF EXISTS `hrc_user_info`;
+CREATE TABLE `hrc_user_info` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '域账号',
+ `name` varchar(20) NOT NULL DEFAULT '' COMMENT '中文名域账号',
+ `dept_id` varchar(50) NOT NULL DEFAULT '' COMMENT '部门ID:D000012',
+ `dept_path` varchar(255) NOT NULL DEFAULT '' COMMENT '部门路径',
+ `superior_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '上级Uid',
+ `superior_name` varchar(100) NOT NULL DEFAULT '' COMMENT '上级姓名',
+ `descr` varchar(20) NOT NULL DEFAULT '' COMMENT '状态,在职或离职',
+ `employ_id` varchar(20) NOT NULL DEFAULT '' COMMENT '员工编号',
+ `gender` varchar(20) NOT NULL DEFAULT '' COMMENT '性别',
+ `level_code` varchar(20) NOT NULL DEFAULT '' COMMENT '职级ID',
+ `level_desc` varchar(20) NOT NULL DEFAULT '' COMMENT '职级名称',
+ `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '电话',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '人员树';
+
+人员离职信息表
+DROP TABLE IF EXISTS `hrc_user_change`;
+CREATE TABLE `hrc_user_change` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '修改人域账号',
+ `field` varchar(50) NOT NULL DEFAULT '' COMMENT '字段名称',
+ `pre_data` varchar(255) NOT NULL DEFAULT '' COMMENT '之前的值',
+ `new_data` varchar(255) NOT NULL DEFAULT '' COMMENT '新值',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '人员离职信息表';
+
+DROP TABLE IF EXISTS `hrc_system`;
+CREATE TABLE `hrc_system` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `code` varchar(20) NOT NULL DEFAULT '' COMMENT '系统代号',
+ `name` varchar(20) NOT NULL DEFAULT '' COMMENT '系统名称',
+ `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '系统ID: 0:默认,1:启用',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '所用系统';
+
+
+============== 绩效系统 =============
+
+绩效活动信息
+DROP TABLE IF EXISTS `perf_event`;
+CREATE TABLE `perf_event` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核名称',
+ `method` varchar(10) NOT NULL DEFAULT '' COMMENT '考核方式,KPI,OKR',
+ `last_id` INT(11) NOT NULL DEFAULT 0 COMMENT '上一次考核ID',
+ `last_name` varchar(255) NOT NULL DEFAULT '' COMMENT '上一次考核名称',
+ `year` varchar(50) NOT NULL DEFAULT '' COMMENT '考核年度',
+ `cycle_type` varchar(50) NOT NULL DEFAULT '' COMMENT '周期类型',
+ `cycle_name` varchar(50) NOT NULL DEFAULT '' COMMENT '周期名称',
+ `cycle_start_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核周期开始日期',
+ `cycle_end_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核周期结束日期',
+ `event_start_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核活动进行开始日期',
+ `event_end_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核活动进行结束日期',
+ `dist_dir_id` varchar(20) NOT NULL DEFAULT '' COMMENT '总监级正太分布',
+ `dist_not_dir_id` varchar(20) NOT NULL DEFAULT '' COMMENT '非总监级正太分布',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '活动状态: 1:未发布,2:进行中,3:已完成',
+ `step` tinyint(1) NOT NULL DEFAULT 1 COMMENT '步骤',
+ `is_set` tinyint(1) NOT NULL DEFAULT 1 COMMENT '设置状态: 1:未设置,2:设置完成',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效活动信息';
+
+
+绩效流程设置
+DROP TABLE IF EXISTS `perf_event_pro`;
+CREATE TABLE `perf_event_pro` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `is_set` tinyint(1) NOT NULL DEFAULT 1 COMMENT '该步骤是否设置: 1:存在,2:不存在',
+ `pro_id` varchar(10) NOT NULL DEFAULT '' COMMENT '序号',
+ `pro_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核步骤',
+ `start_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核周期开始日期',
+ `end_date` varchar(20) NOT NULL DEFAULT '' COMMENT '考核周期结束日期',
+ `is_mt` tinyint(1) NOT NULL DEFAULT 1 COMMENT '到期是否可继续维护: 1:是,2:否',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效流程设置';
+
+绩效模板设置
+DROP TABLE IF EXISTS `perf_event_tpl`;
+CREATE TABLE `perf_event_tpl` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `tpl_id` varchar(10) NOT NULL DEFAULT '' COMMENT '序号',
+ `tpl_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核步骤',
+ `prf_vw` varchar(20) NOT NULL DEFAULT '0' COMMENT '业绩权重',
+ `bhv_vw` varchar(20) NOT NULL DEFAULT '0' COMMENT '行为权重',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效模板设置';
+
+绩效模板设置 -> 职级对应/部门/人员
+DROP TABLE IF EXISTS `perf_event_child`;
+CREATE TABLE `perf_event_child` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `table_name` varchar(10) NOT NULL DEFAULT '' COMMENT '序号',
+ `key_id` varchar(50) NOT NULL DEFAULT '' COMMENT '字段ID',
+ `key_name` varchar(50) NOT NULL DEFAULT '' COMMENT '字段名称',
+ `val_type` varchar(50) NOT NULL DEFAULT '' COMMENT '字段值类型,部门/职级/岗位/人员',
+ `val_id` varchar(50) NOT NULL DEFAULT '' COMMENT '字段值ID',
+ `val_name` varchar(50) NOT NULL DEFAULT '' COMMENT '字段值name',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效模板设置';
+
+业绩指标配置
+DROP TABLE IF EXISTS `perf_event_pi`;
+CREATE TABLE `perf_event_pi` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `pi_id` varchar(10) NOT NULL DEFAULT '' COMMENT '序号',
+ `pi_name` varchar(255) NOT NULL DEFAULT '' COMMENT '业绩指标',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '业绩指标配置';
+
+行为能力列表
+DROP TABLE IF EXISTS `perf_event_bhv_list`;
+CREATE TABLE `perf_event_bhv_list` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '员工Uid',
+ `bhv_name` varchar(100) NOT NULL DEFAULT '' COMMENT '行为能力名称',
+ `is_default` tinyint(1) NOT NULL DEFAULT 1 COMMENT '到期是否可继续维护: 1:是,2:否',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '行为能力列表';
+
+行为指标配置
+DROP TABLE IF EXISTS `perf_event_bhv`;
+CREATE TABLE `perf_event_bhv` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `bhv_id` varchar(100) NOT NULL DEFAULT '' COMMENT '序号',
+ `bhv_name` varchar(100) NOT NULL DEFAULT '' COMMENT '行为能力',
+ `bhv_vw` varchar(20) NOT NULL DEFAULT '0' COMMENT '权重',
+ `bhv_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '指标描述',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '行为指标配置';
+
+
+人员批量添加 筛选条件
+DROP TABLE IF EXISTS `perf_event_user_filter`;
+CREATE TABLE `perf_event_user_filter` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `dept_id_arr` text NOT NULL COMMENT '部门ID,多个用逗号分隔',
+ `hire_start_date` varchar(50) NOT NULL DEFAULT '' COMMENT '入职开始时间',
+ `hire_end_date` varchar(50) NOT NULL DEFAULT '' COMMENT '入职结束时间',
+ `employ_type` varchar(255) NOT NULL DEFAULT '' COMMENT '员工类型',
+ `employ_status` varchar(255) NOT NULL DEFAULT '' COMMENT '员工状态',
+ `prc_date` varchar(100) NOT NULL DEFAULT '' COMMENT '转正截止日期',
+ `is_prc` tinyint(1) NOT NULL DEFAULT 1 COMMENT '仅生效已转正员工: 1:是,2:否',
+ `vac1` varchar(255) NOT NULL DEFAULT '' COMMENT '休假类型1',
+ `vac1_start_date` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型1,开始日期',
+ `vac1_end_date` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型1,结束日期',
+ `vac1_days` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型1,限制天数',
+ `vac2` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型2',
+ `vac2_start_date` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型2,开始日期',
+ `vac2_end_date` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型2,结束日期',
+ `vac2_days` varchar(20) NOT NULL DEFAULT '' COMMENT '休假类型2,限制天数',
+ `history_event_id` varchar(20) NOT NULL DEFAULT '' COMMENT '历史考核上级ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '人员批量添加筛选条件';
+
+
+考核人员列表
+DROP TABLE IF EXISTS `perf_event_user`;
+CREATE TABLE `perf_event_user` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` varchar(20) NOT NULL DEFAULT '' COMMENT '考核活动ID',
+ `employ_id` varchar(20) NOT NULL DEFAULT '' COMMENT 'employ_id',
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '域账号',
+ `name` varchar(20) NOT NULL DEFAULT '' COMMENT '中文名域账号',
+ `dept_id` varchar(50) NOT NULL DEFAULT '' COMMENT '部门ID:D000012',
+ `dept_path` varchar(255) NOT NULL DEFAULT '' COMMENT '部门路径',
+ `level_code` varchar(50) NOT NULL DEFAULT '' COMMENT '职级ID',
+ `level_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '职级描述',
+ `tpl_id` varchar(10) NOT NULL DEFAULT '' COMMENT '考核模板ID',
+ `tpl_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核模板名称',
+ `sup_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '上级Uid',
+ `sup_name` varchar(100) NOT NULL DEFAULT '' COMMENT '上级姓名',
+ `sup_employ_id` varchar(100) NOT NULL DEFAULT '' COMMENT '上级雇佣ID',
+
+ `employ_type` varchar(20) NOT NULL DEFAULT '' COMMENT '员工类别',
+ `employ_status` varchar(20) NOT NULL DEFAULT '' COMMENT '员工状态,离职在职',
+
+ `is_multi` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否为多向考核: 1:是,2:否',
+
+ `is_history` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否历史上级覆盖: 1:是,2:否',
+ `is_perf` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否参与考核: 1:是,2:否',
+ `failure` varchar(255) NOT NULL DEFAULT '' COMMENT '失败原因',
+ `failure_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '失败详细内容',
+
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '考核人员列表';
+
+
+考核人员模板变化
+DROP TABLE IF EXISTS `perf_event_tpl_change`;
+CREATE TABLE `perf_event_tpl_change` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` varchar(20) NOT NULL DEFAULT '' COMMENT '考核活动ID',
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '域账号',
+ `name` varchar(20) NOT NULL DEFAULT '' COMMENT '中文名域账号',
+ `dept_path` varchar(255) NOT NULL DEFAULT '' COMMENT '部门路径',
+ `old_tpl_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核模板名称',
+ `tpl_id` varchar(10) NOT NULL DEFAULT '' COMMENT '考核模板ID',
+ `tpl_name` varchar(255) NOT NULL DEFAULT '' COMMENT '考核模板名称',
+ `sup_name` varchar(100) NOT NULL DEFAULT '' COMMENT '上级姓名',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否已经处理: 1:是,2:否',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '考核人员模板变化';
+
+//多向考核配置信息
+DROP TABLE IF EXISTS `perf_event_user_multi`;
+CREATE TABLE `perf_event_user_multi` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` varchar(20) NOT NULL DEFAULT '' COMMENT '考核活动ID',
+ `uid` varchar(20) NOT NULL DEFAULT '' COMMENT '用户Uid',
+ `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '多向考核模式: 1:同一考核表,2:不同考核表',
+ `sup_uid` varchar(20) NOT NULL DEFAULT '' COMMENT '考核上级Uid',
+ `sup_name` varchar(20) NOT NULL DEFAULT '' COMMENT '考核上级Uid',
+ `dept_id` varchar(20) NOT NULL DEFAULT '' COMMENT '所属部门ID',
+ `dept_path` varchar(100) NOT NULL DEFAULT '' COMMENT '所属部门路径',
+ `prop` varchar(10) NOT NULL DEFAULT '' COMMENT '占比',
+ `occ_uid` varchar(20) NOT NULL DEFAULT '' COMMENT '占用领导Uid',
+ `occ_name` varchar(20) NOT NULL DEFAULT '' COMMENT '占用领导姓名',
+ `occ_employ_id` varchar(20) NOT NULL DEFAULT '' COMMENT '占用领导编号',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '多向考核配置信息';
+
+绩效考核 历史考核关系数据
+DROP TABLE IF EXISTS `perf_event_history_rlat`;
+CREATE TABLE `perf_event_history_rlat` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `sup_eid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核上级EmployId',
+ `sup_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核上级Uid',
+ `sup_name` varchar(50) NOT NULL DEFAULT '' COMMENT '考核上级名称',
+ `sup_dept_id` varchar(100) NOT NULL DEFAULT '' COMMENT '考核上级部门ID',
+ `sup_dept_path` varchar(100) NOT NULL DEFAULT '' COMMENT '考核上级部门路径',
+ `sub_eid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核下级EmployId',
+ `sub_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核下级级Uid',
+ `sub_name` varchar(50) NOT NULL DEFAULT '' COMMENT '考核下级名称',
+ `sub_dept_id` varchar(100) NOT NULL DEFAULT '' COMMENT '考核下级部门ID',
+ `sub_dept_path` varchar(100) NOT NULL DEFAULT '' COMMENT '考核下级部门路径',
+ `sub_level_code` varchar(20) NOT NULL DEFAULT '' COMMENT '考核下级职级',
+ `score` varchar(20) NOT NULL DEFAULT '' COMMENT '考核分数',
+ `level` varchar(20) NOT NULL DEFAULT '' COMMENT '考核等级',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效考核关系';
+
+绩效考核 历史考核关系数据
+DROP TABLE IF EXISTS `perf_event_history_score`;
+CREATE TABLE `perf_event_history_score` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `uid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核下级级Uid',
+ `name` varchar(50) NOT NULL DEFAULT '' COMMENT '考核下级名称',
+ `dept_path` varchar(100) NOT NULL DEFAULT '' COMMENT '考核下级部门路径',
+ `score` varchar(20) NOT NULL DEFAULT '' COMMENT '考核分数',
+ `level` varchar(20) NOT NULL DEFAULT '' COMMENT '考核等级',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效考核最终等级';
+
+
+绩效考核 历史考核指标内容
+DROP TABLE IF EXISTS `perf_event_history_perf`;
+CREATE TABLE `perf_event_history_perf` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `uid` varchar(50) NOT NULL DEFAULT '' COMMENT '人员Uid',
+ `name` varchar(50) NOT NULL DEFAULT '' COMMENT '人员姓名',
+ `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '规则类型,1:正常,2:特殊',
+ `lessue_id` varchar(50) NOT NULL DEFAULT '' COMMENT '指标排序',
+ `lessue_wgt` varchar(50) NOT NULL DEFAULT '' COMMENT '指标权重',
+ `lessue_name` varchar(255) NOT NULL DEFAULT '' COMMENT '指标名称',
+ `lessue_content` text NOT NULL COMMENT '指标描述',
+ `kpi_desc` text NOT NULL COMMENT '衡量标准',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '绩效考核关系';
+
+
+正太分布总体设置
+DROP TABLE IF EXISTS `perf_ndist_info`;
+CREATE TABLE `perf_ndist_info` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `is_director` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否总监级: 1:是,2:否',
+ `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '规则类型,1:正常,2:特殊',
+ `level` varchar(100) NOT NULL DEFAULT '' COMMENT '考核等级名称',
+ `gle` tinyint(1) NOT NULL DEFAULT 1 COMMENT '逻辑原酸,1:等于,2:不超过,3:不小于',
+ `prop` varchar(10) NOT NULL DEFAULT '' COMMENT '强制分布比例',
+ `score_id` INT(11) NOT NULL COMMENT '评分规则ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '正太分布总体设置';
+
+正太分布评分等级名称
+DROP TABLE IF EXISTS `perf_ndist_score_name`;
+CREATE TABLE `perf_ndist_score_name` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) NOT NULL DEFAULT '' COMMENT '评分等级名称',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '正太分布评分等级名称';
+
+正太分布评分等级设置
+DROP TABLE IF EXISTS `perf_ndist_score_info`;
+CREATE TABLE `perf_ndist_score_info` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) NOT NULL DEFAULT '' COMMENT '等级名称',
+ `desc` varchar(50) NOT NULL DEFAULT '' COMMENT '描述',
+ `remarks` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+ `is_gt` tinyint(1) NOT NULL DEFAULT 1 COMMENT '大于等于,1:大于,2:大约等于',
+ `gt_val`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '大于的值',
+ `is_lt` tinyint(1) NOT NULL DEFAULT 1 COMMENT '大于等于,1:小于,2:小约等于',
+ `lt_val`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '小于的值',
+ `score_id` tinyint(1) NOT NULL DEFAULT 1 COMMENT '评分规则ID',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '正太分布评分等级设置';
+
+
+考核活动对应的评分标准
+DROP TABLE IF EXISTS `perf_ndist_event_score`;
+CREATE TABLE `perf_ndist_event_score` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `score_id` tinyint(1) NOT NULL DEFAULT 1 COMMENT '评分规则ID',
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `is_director` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否为总监级: 1:是,2:否',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '考核活动对应的评分标准';
+
+正太分布VP总人数设置
+DROP TABLE IF EXISTS `perf_ndist_vp_total`;
+CREATE TABLE `perf_ndist_vp_total` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP域账号',
+ `is_director` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否总监级: 1:是,2:否',
+ `level` varchar(100) NOT NULL DEFAULT '' COMMENT '考核等级名称',
+ `num` varchar(5) NOT NULL DEFAULT '' COMMENT '考核等级下的人数',
+ `cal` varchar(5) NOT NULL DEFAULT '' COMMENT '计算出的小数段人数',
+ `per` varchar(5) NOT NULL DEFAULT '' COMMENT '实际人数的百分比',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '正太分布VP总人数设置';
+
+正太分布VP团队人数设置
+DROP TABLE IF EXISTS `perf_ndist_vp_team`;
+CREATE TABLE `perf_ndist_vp_team` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `vp_uid` varchar(50) NOT NULL DEFAULT '' COMMENT 'VP域账号',
+ `team_name` varchar(100) NOT NULL DEFAULT '' COMMENT '团队名称',
+ `team_uid` varchar(100) NOT NULL DEFAULT '' COMMENT '团队名称',
+ `level` varchar(100) NOT NULL DEFAULT '' COMMENT '考核等级名称',
+ `num` varchar(5) NOT NULL DEFAULT '' COMMENT '考核等级下的人数',
+ `cal` varchar(5) NOT NULL DEFAULT '' COMMENT '计算出的小数段人数',
+ `per` varchar(5) NOT NULL DEFAULT '' COMMENT '实际人数的百分比',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '正太分布VP总人数设置';
+
+团队绩效人员增减消息通知
+DROP TABLE IF EXISTS `perf_team_adjust_report`;
+CREATE TABLE `perf_team_adjust_report` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `uid` varchar(50) NOT NULL DEFAULT '' COMMENT '负责人域账号',
+ `name` varchar(100) NOT NULL DEFAULT '' COMMENT '团队名称',
+ `dept_path` varchar(255) NOT NULL DEFAULT '' COMMENT '部门路径',
+ `content` text NOT NULL COMMENT '内容',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态: 1:是,2:否',
+ `exe_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '执行人Uid',
+ `exe_name` varchar(100) NOT NULL DEFAULT '' COMMENT '处理人姓名',
+ `exe_res` text NOT NULL COMMENT '处理内容',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '团队绩效人员增减消息通知';
+
+团队绩效考核关系确认
+DROP TABLE IF EXISTS `perf_team_relation_confirm`;
+CREATE TABLE `perf_team_relation_confirm` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `head_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '负责人域账号',
+ `head_name` varchar(100) NOT NULL DEFAULT '' COMMENT '团队名称',
+ `dept_id` varchar(20) NOT NULL DEFAULT '' COMMENT '所属部门Id',
+ `dept_path` varchar(100) NOT NULL DEFAULT '' COMMENT '所属部门路径',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态: 1:是,2:否',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '团队绩效考核关系确认';
+
+考核上级打分信息
+DROP TABLE IF EXISTS `perf_team_is_score`;
+CREATE TABLE `perf_team_is_score` (
+ `id` INT(11) NOT NULL AUTO_INCREMENT,
+ `event_id` INT(11) NOT NULL COMMENT '考核活动ID',
+ `sup_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核上级域账号',
+ `sub_uid` varchar(50) NOT NULL DEFAULT '' COMMENT '考核人域账号',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态: 1:已打分',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8 COMMENT '考核打分记录';
+

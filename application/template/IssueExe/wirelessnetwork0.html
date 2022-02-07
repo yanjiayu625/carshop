@@ -1,0 +1,387 @@
+<style>
+    .form-control {
+        height: 32px;
+    }
+    
+    .daily_exe_tpl tr td:first-child {
+        text-align: right;
+        vertical-align: middle;
+        border-top: 0px;
+    }
+    
+    .daily_exe_tpl tr td:nth-child(2) {
+        vertical-align: middle;
+        border-top: 0px;
+    }
+    
+    .daily_exe_tpl tr td:nth-child(3) {
+        vertical-align: middle;
+        border-top: 0px;
+        position: relative;
+    }
+    
+    .daily_exe_tpl tr td:nth-child(3) label {
+        width: 200px;
+        height: 48px;
+        position: absolute;
+        top: 0px;
+        line-height: 48px;
+    }
+    
+    .daily_exe_tpl tr td:nth-child(4) {
+        border-top: 0px;
+    }
+    
+    .daily_exe_tpl select {
+        height: 32px;
+    }
+    
+    #info textarea {
+        height: auto !important;
+    }
+    
+    #info select {
+        height: 32px !important;
+    }
+    
+    #info label {
+        padding-left: 10px;
+    }
+    
+    .modal-dialog table select {
+        padding-top: 5px!important;
+    }
+    
+    .box-content .table tr td select {
+        width: 100%;
+    }
+    
+    .modal-footer {
+        text-align: center!important;
+    }
+    
+    #modal_validate table tr td {
+        position: relative;
+    }
+    
+    #modal_validate table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+    
+    #editTableModal table tr td {
+        position: relative;
+    }
+    
+    #editTableModal table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+    
+    .option_filds {
+        display: none;
+    }
+    
+    .option_filds textarea {
+        height: auto !important;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+        border-color: #ccc !important;
+    }
+    
+    #createServerForm .form_atcion .reset {
+        margin-left: 30%;
+    }
+    
+    #createServerForm .form_atcion .submit {
+        margin-left: 30px;
+    }
+    
+    .info_special_ps {
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #3a87ad;
+        padding: 5px;
+        margin: 5px 0 0 0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    
+    .modal-backdrop {
+        z-index: 1110 !important;
+    }
+    
+    .modal {
+        z-index: 1111 !important;
+    }
+    
+    .dailytitle {
+        text-align: center !important;
+    }
+</style>
+
+<form action="" id="dailyForm">
+    <table class="table daily_exe_tpl" id="info">
+        <tbody id="info">
+            <tr>
+                <td colspan='2' class="dailytitle ">
+                    <h3 class="js_dailytitle">无线日常巡检</h3>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">AP故障数量</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <input type="text" class="form-control number" name="ap_fault" required placeholder="请输入AP故障数量">
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">AC健康状态</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <input type="radio" name="ac_health" value="1" checked> 正常
+                    <input type="radio" name="ac_health" value="2"> 不正常
+
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%">
+                    <span class="js_field">AC健康状态说明</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <textarea type="text" class="form-control" name="ac_health_status" data-label="AC健康状态" value="" rows="3" placeholder="若不正常，请填写说明"></textarea>
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">IMC服务器状态</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <input type="radio" name="imc" value="1" checked> 正常
+                    <input type="radio" name="imc" value="2"> 不正常
+
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%">
+                    <span class="js_field">IMC服务器状态说明</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <textarea type="text" class="form-control" name="imc_status" data-label="IMC服务器状态说明" value="" rows="3" placeholder="若不正常，请填写说明"></textarea>
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">IMC同步机制检查</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <input type="radio" name="imc_sync" value="1" checked> 正常
+                    <input type="radio" name="imc_sync" value="2"> 不正常
+
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">Protal认证检查</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <input type="radio" name="protal" value="1" checked> 正常
+                    <input type="radio" name="protal" value="2"> 不正常
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%"> <i class="glyphicon glyphicon-star red"></i>
+                    <span class="js_field">AC运行时间截图</span>
+                </td>
+                <td width="60%" colspan="2">
+                    <div id="uploader" name="h_key" class="wu-example">
+                        <div id="thelist" class="uploader-list"></div>
+                        <div class="btns">
+                            <div id="picker">选择文件</div>
+                            <input type="hidden" class="form-control imc_img" required name="ac_time" value=""></div>
+                    </div>
+                </td>
+                <td width="5%"></td>
+            </tr>
+            <tr>
+                <td width="10%">
+                    <span class="js_field"></span>
+                </td>
+                <td width="60%" colspan="2">
+                    <p class="form_atcion">
+                        <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>提交</button>
+                    </p>
+                </td>
+                <td width="5%"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</form>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var uploader;
+        $("#addCheck").on("shown.bs.modal", function() {
+                console.log(1)
+
+                uploader = WebUploader.create({
+
+                    // swf文件路径
+                    swf: '/js/Uploader.swf',
+
+                    // 文件接收服务端。
+                    server: '/api/issue_server/uploadfile?type=wirelessnetwork',
+
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: '#picker',
+
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false,
+                    duplicate: true,
+                    auto: true
+                        // fileNumLimit:1
+                });
+                $('.webuploader-pick').next().css({
+                        'z-index': 9999
+                    })
+                    // 当有文件被添加进队列的时候
+                uploader.on('fileQueued', function(file) {
+                    $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                        '<h4 class="info">' + file.name + '</h4>' +
+                        '<p class="state">等待上传...</p>' +
+                        '</div>');
+                });
+                uploader.on('uploadSuccess', function(file, response) {
+                    // 根据返回结果展示相应信息
+                    $('#' + file.id).find('p.state').text(response.msg);
+                    if (response.status) {
+                        $(".imc_img").val(response.data);
+                    }
+                    //为保证只有一个文件上传：如果多个文件上传，取消第一个文件
+                    if ($("#thelist .item").size() > 1) {
+                        uploader.removeFile(file);
+                        $("#thelist .item").eq(0).remove()
+
+                    }
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function(file, percentage) {
+                    var $li = $('#' + file.id),
+                        $percent = $li.find('.progress .progress-bar');
+
+                    // 避免重复创建
+                    if (!$percent.length) {
+                        $percent = $('<div class="progress progress-striped active">' +
+                            '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                            '</div>' +
+                            '</div>').appendTo($li).find('.progress-bar');
+                    }
+
+                    $li.find('p.state').text('上传中');
+
+                    $percent.css('width', percentage * 100 + '%');
+                });
+                uploader.on('uploadError', function(file, reason) {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                    if ($("#thelist .item").size() > 1) {
+                        uploader.removeFile(file);
+                        $("#thelist .item").eq(0).remove()
+                    }
+                });
+                uploader.on('error', function(type) {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                });
+
+                uploader.on('uploadComplete', function(file) {
+                    $('#' + file.id).find('.progress').fadeOut();
+                });
+            })
+            //关闭模态框销毁WebUploader，解决再次打开模态框时按钮越变越大问题
+        $('#addCheck').on('hide.bs.modal', function() {
+            $("#responeseText").text("");
+            uploader.destroy();
+        });
+
+        var list = {
+            init: function() {
+                var that = this;
+                $('.DailyServer-list').eq(0).css({
+                    "background-color": "#eeeeee"
+                });
+
+                $('#DailyServer-list').css({
+                    "background-color": "#eeeeee"
+                });
+                $('#DailyServer').addClass('active').find('ul').slideToggle();
+                $("#dailyForm").validate({
+                    ignore: [],
+                    errorPlacement: function(error, element) {
+                        $(element).closest("tr").children('td').eq(2).html(error);
+                    },
+                    //验证通过后提交数据
+                    submitHandler: function(form) {
+                        that.updateDailyInfo();
+                    },
+                    debug: true
+                });
+                var type = $.getUrlParam("type")
+                if (type == "ifengidccom") {
+                    $("#info").remove();
+                    $("#idc_info").show()
+                } else {
+                    $("#idc_info").remove();
+                }
+                $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 无线日常巡检')
+            },
+            updateDailyInfo: function() {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/issue_exe/updateDailyInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                    data: {
+                        type: 'wirelessnetwork',
+                        ap_fault: $('input[name = "ap_fault"]').val(),
+                        ac_health: $('input[name = "ac_health"]:checked').val(),
+                        imc: $('input[name = "imc"]:checked').val(),
+                        imc_sync: $('input[name = "imc_sync"]:checked').val(),
+                        protal: $('input[name = "protal"]:checked').val(),
+                        ac_health_status: $('textarea[name = "ac_health_status"]').val(),
+                        imc_status: $('textarea[name = "imc_status"]').val(),
+                        ac_time: $(".imc_img").val()
+                    },
+                    success: function(data) { //提交成功的回调函数
+                        $('.js_remark').val(data.msg)
+                    }
+                });
+            },
+        }
+
+        list.init();
+
+    });
+</script>

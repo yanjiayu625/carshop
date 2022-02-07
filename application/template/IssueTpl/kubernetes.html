@@ -1,0 +1,117 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">项目所属组</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="项目所属组"><input type="text" class="form-control" required="" name="t_group" data-label="项目所属组" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">项目名称</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="项目名称"><input type="text" class="form-control" required="" name="t_name" data-label="项目名称" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">项目git地址</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="项目git地址"><input type="text" class="form-control" required="" name="t_git" data-label="项目git地址" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">git所属分支</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="git所属分支"><input type="text" class="form-control" required="" name="t_branch" data-label="git所属分支" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Dockerfile</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="Dockerfile"><input type="text" class="form-control" required="" name="t_dockerfile" data-label="Dockerfile" value="Dockerfile" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">容器服务器端口</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="容器服务器端口"><input type="text" class="form-control" required="" name="t_port" data-label="容器服务器端口" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">容器数量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="容器数量"><input type="text" class="form-control" required="" name="t_num" data-label="容器数量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">容器CPU内存规格</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="容器CPU内存规格"><input type="text" class="form-control" required="" name="t_cpu" data-label="容器CPU内存规格" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+        <p class="info_special_ps">例如：0.5核 1G</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr id="t_ext">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">是否开启域名访问</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="是否开启域名访问"><input type="radio" name="t_ext" data-label="是否开启域名访问" value="1" required="" checked="checked"><label>否</label>　　<input type="radio" name="t_ext" data-label="是否开启域名访问" value="2" required=""><label>是</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<!-- <tr id="t_addr">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">外网地址</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="外网地址"><input type="text" class="form-control" required="" name="t_addr" data-label="外网地址" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<tr id="t_monitor">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">业务监控是否开启</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="业务监控是否开启"><input type="radio" name="t_monitor" data-label="业务监控是否开启" value="1" required="" checked="checked" aria-required="true"><label>关</label>　　<input type="radio" name="t_monitor" data-label="业务监控是否开启" value="2" required="" aria-required="true"><label>开</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<!-- <tr id="t_monitorport">
+    <td width="20%"><span class="js_name">监控端口</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="监控端口"><input type="text" class="form-control" name="t_monitorport" data-label="监控端口" value="" data-rule-regex="" data-msg-regex=""></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->
+<tr>
+    <td width="20%"><span class="js_name">环境变量 env</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="环境变量 env"><textarea type="text" class="form-control" name="t_env" data-label="环境变量 env" value="" rows="3"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">容器监控检查路径</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="容器监控检查路径"><input type="text" class="form-control" name="t_root" data-label="容器监控检查路径" value="" data-rule-regex="" data-msg-regex="">
+        <p class="info_special_ps">默认为根，特殊请标注</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">健康检测 初次探活延迟</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="健康检测 初次探活延迟"><input type="text" class="form-control" name="t_time" data-label="健康检测 初次探活延迟" value="60" data-rule-regex="" data-msg-regex="" style="width: 100px;display: inline-block; margin-right: 10px;">秒
+        <p class="info_special_ps">java启动时间较长</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script style="">
+$(function() {
+    $("#t_addr").remove()
+    $("#t_monitorport").remove()
+
+    $('input[name="t_ext"]').click(function() {
+        if ($(this).val() == 1) {
+            $("#t_addr").remove()
+        } else {
+            $("#t_ext").after('<tr id="t_addr"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">外网地址</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="外网地址"><input type="text" class="form-control" required="" name="t_addr" data-label="外网地址" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td><td width="25%"></td><td width="15%"></td></tr>')
+        }
+    })
+    $('input[name="t_monitor"]').click(function() {
+        if ($(this).val() == 1) {
+            $("#t_monitorport").remove()
+        } else {
+            $("#t_monitor").after('<tr id="t_monitorport"><td width="20%"><span class="js_name">监控端口</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="监控端口"><input type="text" class="form-control" name="t_monitorport" data-label="监控端口" value="" data-rule-regex="" data-msg-regex=""></td><td width="25%"></td><td width="15%"></td></tr>')
+        }
+    })
+})
+</script>

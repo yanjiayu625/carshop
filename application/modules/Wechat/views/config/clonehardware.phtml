@@ -1,0 +1,479 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            厂商及型号
+          </li>
+          <li>
+            添加硬件配置
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-edit"></i> 添加硬件配置 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default">
+                  <i class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default">
+                  <i class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default">
+                  <i class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <form class="box-content" id="location_form" novalidate>
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>品牌</h4></td>
+                    <td>
+                      <input type="hidden" value="" name="id" />
+                      <div class="form-group controls select2">
+                        <select id="serverBrand" name="brand">
+                          <option value=''>请选择品牌</option>
+                          <?php foreach( $brandlist as $b){ ?>
+                          <option value='<?php echo $b ?>' <?php if($b==$brand){echo 'selected';} ?>>
+                            <?php echo $b ?>
+                          </option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>产品线</h4></td>
+                    <td>
+                      <div class="form-group controls select2">
+                        <select id="serverLine" name="line">
+                          <option value=''>请选择产品线</option>
+                          <?php foreach( $linelist as $l){ ?>
+                          <option value='<?php echo $l ?>' <?php if($l==$line){echo 'selected';} ?>>
+                            <?php echo $l ?>
+                          </option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>型号</h4></td>
+                    <td>
+                      <div class="form-group controls select2">
+                        <select id="serverModel" name="model">
+                          <option value=''>请选择型号</option>
+                          <?php foreach( $modellist as $m){ ?>
+                          <option value='<?php echo $m; ?>' <?php if($m==$model){echo 'selected';} ?>>
+                            <?php echo $m; ?>
+                          </option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>模板名称</h4></td>
+                    <td>
+                      <div class="form-group col-md-4">
+                        <input type="text" id="hardwareName" class="form-control" value="<?php echo $name; ?>" name="name">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4> RAID：</h4>
+                      <a class="btn btn-default btn-sm minus" href="#">
+                        <i class="glyphicon glyphicon-minus"></i></a>
+                    </td>
+                    <td>
+                      <table class="table table-bordered table-striped">
+                        <thead>
+                          <th width="20%">配置项</th>
+                          <th width="20%">选择</th>
+                          <th width="60%">配置信息</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>RAID</td>
+                            <td>
+                            </td>
+                            <td>
+                              <input id="raiddiy" type="text" class="form-control" value="" name="raiddiy">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4> OOB：</h4>
+                      <a class="btn btn-default btn-sm minus" href="#"><i
+                                                class="glyphicon glyphicon-minus"></i></a>
+                    </td>
+                    <td>
+                      <table class="table table-bordered table-striped">
+                        <thead>
+                          <th width="20%">配置项</th>
+                          <th width="20%">选择</th>
+                          <th width="60%">配置信息</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>用户名</td>
+                            <td>
+                              <input id="oob-user" type="text" class="form-control input-select" value="" name="oob-user">
+                            </td>
+                            <td>
+                              <input id="oob-has-user" type="text" class="form-control" data-val="/opt/{brand}/oob.sh -u <{##}>" value="" name="oob-has-user">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>密码</td>
+                            <td>
+                              <input id="oob-pass" type="text" class="form-control input-select" value="" name="oob-pass">
+                            </td>
+                            <td>
+                              <input id="oob-has-pass" type="text" class="form-control" data-val="/opt/{brand}/oob.sh -p <{##}>" value="" name="oob-has-pass">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4> BIOS：</h4>
+                      <a class="btn btn-default btn-sm minus" href="#"><i
+                                                class="glyphicon glyphicon-minus"></i></a>
+                    </td>
+                    <td>
+                      <table class="table table-bordered table-striped">
+                        <thead>
+                          <th width="20%">配置项</th>
+                          <th width="20%">选择</th>
+                          <th width="60%">配置信息</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>VT</td>
+                            <td>
+                              <select name="bios-vt">
+                                <option value=""> 请选择</option>
+                                <option value="vt-on" selected="selected"> ON</option>
+                                <option value="vt-off"> OFF</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input id="vt-on" type="text" class="form-control" data-val="/opt/{brand}/bios.sh -t enable" value="" name="vt-on">
+                              <input id="vt-off" style="display: none" type="text" class="form-control" data-val="/opt/{brand}/bios.sh -t disable" value="" name="vt-off">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>C-States</td>
+                            <td>
+                              <select name="bios-cstates">
+                                <option value=""> 请选择</option>
+                                <option value="cs-on"> ON</option>
+                                <option value="cs-off" selected="selected"> OFF</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input id="cs-on" style="display: none" type="text" class="form-control" data-val="/opt/{brand}/bios.sh -c enable" value="" name="cs-on">
+                              <input id="cs-off" type="text" class="form-control" data-val="/opt/{brand}/bios.sh -c disable" value="" name="cs-off">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-edit"></i> 提交 </button>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </form>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.select2.min.js'></script>
+  <script src="/js/jquery/jquery.validate.js"></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#config-hardware').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Config').addClass('active').find('ul').slideToggle();
+
+    $('.input-select').bind('input propertychange', function() {
+      var brandReg = new RegExp("{brand}", "g");
+      var str = $(this).parent().next().find('input').data('val');
+      if ($('#serverBrand').val() != '') {
+        str = str.replace(brandReg, $('#serverBrand').val().toLowerCase());
+      }
+      var val = $(this).val();
+
+      var reg = new RegExp("<{##}>", "g"); //创建正则RegExp对象
+      var newstr = str.replace(reg, val);
+
+      $(this).parent().next().find('input').val(newstr);
+    });
+    $('#serverBrand').select2();
+    $('#serverLine').select2();
+    $('#serverModel').select2();
+
+
+    setBrandName('');
+
+    //select brand line model 联动
+    /*$.get("/api/idcos_general/getServerBrandSelect", {}, function(data) {
+      $('#serverBrand').select2({
+        data: data
+      });
+    }, "json");*/
+
+    // 获取数据
+    $.ifosAjax({
+      type: "get",
+      dataType: "json",
+      url: "/api/idcos_config/getHardwareInfo",
+      data: {
+        "id": $.getUrlParam("id")
+      },
+      error: function(err) {
+        console.log(err);
+      },
+      success: function(result) {
+        var hwconf = result.hwconf;
+
+        if (!!result) {
+          var data = {
+            id: result.id,
+            brand: result.brand,
+            vt: $.splitLast(hwconf.bios.vt, ' ') == "disable" ? "vt-off" : "vt-on",
+            cstates: $.splitLast(hwconf.bios.cstates, ' ') == "disable" ? "cs-off" : "cs-on",
+            user: $.splitLast(hwconf.oob.user, ' '),
+            pass: $.splitLast(hwconf.oob.pass, ' '),
+            level: hwconf.raid.level
+          };
+
+          $("input[name='id']").val(data.id);
+
+          $("select[name='bios-vt']").val(data.vt).trigger("change");
+          $("select[name='bios-cstates']").val(data.cstates).trigger("change");
+          $('#oob-user').val(data.user);
+          $('#oob-has-user').val(hwconf.oob.user);
+          $('#oob-pass').val(data.pass);
+          $('#oob-has-pass').val(hwconf.oob.pass);
+          $('#raiddiy').val(data.level)
+
+          setBrandName(data.brand);
+        } else {
+          console.log("没有数据");
+        }
+      }
+    });
+
+
+
+    $('#serverBrand').change(function() {
+      if ($(this).val() != '') {
+        $.get("/api/idcos_general/getServerLineSelect", {
+          'brand': $(this).val()
+        }, function(data) {
+          $('#serverLine').empty().select2({
+            data: data
+          });
+          $('#serverModel').empty().select2({
+            data: [{
+              'id': '',
+              'text': '请选择型号'
+            }]
+          });
+        }, "json");
+      } else {
+        $('#serverLine').empty().select2({
+          data: [{
+            'id': '',
+            'text': '请选择产品线'
+          }]
+        });
+        $('#serverModel').empty().select2({
+          data: [{
+            'id': '',
+            'text': '请选择型号'
+          }]
+        });
+      }
+      setBrandName($(this).val());
+      setHardwareName();
+    });
+
+    $('#serverLine').change(function() {
+      if ($(this).val() != '') {
+        $.get("/api/idcos_general/getServerModelSelect", {
+          'brand': $('#serverBrand').val(),
+          'line': $(this).val()
+        }, function(data) {
+          $('#serverModel').empty().select2({
+            data: data
+          });
+        }, "json");
+      } else {
+        $('#serverModel').empty().select2({
+          data: [{
+            'id': '',
+            'text': '请选择型号'
+          }]
+        });
+      }
+      setHardwareName();
+    });
+
+    $('#serverModel').change(function() {
+      setHardwareName()
+    });
+
+  });
+
+  function setBrandName(val) {
+    var brandReg = new RegExp("{brand}", "g"); //创建正则RegExp对象
+    $('input').each(function() {
+      if (typeof $(this).data('val') != 'undefined') {
+        if (val == '') {
+          $(this).val($(this).data('val'));
+        } else {
+          $(this).val($(this).data('val').replace(brandReg, val.toLowerCase()));
+        }
+        var inputVal = $(this).parent().prev().find('input').val();
+        if (typeof inputVal != 'undefined') {
+          var reg = new RegExp("<{##}>", "g"); //创建正则RegExp对象
+          $(this).val($(this).val().replace(reg, inputVal));
+        }
+      }
+    });
+  }
+
+  function setHardwareName() {
+    var brand = ($("#serverBrand").val() == "") ? "请选择品牌" : $("#serverBrand").val();
+    var line = ($("#serverLine").val() == "") ? "请选择产品线" : $("#serverLine").val();
+    var model = ($("#serverModel").val() == "") ? "请选择型号" : $("#serverModel").val();
+    $('#hardwareName').val(brand + '-' + line + '-' + model + '-');
+  }
+
+  $(document).on('click', '.minus', function() {
+    var tr = $(this).parent().parent();
+    tr.remove();
+    if ($('.minus').length == 1) {
+      $('.minus').remove();
+    }
+  });
+
+  $(document).on('change', 'select', function() {
+    $(this).parent().next().find('input').hide();
+    var val = $(this).val();
+    $("#" + val).show();
+  });
+
+
+
+  $("#location_form").validate({
+    rules: {
+      brand: 'required',
+      line: 'required',
+      model: 'required',
+      name: {
+        required: true,
+        remote: {
+          url: "/api/idcos_general/checkHradwareName",
+          type: "get",
+          dataType: "json",
+          data: {
+            name: function() {
+              return $("input[name='name']").val();
+            }
+          }
+        }
+      }
+    },
+    messages: {
+      brand: '请输入品牌',
+      line: '请输入产品线',
+      model: '请输入型号',
+      name: {
+        required: "请输入操作系统版本",
+        remote: "操作系统版本不能重复"
+      }
+    },
+    submitHandler: function() {
+      var datas = {
+        name: $("input[name='name']").val(),
+        brand: $("select[name='brand']").val(),
+        line: $("select[name='line']").val(),
+        model: $("select[name='model']").val(),
+        hwconf: {
+          id: "",
+          bios: {
+            vt: $("select[name='bios-vt']").val() == "" ? "" : $('#' + $("select[name='bios-vt']").val()).val(),
+            cstates: $("select[name='bios-cstates']").val() == "" ? "" : $('#' + $("select[name='bios-cstates']").val()).val()
+          },
+          oob: {
+            user: $('#oob-user').val() == "" ? "" : $('#oob-has-user').val(),
+            pass: $('#oob-pass').val() == "" ? "" : $('#oob-has-pass').val()
+          },
+          raid: {
+            level: $("select[name='raid-level']").val() == "" ? "" : $('#' + $("select[name='raid-level']").val()).val()
+          }
+        }
+      };
+
+      $.ifosAjax({
+        type: "post",
+        dataType: "json",
+        url: "/api/idcos_config/addHardware",
+        data: {
+          'hardwareJson': JSON.stringify(datas)
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        success: function(result) {
+          if (!!result.status) {
+            $.alert('克隆成功', function() {
+              window.location.href = "/idcos/config/hardware";
+            });
+          } else {
+            $.alert('克隆失败', function() {});
+          }
+        }
+      });
+    },
+    debug: true
+  });
+  </script>

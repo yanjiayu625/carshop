@@ -1,0 +1,288 @@
+<style>
+    .form-control {
+        height: 32px;
+    }
+
+    .table>tbody>tr>td {
+        border-top: 0;
+    }
+
+    .daily_exe_tpl tr td:nth-child(2) {
+        vertical-align: middle;
+        border-top: 0px;
+    }
+
+    .daily_exe_tpl tr td:nth-child(3) {
+        vertical-align: middle;
+        border-top: 0px;
+        position: relative;
+    }
+
+    .daily_exe_tpl tr td:nth-child(3) label {
+        width: 200px;
+        height: 48px;
+        position: absolute;
+        top: 0px;
+        line-height: 48px;
+    }
+
+    .daily_exe_tpl tr td:nth-child(4) {
+        border-top: 0px;
+    }
+
+    .daily_exe_tpl select {
+        height: 32px;
+    }
+
+    #info textarea {
+        height: auto !important;
+    }
+
+    #info select {
+        height: 32px !important;
+    }
+
+    #info label {
+        padding-left: 10px;
+    }
+
+    .modal-dialog table select {
+        padding-top: 5px!important;
+    }
+
+    .box-content .table tr td select {
+        width: 100%;
+    }
+
+    .modal-footer {
+        text-align: center!important;
+    }
+
+    #modal_validate table tr td {
+        position: relative;
+    }
+
+    #modal_validate table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+
+    #editTableModal table tr td {
+        position: relative;
+    }
+
+    #editTableModal table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+
+    .option_filds {
+        display: none;
+    }
+
+    .option_filds textarea {
+        height: auto !important;
+    }
+
+    .select2-container--default .select2-selection--multiple {
+        border-color: #ccc !important;
+    }
+
+    #createServerForm .form_atcion .reset {
+        margin-left: 30%;
+    }
+
+    #createServerForm .form_atcion .submit {
+        margin-left: 30px;
+    }
+
+    .info_special_ps {
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #3a87ad;
+        padding: 5px;
+        margin: 5px 0 0 0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .modal-backdrop {
+        z-index: 1110 !important;
+    }
+
+    .modal {
+        z-index: 1111 !important;
+    }
+
+    .dailytitle {
+        text-align: center !important;
+    }
+    /*table不换行显示*/
+    .excel-show-area table th{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;word-break:break-all;text-align: left;background: #f1f1f1;padding: 8px 2px;}
+    .excel-show-area table td{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;word-break:break-all;text-align: left;}
+    .excel-show-area{display: none;}
+    .webuploader-container{margin-top: 20px;}
+</style>
+
+<form action="" id="dailyForm">
+    <h3 class="js_dailytitle center dailytitle">迁移上线‘服务器'内网IP'和'位置信息'变更’文件上传</h3>
+  
+    <div id="uploader" name="h_key" class="wu-example center">
+        <div id="thelist" class="uploader-list"></div>
+        <div class="btns">
+            <div class="excel-show-area">
+                <table class="table-bordered" style="text-align: center;width:100%">
+                    <tbody id="Excelheader">
+                    </tbody>    
+                    <tbody id="ExcelData">
+                    </tbody>
+                </table>
+            </div>
+            <div id="picker">选择文件上传</div>
+        </div>
+    </div>
+
+
+</form>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $(".title").hide();
+        $(".js_remark").hide();
+        $(".inform_area").remove();
+        $(".modal-footer").hide();
+
+        var uploader;
+        $("#addCheck").on("shown.bs.modal", function() {
+
+            uploader = WebUploader.create({
+
+                // swf文件路径
+                swf: '/js/Uploader.swf',
+
+                // 文件接收服务端。
+                server: "/api/issue_exe/uploadBatchMigrateFile?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role")+"&type=updateIp",
+
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                duplicate: true,
+                auto: true
+                // fileNumLimit:1
+            });
+            $('.webuploader-pick').next().css({
+                'z-index': 9999
+            })
+            // 当有文件被添加进队列的时候
+            uploader.on('fileQueued', function(file) {
+                $(".upload_error").remove();
+                $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                        '<h4 class="info">' + file.name + '</h4>' +
+                        '<p class="state">等待上传...</p>' +
+                        '</div>');
+            });
+            uploader.on('uploadSuccess', function(file, response) {
+                // 根据返回结果展示相应信息
+
+
+                // 根据返回结果展示相应信息
+                $('#' + file.id).find('p.state').text(response.msg);
+                
+                if (response.status) {
+                    $('#' + file.id).find('p.state').text(response.msg);
+                    var excelHtm =''
+                    $.each(response.data, function(key, val) {
+                        if(key){
+
+                            excelHtm += '<tr>';
+                            $.each(val, function(k,v) {
+                                excelHtm += '<td>' + (!!v?v:'') + '</td>';
+                            })
+                            excelHtm += '</tr>';
+                        }else{
+                            var excelHtmHeader = '<tr>';
+                            $.each(val, function(k,v) {
+                                excelHtmHeader += '<th>' + (!!v?v:'') + '</th>';
+                            })
+                            excelHtmHeader += '</tr>';
+
+                            $("#Excelheader").append(excelHtmHeader)
+                        }
+                    })
+
+                    $("#ExcelData").append(excelHtm)
+                    $('.modal-dialog').css({width:'1500px'})
+                    $('.excel-show-area').show();
+
+                    $(".modal-footer").show();
+                    $(".js_remark").val(response.msg)
+
+
+                }else{
+                }
+
+                //为保证只有一个文件上传：如果多个文件上传，取消第一个文件
+                if ($("#thelist .item").size() > 1) {
+                    uploader.removeFile(file);
+                    $("#thelist .item").eq(0).remove()
+
+                }
+                // $('.js_remark').val(response.msg)
+            });
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function(file, percentage) {
+                var $li = $('#' + file.id),
+                        $percent = $li.find('.progress .progress-bar');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<div class="progress progress-striped active">' +
+                            '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                            '</div>' +
+                            '</div>').appendTo($li).find('.progress-bar');
+                }
+
+                $li.find('p.state').text('上传中');
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+            uploader.on('uploadError', function(file, reason) {
+                $('#' + file.id).find('p.state').text('上传出错');
+                if ($("#thelist .item").size() > 1) {
+                    uploader.removeFile(file);
+                    $("#thelist .item").eq(0).remove()
+                }
+            });
+            uploader.on('error', function(type) {
+                $('#' + file.id).find('p.state').text('上传出错');
+            });
+
+            uploader.on('uploadComplete', function(file, response) {
+                $('#' + file.id).find('.progress').fadeOut();
+            });
+        })
+        //关闭模态框销毁WebUploader，解决再次打开模态框时按钮越变越大问题
+        $('#addCheck').on('hide.bs.modal', function() {
+            $("#responeseText").text("");
+            uploader.destroy();
+        });
+
+    });
+</script>

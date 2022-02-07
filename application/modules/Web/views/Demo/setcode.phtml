@@ -1,0 +1,141 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    .approver .addapprover{position: relative;}
+    .approver .addapprover .err{width: 150px;height: 40px;position:absolute;bottom: -52px;right: 0;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .groups{position: relative;}
+    .groups .group_tip{width: 290px;height: 40px;position:absolute;top: -10px;left: 25%;background: url(/img/tip1.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .groups .group_err{width: 290px;height: 40px;position:absolute;bottom: 0px;left: 100px;background: url(/img/tip.png) no-repeat;background-size:100% 100%;padding: 10px 10px;color:#f00;z-index: 10;display: none;}
+    .box-inner .box-content .action {text-align: center;}
+    .box-inner .box-content .action .saveProcess{margin-right:40px;}
+.</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>设置提案流程</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> 代码编辑器</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            
+                            <table class="table table-bordered table-striped">
+                              
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div id="mirrorconf-editor" style="height:400px"></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="action">
+                                <span class="btn btn-primary submit_diyinfo saveProcess js_saveCode"><i class="glyphicon glyphicon-share"></i>保存</span>
+                                <a href="javascript:history.go(-1)" class="btn btn-default submit_diyinfo js_cancelExecutor"><i class="glyphicon glyphicon-remove"></i>取消</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end Edit  Modal -->
+
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src='/js/ace/ace.js'></script>
+<script src='/js/ace/theme-terminal.js'></script>
+<script src="/js/ifos.js"></script>
+<script>
+
+    $(document).ready(function() {
+        $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+        $('#IssueAdmin-set').css({
+            "background-color": "#eeeeee"
+        });
+
+        //初始化编辑器
+        var htmlEditor = ace.edit("mirrorconf-editor");
+        htmlEditor.setTheme("ace/theme/terminal");
+        $('#mirrorconf-editor textarea').attr('name', 'mirrorconf');
+        document.getElementById('mirrorconf-editor').style.fontSize='14px';
+        htmlEditor.setHighlightActiveLine(true);
+        htmlEditor.getSession().setUseWrapMode(true);
+
+        var list = {
+            init: function(){
+                var that = this;
+                $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+                $('#IssueAdmin-set').css({
+                    "background-color": "#eeeeee"
+                });
+
+                $(document).on("click",".js_saveCode",function(){
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "/api/issue_admin/saveTplInfo",
+                        data: {
+                            html: htmlEditor.getValue(),
+                            name: $.getUrlParam("name")
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        },
+                        success: function(result) {
+                            if(result.status){
+                                $.alert("代码保存成功",list.suc)
+                            }
+
+                        }
+                    })
+                })
+
+                that.getDate();
+            },
+            getDate: function(){
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_admin/getTplInfo?name="+$.getUrlParam("name"),
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(result.status){
+                            htmlEditor.setValue(result.data);
+                        }else{
+                            $.alert("获取数据失败，请重试",list.reload)
+                        }
+                    }
+                })
+            },
+            suc: function(){
+                window.history.go(-1);
+            },
+            reload: function(){
+                window.location.reload();
+            }
+        }
+        list.init();
+    })
+</script>

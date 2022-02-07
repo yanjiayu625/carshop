@@ -1,0 +1,115 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">工位号</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择工位号" data-original-title="工位号">
+		<input type="text" class="form-control" name="t_location" data-label="工位号" value="" required="" checked="checked" aria-required="true">
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请项目</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择您要申请的“特权”项" data-original-title="申请项目">
+		<input type="hidden" name="t_item" required="" data-label="申请项目" aria-required="true">
+		<select type="text" class="form-control itemtype" required="" name="h_item" data-label="申请项目" value="" rows="1" aria-required="true" style="width:30%;display:inline-block;padding: 0px 0px 0px 11px !important;margin-right: 10px;">
+			<option value=""></option>
+			<option value="1">VPN</option>
+			<option value="2">香港代理</option>
+			<option value="3">实体话机</option>
+			<option value="4">正版adobe</option>
+			<option value="5">联机adobe</option>
+			<option value="6">云桌面</option>
+		</select>
+		<select name="h_relatetype" multiple="" class="items js-example-basic-multiple select2-hidden-accessible" style="width:60%;display:none;padding:  0px 0px 0px 11px !important;" tabindex="-1" aria-hidden="true">
+			
+		</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 60%; display: none;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="请选择提案类型" style="width: 355px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 60%; display: none;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="请选择提案类型" style="width: 355px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 60%; display: none;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="请选择提案类型" style="width: 354px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 60%; display: none;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="请选择提案类型" style="width: 355px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+		<script src="/js/jquery/jquery.select2.min.js"></script>
+		<script>
+		$(function() {
+	        $('.submit').attr('disabled',true)
+
+			$(".js-example-basic-multiple").select2({
+                placeholder: "请选择提案类型"
+            });
+			$('.select2').hide()
+               
+		})
+		$(document).on('change', '.itemtype', function() {
+			switch ($(this).val()){
+				case '1': 
+					$(".leaderitem").hide();
+					$("input [name = 'leader']").val('');
+					$("#warming").html('不在公司又何妨，照常访问内部系统~');
+					$(".items").html('').hide()
+					break;
+				case '2':
+					$(".leaderitem").show();
+					$("#warming").html('翻墙有何难，想翻你就翻~')
+					$(".items").html('').hide()
+					break;
+				case '3':
+					$(".leaderitem").show();
+					$(".items").html('').hide()
+					$("#warming").html('申请实体话机')
+					break;
+				case '4':
+					$(".items").html('<option value="Acrobat Professional CS5">Acrobat Professional CS5</option><option value="Acrobat Professional CS6">Acrobat Professional CS6</option><option value="Adobe Premiere Pro CS5">Adobe Premiere Pro CS5</option><option value="Adobe Premiere Pro CS6">Adobe Premiere Pro CS6</option><option value="After Effects CS6">After Effects CS6</option><option value="Dreamweaver CS5">Dreamweaver CS5</option><option value="Dreamweaver CS6">Dreamweaver CS6</option><option value="Flash Pro CS5">Flash Pro CS5</option><option value="Flash Pro CS6">Flash Pro CS6</option><option value="Illustrator CS5">Illustrator CS5</option><option value="Illustrator CS6">Illustrator CS6</option><option value="Photoshop CS5">Photoshop CS5</option><option value="Photoshop CS6">Photoshop CS6</option>').show()
+					$('.select2').show()
+					$(".leaderitem").show();
+					$("#warming").html('使用需经费，申请需谨慎(右侧是可以选多个的哦)')
+					break;
+				case '5':
+					$(".items").html('<option value="Acrobat Professional">Acrobat Professional</option><option value="Dreamweaver">Dreamweaver</option><option value="Illustrator CS5">Illustrator CS5</option><option value="Photoshop CS5">Photoshop CS5</option>').show()
+					$('.select2').show()
+					$(".leaderitem").show();
+					$("#warming").html('申请联机adobe软件(右侧是可以选多个的哦)')
+					break;
+				case '6':	
+					$(".items").html('').hide()
+					$("#warming").html('随时随地任何设备，访问同一办公环境')
+					break;
+				default:
+					$(".items").html('').hide()
+					$(".leaderitem").hide();
+					$('.select2').hide()
+					$("#warming").html('请选择您要申请的“特权”项')
+					break;
+				}
+			$(".items").trigger("change");
+
+		})
+		$(document).on('change', '.items', function() {
+			var subitem =  $(".js-example-basic-multiple").val() ? ':'+$(".js-example-basic-multiple").val().join(",") : ''
+			$("input[name = 't_item']").val($(".itemtype option:checked").text()+subitem)
+		})
+		</script>
+		<p class="info_special_ps" id="warming">请选择您要申请的“特权”项</p>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="leaderitem" style="display: none;">
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">部门总监</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入部门总监域账号" data-original-title="部门总监">
+		<input type="text" class="form-control" name="t_leader" data-label="部门总监" required="" aria-required="true">
+		
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请原因</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入申请该项目的原因" data-original-title="申请原因">
+		<textarea type="text" class="form-control" required="" name="t_reason" data-label="申请原因" value="" rows="3" placeholder="请输入申请该项目的原因" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

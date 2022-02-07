@@ -1,0 +1,187 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            配置信息管理
+          </li>
+          <li>
+            修改网段
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-barcode"></i> 修改网段 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <form class="box-content" id="location_form" novalidate>
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>所属机房</h5></td>
+                    <td>
+                      <input type="hidden" class="form-control" name="id" value="">
+                      <div class="form-group controls select2">
+                        <select class="select-location" id="selectLocation" name="idcid" data-rel="chosen">
+                          <option value=''> 请选择所属机房 </option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>IP/掩码位</h5></td>
+                    <td>
+                      <div class="form-group col-md-8">
+                        <input type="text" class="form-control" name="cidr" value="">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h5><i class="glyphicon glyphicon-star red"></i>网关</h5></td>
+                    <td>
+                      <div class="form-group col-md-8">
+                        <input type="text" class="form-control" name="gateway" value="">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-edit"></i> 提交 </button>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </form>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery jquery.validate.js-->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/jquery/jquery.validate.js"></script>
+  <script src='/js/jquery/jquery.select2.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#config-network').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Config').addClass('active').find('ul').slideToggle();
+
+    var getNetworkInfo = function() {
+      // 获取数据
+      $.ifosAjax({
+        type: "get",
+        dataType: "json",
+        url: "/api/idcos_config/getNetworkInfo",
+        data: {
+          "id": $.getUrlParam("id")
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        success: function(result) {
+          if (!!result) {
+            var data = result;
+            $("input[name='id']").val(data.id);
+            $("select[name='idcid']").val(data.idcid).trigger("change");
+            $("input[name='cidr']").val(data.cidr);
+            $("input[name='gateway']").val(data.gateway);
+          } else {
+            console.log("没有数据");
+          }
+        }
+      });
+    };
+    //获取系统安装模板信息
+    $.ifosAjax({
+      url: "/api/IdcOs_General/getIdcSelect",
+      type: "get",
+      dataType: "json",
+      contentType: 'application/json',
+      success: function(result) {
+        $('.select-location').select2({
+          data: result
+        });
+
+        getNetworkInfo();
+
+      }
+    });
+
+
+    $("#location_form").validate({
+      rules: {
+        idcid: "required",
+        cidr: {
+          required: true
+        },
+        gateway: "required",
+      },
+      messages: {
+        idcid: "请选择机房",
+        cidr: {
+          required: "请输入IP/掩码位"
+        },
+        gateway: "请输入网关"
+      },
+      submitHandler: function() {
+        var datas = {
+          "id": $("input[name='id']").val(),
+          "idcid": $("select[name='idcid']").val(),
+          "cidr": $("input[name='cidr']").val(),
+          "gateway": $("input[name='gateway']").val()
+        };
+        $.ifosAjax({
+          type: "post",
+          dataType: "json",
+          url: "/api/idcos_config/updateNetwork",
+          data: {
+            "networkJson": JSON.stringify(datas)
+          },
+          error: function(err) {
+            console.log(err);
+          },
+          success: function(result) {
+            if (!!result.status) {
+              $.alert('修改成功', function() {
+                window.location.href = "/idcos/config/network";
+              });
+            } else {
+              $.alert('修改失败', function() {});
+            }
+          }
+        });
+      },
+      debug: true
+    });
+
+  });
+  </script>

@@ -1,0 +1,164 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.title{padding: 10px 15px;}
+.backarea{border-top: 1px solid #e5e5e5;background: #eee;border-radius: 3px;}
+#createModal .goback{margin: 5px 0 5px 80%;}
+#type-treeview,#change-treeview{margin: 0 15px;}
+.serveType{margin-right: 20px;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>提案管理</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-magnet"></i> 提案管理</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="btn btn-primary serveType js_server">设置服务提案 <i class="glyphicon glyphicon-wrench"></i></span>
+                                    <span class="btn btn-primary changeType js_change">设置变更提案 <i class="glyphicon glyphicon-wrench"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+        </div>
+    </div>
+     <!--create  Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="title"></h4>
+                    <div id="type-treeview" class=""></div>
+                  </div>
+                </div>
+                <div class="backarea">
+                    <span class="btn btn-default goback"><i class="glyphicon glyphicon-ban-circle"></i> 取消</span>
+                </div>
+            </div>
+        </div>
+    </div><!--end createServer Modal-->
+
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var list = {
+            init: function(){
+                var that = this;
+                $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+                $('#IssueAdmin-set').css({
+                    "background-color": "#eeeeee"
+                });
+                $(document).on("click",".list-group-item",function(){
+                    //找到当前节点id
+                    var nodeid = $(this).attr('data-nodeid');  
+                    var tree = $('#type-treeview');  
+                    //获取当前节点对象  
+                    var node = tree.treeview('getNode', nodeid);  
+                      
+                    if(node.state.expanded){   
+                        //处于展开状态则折叠  
+                        tree.treeview('collapseNode', node.nodeId);    
+                    } else {  
+                        //展开  
+                        tree.treeview('expandNode', node.nodeId);  
+                    }  
+                })
+                $(document).on("click",".expand-icon",function(){
+                    //找到当前节点id
+                    var nodeid = $(this).parent().attr('data-nodeid');  
+                    var tree = $('#type-treeview');  
+                    //获取当前节点对象  
+                    var node = tree.treeview('getNode', nodeid);  
+                      
+                    if(node.state.expanded){   
+                        //处于展开状态则折叠  
+                        tree.treeview('collapseNode', node.nodeId);    
+                    } else {  
+                        //展开  
+                        tree.treeview('expandNode', node.nodeId);  
+                    }  
+                })    
+
+                $('.js_server').click(function(){
+                    $('#createModal').modal('show');
+                    $("#createModal .title").html('设置提案 &gt;&gt; 【第二步】选择服务类型');
+                    that.getdata("getIssueServerTree","server");
+                   
+                })
+                $('.js_change').click(function(){
+                    $('#createModal').modal('show');
+                    $("#createModal .title").html('设置提案 &gt;&gt; 【第二步】选择变更类型');
+                    that.getdata("getIssueChangeTree","change");
+                })
+                $('#createModal .goback').click(function(){
+                    // $('#createModal').modal('hide');
+                    window.location.reload();
+                })
+            },
+            getdata: function(url,type){
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_admin/"+url,
+                    data: {},
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (!!result) {
+                            var data = result;
+                            $('#type-treeview').treeview({
+                                levels: 1,
+                                color: "#428bca",
+                                expandIcon: 'glyphicon glyphicon-plus',
+                                collapseIcon: 'glyphicon glyphicon-minus',
+                                onNodeSelected: function (event, node) {
+                                    if(node.name){
+                                         window.location.href='/issue/admin/settings?type='+type+'&name='+node.href;
+                                    }
+                                },
+                                data: data
+                            });
+                        } else {
+                            console.log("没有数据");
+                        }
+                    }
+                });  
+            }
+        }
+        list.init();
+    });
+</script>

@@ -1,0 +1,685 @@
+<?php include TPL_MAIN_HEADER ?>
+
+<div class="ch-container">
+    <div class="row">
+
+        <?php include TPL_LEFT_IDCOS_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/index">首页</a>
+                    </li>
+                    <li>
+                        IFOS装机平台
+                    </li>
+                    <li>
+                        厂商及型号
+                    </li>
+                    <li>
+                        添加设备型号
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-film"></i> 添加设备型号 </h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                <tr>
+                                    <td width="20%"><h4><i class="glyphicon glyphicon-star red"></i>服务器厂商</h4></td>
+                                    <td>
+                                        <div class="form-group col-md-4">
+                                            <div class="controls">
+                                                <select id="selectError" data-rel="chosen">
+                                                    <option> 请选择厂商</option>
+                                                    <option> DELL </option>
+                                                    <option> IBM </option>
+                                                    <option> HP </option>
+                                                    <option> 联想 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><h4><i class="glyphicon glyphicon-star red"></i>产品名称</h4></td>
+                                    <td>
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" value="PowerEdge">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><h4><i class="glyphicon glyphicon-star red"></i>服务器型号</h4></td>
+                                    <td>
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" value="R420">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4> 配置名称：</h4>
+                                        <input type="text" class="form-control" value="RAID"><br>
+                                        <a class="btn btn-default btn-sm plus" href="#"
+                                        ><i class="glyphicon glyphicon-plus"></i></a>
+                                        <a class="btn btn-default btn-sm minus" href="#"
+                                        ><i class="glyphicon glyphicon-minus"></i></a>
+                                    </td>
+                                    <td>
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th width="15%">配置项</th>
+                                            <th width="15%">类型</th>
+                                            <th width="60%">配置信息</th>
+                                            <th width="10%">操作</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="RAID"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select" selected="selected"> 下拉框</option>
+                                                            <option value="input"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="RAID0">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/raid.sh -c -l 0">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="RAID1">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/raid.sh -c -l 1">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="RAID5">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/raid.sh -c -l 5">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           value="option2" checked="true">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="RAID10">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/raid.sh -c -l 10">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input"
+                                                           style="display: none">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><h4> 配置名称：</h4>
+                                        <input type="text" class="form-control" value="OOB"><br>
+                                        <a class="btn btn-default btn-sm plus" href="#"
+                                        ><i class="glyphicon glyphicon-plus"></i></a>
+                                        <a class="btn btn-default btn-sm minus" href="#"
+                                        ><i class="glyphicon glyphicon-minus"></i></a>
+                                    </td>
+                                    <td>
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th width="15%">配置项</th>
+                                            <th width="15%">类型</th>
+                                            <th width="60%">配置信息</th>
+                                            <th width="10%">操作</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="网络类型"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select" selected="selected"> 下拉框</option>
+                                                            <option value="input"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="DHCP">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/oob.sh -n dhcp">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="静态IP">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/oob.sh -n static">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input"
+                                                           style="display: none">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="用户名"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select"> 下拉框</option>
+                                                            <option value="input" selected="selected"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select" style="display: none">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value="/opt/yunji/osinstall/yourdir/oob.sh -u <{##}>"
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value="root"
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="密码"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select"> 下拉框</option>
+                                                            <option value="input" selected="selected"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select" style="display: none">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value="/opt/yunji/osinstall/yourdir/oob.sh -p <{##}>"
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value="calvin"
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><h4> 配置名称：</h4>
+                                        <input type="text" class="form-control" value="BIOS"><br>
+                                        <a class="btn btn-default btn-sm plus" href="#"
+                                        ><i class="glyphicon glyphicon-plus"></i></a>
+                                        <a class="btn btn-default btn-sm minus" href="#"
+                                        ><i class="glyphicon glyphicon-minus"></i></a>
+                                    </td>
+                                    <td>
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th width="15%">配置项</th>
+                                            <th width="15%">类型</th>
+                                            <th width="60%">配置信息</th>
+                                            <th width="10%">操作</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="VT"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select" selected="selected"> 下拉框</option>
+                                                            <option value="input"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2" checked>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="ON">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/bios.sh -t enable">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="OFF">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/bios.sh -t disable">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input"
+                                                           style="display: none">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="C-States"></td>
+                                                <td>
+                                                    <div class="controls">
+                                                        <select data-rel="chosen">
+                                                            <option value="none"> 请选择类型</option>
+                                                            <option value="select" selected="selected"> 下拉框</option>
+                                                            <option value="input"> 输入框</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered table-striped type-select">
+                                                        <thead>
+                                                        <th width="10%">默认</th>
+                                                        <th width="20%">名称</th>
+                                                        <th width="50%">执行脚本</th>
+                                                        <th width="20%">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2" checked>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="ON">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/bios.sh -c enable">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="radio" style="margin-left: 30px">
+                                                                    <input type="radio" name="optionsRadios"
+                                                                           id="optionsRadios2" value="option2">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" value="OFF">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="/opt/yunji/osinstall/yourdir/bios.sh -t disable">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm plus" href="#"
+                                                                ><i class="glyphicon glyphicon-plus"></i></a>
+                                                                <a class="btn btn-default btn-sm minus" href="#"
+                                                                ><i class="glyphicon glyphicon-minus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-bordered table-striped type-input"
+                                                           style="display: none">
+                                                        <thead>
+                                                        <th width="70%">执行脚本</th>
+                                                        <th width="30%">占位符默认值</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="请填写执行脚本,占位符请填写<{##}>"></td>
+                                                            <td><input type="text" class="form-control" value=""
+                                                                       placeholder="占位符默认值"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-default btn-sm plus" href="#"
+                                                    ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    <a class="btn btn-default btn-sm minus" href="#"
+                                                    ><i class="glyphicon glyphicon-minus"></i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a class="btn btn-success" href="/idcos/device/edit?id=12"><i
+                                    class="glyphicon glyphicon-edit"></i> 提交 </a>
+                            <a class="btn btn-default" href="javascript:history.go(-1)"><i
+                                    class="glyphicon glyphicon-remove"></i> 取消</a>
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+
+            </div><!--/row-->
+
+        </div>
+    </div>
+
+<?php include TPL_MAIN_FOOTER ?>
+
+    <!-- jQuery -->
+    <script src="/js/jquery/jquery.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src='/js/jquery/chosen.jquery.min.js'></script>
+
+    <script src="/js/ifos.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#company-hardware').css({"background-color": "#eeeeee"});
+            $('#Company').addClass('active').find('ul').slideToggle();
+        });
+
+        $(document).on('click', '.plus', function () {
+            var tr = $(this).parent().parent();
+            tr.after('<tr>' + tr.html() + '</tr>');
+        });
+
+        $(document).on('click', '.minus', function () {
+            var tr = $(this).parent().parent();
+            tr.remove();
+        });
+
+        $(document).on('change', 'select', function () {
+            var table = $(this).parent().parent().next();
+            var type = $(this).val();
+            switch (type) {
+                case 'none':
+                    table.find('.type-select').hide();
+                    table.find('.type-input').hide();
+                    break;
+                case 'select':
+                    table.find('.type-select').show();
+                    table.find('.type-input').hide();
+                    break;
+                case 'input':
+                    table.find('.type-select').hide();
+                    table.find('.type-input').show();
+                    break;
+            }
+        });
+
+    </script>
+<?php include TPL_MAIN_FOOTER ?>

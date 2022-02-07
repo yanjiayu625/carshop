@@ -1,0 +1,100 @@
+<?php include TPL_LOGIN_HEADER ?>
+<body>
+    <style>
+        body{background: url(/img/login_bg1.jpg) no-repeat center center #bec5ca;}
+        .login-header .logo{width: 50px;height: 50px;margin-right: 10px;vertical-align:-14px;}
+        form{margin-top: 20px;position: relative;}
+        form .input-prepend{margin-top: 10px;}
+        form .login_action{margin-top: -20px;}
+        #alertInfo{width: 0px;height: 38px;position: absolute;bottom: -10px;right: -123px;display: none;overflow: hidden;line-height: 38px;padding:  0 0;}
+    </style>
+<div class="ch-container">
+    <div class="row">
+        <div class="col-md-12 center login-header">
+            <h2><img class="logo" src="/img/logo10.png" alt="">欢迎使用 IFOS 系统</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="well col-md-5 center login-box">
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                        <input name="usr" type="text" class="form-control" required="required" placeholder="请输入您的用户名">
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                        <input name="pwd" type="password" class="form-control" required="required" placeholder="请输入您的密码">
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="input-prepend">
+<!--                        <label class="remember" for="remember"><input type="checkbox" id="remember"> 5天内自动登录</label>-->
+                        <label class="remember" for="remember"></label>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <p class="login_action center col-md-5">
+                        <button id="loginButton" type="submit" class="btn btn-primary">登录</button>
+                    </p>
+                </fieldset>
+                <div class="alert alert-info" id="alertInfo">
+                </div>
+            </form>
+        </div>
+        <!--/span-->
+    </div>
+    <!--/row-->
+</div>
+<!--/fluid-row-->
+
+<!-- jQuery -->
+<script src="js/jquery/jquery.min.js"></script>
+    <script src="/js/jquery.tools.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#loginButton").click(function () {
+            $("#alertInfo").css({"width":0,"display":"none"});
+            var usr = $("input[name='usr']").val().replace(/\s+/g,'');//去空格
+            var pwd = $("input[name='pwd']").val();
+            if((usr!="") && (pwd!="")){
+                $.ajax({
+                    type: "POST", dataType: "json", url: "/login/login",
+                    data: {usr:usr, pwd:pwd, exp:$("#remember").is(':checked'),url:$.getUrlParam("url")},
+                    success: function (data) {
+                        if (data.status === true) {
+                            if(data.data == ''){
+                                location.href = 'index';
+                            }else{
+                                location.href = data.data;
+                            }
+                        } else {
+                            alertError("您输入的用户名或密码错误！");
+                            return false;
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+        
+        var timer;
+        function alertError(msg){
+            $("#alertInfo").show().removeClass('alert-info').addClass('alert-danger').html(msg);
+            $("#alertInfo").animate({width:"230px"},1000,function(){
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    $("#alertInfo").css({"width":0,"display":"none"});
+                },5000);
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>

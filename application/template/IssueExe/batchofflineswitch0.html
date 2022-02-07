@@ -1,0 +1,141 @@
+<style>
+.form-control {
+    height: 32px;
+}
+
+.batchonlineswitch>tbody>tr>td {
+    border-top: 0;
+    padding:10px 0;
+}
+
+.batchonlineswitch tr td:nth-child(1) {
+    text-align: right;
+    border-top: 0px;
+}
+.batchonlineswitch tr td:nth-child(2) {
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.batchonlineswitch tr td:nth-child(3) {
+    vertical-align: middle;
+    border-top: 0px;
+    position: relative;
+}
+
+.form_atcion {
+    margin-top: 20px;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.dailytitle {
+    text-align: center !important;
+}
+</style>
+<form action="" id="batchonlineswitch">
+    <h3 class="js_dailytitle center dailytitle">提案ID</h3>
+    <table class="batchonlineswitch" width="100%">
+        <tr>
+            <td  width="150px">监控是否下线：　　</td>
+            <td width="30%">
+                <input type="radio" required="" aria-required="true" name="t_monitor" value="1" checked> 否　
+                <input type="radio" required="" aria-required="true" name="t_monitor" value="2"> 是
+            </td>
+            <td width="30%"></td>
+        </tr>
+        <tr>
+            <td width="150px">流量采集是否删除：　　</td>
+            <td width="40%">
+                <input type="radio" required="" aria-required="true" name="t_netflow" value="1" checked> 否　
+                <input type="radio" required="" aria-required="true" name="t_netflow" value="2"> 是
+            </td>
+            <td width="30%"></td>
+        </tr>
+    </table>
+    
+    <p class="form_atcion center">
+        <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>确定</button>
+    </p>
+</form>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery/jquery.form.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$(".submit").attr('disabled', true);
+    $(".submit").addClass("btn-default").removeClass('btn-primary');
+
+    $("[name='t_monitor']").click(function() {
+        if (($(this).val() == 2) && ($("[name='t_netflow']:checked").val()==2)) {
+        	$(".submit").attr('disabled', false);
+    		$(".submit").addClass("btn-primary").removeClass('btn-default');
+        } else {
+        	$(".submit").attr('disabled', true);
+    		$(".submit").addClass("btn-default").removeClass('btn-primary');
+        }
+    })
+    $("[name='t_netflow']").click(function() {
+        if (($(this).val() == 2)  && ($("[name='t_monitor']:checked").val()==2)) {
+        	$(".submit").attr('disabled', false);
+    		$(".submit").addClass("btn-primary").removeClass('btn-default');
+        } else {
+        	$(".submit").attr('disabled', true);
+    		$(".submit").addClass("btn-default").removeClass('btn-primary');
+        }
+    })
+
+
+    $(".js_remark_title").hide();
+    $(".js_remark").hide();
+    $(".inform_area").remove();
+    $(".modal-footer").hide();
+    $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 网络设备批量下线')
+
+    $("#batchonlineswitch").validate({
+        ignore: [],
+        errorPlacement: function(error, element) {
+            $(element).closest("tr").children('td').eq(2).html(error);
+        },
+        //验证通过后提交数据
+        submitHandler: function(form) {
+            $.ajax({
+                url: "/api/issue_exe/updateSwitchInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                type: "POST",
+                dataType: "json",
+                data: {
+                    type: 'offline',
+                    t_monitor: $("[name='t_monitor']:checked").val(),
+                    t_netflow: $("[name='t_netflow']:checked").val()
+                },
+                success: function(result) {
+                    if (result.status) {
+                        $(".js_remark").val(result.msg)
+                        $("#callback1").trigger('click');
+
+                    } else {
+                        $(".form_atcion").before('<label id="t_log_pic-error" class="error" for="t_log_pic">' + result.msg + '.</label>');
+
+                    }
+                }
+            })
+
+        },
+        debug: true
+    });
+
+});
+</script>

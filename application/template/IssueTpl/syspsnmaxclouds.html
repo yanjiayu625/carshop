@@ -1,0 +1,61 @@
+<!--<tr>-->
+    <!--<td width="20%"><span class="js_name">系统介绍</span></td>-->
+    <!--<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统介绍">-->
+        <!--<p class="alert alert-danger" style="margin-bottom:14px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">-->
+            <!--默认显示用户已存在的所有服务器分组,可以添加新IP到某个分组;<br>-->
+        <!--</p>-->
+    <!--</td>-->
+    <!--<td width="25%"></td>-->
+    <!--<td width="15%"></td>-->
+<!--</tr>-->
+<tr>
+    <td width="20%"><span class="js_name">系统域名</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统域名">
+            <p class="js_SteppingStones info_special_ps"><a href="http://maxclouds.ifos.ifengidc.com" target="_blank">maxclouds.ifos.ifengidc.com</a></p>
+        </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">系统角色</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="系统角色">
+        <select class="form-control valid" name="sysrolenamelist" aria-required="true" aria-invalid="false">
+            <option value="1">系统管理员</option>
+            <option value="2">管理中心</option>
+        </select></td>
+    </td><td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<input type="hidden" name="t_sysroleid">
+<input type="hidden" name="t_sysrolename" data-label="系统角色">
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请说明"><textarea type="text" class="form-control" required="" name="t_commit" data-label="申请说明" value="" rows="3" aria-required="true"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<script style="">
+$(function() {
+    $('[name="sysrolenamelist"]').change(function () {
+        $("[name = 't_sysrolename']").val($("[name = 'sysrolenamelist']").find("option:selected").text());
+        $("[name = 't_sysroleid']").val($(this).val());
+    })
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/api/Issue_Extdata/getMaxCloudsSysRoleList',
+        error: function (err) {
+            console.log(err)
+        },
+        success: function (result) {
+            var sysRole_html = ''
+            $.each(result, function(index, val) {
+                sysRole_html += '<option value="' + val.id + '">' + val.text + '</option>'
+            })
+            $('[name="sysrolenamelist"]').html(sysRole_html)
+            $('[name="sysrolenamelist"]').trigger('change')
+        }
+    })
+})
+</script>

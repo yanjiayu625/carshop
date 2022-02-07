@@ -1,0 +1,222 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    .clear {
+        zoom: 1
+    }
+
+    .clear:after {
+        content: ".";
+        display: block;
+        visibility: hidden;
+        height: 0;
+        clear: both;
+    }
+
+    .box-content {
+        
+
+    }
+
+    .box-content a {
+        position: absolute;
+        bottom: 8px;
+        left: 15px;
+    }
+    .filed{
+        width: 45%;
+        height: 150px;
+        background: #f9f9f9;
+        padding: 10px 10px;
+        float: left;
+        margin:0 20px 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        position: relative;
+    }
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>提案管理</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-magnet"></i> 提案管理</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>服务类型: <h5><?php echo $servername ?></h5></h4>
+
+                                    <div class="filed">
+                                        <h4>配置申请内容表格</h4>
+                                        <p>通过工作可以编辑该提案的内容表,形式包括文本输入框,下拉选择框,复选框,单选框,文本输入域等,还可以对输入值进行正则校验等</p>
+                                        <a href="#" class="btn btn-primary js_edittable"><i
+                                            class="glyphicon glyphicon-home"></i> 编辑表格</a>
+                                    </div>
+                                    <div class="filed">
+                                        <h4>自定义申请内容编辑器</h4>
+                                        <p>代码编辑器</p>
+                                        <a href="#" class="btn btn-primary js_setcode"><i
+                                            class="glyphicon glyphicon-cog"></i> 代码编辑器</a>
+                                    </div>
+                                    <div class="filed">
+                                        <h4>流程设置</h4>
+                                        <p>设置该提案的审批和执行流程,包括审批人编辑,执行组设置等</p>
+                                        <a href="#" class="btn btn-primary js_setprocess"><i
+                                            class="glyphicon glyphicon-cog"></i> 流程设置</a>
+                                    </div>  
+                                    <div class="filed">
+                                        <h4>工作组设置</h4>
+                                        <p>设置该提案执行的工作组信息,包括执行顺序,执行人等信息</p>
+                                        <a href="#" class="btn btn-primary js_setexecutor"><i
+                                            class="glyphicon glyphicon-pencil"></i> 工作组设置</a>
+                                    </div>
+                                    <div class="filed">
+                                        <h4>自定义执行页面</h4>
+                                        <p>根据用户需求自定义执行页面HTML</p>
+                                        <a href="#" class="btn btn-primary js_setexehtml"><i
+                                            class="glyphicon glyphicon-book"></i> 执行页面</a>
+                                    </div>
+                                    <div class="filed">
+                                        <h4>Api接口说明</h4>
+                                        <p>该提案的API接口说明页面,包括字段名称,传入值,判断条件等及接口程序Demo</p>
+                                        <a href="#" class="btn btn-primary js_apidetail"><i
+                                            class="glyphicon glyphicon-book"></i> Api接口说明</a>
+                                    </div>
+                                    <div class="filed">
+                                        <h4>提案状态</h4>
+                                        <p>关闭提案,用户在结构树中无法看到该提案</p>
+                                        <div class="iPhoneCheckContainer" style="width: 96px;">
+                                            <input data-no-uniform="true" checked="" type="checkbox" class="iphone-toggle">
+                                            <label class="iPhoneCheckLabelOff" style="width: 91px;">
+                                                <span style="margin-right: -51px;">OFF</span>
+                                            </label>
+                                            <label class="iPhoneCheckLabelOn" style="width: 55px;">
+                                                <span style="margin-left: 0px;">ON</span>
+                                            </label>
+                                            <div class="iPhoneCheckHandle" style="width: 42px; left: 51px;">
+                                                <div class="iPhoneCheckHandleRight">
+                                                    <div class="iPhoneCheckHandleCenter"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <a href="#" class="btn btn-primary" id="openClose"></a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var list = {
+            init: function () {
+                var that = this;
+                $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+                $('#IssueAdmin-set').css({
+                    "background-color": "#eeeeee"
+                });
+                var name = $.getUrlParam("name");
+                $(".js_edittable").attr("href", '/issue/admin/edittable?name=' + name);
+                $(".js_setprocess").attr("href", '/issue/admin/setprocess?name=' + name);
+                $(".js_setcode").attr("href", '/issue/admin/setcode?name=' + name);
+                $(".js_setexehtml").attr("href", '/issue/admin/setexehtml?name=' + name);
+                $(".js_apidetail").attr("href", '/issue/admin/apidetail?name=' + name);
+                $(".js_setexecutor").attr("href", '/issue/admin/setexecutor?name=' + name);
+                that.getServerStatus();
+
+                $(".iPhoneCheckContainer").click(function(){
+                    if(!list.sending){
+                        list.sending = true;
+                        list.setServerStatus();
+                    }
+                })
+            },
+            status:"",
+            sending:false,
+            getServerStatus: function(){
+                $.ajax({
+                    url: "/api/issue_admin/getServerStatus",
+                    type: "get",
+                    dataType: "json",
+                    data: {
+                        name:$.getUrlParam("name")
+                    },
+                    success: function(result) {
+                        list.status = result.status;
+                        if(result.status){
+                            $(".iPhoneCheckLabelOn").animate({"width":"55px"});
+                            $(".iPhoneCheckHandle").animate({"width":"42px","left":"55px"});
+                            $(".iPhoneCheckLabelOff span").animate({"margin-right":"-51px"});
+                        }else{
+                            $(".iPhoneCheckLabelOn").animate({"width":"4px"});
+                            $(".iPhoneCheckHandle").animate({"width":"42px","left":"0px"});
+                            $(".iPhoneCheckLabelOff span").animate({"margin-right":"0px"});
+                        }
+                    }
+                })
+            },
+            setServerStatus: function(){
+                var status = list.status?0:1;
+                $.ajax({
+                    url: "/api/issue_admin/setServerStatus",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        name:$.getUrlParam("name"),
+                        action:status,
+                        type:$.getUrlParam("type")
+                    },
+                    success: function(result) {
+                        list.sending = false;
+                        if(result.status){
+                            list.status = !list.status;
+                        }
+                        if(!list.status){
+                            $(".iPhoneCheckLabelOn").animate({"width":"4px"});
+                            $(".iPhoneCheckHandle").animate({"width":"42px","left":"0px"});
+                            $(".iPhoneCheckLabelOff span").animate({"margin-right":"0px"});
+                        }else{
+                            $(".iPhoneCheckLabelOn").animate({"width":"55px"});
+                            $(".iPhoneCheckHandle").animate({"width":"42px","left":"55px"});
+                            $(".iPhoneCheckLabelOff span").animate({"margin-right":"-51px"});
+                        }
+                    }
+                })
+            }
+        }
+
+        list.init();
+    });
+</script>

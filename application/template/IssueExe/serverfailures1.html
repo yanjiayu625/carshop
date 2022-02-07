@@ -1,0 +1,152 @@
+<style type="text/css">
+    .select2{ width: 100% !important; }
+    .select2 .select2-selection--multiple{width: 100% !important;height: 38px;margin-left: 0px;border-color: #ccc; }
+    .select2 .select2-selection--multiple .select2-selection__rendered{line-height: 28px;}
+    .select2-container--default .select2-selection--multiple .select2-selection__arrow{top:7px;left: 254px;}
+    .select2-container--open .select2-dropdown--below{width: 282px !important;margin-left: 0px;}
+    .select2-container--open .select2-dropdown--above{width: 280px !important;margin-left: 0px;}
+    .other-type{margin-top: 10px;}
+    .action-btn{text-align: center;margin-top:20px;margin-bottom:20px;}
+</style>
+<div>
+
+    <p class="title">故障类型</p>
+    <div>
+        <select class="form-control server_type" name="" id="">
+            <option value="硬盘故障">硬盘故障</option>
+            <option value="内存故障">内存故障</option>
+            <option value="CPU故障">CPU故障</option>
+            <option value="网卡故障">网卡故障</option>
+            <option value="主板故障">主板故障</option>
+            <option value="电源故障">电源故障</option>
+            <option value="RAID卡故障">RAID卡故障</option>
+            <option value="HBA卡故障">HBA卡故障</option>
+            <option value="其他" class="js_other">其他</option>
+            
+        </select>
+    </div>
+    <p>
+        <input class="form-control other-type" placeholder="请输入故障类型" />
+    </p>
+    <p class="title">维修说明</p>
+    <p>
+        <textarea class="form-control" name="desc" id="repairDesc" cols="30" rows="4" placeholder="请输入维修说明" ></textarea>
+    </p>
+    <p class="js_errorMsg"></p>
+    <p class="action-btn">
+        <a href="#" class="btn btn-primary js_updateServerFailuresType">确定</a>
+    </p>
+</div>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/jquery/jquery.select2.min.js"></script>
+<script type="text/javascript">
+  
+    $(function() {
+        var updateServerBox = {
+            init: function() {
+                var that = this;
+                $(".js_remark_title").remove();
+                $(".js_remark").remove();
+                $(".modal-footer").remove();
+                $(".other-type").hide()
+                $('.server_type').select2({
+                    allowClear: true,
+                    multiple: true, 
+                    placeholder: {
+                        id: '-1', // the value of the option
+                        text: '请选择故障类型'
+                    }
+                })
+
+                $(".server_type").select2("val", "");
+
+                //提交数据
+                $(".js_updateServerFailuresType").on("click", function() {
+                    that.updateAction();
+                })
+
+                //监听故障类型变化
+                $(".server_type").on("change", function(e) {
+
+                    if($('.server_type').val() && $('.server_type').val().indexOf("其他") !=-1) {
+                        $(".other-type").show()
+
+                    }else {
+                        $(".other-type").hide().val("")
+                    }
+                })
+
+
+            },
+            updateAction: function() {
+                var that = this;
+                var typeArr = $('.server_type').val();
+                if($(".other-type").val()) {
+                    typeArr.push($(".other-type").val());
+                }
+
+                if(typeArr.indexOf("其他") != -1) {
+                    typeArr.splice(typeArr.indexOf("其他"),1);
+                }
+                $(".js_errorMsg").html("");
+               
+                $.ajax({
+                    url: "/api/issue_exe/updateServerFailuresType?id="+$.getUrlParam("id")+"&role="+$.getUrlParam("role"),
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        type:typeArr,
+                        desc: $("#repairDesc").val(),
+                    },
+                    success: function(result) {
+                        if(result.status) {
+                            that.exeAction();
+
+                        }else {
+                            $(".js_errorMsg").html('<label class="error">'+result.msg+'.</label>')
+
+                        }
+                    
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })
+
+            },
+            exeAction: function() {
+                var that = this;
+                $.ajax({
+                    url: "/api/issue_server/exeServer",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        id:$.getUrlParam("id"),
+                        remarks: "完成",
+                        exeId: 0,
+                        exeAdd: 0
+                    },
+                    success: function(result) {
+                        $('#addCheck').modal('hide');
+                        $.alert(result.msg,function(){
+                            that.gohref();
+                        });
+                    }
+                })
+
+            },
+            gohref: function(){
+                window.location.href = "/issue/server/detail?id="+ $.getUrlParam("id");
+            }
+        };
+
+        updateServerBox.init();
+        
+
+        
+
+        
+    })
+
+  
+ </script>

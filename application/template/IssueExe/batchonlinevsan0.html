@@ -1,0 +1,279 @@
+<style>
+    .form-control {
+        height: 32px;
+    }
+
+    .table>tbody>tr>td {
+        border-top: 0;
+    }
+
+    .daily_exe_tpl tr td:nth-child(2) {
+        vertical-align: middle;
+        border-top: 0px;
+    }
+
+    .daily_exe_tpl tr td:nth-child(3) {
+        vertical-align: middle;
+        border-top: 0px;
+        position: relative;
+    }
+
+    .daily_exe_tpl tr td:nth-child(3) label {
+        width: 200px;
+        height: 48px;
+        position: absolute;
+        top: 0px;
+        line-height: 48px;
+    }
+
+    .daily_exe_tpl tr td:nth-child(4) {
+        border-top: 0px;
+    }
+
+    .daily_exe_tpl select {
+        height: 32px;
+    }
+
+    #info textarea {
+        height: auto !important;
+    }
+
+    #info select {
+        height: 32px !important;
+    }
+
+    #info label {
+        padding-left: 10px;
+    }
+
+    .modal-dialog table select {
+        padding-top: 5px!important;
+    }
+
+    .box-content .table tr td select {
+        width: 100%;
+    }
+
+    .modal-footer {
+        text-align: center!important;
+    }
+
+    #modal_validate table tr td {
+        position: relative;
+    }
+
+    #modal_validate table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+
+    #editTableModal table tr td {
+        position: relative;
+    }
+
+    #editTableModal table tr td label.error {
+        width: 200px;
+        color: #f00;
+        font-size: 12px;
+        position: absolute;
+        left: 100%;
+        top: 15px;
+    }
+
+    .option_filds {
+        display: none;
+    }
+
+    .option_filds textarea {
+        height: auto !important;
+    }
+
+    .select2-container--default .select2-selection--multiple {
+        border-color: #ccc !important;
+    }
+
+    #createServerForm .form_atcion .reset {
+        margin-left: 30%;
+    }
+
+    #createServerForm .form_atcion .submit {
+        margin-left: 30px;
+    }
+    a{cursor: pointer;}
+
+    .info_special_ps {
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #3a87ad;
+        padding: 5px;
+        margin: 5px 0 0 0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .modal-backdrop {
+        z-index: 1110 !important;
+    }
+
+    .modal {
+        z-index: 1111 !important;
+    }
+    .modal-xlg{
+        width: 1400px !important;
+    }
+
+    .vsanexe {
+        width: 140px;
+        display: inline-block !important;
+    } 
+    .sys_input {
+        width: 140px;
+        display: inline-block !important;
+    }
+    .vsansys {
+        width: 50px;
+        display: inline-block !important;
+    }
+    .center{text-align: center;}
+</style>
+
+<form action="" id="vasnExe">
+    <h3 class="js_dailytitle center dailytitle">提案ID</h3>
+    <table class="table daily_exe_tpl" id="info">
+        <tbody id="info">
+        <tr>
+            <td width=20>
+            </td>
+            <td>
+                
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width=20>
+                <p class="title">host
+                <p>
+            </td>
+            <td width=1244 class="host_area">
+                <p>
+                    vCenter-IP:<input type="text" required="" aria-required="true" name="ip0" class="form-control vsanexe vsanip iptest"> 虚拟机起始IP:<input type="text" required="" aria-required="true" name="init0" class="form-control vsanexe vsaninit iptest"> vCenter域名:<input type="text" required="" aria-required="true" name="name" class="form-control vsanexe vsanname"> vCenter-PMS用户全称:<input type="text" required="" aria-required="true" name="username0" class="form-control vsanexe vsanusername"> 集群所属机柜:<input type="text" required="" aria-required="true" name="posi0" class="form-control vsanexe vsanposi">　<a><i class="glyphicon glyphicon-plus js_add_host"></i></a>
+                </p>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width=20>
+                <p class="title">
+                <p>
+            </td>
+            <td class="js_error">
+                
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width=20>
+                <p class="title">system
+                <p>
+            </td>
+            <td >
+                <input type="text" required="" aria-required="true" name="sys1" class="form-control sys_input"> : <input type="text" required="" aria-required="true" name="centos6.5" class="form-control vsansys">　　
+                
+                <input type="text" required="" aria-required="true" name="sys2" class="form-control sys_input"> : <input type="text" required="" aria-required="true" name="centos7" class="form-control vsansys">　　
+                <input type="text" required="" aria-required="true" name="sys3" class="form-control sys_input"> : <input type="text" required="" aria-required="true" name="ubuntu" class="form-control vsansys">
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width=20>
+                <p class="title">
+                <p>
+            </td>
+            <td class="js_error">
+                
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+      <p class="form_atcion center">
+        <button class="btn btn-primary js_exevsan" ><i class="glyphicon glyphicon-share"></i>确定</button>
+    </p>
+
+</form>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".modal-dialog").addClass("modal-xlg");
+    $(".js_remark_title").remove();
+    $(".js_remark,.modal-footer").hide();
+    $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' Vsan集群部署(子)')
+    var hostIndex = 1;
+    $(document).on('click', '.js_add_host', function() {
+        $(".host_area").append('<p>vCenter-IP:<input type="text" required="" aria-required="true" name="ip'+hostIndex+'" class="form-control vsanexe vsanip iptest"> 虚拟机起始IP:<input type="text" required="" aria-required="true" name="init'+hostIndex+'" class="form-control vsanexe vsaninit iptest"> vCenter域名:<input type="text" required="" aria-required="true" name="name'+hostIndex+'" class="form-control vsanexe vsanname"> vCenter-PMS用户全称:<input type="text" required="" aria-required="true" name="username'+hostIndex+'" class="form-control vsanexe vsanusername"> 集群所属机柜:<input type="text" required="" aria-required="true" name="posi'+hostIndex+'" class="form-control vsanexe vsanposi">　<a><i class="glyphicon glyphicon-minus js_del_host"></i></a></p>');
+        hostIndex++;
+
+    })
+    $(document).on('click', '.js_del_host', function() {
+        $(this).parents("p").remove()
+    })
+    $(document).on('click', '.js_exevsan', function() {
+        // var host=[];
+        // $.each($(".host_area p"), function(key, val) {
+        //     host.push({name: $(this).find(".vsanname").val(),ip: $(this).find(".vsanip").val(),init: $(this).find(".vsaninit").val(),username: $(this).find(".vsanusername").val(),posi: $(this).find(".vsanposi").val()})
+        // })
+        // var system = {"centos6.5": $('input[name="centos6.5"]').val(),"centos7": $('input[name="centos7"]').val(),"ubuntu": $('input[name="ubuntu"]').val()};
+    })
+
+    $("#vasnExe").validate({
+        ignore: [],
+        errorPlacement: function(error, element) {
+            // $(element).closest("tr").children('td').eq(2).html(error);
+            $(element).closest("tr").next('tr').find(".js_error").html(error);
+        },
+        //验证通过后提交数据
+        submitHandler: function(form) {
+            var host=[];
+            $.each($(".host_area p"), function(key, val) {
+                host.push({name: $(this).find(".vsanname").val(),ip: $(this).find(".vsanip").val(),init: $(this).find(".vsaninit").val(),username: $(this).find(".vsanusername").val(),posi: $(this).find(".vsanposi").val()})
+            })
+            var sys1=$('input[name="sys1"]').val();
+            var sys2=$('input[name="sys2"]').val();
+            var sys3=$('input[name="sys3"]').val();
+            var system = {[sys1]: $('input[name="centos6.5"]').val(),[sys2]: $('input[name="centos7"]').val(),[sys3]: $('input[name="ubuntu"]').val()};
+
+            $.ajax({
+                url: "/api/issue_exe/addBatchCloneVm?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                type: "POST",
+                dataType: "json",
+                data: {
+                    hosts:host,
+                    system:system
+                },
+                success: function(result) {
+                    if (result.status) {
+                        $(".js_remark").val(result.msg)
+                        $("#callback1").trigger('click');
+
+                    } else {
+                        $(".form_atcion").before('<label id="t_log_pic-error" class="error" for="t_log_pic">' + result.msg + '.</label>');
+
+                    }
+                }
+            })
+
+        },
+        debug: true
+    });
+   
+});
+</script>

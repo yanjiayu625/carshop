@@ -1,0 +1,39 @@
+<tr>
+    <td width="20%"></td>
+    <td width="40%">
+            <p class="alert alert-danger js_hasAuth" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">您可以申请该提案</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请类型</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+        data-content="" data-original-title="申请类型"><select class="form-control" required="" name="t_type"
+            data-label="申请类型">
+            <option value="1">ACL新增</option>
+            <option value="2">ACL变更</option>
+        </select></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">规则描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+        data-content="" data-original-title="规则描述"><textarea type="text" class="form-control" required="" name="t_desc"
+            data-label="规则描述" value="" rows="3"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<script>
+    $(function() {
+      if ($("#user").text() === 'zhaosy' || $("#user").text() === 'likx1') { //可申请
+        $(".submit").attr("disabled",false);
+        $(".js_hasAuth").html('您可以申请该提案')
+      } else { // 不能申请
+        $(".submit").attr("disabled",true);
+        $(".js_hasAuth").html('您无权申请该提案')
+      }
+    })
+  </script>

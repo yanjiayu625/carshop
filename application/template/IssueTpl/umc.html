@@ -1,0 +1,37 @@
+<tr>
+        <td width="20%"></td>
+        <td width="40%">
+                <p class="alert alert-danger js_hasAuth" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">您可以申请该提案</p>
+        </td>
+        <td width="25%"></td>
+        <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">操作类型</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="操作类型">
+        <input type="radio" name="t_type" data-label="操作类型" value="1" required="" checked="checked" aria-required="true"><label>用户信息查询</label>　　
+        <input type="radio" name="t_type" data-label="操作类型" value="2" required="" aria-required="true"><label>用户信息修改</label>　　
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">用户ID</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="用户ID">
+        <input type="text" class="form-control" required="" name="t_userid" data-label="用户ID" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+        <p class="info_special_ps">用户id即互联网用户的用户名称或昵称</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script style="">
+  $(function() {
+    if ($("#user").text() === 'xuanrr' || $("#user").text() === 'zhoubl' || $("#user").text() === 'renxp' || $("#user").text() === 'wangxy18') { // 可申请
+      $(".submit").attr("disabled",false);
+      $(".js_hasAuth").html('您可以申请该提案')
+    } else { // 不能申请
+      $(".submit").attr("disabled",true);
+      $(".js_hasAuth").html('您无权申请该提案')
+    }
+  })
+</script>

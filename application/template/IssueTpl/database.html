@@ -1,0 +1,70 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">数据库所属业务</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库所属业务">
+        <textarea type="text" class="form-control" name="t_business" data-label="数据库所属业务" value="" rows="3"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">数据库备份SQL大小</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库备份SQL大小">
+        <textarea type="text" class="form-control" name="t_backup" data-label="数据库备份SQL大小" value="" rows="3"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">数据库恢复过程截图</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库恢复过程截图">
+        <input type="text" class="form-control" required="" name="t_recover_pic" data-label="数据库恢复过程截图" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">恢复数据库是否异常</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="恢复数据库是否异常">
+        <input type="radio" name="t_recover_status" data-label="恢复数据库是否异常" value="1" required="" aria-required="true">
+        <label>否</label>
+        <input type="radio" name="t_recover_status" data-label="恢复数据库是否异常" value="2" required="" checked="checked" aria-required="true">
+        <label>是</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr>
+    <td width="20%"><span class="js_name">报告异常时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="报告异常时间">
+        <input type="text" class="form-control" name="t_report_time" data-label="报告异常时间" value="" data-rule-regex="" data-msg-regex="">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 306px;"><span class="js_name">出现异常原因</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="出现异常原因" style="width: 611px;">
+        <textarea type="text" class="form-control" name="t_reason" data-label="出现异常原因" value="" rows="3"></textarea>
+    </td>
+    <td width="25%" style="width: 381px;"></td>
+    <td width="15%" style="width: 229px;"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">问题是否解决</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="问题是否解决">
+        <input type="radio" name="t_solve" data-label="问题是否解决" value="1" required="" checked="checked" aria-required="true">
+        <label>是</label>
+        <input type="radio" name="t_solve" data-label="问题是否解决" value="2" required="" aria-required="true">
+        <label>否</label>　　</td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script style="">
+    $(function() {
+        $(".submit").attr("disabled",true);
+    })
+</script>

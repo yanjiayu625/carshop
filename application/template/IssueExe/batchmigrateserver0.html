@@ -1,0 +1,191 @@
+<style>
+.form-control {
+    height: 32px;
+}
+
+.exe-diy-table>tbody>tr>td {
+    border-top: 0;
+    padding:10px 0;
+}
+
+.exe-diy-table tr td:nth-child(1) {
+    text-align: right;
+    border-top: 0px;
+}
+.exe-diy-table tr td:nth-child(2) {
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.exe-diy-table tr td:nth-child(3) {
+    vertical-align: middle;
+    border-top: 0px;
+    position: relative;
+}
+
+.exe-diy-table tr td:nth-child(3) label {
+    width: 200px;
+    height: 48px;
+    position: absolute;
+    top: 0px;
+    line-height: 48px;
+}
+
+.exe-diy-table tr td:nth-child(4) {
+    border-top: 0px;
+}
+
+.exe-diy-table select {
+    height: 32px;
+}
+
+#info textarea {
+    height: auto !important;
+}
+
+#info select {
+    height: 32px !important;
+}
+
+#info label {
+    padding-left: 10px;
+}
+
+.modal-dialog table select {
+    padding-top: 5px!important;
+}
+
+.box-content .table tr td select {
+    width: 100%;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+#modal_validate table tr td {
+    position: relative;
+}
+
+#modal_validate table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+#editTableModal table tr td {
+    position: relative;
+}
+
+#editTableModal table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+.option_filds {
+    display: none;
+}
+
+.option_filds textarea {
+    height: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-color: #ccc !important;
+}
+
+#createServerForm .form_atcion .reset {
+    margin-left: 30%;
+}
+
+#createServerForm .form_atcion .submit {
+    margin-left: 30px;
+}
+
+.info_special_ps {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+    padding: 5px;
+    margin: 5px 0 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.dailytitle {
+    text-align: center !important;
+}
+
+.title {
+    margin-top: 30px;
+}
+</style>
+<h3 class="js_dailytitle center dailytitle">提案ID</h3>
+<table class="exe-diy-table" width="100%" style="margin-top: 40px;">
+    <tr>
+        <td width="20%" class="title">驳回提案　　</td>
+        <td width="80%">
+            <span id="rejectServerOffline" class="btn btn-danger" type="text"><i class="glyphicon glyphicon-remove"></i>驳回提案</span>
+            <span class="reject_status red">　　因异常原因,无法完成下线</span>
+        </td>
+    </tr>
+ 
+</table>
+    
+    
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".modal-dialog").removeClass("modal-lg")
+
+    $(".js_remark_title").remove();
+    $(".js_remark").remove();
+    $(".inform_area").remove();
+
+    $(".exe-diy-table").append('<tr><td width="20%" class="title">执行意见　　</td><td width="30%"><textarea class="form-control js_remark" name="" id="" rows="5"></textarea></td><td class="reject_status red" ></td></tr>');
+
+
+    $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 服务器下线(子) ')
+
+
+    $("#rejectServerOffline").click(function() {
+        $(this).attr('disabled',true)
+        $.ajax({
+            url: "/api/issue_exe/rejectServerOffline?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+            type: "POST",
+            dataType: "json",
+            success: function(result) {
+                if (result.status) {
+                    $(".modal-backdrop").remove();
+                    $("#addCheck").remove();
+                    $.alert(result.msg, function() {
+                        window.location.href = "/issue/server/detail?id="+ $.getUrlParam("id");
+                    })
+                } else {
+                    $(".reject_status").html(result.msg)
+                    $(this).attr('disabled',false)
+                }
+            }
+        })
+    })
+
+});
+</script>

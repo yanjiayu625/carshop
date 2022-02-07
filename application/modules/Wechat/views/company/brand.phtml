@@ -1,0 +1,217 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            厂商及型号
+          </li>
+          <li>
+            厂商产品管理
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-film"></i> 厂商产品管理 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content">
+              <table class="table table-bordered table-striped responsive search_list">
+                <tbody>
+                  <tr>
+                    <td class="second">
+                      <input placeholder="可输入ID,品牌,产品线,型号等，进行全局模糊查询" class="autogrow" id="search-textarea" />
+                      <a class="btn btn-primary" href="#" id="search">
+                        <i class="glyphicon glyphicon-search"></i> 搜索
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                <a class="btn btn-success" href="/idcos/company/newbrand"><i
+                                    class="glyphicon glyphicon-check"></i> 添加厂商产品</a>
+              </p>
+              <table class="table table-striped table-bordered bootstrap-datatable location-datatable responsive model_table">
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+  <!--模态框-->
+  <div class="modal fade bs-example-modal-sm" id="newModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3><strong class="red">删除厂商产品</strong></h3>
+        </div>
+        <div class="modal-body">
+          确定删除该厂商产品么？
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+          <a href="#" class="btn btn-primary" data-dismiss="modal" onclick="locationFunc.del()">确定</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.dataTables.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#company-brand').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Company').addClass('active').find('ul').slideToggle();
+
+    var datatable = $('.location-datatable').DataTable({
+      "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+      "sPaginationType": "bootstrap",
+      "aaSorting": [1, "asc"],
+      "oLanguage": {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+          "sFirst": "首页",
+          "sPrevious": "上页",
+          "sNext": "下页",
+          "sLast": "末页"
+        },
+        "oAria": {
+          "sSortAscending": ": 以升序排列此列",
+          "sSortDescending": ": 以降序排列此列"
+        }
+      },
+      "ajax": "/api/idcos_company/getBrandLineModelList",
+      "aoColumns": [{
+        "sTitle": "ID",
+        "sWidth": "5%",
+        "sClass": "center",
+        "mDataProp": "id"
+      }, {
+        "sTitle": "品牌",
+        "sWidth": "10%",
+        "mDataProp": "brand"
+      }, {
+        "sTitle": "产品线",
+        "sWidth": "10%",
+        "sClass": "center",
+        "mDataProp": "line"
+      }, {
+        "sTitle": "型号",
+        "sWidth": "10%",
+        "sClass": "center",
+        "mDataProp": "model"
+      }, {
+        "sTitle": "操作",
+        "sWidth": "20%",
+        "sClass": "center",
+        "mDataProp": "id"
+      }],
+      "aoColumnDefs": [{
+        "aTargets": [4],
+        "mRender": function(data, type, item) {
+          var html = '<a class="btn btn-success btn-sm" href="/idcos/company/clonebrand?id=' + data + '">';
+          html += '<i class="glyphicon glyphicon-share icon-white"></i>';
+          html += '克隆';
+          html += '</a><a class="btn btn-info btn-sm" href="/idcos/company/updatebrand?id=' + data + '">';
+          html += '<i class="glyphicon glyphicon-edit icon-white"></i>';
+          html += '编辑';
+          html += '</a><a class="btn btn-danger btn-sm" data-id = "' + data + '" onclick="locationFunc.showModal(this)">';
+          html += '<i class="glyphicon glyphicon-trash icon-white"></i>';
+          html += '删除'
+          html += '</a>';
+          return html;
+        }
+      }],
+      "searching": true
+    });
+
+    datatable.on('xhr', function() {
+      var json = datatable.ajax.json();
+      if (!!json.status && json.status == 401) {
+        $.confirm(json.msg, function() {
+          window.location.href = "/login/logout";
+        });
+      }
+    });
+
+
+    $("#search").click(function() {
+      var str = $('#search-textarea').val();
+      datatable.search(str.replace(/\,|\n|;/g, '|'), true, false).draw();
+    });
+  });
+
+  var locationFunc = {
+    showModal: function(self) {
+      $('#newModal').modal('show');
+      $('#newModal').data('id', $(self).data('id'));
+    },
+    del: function() {
+      $.ifosAjax({
+        type: "post",
+        dataType: "json",
+        url: "/api/idcos_company/delBrandLineModel",
+        data: {
+          "brandJson": JSON.stringify({
+            "id": $('#newModal').data('id')
+          })
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        success: function(result) {
+          if (!!result.status) {
+            $.alert('删除成功', function() {
+              window.location.href = "/idcos/company/brand";
+            });
+          } else {
+            $.alert('删除失败', function() {});
+          }
+        }
+      });
+    }
+  }
+  </script>

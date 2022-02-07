@@ -1,0 +1,355 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    .title{padding: 10px 15px;}
+     .tplform{} 
+     .tplform tr td:first-child{width:150px;padding-right:15px;text-align:right;} 
+    .add_btn{margin-bottom:10px;}
+    .backarea{text-align: center;padding-bottom:20px;}
+    .approver .addapprover {
+        position: relative;
+    }
+    
+    .approver .addapprover .err {
+        width: 150px;
+        height: 40px;
+        position: absolute;
+        bottom: -52px;
+        right: 0;
+        background: url(/img/tip.png) no-repeat;
+        background-size: 100% 100%;
+        padding: 10px 10px;
+        color: #f00;
+        z-index: 10;
+        display: none;
+    }
+    
+    .groups {
+        position: relative;
+    }
+    
+    .groups .group_tip {
+        width: 290px;
+        height: 40px;
+        position: absolute;
+        top: -10px;
+        left: 25%;
+        background: url(/img/tip1.png) no-repeat;
+        background-size: 100% 100%;
+        padding: 10px 10px;
+        color: #f00;
+        z-index: 10;
+        display: none;
+    }
+    
+    .groups .group_err {
+        width: 290px;
+        height: 40px;
+        position: absolute;
+        bottom: 0px;
+        left: 100px;
+        background: url(/img/tip.png) no-repeat;
+        background-size: 100% 100%;
+        padding: 10px 10px;
+        color: #f00;
+        z-index: 10;
+        display: none;
+    }
+    
+    .box-inner .box-content .action {
+        text-align: center;
+    }
+    
+    .box-inner .box-content .action .saveProcess {
+        margin-right: 40px;
+    }
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>设置提案流程</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> 自定义执行页面HMTL</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="add_btn">
+                                <span class="btn btn-success js_add_tpl"><i class="glyphicon glyphicon-plus-sign"></i> 添加执行模板</span>
+                            
+                            </div>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <td>id</td>
+                                        <td>名称</td>
+                                        <td>api</td>
+                                        <td>dir</td>
+                                        <td>操作</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tplList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="title">自定义执行页面HMTL</h4>
+                        <div id="type-treeview" class=""></div>
+                    </div>
+                </div>
+
+                <form id="edit_exe_tpl">
+                    <table class="table table-bordered table-striped tplform">
+
+                        <tbody>
+                            <tr>
+                                <td><i class="glyphicon glyphicon-star red"></i> 名称</td>
+                                <td><input name="name" type="text" required /></td>
+                            </tr>
+                            <tr>
+                                <td><i class="glyphicon glyphicon-star red"></i> API</td>
+                                <td><input name="api" type="text"required /></td>
+                            </tr>
+                            <tr>
+                                <td><i class="glyphicon glyphicon-star red"></i> 代码</td>
+                                <td>
+                                    <div id="mirrorconf-editor" style="height:400px" required></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="backarea">
+                        <button type="submit" class="btn btn-primary submit_diyinfo saveProcess js_saveCode"><i class="glyphicon glyphicon-share"></i>保存</button>
+                        <span class="btn btn-default submit_diyinfo js_cancel"><i class="glyphicon glyphicon-remove"></i>取消</span>
+                    </div>
+                   
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!--end Modal-->
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src='/js/ace/ace.js'></script>
+<script src='/js/ace/theme-terminal.js'></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/ifos.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+        $('#IssueAdmin-set').css({
+            "background-color": "#eeeeee"
+        });
+
+        //初始化编辑器
+        var htmlEditor = ace.edit("mirrorconf-editor");
+        htmlEditor.setTheme("ace/theme/terminal");
+        $('#mirrorconf-editor textarea').attr('name', 'mirrorconf');
+        document.getElementById('mirrorconf-editor').style.fontSize = '14px';
+        htmlEditor.setHighlightActiveLine(true);
+        htmlEditor.getSession().setUseWrapMode(true);
+
+        var list = {
+            init: function() {
+                var that = this;
+                $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+                $('#IssueAdmin-set').css({
+                    "background-color": "#eeeeee"
+                });
+
+                $("#edit_exe_tpl").validate({
+                    ignore: [],
+                    // errorPlacement: function(error, element) {
+                    //     $(element).closest("tr").children('td').eq(2).html(error);
+                    // },
+                    //验证通过后提交数据
+                    submitHandler: function(form) {
+                        console.log(htmlEditor.getValue())
+                        if(htmlEditor.getValue()){
+                            $(".submit").attr("disabled","disabled");
+                            that.saveCode();
+                        }else{
+
+                        }
+                    },
+                    debug:true
+                });
+                $(document).on("click", ".js_add_tpl", function() {
+                    
+                    htmlEditor.setValue('');
+                    $('#createModal').modal('show');
+                    $('#createModal').attr('tplId','')
+                    $("input[name ='name']").val('')
+                    $("input[name ='api']").val('')
+                })
+                $(document).on("click", ".js_edit_tpl", function() {
+                    console.log($(this).attr('tplId'));
+                    $('#createModal').modal('show');
+                    that.getExePageInfo($(this).attr('tplId'));
+                    $('#createModal').attr('tplId',$(this).attr('tplId'));
+                    $("input[name ='name']").val($(this).attr('tplName'))
+                    $("input[name ='api']").val($(this).attr('tplApi'))
+                })
+                $(document).on("click", ".js_del_tpl", function() {
+                    console.log($(this).attr('tplId'))
+                    list.tplId = $(this).attr('tplId')
+                    $.alert("确定删除么？", list.delExePage)
+                })
+                $(document).on("click", ".js_cancel", function() {
+                    $('#createModal').modal('hide');
+                })
+
+                that.getExePageList()
+                // that.getExePageInfo()
+            },
+            tplId:'',
+            getExePageList: function() {
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_admin/getExePageList?type=" + $.getUrlParam("name"),
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        console.log(result)
+                        var tpl_html = '';
+                        $.each(result.data, function(key, val) {
+                            tpl_html += '<tr>';
+                            tpl_html += '   <td>' + val.id + '</td>';
+                            tpl_html += '   <td>' + val.name + '</td>';
+                            tpl_html += '   <td>' + val.api + '</td>';
+                            tpl_html += '   <td>' + val.dir + '</td>';
+                            tpl_html += '   <td><span class="btn btn-info btn-sm js_edit_tpl" tplName = "'+val.name+'" tplApi = "'+val.api+'" tplId = "'+val.id+'"><i class="glyphicon glyphicon-share"></i>修改</span> <span class="btn btn-danger btn-sm js_del_tpl" tplId = "'+val.id+'"><i class="glyphicon glyphicon-share"></i>删除</span> </td>';
+                            tpl_html += '</tr>'
+                        })
+                        $('#tplList').html(tpl_html)
+                            /* if(result.status){
+                                htmlEditor.setValue(result.data);
+                            }else{
+                                $.alert("获取数据失败，请重试",list.reload)
+                            } */
+                    }
+                })
+            },
+            getExePageInfo: function(id) {
+                htmlEditor.setValue('');
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_admin/getExePageInfo?id="+id,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (result.status) {
+                            console.log(result.data.html)
+                            htmlEditor.session.setValue(result.data.html);
+
+                        } else {
+                            $.alert("获取数据失败，请重试", list.reload)
+                        }
+                    }
+                })
+            },
+            saveCode: function() {
+                var url = '';
+                var data={};
+                if($('#createModal').attr('tplId')){
+                    url='editExePage';
+                    data = {
+                        id: $('#createModal').attr('tplId'),
+                        name: $("input[name ='name']").val(),
+                        api: $("input[name ='api']").val(),
+                        type: $.getUrlParam("name"),
+                        html: htmlEditor.getValue()
+                    }
+                }else{
+                    url='addExePage';
+                    data = {
+                        name: $("input[name ='name']").val(),
+                        api: $("input[name ='api']").val(),
+                        type: $.getUrlParam("name"),
+                        html: htmlEditor.getValue()
+                    }
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/issue_admin/"+url,
+                    data: data,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (result.status) {
+                            $('#createModal').modal('hide');
+                            $.alert("执行页面HTML保存成功", list.reload)
+                        }else{
+                            $.alert(result.msg, '')
+                        }
+                    }
+                })
+            },
+            delExePage: function() {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/issue_admin/delExePage",
+                    data:{
+                        id: list.tplId
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (result.status) {
+                            $.alert("删除成功", list.reload)
+                        } else {
+                            $.alert("删除失败，请重试", list.reload)
+                        }
+                    }
+                })
+            },
+            suc: function() {
+                window.history.go(-1);
+            },
+            reload: function() {
+                window.location.reload();
+            }
+        }
+        list.init();
+    })
+</script>

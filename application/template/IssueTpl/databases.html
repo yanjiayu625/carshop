@@ -1,0 +1,71 @@
+<tr>
+	<td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">数据库类型</span></td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库类型"><select type="text" class="form-control" required="" name="t_database_type" data-label="数据库类型" value="" rows="1"><option value="1">Mysql</option><option value="2">Oracle</option><option value="3">MongoDB</option><option value="4">Redis</option><option value="5">TIDB</option></select> </td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">源地址</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="源地址">
+		<input type="text" class="form-control" required="" name="t_from" data-label="源地址" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">目标地址</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="目标地址">
+		<input type="hidden" class="form-control" required="" name="t_to" data-label="目标地址" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+		<input type="text" style="width:77%;display:inline;float:left;margin-right:5px;" class="form-control js_addr" required="" name="h_to" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+		<input type="text" style="width:20%;display:inline" class="form-control js_port" required="" name="h_port" value="" data-rule-regex="" data-msg-regex="" aria-required="true" placeholder="端口号">
+		<script>
+		$(function(){
+			$(document).on('blur', '.js_addr,.js_port', function(){
+				$('input[name = "t_to"]').val($(".js_addr").val()+":"+$(".js_port").val())
+			})
+		})
+
+
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">访问权限</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="访问权限">
+		<input type="radio" name="t_permission" data-label="访问权限" value="1" required="" checked="checked" aria-required="true">
+		<label>只读</label>
+		<input type="radio" name="t_permission" data-label="访问权限" value="2" required="" aria-required="true">
+		<label>读写</label>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">数据库名称</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="数据库名称">
+		<input type="text" class="form-control" required="" name="t_name" data-label="数据库名称" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<span class="js_name">备注</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="备注">
+		<textarea type="text" class="form-control" name="t_remarks" data-label="备注" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

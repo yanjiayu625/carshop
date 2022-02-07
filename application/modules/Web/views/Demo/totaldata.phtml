@@ -1,0 +1,1044 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.title{padding: 10px 15px;}
+.backarea{border-top: 1px solid #e5e5e5;background: #eee;border-radius: 3px;}
+.goback{margin: 5px 0 5px 90%;}
+.showTreeData{display: none;}
+#dataTreeView{width: 390px;margin:10px 10px;float: left;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom: 1px solid #ddd;}
+#change-treeview{margin: 0 15px;}
+.serveType{margin-right: 20px;}
+.form_datetime{width: 200px !important; display: inline-block;}
+.search-bar{margin-bottom: 10px;position: relative;}
+.err{ width: 290px;height: 40px; position: absolute;top: 40px;left: 130px; background: url(/img/tip.png) no-repeat; background-size: 100% 100%; padding: 10px 10px; color: #f00;z-index: 10;display: none;}
+table th,td{text-align: center;}
+.SingleDataInfo{display: none;}
+.showAllData{position:relative;}
+.heightChartChange{position:absolute;top: 20px;}
+.pie{left:20px;}
+.column{left:100px;}
+.show-left-menu{color:#2fa4e7;position: fixed;top: 50%;left: 5px;cursor: pointer;display: none;}
+.loading-alldata{position: absolute;left: 45%;top:200px;}
+.data-list{
+    width: calc(100% - 450px);margin-top: 10px;
+    float: left;
+}
+.depamentnodes{margin: 0 0;min-height: 40px;line-height: 40px;font-size: 14px;color: #428bca;cursor: pointer;border-top:1px solid #ddd;}
+.depamentnodes .show_child{margin: 0 10px;}
+/*.depamentnodes1{display: none;}*/
+/*.depamentnodes2{display: none;}*/
+/*.depamentnodes3{display: none;}*/
+.depamentnodes4{display: none;}
+
+.level1{padding-left: 0px;}
+.level2{padding-left: 10px;}
+.level3{padding-left: 20px;}
+.level4{padding-left: 30px;}
+.table-area{padding: 10px 10px;position: relative;}
+.tree_node_active{background: #eee;}
+.total_time{margin: 10px 10px;}
+.table-area .loading-data-list{position: absolute;top: 200px;left: 50%;display: none;}
+.modal-dialog{width: 80% !important;}
+iframe{width: 100%;min-height: 700px; }
+.search-area{min-width:400px;position: absolute;border:1px solid #eee;left: 750px;top: 50px;padding: 10px 10px;border-radius: 4px;display: none;}
+.search-area .search-item {width: 200px;float: left;}
+.search-area .search-item .form-control{width: 100px;display: inline;}
+.dataTables_paginate{;height: 40px;margin: 10px 0;border-radius: 4px;text-align: center;}
+.dataTables_paginate .paginate_button{width: 30px;height: 40px;line-height: 40px;text-align: center;display: inline-block;border: 1px solid #ddd;cursor: pointer;}
+.dataTables_paginate .paginate_button:hover{text-decoration:none;}
+.dataTables_paginate .first{width: 50px;}
+.dataTables_paginate .last{width: 50px;}
+.dataTables_paginate .next{width: 50px;}
+.dataTables_paginate .previous{width: 50px;}
+.dataTables_paginate .disabled{width: 50px;color: #999;cursor: not-allowed;}
+.dataTables_paginate .current{background: #f5f5f5;color: #999}
+.buttons-excel{
+    background-color: #177bbb;
+    color: #fff;
+    border-color: #177bbb;
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.buttons-excel{color: #fff !important;border-bottom: 0}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>数据统计</li>
+                    <li>总体统计</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-magnet"></i> 总体统计</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="search-bar">
+                                        <input type="text" class="form-control form_datetime" name="t_end_time" data-label="停用时间" readonly="" placeholder="开始时间" value="2016-07-01">
+                                        <input type="text" class="form-control form_datetime" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                         <a class="btn btn-primary" href="#" id="search">
+                                            <i class="glyphicon glyphicon-search"></i> 搜索
+                                        </a>
+                                        <p class="err js_err">开始时间必须小于结束时间</p>
+                                    </div>
+                                   
+                                    <div class="showAllData">
+                                        <img class="loading-alldata" src="/img/ajax-loaders/ajax-loader-6.gif" title="img/ajax-loaders/ajax-loader-6.gif">
+                                        <div id="container" style="min-width: 600px; height: 600px; margin: 0 auto">
+                                        </div>
+                                        <button class="btn btn-default btn-primary heightChartChange pie" type="">饼图</button>     
+                                        <button class="btn btn-default heightChartChange column" type="">柱状图</button>     
+                                        <table class="table table-striped table-bordered AllDataInfo js_AllDataInfo">
+                                            <thead>
+                                                <tr>
+                                                    <th>分类</th>
+                                                    <th>等待审批</th>
+                                                    <th>等待执行</th>
+                                                    <th>驳回</th>
+                                                    <th>已完成</th>
+                                                    <th>总数</th>
+                                                    <!-- <th>查看详情</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody id="totleInfo">
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped table-bordered bootstrap-datatable location-datatable responsive model_table SingleDataInfo js_SingleDataInfo">
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+        </div>
+        <span type="" class="glyphicon glyphicon-play show-left-menu"></span>
+        <span type="" class="glyphicon glyphicon-play show-left-menu"></span>
+    </div>
+     <!--detail  Modal -->
+    <div class="modal fade" id="serverDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="title">提案详情</h4>
+                    <div id="serverDetatilIframe" class="">
+                        
+                    </div>
+                  </div>
+                </div>
+                <div class="backarea">
+                    <a class="btn btn-default goback"><i class="glyphicon glyphicon-minus-sign"></i> 关闭</a>
+                </div>
+            </div>
+        </div>
+    </div><!--end detail Modal-->
+</div>
+    
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<!-- <script src='/js/jquery/jquery.dataTables.min.js'></script> -->
+
+<script type="text/javascript"  src='/js/jquery/jquery.dataTables1.10.16.min.js'></script>    
+
+<script src='/js/dataTables.buttons.min.js'></script>    
+<script src='/js/jszip.min.js'></script>    
+<script src='/js/buttons.html5.min.js'></script> 
+
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/hCharts/highcharts.js"></script>
+<script src="/js/hCharts/modules/data.js"></script>
+<script src="/js/hCharts/modules/drilldown.js"></script>
+<script src="/js/hCharts/modules/exporting.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+
+        var list = {
+            init: function(){
+                var that = this;
+                $('#IssueData').addClass('active').find('ul').slideToggle();
+                $('#IssueData-total').css({
+                    "background-color": "#eeeeee"
+                });
+
+                $(".form_datetime").datetimepicker({
+                    'language': 'zh-CN',
+                    'minView': "month",
+                    'format': "yyyy-mm-dd",
+                    'autoclose':true,
+                    'showMeridian':true,
+                    'todayBtn':true
+                });
+
+                that.getTree();
+
+
+                $("#search").click(function() {
+                    
+                    if(new Date($(".form_datetime").eq(0).val().replace(/-/g, "/")).getTime() >new Date($(".form_datetime").eq(1).val().replace(/-/g, "/")).getTime()){// 开始时间大于结束时间
+                        $(".form_datetime").eq(0).closest("tr").children('td').eq(2).append('<label id="t_port-error" class="error" for="t_port">开始时间必须小于结束时间.</label>');
+                        $(".js_err").show();
+                        return false;
+                    }else{
+                        $(".js_err").hide();
+                        that.getdata();
+                    }
+                })
+                 //给input设置当前日期
+                var d = new Date();
+                var year = d.getFullYear();
+                var month = d.getMonth() + 1; // 记得当前月是要+1的
+                var dt = d.getDate();
+                var today = year + "-" + month + "-" + dt;
+                $(".form_datetime").eq(1).val(today);
+                $("#search").trigger("click");
+
+
+                $(".show-left-menu").click( function() {
+                    //内容区取消全屏显示
+                    $("#leftIssueMenu").show();
+                    $(".show-left-menu").hide();
+                    $("#content").addClass('col-lg-10 col-sm-10').removeClass('col-lg-12 col-sm-12');
+
+                })
+                //tap切换效果
+                $(".heightChartChange").click(function(){
+                    var index = $(this).index();
+                    $(this).addClass("btn-primary").removeClass("btn-default");
+                    $(this).siblings().addClass("btn-default").removeClass("btn-primary");
+                    
+                    that.charSetting.chart.type == 'pie'? that.charSetting.chart.type = 'column': that.charSetting.chart.type = 'pie'
+                    if(list.chartDataFlag) {
+                        $('#container').highcharts().destroy();
+                        $('#container').highcharts(that.charSetting);
+                    }
+                })
+
+                $(document).on('click', '.js_depamentnodes', function(event) {
+                    event.stopPropagation();
+                    var that =this;
+                    var level = parseInt($(that).attr("level"))+1;
+                    $(that).find(".depamentnodes"+level).toggle();
+                    //点击提案节点
+                    if($(that).attr('name')){
+                        $('.js_TreeListInfo').html('');
+                        list.treeName = $(that).attr('name');
+                        list.getIssueFinsh();
+                        $('.depamentnodes4').removeClass('tree_node_active');
+                        $(that).addClass('tree_node_active');
+                        $('.js_getIssueFinsh').addClass('btn-success').removeClass('btn-default').siblings().addClass('btn-default').removeClass('btn-warning btn-info');
+                        //重置列表状态
+                        $('.js_getIssueFinsh').html('已完成 '+$(that).find('.label-success').html())
+                        $('.js_getIssueCheck').html('待审批 '+$(that).find('.label-warning').html())
+                        $('.js_getIssueExe').html('执行中 '+$(that).find('.label-info').html())
+
+                        $('.js_getIssueFinsh').addClass('btn-success cur').removeClass('btn-default')
+                        $('.js_getIssueFinsh').siblings().addClass('btn-default').removeClass('btn-warning btn-info cur')
+                        list.showFinishList=true;
+                        list.showCheckList=false;
+                        list.showExeList=false;
+
+                    }
+                    
+                })
+                $(document).on('click', '.js_getIssueFinsh', function(event) {
+                    if(!$(this).hasClass("cur")){
+                        list.getIssueFinsh()
+                        $(this).addClass('btn-success cur').removeClass('btn-default')
+                        $(this).siblings().addClass('btn-default').removeClass('btn-warning btn-info cur')
+                        $('.js_TreeListInfo').html('');
+                        list.showFinishList=true;
+                        list.showCheckList=false;
+                        list.showExeList=false;
+                    }
+                    
+                })
+                $(document).on('click', '.js_getIssueCheck', function(event) {
+                    if(!$(this).hasClass("cur")){
+                        list.getIssueCheck()
+                        $(this).addClass('btn-warning cur').removeClass('btn-default')
+                        $(this).siblings().addClass('btn-default').removeClass('btn-success btn-info cur')
+                        $('.js_TreeListInfo').html('');
+                        list.showFinishList=false;
+                        list.showCheckList=true;
+                        list.showExeList=false;
+                    }
+                    
+                })
+                $(document).on('click', '.js_getIssueExe', function(event) {
+                    if(!$(this).hasClass("cur")){
+                        list.getIssueExe()
+                        $(this).addClass('btn-info cur').removeClass('btn-default')
+                        $(this).siblings().addClass('btn-default').removeClass('btn-success btn-warning cur')
+                        $('.js_TreeListInfo').html('');
+                        list.showFinishList=false;
+                        list.showCheckList=false;
+                        list.showExeList=true;
+                    }
+                    
+                })
+                $(document).on('click', '.js_showDetail', function(event) {
+                    $(this).parents('tr').css({color:'#428bca'})
+                    $('#serverDetail').modal('show');
+                    $("#serverDetatilIframe").html('<iframe src="/issue/server/detail?id=' + $(this).attr('serverId') + '&no-cache=' + Math.random()+'"></iframe>')
+                })
+                $(document).on('click', '.goback', function(event) {
+                   $('#serverDetail').modal('hide');
+                   $("#serverDetatilIframe").html('')
+                })
+                $(document).on('click', '#finishSearchList', function(event) {
+                    var checkTime = $(".js_finishCheckTime").val()?$(".js_finishCheckTime").val():99999;
+                    var exeTime = $(".js_finishExeTime").val()?$(".js_finishExeTime").val():99999;
+                    var allTime = $(".js_finishAllTime").val()?$(".js_finishAllTime").val():99999;
+                    var newServerList = [];
+                    $.each(list.serverList, function(key, val) {
+                        if(val.check_times<checkTime && val.exe_times<exeTime && val.finish_times<allTime){
+                            newServerList.push(val)
+                        }
+                    })
+                    $(".data-list").empty();
+                    $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>')
+                    list.renderFinishTable(newServerList)
+                    
+                })
+                $(document).on('click', '#checkSearchList', function(event) {
+                    var checkTime = $(".js_CheckCheckTime").val()?$(".js_CheckCheckTime").val():99999;
+                    var newServerList = [];
+                    $.each(list.serverList, function(key, val) {
+                        if(val.check_times<checkTime){
+                            newServerList.push(val)
+                        }
+                    })
+                    $(".data-list").empty();
+                    $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>')
+                    list.renderCheckTable(newServerList)
+                    
+                })
+                $(document).on('click', '#exeSearchList', function(event) {
+                    var exeTime = $(".js_exeExeTime").val()?$(".js_exeExeTime").val():99999;
+                    var newServerList = [];
+                    $.each(list.serverList, function(key, val) {
+                        if(val.exe_times<exeTime){
+                            newServerList.push(val)
+                        }
+                    })
+                    $(".data-list").empty();
+                    $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>')
+                    list.renderExeTable(newServerList)
+                    
+                })
+            },
+            tableConfig:{
+                finishColumn:[
+                    {
+                        "sTitle": "提案ID",
+                        "sWidth": "5%",
+                        "mDataProp": "id"
+                    }, {
+                        "sTitle": "提案标题",
+                        "sWidth": "10%",
+                        "mDataProp": "i_title"
+                    }, {
+                        "sTitle": "申请人",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "i_applicant"
+                    }, {
+                        "sTitle": "创建时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "c_time"
+                    }, {
+                        "sTitle": "审批时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "a_time"
+                    }, {
+                        "sTitle": "执行时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "u_time"
+                    }, {
+                        "sTitle": "审批用时",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "check_times"
+                    }, {
+                        "sTitle": "执行用时",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "exe_times"
+                    }, {
+                        "sTitle": "总用时",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "finish_times"
+                    }, {
+                        "sTitle": "查看详情",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "id"
+                    }
+                ],
+                checkColumn:[
+                    {
+                        "sTitle": "提案ID",
+                        "sWidth": "5%",
+                        "mDataProp": "id"
+                    }, {
+                        "sTitle": "提案标题",
+                        "sWidth": "10%",
+                        "mDataProp": "i_title"
+                    }, {
+                        "sTitle": "申请人",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "i_applicant"
+                    }, {
+                        "sTitle": "创建时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "c_time"
+                    }, {
+                        "sTitle": "审批等待时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "check_times"
+                    }, {
+                        "sTitle": "当前审批人",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "check"
+                    }, {
+                        "sTitle": "查看",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "id"
+                    }
+                ],
+                exeColumn:[
+                    {
+                        "sTitle": "提案ID",
+                        "sWidth": "5%",
+                        "mDataProp": "id"
+                    }, {
+                        "sTitle": "提案标题",
+                        "sWidth": "10%",
+                        "mDataProp": "i_title"
+                    }, {
+                        "sTitle": "申请人",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "i_applicant"
+                    }, {
+                        "sTitle": "创建时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "c_time"
+                    }, {
+                        "sTitle": "审批完成时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "e_time"
+                    }, {
+                        "sTitle": "执行持续时间",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "exe_times"
+                    }, {
+                        "sTitle": "状态",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "action"
+                    }, {
+                        "sTitle": "当前处理人",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "operator"
+                    }, {
+                        "sTitle": "查看",
+                        "sWidth": "10%",
+                        "sClass": "center",
+                        "mDataProp": "id"
+                    }
+                ],
+                oLanguage:{
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            },
+            renderFinishTable: function(dataList) {
+                $('.js_TreeListInfo').DataTable( {
+                    'dom': 'Btirlp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    // "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+                    // "sPaginationType": "bootstrap",
+                    data: dataList,
+                    "aoColumns": list.tableConfig.finishColumn,
+                    "aaSorting": [0, "desc"],
+                    "oLanguage": list.tableConfig.oLanguage,
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            return list.changeTime(data);
+                        }
+                    },{
+                        "aTargets": [7],
+                        "mRender": function (data, type, item) {
+                            return list.changeTime(data);
+                        }
+                    },{
+                        "aTargets": [8],
+                        "mRender": function (data, type, item) {
+                            return list.changeTime(data);
+                        }
+                    },{
+                        "aTargets": [9],
+                        "mRender": function (data, type, item) {
+                            var html = '<span class="btn btn-info btn-sm js_showDetail" serverId="'+data+'">';
+                            html += '<i class="glyphicon glyphicon-eye-open"></i>';
+                            html += ' 查看';
+                            html += '</span>';
+                           
+                            return html;
+                        }
+                    }]
+                } );
+
+            },
+            renderCheckTable: function(dataList) {
+                $('.js_TreeListInfo').DataTable( {
+                    'dom': 'Btirlp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': '提案分类数据统计',//导出文件名  
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    // "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+                    data: dataList,
+                    "aoColumns": list.tableConfig.checkColumn,
+                    "bDestroy":true,
+                    // "sPaginationType": "bootstrap",
+                    "aaSorting": [0, "desc"],
+                    "oLanguage": list.tableConfig.oLanguage,
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [4],
+                        "mRender": function (data, type, item) {
+                            return list.changeTime(data);
+                        }
+                    },{
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            var html = '<span class="btn btn-info btn-sm js_showDetail" serverId="'+data+'">';
+                            html += '<i class="glyphicon glyphicon-eye-open"></i>';
+                            html += ' 查看';
+                            html += '</span>';
+                           
+                            return html;
+                        }
+                    }]
+                } );
+
+            },
+            renderExeTable: function(dataList) {
+                $('.js_TreeListInfo').DataTable( {
+                    'dom': 'Btirlp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    // "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+                    data: dataList,
+                    "aoColumns": list.tableConfig.exeColumn,
+                    "bDestroy":true,
+                    // "sPaginationType": "bootstrap",
+                    "aaSorting": [0, "desc"],
+                    "oLanguage": list.tableConfig.oLanguage,
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [5],
+                        "mRender": function (data, type, item) {
+                            return list.changeTime(data);
+                        }
+                    },{
+                        "aTargets": [8],
+                        "mRender": function (data, type, item) {
+                            var html = '<span class="btn btn-info btn-sm js_showDetail" serverId="'+data+'">';
+                            html += '<i class="glyphicon glyphicon-eye-open"></i>';
+                            html += ' 查看';
+                            html += '</span>';
+                           
+                            return html;
+                        }
+                    }]
+                });
+
+            },
+            treeName:'',
+            depamentTree:{},
+            charSetting:{
+                chart: {
+                    type: 'pie',
+                    events: {
+                    drillup: function(e) {
+                        // 上钻回调事件
+                        list.setTitle("总提案分布一览表",list.total);
+                        $(".js_AllDataInfo").show();
+                        $(".js_SingleDataInfo").hide();
+                    }
+                }    
+                },
+                title: {
+                    text: '总提案分布一览表',
+                    style:{
+                        fontWeight:"bold",
+                        fontSize:"30px"
+                    }
+                },
+                subtitle: {
+                    text: '点击可查看各类提案详细状况'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: '数量'
+                    }
+
+                },
+                credits:{
+                     enabled:false // 禁用版权信息
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}: {point.y}'
+                        }
+                    },
+                    column: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function(e) {
+                                if(e.point.drilldown){
+                                    $(".js_AllDataInfo").hide();
+                                    //修改标题
+                                    list.name = e.point.drilldown; 
+                                    list.setTitle(e.point.name,e.point.y);
+                                }else{
+                                    //做其他数据
+                                    list.type = e.point.type;
+                                    list.getSingleDataInfo();
+                                    $(".js_SingleDataInfo").show();
+                                }
+                            }
+                        },
+                    },
+                    pie: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function(e) {
+                                if(e.point.drilldown){
+                                    //修改标题
+                                    list.name = e.point.drilldown; 
+                                    list.setTitle(e.point.name,e.point.y);
+                                }else{
+                                    $(".js_AllDataInfo").hide();
+                                    $(".js_SingleDataInfo").show();
+                                    //做其他数据
+                                    list.type = e.point.type;
+                                    list.getSingleDataInfo();
+                                }
+                            }
+                        },
+                    }
+                },
+                series:[{
+                    name: '提案分类',
+                    colorByPoint: true,
+                    data:[]
+                }
+                ],
+                drilldown:{
+                    series:[],
+                }
+            },
+            chartDataFlag:false,
+            total:0, 
+            name:"",
+            type:"", 
+            getdata: function(url,type){
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_data/getAllDataInfo",
+                    data: {
+                        start:$(".form_datetime").eq(0).val(),
+                        end:$(".form_datetime").eq(1).val()
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if (result.status) {
+                            list.charSetting.series[0].data = [];
+                            list.charSetting.drilldown.series = [];
+                            list.total = 0;
+                            $("#totleInfo").empty();
+                            $.each(result.data,function(key, val){
+                                //一层数据
+                                var dataObj = {};
+                                dataObj.name = val.cn_name;
+                                dataObj.y = val.totle;
+                                dataObj.drilldown = key;
+                                list.charSetting.series[0].data.push(dataObj);
+                                list.total += val.totle;
+                                //二层数据
+                                var drilldownObj = {};
+                                drilldownObj.name = val.cn_name;
+                                drilldownObj.id = key;
+
+                                drilldownObj.data = [];
+                                
+                                drilldownObj.data.push({ name: '完成',y: val.complete, type: 'complete'});
+                                drilldownObj.data.push({ name: '驳回',y: val.reject, type: 'reject'});
+                                drilldownObj.data.push({ name: '等待审批',y: val.wait_check, type: 'check'});
+                                drilldownObj.data.push({ name: '等待执行',y: val.wait_exe, type: 'exe'});
+
+                                list.charSetting.drilldown.series.push(drilldownObj);
+
+                                var trhtml = '<tr><td>'+val.cn_name+'</td><td>'+val.wait_check+'</td><td>'+val.wait_exe+'</td><td>'+val.reject+'</td><td>'+val.complete+'</td><td>'+val.totle+'</td></tr>'
+                                $("#totleInfo").append(trhtml)
+
+                            })
+                            
+                            list.charSetting.title.text = "总提案分布一览表(总数："+list.total+")";
+                            list.chart = $('#container').highcharts(list.charSetting);
+                            list.chartDataFlag = true;
+                            $('.loading-alldata').hide()
+                        } else {
+                            console.log("没有数据");
+                        }
+                    }
+                }); 
+            },
+            setTitle: function(name,num) {
+                var chart = $('#container').highcharts();
+                var title = {
+                    text:name+'('+num+')'                   
+                };
+                chart.setTitle(title);
+
+            },
+            getSingleDataInfo: function() {
+                var url = "/api/issue_data/getSingleDataInfo?start="+$(".form_datetime").eq(0).val()+"&end="+$(".form_datetime").eq(1).val()+"&name="+list.name+"&type="+list.type;
+                var datatable = $('.location-datatable').DataTable({
+                    "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+                    "sPaginationType": "bootstrap",
+                    "aaSorting": [0, "asc"],
+                    "oLanguage": list.oLanguage,
+                    "bDestroy":true,
+                    "ajax": url,
+                    "aoColumns": [{
+                        "sTitle": "ID",
+                        "sWidth": "5%",
+                        "mDataProp": "id"
+                    }, {
+                        "sTitle": "标题",
+                        "sWidth": "25%",
+                        "mDataProp": "title"
+                    }, {
+                        "sTitle": "申请人",
+                        "sWidth": "20%",
+                        "sClass": "center",
+                        "mDataProp": "user"
+                    }, {
+                        "sTitle": "部门",
+                        "sWidth": "30%",
+                        "sClass": "center",
+                        "mDataProp": "depart"
+                    }, {
+                        "sTitle": "持续时间",
+                        "sWidth": "20%",
+                        "sClass": "center",
+                        "mDataProp": "span"
+                    }],
+                    "aoColumnDefs": [{
+                         "aTargets": [0],
+                        "mRender": function (data, type, item) {
+                            return '<a href="/issue/server/detail?id='+data+'&no-cache=' + Math.random()+'">'+data+'</a>';
+                        }
+                    }
+                    ],
+                    "searching": true
+                });
+
+                datatable.on('xhr', function () {
+                    var json = datatable.ajax.json();
+                    if (!!json.status && json.status == 401) {
+                        $.confirm(json.msg, function () {
+                            window.location.href = "/login/logout";
+                        });
+                    }
+                });
+            },  
+            nodeIndex:0,
+            getTree: function(url){
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_data/getIssueTreeData?type=server",
+                    data: {},
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+
+                        if (result.status) {
+                            // list.depamentTree = result.data;
+                            $.each(result.data, function(key, val) {
+                                $('#dataTreeView').append('<div class="depamentnodes depamentnodes1 js_depamentnodes" level="1" nodeName="'+key+'" nodeStatus="hidden"><i class="glyphicon glyphicon-plus show_child"></i>'+key+' <span class="label label-success">'+val.data.finish+'</span> <span class="label label-warning">'+val.data.check+'</span> <span class="label label-info">'+val.data.exe+'</span> </div>');
+                                getNextNode('depamentnodes','1',val)
+
+                            })
+
+                            function getNextNode(parent,level,nodeObj) {
+                                $.each(nodeObj, function(key,val) {
+                                    if(key !='data'){
+                                        var nextlevel = parseInt(level)+1
+                                        if(nextlevel== 4){
+                                            $('.'+parent+level).eq(list.nodeIndex).append('<div class="depamentnodes depamentnodes'+nextlevel+' js_depamentnodes" level="'+nextlevel+'" nodeName="'+key+'" name="'+val.name+'" nodeStatus="hidden"><i class="glyphicon glyphicon-minus show_child level'+nextlevel+'"></i>'+key+' <span class="label label-success">'+val.data.finish+'</span> <span class="label label-warning">'+val.data.check+'</span> <span class="label label-info">'+val.data.exe+'</span> </div>');
+                                            // getNextNode("depamentnodes",nextlevel, val);
+
+                                        }else{
+                                            $('.'+parent+level).append('<div class="depamentnodes depamentnodes'+nextlevel+' js_depamentnodes" level="'+nextlevel+'" nodeName="'+key+'" nodeName="'+key+'" nodeStatus="hidden"><i class="glyphicon glyphicon-plus show_child level'+nextlevel+'"></i>'+key+' <span class="label label-success">'+val.data.finish+'</span> <span class="label label-warning">'+val.data.check+'</span> <span class="label label-info">'+val.data.exe+'</span> </div>');
+                                            getNextNode("depamentnodes",nextlevel, val);
+                                            
+                                        }
+                                    }
+
+                                })
+                                list.nodeIndex++
+
+                            }
+
+
+                          
+                        } else {
+                            console.log("没有数据");
+                        }
+                    }
+                });
+            },
+            serverList:[],
+            showFinishList:true,//设置列表状态，以免datatable生成报错
+            showCheckList:false,
+            showExeList:false,
+            getIssueFinsh: function(name){
+                $(".data-list").empty();
+                $(".loading-data-list").show();
+                $('.js_total_time').html('');
+                $(".search-area").hide();
+                var getTreeName = list.treeName
+
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_data/getIssueFinsh?name="+list.treeName,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(list.showFinishList && (getTreeName==list.treeName)){
+                            $(".data-list").empty();
+                            $(".loading-data-list").hide();
+                            $(".finish-search").show();
+                            if(result.status){
+                                $('.js_total_time').html('平均审批时间：'+list.changeTime(result.data.time.check)+'<br/> 平均执行时间：'+list.changeTime(result.data.time.exe)+'<br/> 总时长：'+list.changeTime(result.data.time.finish));
+                                
+                                $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>');
+                                list.serverList = result.data.list;
+
+                                list.renderFinishTable(list.serverList)
+                            }
+                        }
+                    }
+                });
+            },
+            getIssueExe: function(name){
+                $(".data-list").empty();
+                $(".loading-data-list").show();
+                $('.js_total_time').html('');
+                $(".search-area").hide();
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_data/getIssueExe?name="+list.treeName,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(list.showExeList){
+                            $(".loading-data-list").hide();
+                            $(".exe-search").show();
+                            if(result.status){
+                                list.serverList = result.data.list;
+                                $('.js_total_time').html('平均执行时间：'+list.changeTime(result.data.time));
+
+                                $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>')
+                                list.renderExeTable(list.serverList)
+                            }
+                        }
+                    }
+                });
+            }, 
+            getIssueCheck: function(name){
+                $(".data-list").empty();
+                $(".loading-data-list").show();
+                $('.js_total_time').html('');
+                $(".search-area").hide();
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/issue_data/getIssueCheck?name="+list.treeName,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(list.showCheckList){
+                            $(".loading-data-list").hide();
+                            $(".check-search").show();
+                            if(result.status){
+                                list.serverList = result.data.list;
+                                $('.js_total_time').html('平均审批持续时间：'+list.changeTime(result.data.time));
+                                
+                                $(".data-list").append('<table class="table table-striped table-bordered AllDataInfo js_TreeListInfo"></table>')
+
+                                list.renderCheckTable(list.serverList);
+                                
+                            }
+                        }
+
+                       
+                    }
+                });
+            },
+            changeTime: function(data) {
+                if(data<60){
+                    return parseInt(data)+'秒';
+                }else if(data<3600){
+                    var m =parseInt(data/60);
+                    var s=parseInt(data % 60);
+                    return m+'分'+s+'秒'
+                }else if(data>3600) {
+                    var h = h=parseInt(data/3600);
+                    var m =parseInt((data-h*3600)/60);
+                    var s=parseInt((data-h*3600) % 60);
+                    return h+'小时'+m+'分'+s+'秒'
+                }
+            }
+        }
+        list.init();
+    
+        Highcharts.setOptions({
+            lang: {
+                contextButtonTitle: '打印或者输出时的菜单栏标题',//默认是： Chart context menu.
+                drillUpText:"< 返回",
+                noData:"获取数据失败，请刷新重试",
+                printChart:"打印该图",
+                downloadPNG:"以PNG格式导出",
+                downloadJPEG:"以JPEG格式导出",
+                downloadSVG:"以SVG格式导出",
+                downloadPDF:"以PDF格式导出",
+
+            }
+        });
+    });
+</script>

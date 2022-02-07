@@ -1,0 +1,206 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.select2-container--open .select2-dropdown--below {
+  width: 282px !important;
+  margin-left: 0;
+}
+
+.select2-container--open .select2-dropdown--above {
+  width: 282px !important;
+  margin-left: 0;
+}
+</style>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="/index">首页</a></li>
+          <li>IFOS装机平台</li>
+          <li>物理机管理</li>
+          <li>添加新设备</li>
+        </ul>
+      </div>
+      <div class="row js_row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-edit"></i> 添加新设备</h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content">
+              <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#info"> 单条录入</a></li>
+                <li><a href="#custom"> 批量导入</a></li>
+              </ul>
+              <div id="myTabContent" class="tab-content device_infomation">
+                <br>
+                <div class="tab-pane active" id="info">
+                  <div class="device_content">
+                    <div class="list_left">
+                      <p><span>★</span>SN</p>
+                      <p><span>★</span>IP</p>
+                      <p><span>★</span>MAC</p>
+                      <p><span>★</span>主机名</p>
+                      <p>管理IP卡</p>
+                      <p><span>★</span>系统安装模板</p>
+                      <p><span>★</span>硬件配置模板</p>
+                      <p><span>★</span>机房位置</p>
+                    </div>
+                    <div class="list_right">
+                      <div>
+                        <input class="js_blur js_SNblur" type="text" fld="SN">
+                        <span></span>
+                      </div>
+                      <div>
+                        <input class="js_blur js_IPblur" type="text" fld="IP">
+                        <span></span>
+                      </div>
+                      <div>
+                        <input class="js_blur js_MACblur" type="text" fld="MAC">
+                        <span></span>
+                      </div>
+                      <div>
+                        <p class="mastername js_hostname"></p>
+                        <span></span>
+                      </div>
+                      <div>
+                        <input class="js_IPcard" type="text">
+                        <span></span>
+                      </div>
+                      <div>
+                        <select class="js_ostmpname" id="selectOstmp">
+                          <option value=''>请选择系统安装模板</option>
+                        </select>
+                        <span class="err"></span>
+                      </div>
+                      <div>
+                        <select class="js_hardwarename" id="selectHardwar">
+                          <option value=''>请选择硬件安装模板</option>
+                        </select>
+                        <span class="err"></span>
+                      </div>
+                      <div>
+                        <p class="idcname js_idcname" idcid=""></p>
+                        <span></span>
+                      </div>
+                    </div>
+                    <a class="btn btn-success new_submit js_new_submit"><i class="glyphicon glyphicon-edit"></i> 提交 </a>
+                    <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+                  </div>
+                </div>
+                <div class="tab-pane" id="custom">
+                  <form name="uploadCsv" action="/idcos/device/upload" enctype="multipart/form-data" method="post">
+                    <table class="table table-bordered table-striped responsive">
+                      <tbody>
+                        <tr>
+                          <td width="20%">
+                            <h3>上传批量导入文件</h3></td>
+                          <td width="40%">
+                            <div class="form-group">
+                              <br>
+                              <input name="csv" type="file" id="uploadFile">
+                              <br>
+                              <p class="help-block"><strong>温馨提示：</strong>
+                                <br> 1、SN已存在的情况下，会覆盖以前的信息
+                                <br> 2、SN，主机名，财编最大长度为255字符
+                                <br> 3、位置栏请填写完整的位置名，各级位置间请用"-"连接，如：机房名-楼层-房间号-机架位
+                                <br> 4、填写的信息里不允许出现","，您可以将其替换为";"
+                              </p>
+                            </div>
+                          </td>
+                          <td width="40%">
+                            <br>
+                            <a href="/download/批量安装操作系统(模板).xlsx">下载导入模板 Excel</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-upload"></i> 导入</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+  <div class="dialog-overlay"></div>
+  <div class="wait_dialog js_wait_dialog">
+    <div class="progress progress-striped progress-success active">
+      <div class="progress-bar" style="width: 100%;"></div>
+    </div>
+    <p>正在提交数据，请等待</p>
+  </div>
+  <div class="result_dialog js_result_dialog">
+    <p class="tip">设备信息已成功录入</p>
+    <button>关闭</button>
+  </div>
+  <?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.select2.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script src="/js/newdevice.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $("#selectOstmp").select2();
+    $("#selectHardwar").select2();
+
+    //获取硬件配置信息
+    $.ifosAjax({
+      url: "/api/IdcOs_General/getHardwareSelect",
+      type: "get",
+      dataType: "json",
+      contentType: 'application/json',
+      success: function(rusult) {
+        $('.js_hardwarename').select2({
+          data: rusult
+        });
+
+      }
+    });
+
+    //获取系统安装模板信息
+    $.ifosAjax({
+      url: "/api/IdcOs_General/getOsTmpSelect",
+      type: "get",
+      dataType: "json",
+      contentType: 'application/json',
+      success: function(rusult) {
+        $('.js_ostmpname').select2({
+          data: rusult
+        });
+
+      }
+    });
+
+
+    $('#device-new').css({
+      "background-color": "#eeeeee"
+    });
+    $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+    //tabs
+    $('#myTab a:first').tab('show');
+    $('#myTab a').click(function(e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+  });
+  </script>

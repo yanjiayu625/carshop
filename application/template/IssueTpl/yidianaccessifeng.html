@@ -1,0 +1,75 @@
+<!-- <style type="text/css">
+.user_item{min-height: 90px;position: relative;}
+.user_item > input,textarea,span{position: absolute;display: inline; }
+.user_item > .user{width: 100px;left:0px; top:10px; }
+.user_item > .department{width: 200px;left:110px; top:10px; }
+.user_item > .iptest{width: 150px;left:320px; top:10px; }
+.user_item > .iplisttest{width: 150px;left:490px; top:10px; }
+.user_item > .add_user{width: 50px;left:650px; top:10px; }
+</style> -->
+<tr>
+	<td width="20%">
+	</td><td width="70%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="申请" data-original-title="申请" id="yidianusers" colspan="2">
+		<input type="hidden" class="form-control" required="" name="t_custom_yidian_ifeng" data-label="申请" value="" aria-required="true">
+		
+		<div style="min-height: 20px;position: relative;">
+			<p type="text" style="width: 100px;left:0px; top:0px; position: absolute;display: inline;">
+				<i class="glyphicon glyphicon-star red"></i><span class="js_name">姓名</span>
+			</p>
+			<p type="text" style="width: 200px;left:110px; top:0px; position: absolute;display: inline;">
+				<i class="glyphicon glyphicon-star red"></i><span class="js_name">所属部门</span>
+			</p>
+			<p type="text" style="width: 150px;left:320px; top:0px; position: absolute;display: inline;">
+				<i class="glyphicon glyphicon-star red"></i><span class="js_name">1点办公区IP地址</span>
+			</p>
+			<p type="text" style="width: 150px;left:490px; top:0px; position: absolute;display: inline;">
+				<i class="glyphicon glyphicon-star red"></i><span class="js_name">需访问凤凰网IP地址</span>
+			</p>
+		</div>
+		<div class="user_item" style="min-height: 90px;position: relative;">
+			<input type="text" name="h_name" class="form-control user" placeholder="姓名" value="" required="" onblur="addOperator()" aria-required="true" style="width: 100px;left:0px; top:34px; position: absolute;display: inline;">
+
+			<input type="text" name="h_department" class="form-control department" placeholder="所属部门" value="" required="" aria-invalid="true" onblur="addOperator()" aria-required="true" style="width: 200px;left:110px; top:34px; position: absolute;display: inline;">
+
+
+			<input type="text" name="h_one_ip" class="form-control iptest" placeholder="1.IP" value="" required="" aria-invalid="true" onblur="addOperator()" aria-required="true" style="width: 150px;left:320px; top:34px; position: absolute;display: inline;">
+
+
+			<textarea type="text" class="form-control iplisttest" required="" onblur="addOperator()" name="h_ifeng_ip" value="" rows="3" placeholder="ifengIP" style="width: 150px;left:490px; top:10px; position: absolute;display: inline;" aria-required="true"></textarea>
+			<span class="glyphicon glyphicon-plus add_user" onclick="insertAfter()" style="width: 100px;left:650px; top:40px; position: absolute;display: inline;cursor: pointer;"></span>
+		</div>
+	</td>
+	<!-- <td width="25%"></td> -->
+	<td width="15%"></td>
+</tr>
+
+<script style="">
+	//信息写到hidden input 中
+	function addOperator() {
+	    var jsonObjs = {};
+		$.each($("#yidianusers .user_item"), function(index,element){
+			var jsonObj = {};
+			jsonObj.name = $(element).find("input:eq(0)").val()
+			jsonObj.department = $(element).find("input:eq(1)").val();
+			jsonObj.yidianip = $(element).find("input:eq(2)").val();
+			jsonObj.ifengip = $(element).find("textarea").val();
+			jsonObjs[index] = jsonObj;
+		})
+		$("[name='t_custom_yidian_ifeng']").val(JSON.stringify(jsonObjs));
+	}
+
+	// 自定义函数向后插入
+	var numNode = 1;
+	function insertAfter() 
+	{ 
+		var node = '<div class="user_item" style="min-height: 90px;position: relative;"><input type="text" name="h_name'+numNode+'" class="form-control user"  placeholder="姓名" value="" required="" onblur="addOperator()" aria-required="true" style="width: 100px;left:0px; top:34px; position: absolute;display: inline;"><input type="text" name="h_department`+numNode+`" class="form-control department" placeholder="所属部门" value="" required="" aria-invalid="true" onblur="addOperator()" aria-required="true" style="width: 200px;left:110px; top:34px; position: absolute;display: inline;"><input type="text" name="h_one_ip'+numNode+'" class="form-control iptest" placeholder="1.IP" value="" required="" aria-invalid="true" onblur="addOperator()" aria-required="true" style="width: 150px;left:320px; top:34px; position: absolute;display: inline;"><textarea type="text" name="h_ifeng_ip'+numNode+'" class="form-control iplisttest" required=""  onblur="addOperator()"  value="" rows="3" placeholder="ifengIP" style="width: 150px;left:490px; top:10px; position: absolute;display: inline;"></textarea><span class="glyphicon glyphicon-minus js_delNode" style="width: 100px;left:650px; top:40px; position: absolute;display: inline;cursor: pointer;"></span></div>';
+		$("#yidianusers").append(node);
+		numNode++;
+	}
+
+	$(document).on("click",".js_delNode", function() {
+		$(this).parents('.user_item').remove();
+
+	})
+
+</script>

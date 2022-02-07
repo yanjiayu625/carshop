@@ -1,0 +1,176 @@
+<!-- 提案基础信息 -->
+<input type="hidden" name="i_type" data-label="服务类型代码" required value="">
+<div class="box col-md-12">
+    <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2><i class="glyphicon glyphicon-edit"></i> 基础信息</h2>
+
+            <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                        class="glyphicon glyphicon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> <?php echo ($serverType == 'change')?'变更':'服务' ?>类型</td>
+                    <td width="40%">
+                        <input type="text" name="i_name" data-label="服务类型" required class="form-control" value="<?php echo $servername ?>" readonly>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 标题</td>
+                    <td width="40%"><input type="text" data-label="标题" name="i_title" class="form-control" required></td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">是否紧急</td>
+                    <td width="40%">
+                        <select style="height: 38px;" name="i_urgent" data-label="是否紧急">
+                            <option value='1'>否</option>
+                            <option value='2'>是</option>
+                        </select>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+
+                <?php if( $serverType == 'change') {?>
+                <tr>
+                    <td width="20%">风险等级</td>
+                    <td width="40%">
+                        <select style="height: 38px;" name="i_risk" data-label="风险等级">
+                            <option value='1'>低</option>
+                            <option value='2'>高</option>
+                        </select>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <?php }else{ ?>
+                <input type="hidden" name="i_risk" data-label="风险等级" value="0">
+                <?php } ?>
+
+                <!--<tr>-->
+                    <!--<td width="20%">抄送人</td>-->
+                    <!--<td width="40%">-->
+                        <!--<input type="text" class="form-control" placeholder="抄送人" name="i_cc" data-label="抄送人">-->
+                    <!--</td>-->
+                    <!--<td width="40%"></td>-->
+                <!--</tr>-->
+                <tr>
+                    <td width="20%">会签人</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" placeholder="会签人为域账号,多个以 ',' 分隔"
+                               name="i_countersigned" data-rule-remote="/api/issue_check/checkCs" data-label="会签人">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">审批人</td>
+                    <td width="40%">
+                        <p class="info_special_ps js_approvers"></p>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">父提案</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" placeholder="只能有一个父提案"
+                               name="i_father" data-rule-remote="/api/issue_check/checkFather" data-label="相关提案">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">相关提案</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" placeholder="多个相关提案用',' 分隔"
+                               name="i_related" data-label="相关提案"  data-rule-remote="/api/issue_check/checkRelated">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <!--<input type="hidden" name="i_related" data-label="相关提案" value="">-->
+                <!--<input type="hidden" name="i_father" data-label="父提案" value="">-->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- 提案人员信息 -->
+<div class="box col-md-12">
+    <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2><i class="glyphicon glyphicon-edit"></i> 人员信息</h2>
+
+            <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                        class="glyphicon glyphicon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 申请人</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" value="<?php echo $name ?>" readonly
+                               name="i_applicant" data-label="申请人">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 申请人邮箱</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" value="<?php echo $email ?>" readonly
+                               name="i_email" data-label="申请人邮箱">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 申请人部门</td>
+                    <td width="40%">
+                        <input type="text" class="form-control" value="<?php echo $department ?>" readonly
+                               name="i_department" data-label="申请人部门">
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+
+                <?php if( $leader ) {?>
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 直属领导</td>
+                    <td width="40%" class="leader">
+                        <select style="height: 38px;" name="i_leader" data-label="直属领导">
+                        </select>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                    </td>
+                    <td width="40%">
+                        <span class="btn btn-primary js_change" style="padding:4px 12px;">切换</span>　点击切换直属领导人(域账号)的输入方式
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <?php if($operator) {?>
+                <tr>
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i> 运维负责人</td>
+                    <td width="40%">
+                        <select id="busowner_list" style="height: 38px;" name="i_operator" required data-label="运维负责人">
+                        </select>
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <?php } ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

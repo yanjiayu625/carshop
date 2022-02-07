@@ -1,0 +1,556 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">权限类型</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择权限类型" data-original-title="权限类型">
+        <select class="form-control type" required="" name="t_type_name" data-label="权限类型" aria-required="true" aria-invalid="false">
+            <option value=""></option>
+            <option value="1">凤凰网中轻办公区网络访问权限申请</option>
+            <option value="2">一点资讯与凤凰网网络访问权限申请</option>
+            <option value="3">凤凰房产与凤凰网网络访问权限申请</option>
+            <option value="4">济南审核中心与凤凰网网络访问权限申请</option>
+            <option value="5">凤凰网办公区访问海外资源权限</option>
+            <option value="6">凤凰网办公区出口带宽提速申请</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 50%;position: absolute;top:0px;left: 0px;text-align: right;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>办公网--源IP地址: </span>
+                <input type="text" class="form-control sourceip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:0px;left: 58%;text-align: right;">
+                <span class="js_sourceport" style="width: 94px;"><em style="padding: 10px 5px; color: #f00;">*</em>办公网端口: </span>
+                <input type="text" name="h_sourceport" class="form-control sourceport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 50%;position: absolute;top:50px;left: 0px;text-align: right;">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>需访问--目的IP地址: </span>
+                <input type="text" class="form-control aimip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_aimip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:50px;left: 58%;text-align: right;">
+                <span class="js_aimport" style="width: 94px;">　　 目的端口: </span>
+                <input type="text" name="h_aimport" class="form-control aimport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 50%;position: absolute;top:96px;left: 0%;text-align: right;">
+                <span><em style="padding: 10px 5px; color: #f00;">*</em>协议:</span>
+                <select class="tORu" name="h_tORu" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;">
+                    <option value="tcp">tcp</option>
+                </select>
+            </p>
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 50%;position: absolute;top:0px;left: 0px;text-align: right;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>一点资讯--源IP地址: </span>
+                <input type="text" class="form-control sourceip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:0px;left: 58%;text-align: right;">
+                <span class="js_sourceport" style="width: 94px;">源端口: </span>
+                <input type="text" name="h_sourceport" class="form-control sourceport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 50%;position: absolute;top:50px;left: 0px;text-align: right;">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>凤凰网--目的IP地址: </span>
+                <input type="text" class="form-control aimip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_aimip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:50px;left: 58%;text-align: right;">
+                <span class="js_aimport" style="width: 94px;"><em style="padding: 10px 5px; color: #f00;">*</em>目的端口: </span>
+                <input type="text" name="h_aimport" class="form-control aimport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 50%;position: absolute;top:96px;left: 0%;text-align: right;">
+                <span><em style="padding: 10px 5px; color: #f00;">*</em>协议:</span>
+                <select class="tORu" name="h_tORu" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;">
+                    <option value="tcp">tcp</option>
+                    <option value="udp" id="optionUdp">udp</option>
+                </select>
+            </p>
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 58%;position: absolute;top:0px;left: 0px;text-align: right;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>凤凰房产--源IP地址: </span>
+                <input type="text" class="form-control sourceip" id="fcIpInput" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value=""><input type="checkbox" name="fcallip" id="fcAllIP"> 所有IP
+            </p>
+            <p style="width: 26%;position: absolute;top:0px;left: 58%;text-align: right;">
+                <span class="js_sourceport" style="width: 94px;">源端口: </span>
+                <input type="text" name="h_sourceport" class="form-control sourceport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 58%;position: absolute;top:50px;left: -55px;text-align: right;">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>凤凰网--目的IP地址: </span>
+                <input type="text" class="form-control aimip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_aimip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:50px;left: 58%;text-align: right;">
+                <span class="js_aimport" style="width: 94px;">目的端口: </span>
+                <input type="text" name="h_aimport" class="form-control aimport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 58%;position: absolute;top:96px;left:-55px;text-align: right;">
+                <span>协议:</span>
+                <select class="tORu" name="h_tORu" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;">
+                    <option value=""></option>
+                    <option value="tcp">tcp</option>
+                    <option value="udp" id="optionUdp">udp</option>
+                </select>
+            </p>
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 66%;position: absolute;top:0px;left: 0px;text-align: right;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>办济南审核中心--源IP地址: </span>
+                <input type="text" class="form-control sourceip" id="jnIpInput" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value=""><input type="checkbox" name="jnallip" id="jnAllIP"> 所有IP
+            </p>
+            <p style="width: 26%;position: absolute;top:0px;left: 62%;text-align: right;">
+                <span class="js_sourceport" style="width: 94px;">源端口: </span>
+                <input type="text" name="h_sourceport" class="form-control sourceport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 66%;position: absolute;top:50px;left: -55px;text-align: right;">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>凤凰网--目的IP地址: </span>
+                <input type="text" class="form-control aimip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_aimip" value="">
+            </p>
+            <p style="width: 26%;position: absolute;top:50px;left: 62%;text-align: right;">
+                <span class="js_aimport" style="width: 94px;">目的端口: </span>
+                <input type="text" name="h_aimport" class="form-control aimport" style="width: 60px;display: inline;margin-right: 10px;padding:0 6px 0 6px;" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误">
+            </p>
+            <p style="width: 66%;position: absolute;top:96px;left: -55px;text-align: right;">
+                <span>协议:</span>
+                <select class="tORu" name="h_tORu" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;">
+                    <option value=""></option>
+                    <option value="tcp">tcp</option>
+                    <option value="udp" id="optionUdp">udp</option>
+                </select>
+            </p>
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 66%;position: absolute;top:0px;left: 6px; ">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>IP: </span>
+                <input type="text" class="form-control ip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value="">
+            </p>
+            <p style="width: 66%;position: absolute;top:50px;left: 0px;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>MAC: </span>
+                <input type="text" class="form-control mac" id="jnIpInput" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_smac" value="">
+            </p>
+            
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="access-area" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">网络信息</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。标*号为必填
+            <br>
+            提案执行后出口带宽将提升至50Mbps
+        </p>
+        <div class="ip_area" style="position: relative;height: 156px;">
+            <p style="width: 66%;position: absolute;top:0px;left: 6px; ">
+                <span class="js_aimip">　<em style="padding: 10px 5px; color: #f00;">*</em>IP: </span>
+                <input type="text" class="form-control ip" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_sourceip" value="">
+            </p>
+            <p style="width: 66%;position: absolute;top:50px;left: 0px;">
+                <span class="js_sourceip"><em style="padding: 10px 5px; color: #f00;">*</em>MAC: </span>
+                <input type="text" class="form-control mac" id="jnIpInput" style="width: 40%;display: inline;margin-right: 10px;margin-left: 10px;" name="h_smac" value="">
+            </p>
+            
+        </div>
+        <span class="btn btn-success js_plusip" style=""><i class="glyphicon glyphicon-plus"></i> 增加</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr id="tableJson">
+    <td width="20%"><span class="js_name"></span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入网络信息" data-original-title="网络信息" colspan="2">
+        <input type="text" class="form-control hidden" required="" name="t_custom_apply_network_access" data-label="网络信息" value="" data-msg-regex="" aria-required="true">
+        <table class="table-bordered" style="text-align: center;width:100%">
+            <tbody class="js_tableHead">
+                <tr>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">源IP地址
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">目的IP地址
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">协议
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">源端口
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">目的端口
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">移除
+                    </th>
+                </tr>
+            </tbody>
+            <tbody id="networkAccessData">
+            </tbody>
+        </table>
+    </td>
+    <td width="25%" class="js_check_msg"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用开始时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择使用开始时间" data-original-title="使用开始时间">
+        <input type="text" class="form-control form_datetime" required="" name="t_starttime" data-label="使用开始时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用结束时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入使用结束时间" data-original-title="使用结束时间">
+        <input type="text" class="form-control form_datetime" required="" name="t_endtime" data-label="使用结束时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用期限</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择使用期限" data-original-title="请选择使用期限">
+        <select name="h_numbers" class="js_numbers" style="width: 50px;display: inline;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <select name="h_type" class="js_datetype" style="width: 50px;display: inline;margin-left: 10px;">
+            <option value="week">周</option>
+            <option value="month">月</option>
+        </select>
+        <!-- <input class="js_forever" type="checkbox" name="">永久(需总监审批) -->
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script type="text/javascript" style="">
+$(function() {
+    $(".submit").attr("disabled", true);
+    $(".access-area").hide();
+    $("#tableJson").hide();
+    $(".submit").addClass("btn-default").removeClass('btn-primary');
+
+    var today = new Date()
+    $("[name='t_starttime']").val(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())
+
+    var d1 = new Date();
+    var d2 = new Date(today);
+    d2.setDate(d1.getDate() + 7);
+    $("[name='t_endtime']").val(d2.getFullYear() + '-' + (d2.getMonth() + 1) + '-' + d2.getDate())
+
+    $(document).on('change', '.js_numbers', function() {
+        if (!$(".js_forever").prop('checked')) {
+            var numbers = $(this).val()
+            if ($('.js_datetype').val() == 'week') {
+                var d3 = new Date(today);
+                d3.setDate(d1.getDate() + parseInt(numbers) * 7);
+                $("[name='t_endtime']").val(d3.getFullYear() + '-' + (d3.getMonth() + 1) + '-' + d3.getDate())
+            } else {
+                var d = new Date();
+                d.setMonth(d.getMonth() + parseInt(numbers));
+                var yy1 = d.getFullYear();
+                var mm1 = d.getMonth() + 1; //因为getMonth（）返回值是 0（一月） 到 11（十二月） 之间的一个整数。所以要给其加1
+                var dd1 = d.getDate();
+                if (mm1 < 10) {
+                    mm1 = '0' + mm1;
+                }
+                if (dd1 < 10) {
+                    dd1 = '0' + dd1;
+                }
+
+                $("[name='t_endtime']").val(yy1 + '-' + mm1 + '-' + dd1)
+            }
+
+        }
+    })
+    $(document).on('change', '.js_datetype', function() {
+        if (!$(".js_forever").prop('checked')) {
+            var numbers = $('.js_numbers').val()
+            if ($('.js_datetype').val() == 'week') {
+                var d3 = new Date(today);
+                d3.setDate(d1.getDate() + parseInt(numbers) * 7);
+                $("[name='t_endtime']").val(d3.getFullYear() + '-' + (d3.getMonth() + 1) + '-' + d3.getDate())
+            } else {
+                var d = new Date();
+                d.setMonth(d.getMonth() + parseInt(numbers));
+                var yy1 = d.getFullYear();
+                var mm1 = d.getMonth() + 1; //因为getMonth（）返回值是 0（一月） 到 11（十二月） 之间的一个整数。所以要给其加1
+                var dd1 = d.getDate();
+                if (mm1 < 10) {
+                    mm1 = '0' + mm1;
+                }
+                if (dd1 < 10) {
+                    dd1 = '0' + dd1;
+                }
+                $("[name='t_endtime']").val(yy1 + '-' + mm1 + '-' + dd1)
+            }
+        }
+    })
+
+    $(".js_plusip").click(function() {
+        var index = $(".type").val() - 1
+        var $dom = $(".access-area").eq(index)
+        var access_data = {
+            t_type_name: $(".type").val(),
+            h_sourceip: $dom.find(".sourceip").val(),
+            h_aimip: $dom.find(".aimip").val(),
+            h_sourceport: $dom.find(".sourceport").val(),
+            h_aimport: $dom.find(".aimport").val(),
+            h_protocol: $dom.find(".tORu").val()
+        }
+
+        if(index == 4 || index == 5) {
+            access_data = {
+                t_type_name: $(".type").val(),
+                h_mac: $dom.find(".mac").val(),
+                h_ip: $dom.find(".ip").val(),
+            }
+
+        }else {
+            access_data = {
+                t_type_name: $(".type").val(),
+                h_sourceip: $dom.find(".sourceip").val(),
+                h_aimip: $dom.find(".aimip").val(),
+                h_sourceport: $dom.find(".sourceport").val(),
+                h_aimport: $dom.find(".aimport").val(),
+                h_protocol: $dom.find(".tORu").val()
+            }
+        }
+        $(".js_check_msg").html('');
+        $.ajax({
+            url: "/api/issue_check/checkNetworkAccess",
+            type: "post",
+            dataType: "json",
+            data: access_data,
+            success: function(result) {
+                if (result.status) {
+
+                    var htm = ''
+                    if( $(".type").val() == 5 || $(".type").val() == 6 ) {
+                        htm = '<tr><td style="text-align: center !important;">' + result.data.ip + '</td><td>' + result.data.mac + '</td><td><i class="glyphicon glyphicon-minus js_minus" style="cursor: pointer;color: #2fa4e7;"></i></td></tr>';
+
+                         var datas = $("input[name='t_custom_apply_network_access']").val();
+                        if ($("input[name='t_custom_apply_network_access']").val()) {
+                            datas = JSON.parse(datas)
+                            datas.push({
+                                type_name: $(".type").val(),
+                                ip: $dom.find(".ip").val(),
+                                mac: $dom.find(".mac").val(),
+                            });
+                            $("input[name='t_custom_apply_network_access']").val(JSON.stringify(datas))
+
+                        } else {
+                            $("input[name='t_custom_apply_network_access']").val(JSON.stringify([{
+                                type_name: $(".type").val(),
+                                ip: $dom.find(".ip").val(),
+                                mac: $dom.find(".mac").val(),
+                            }]))
+
+                        }
+
+                    } else {
+                    htm = '<tr><td style="text-align: center !important;">' + access_data.h_sourceip + '</td><td>' + access_data.h_aimip + '</td><td>' + access_data.h_protocol + '</td><td>' + access_data.h_sourceport + '</td><td>' + access_data.h_aimport + '</td><td><i class="glyphicon glyphicon-minus js_minus" style="cursor: pointer;color: #2fa4e7;"></i></td></tr>';
+                         var datas = $("input[name='t_custom_apply_network_access']").val();
+                        if ($("input[name='t_custom_apply_network_access']").val()) {
+                            datas = JSON.parse(datas)
+                            datas.push({
+                                type_name: $(".type").val(),
+                                sourceip: $dom.find(".sourceip").val(),
+                                aimip: $dom.find(".aimip").val(),
+                                sourceport: $dom.find(".sourceport").val(),
+                                aimport: $dom.find(".aimport").val(),
+                                protocol: $dom.find(".tORu").val()
+                            });
+                            $("input[name='t_custom_apply_network_access']").val(JSON.stringify(datas))
+
+                        } else {
+                            $("input[name='t_custom_apply_network_access']").val(JSON.stringify([{
+                                type_name: $(".type").val(),
+                                sourceip: $dom.find(".sourceip").val(),
+                                aimip: $dom.find(".aimip").val(),
+                                sourceport: $dom.find(".sourceport").val(),
+                                aimport: $dom.find(".aimport").val(),
+                                protocol: $dom.find(".tORu").val()
+                            }]))
+
+                        }
+                        
+                    }
+                    $("#networkAccessData").append(htm);
+
+                   
+
+                    $dom.find(".sourceip").val('');
+                    $dom.find(".aimip").val('');
+                    $dom.find(".sourceport").val('');
+                    $dom.find(".aimport").val('');
+                    $dom.find(".ip").val('');
+                    $dom.find(".mac").val('');
+
+
+                } else {
+                    $(".js_check_msg").html('<label class="error">' + result.msg + '.</label>');
+                }
+
+                if ($("input[name='t_custom_apply_network_access']").val()) {
+                    $(".submit").attr("disabled", false);
+                    $(".submit").addClass("btn-primary").removeClass('btn-default');
+                } else {
+                    $(".submit").attr("disabled", true);
+                    $(".submit").addClass("btn-default").removeClass('btn-primary');
+                }
+            }
+        })
+
+    })
+
+    $(document).on('change', '.type', function() {
+        $('input[name="t_custom_apply_network_access"]').val('')
+        $("#networkAccessData").empty();
+        $(".submit").attr("disabled", true);
+        $(".submit").addClass("btn-default").removeClass('btn-primary');
+        $(".access-area").hide();
+        if ($(this).val()) {
+            $(".access-area").eq($(this).val() - 1).show();
+            $("#tableJson").show();
+        } else {
+            $(".access-area").hide();
+            $("#tableJson").hide();
+        }
+
+        if ($(this).val() == 1) {
+            $("[name = 't_desc']").attr("placeholder", "例：172.30.1.1访问172.30.2.1的80端口，使用TCP协议");
+        } else {
+            $("[name = 't_desc']").attr("placeholder", "");
+        }
+        $("#diretor").remove()
+        if($(this).val() == 5 || $(this).val() == 6) {
+            $(".js_tableHead").html('<tr><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">IP</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">MAC</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">移除</th></tr>');
+
+            $("#tableJson").after('<tr id="diretor" style=""><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">部门总监</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择部门总监" data-original-title="部门总监"><input type="text" class="form-control" placeholder="请输入部门总监域账号" required="" name="i_director" data-label="部门总监" size="16" value="" aria-required="true" remote="/api/issue_check/checkDirector"></td><td width="25%"></td><td width="15%"></td></tr>')
+        } else {
+            $(".js_tableHead").html('<tr><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">源IP地址</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">目的IP地址</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">协议</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">源端口</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="15%">目的端口</th><th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;" width="10%">移除</th></tr>')
+        }
+
+    })
+
+    $(document).on('click', '.js_minus', function() {
+        var network_access_datas = $("input[name='t_custom_apply_network_access']").val()
+        network_access_datas = JSON.parse(network_access_datas)
+        var index = $(this).parents('tr').index();
+        network_access_datas.splice(index, 1);
+        $('#networkAccessData tr').eq(index).remove();
+
+        if (!network_access_datas.length) {
+            $("input[name='t_custom_apply_network_access']").val('');
+            $(".submit").attr("disabled", true);
+            $(".submit").addClass("btn-default").removeClass('btn-primary');
+        } else {
+            $("input[name='t_custom_apply_network_access']").val(JSON.stringify(network_access_datas));
+        }
+
+    })
+    $(document).on('click', '.js_forever', function() {
+        if ($(this).prop('checked')) {
+            $("[name='t_endtime']").val('永久');
+            $("#info").append('<input type="hidden" name="i_special" value="weijy3">')
+        } else {
+            $("input[name='i_special']").remove();
+            $(".js_datetype").trigger('change');
+        }
+    })
+    $(document).on('click', '#fcAllIP', function() {
+        $(this).prop('checked') ? $(this).prev('input').val('172.17.0.0/16') : $(this).prev('input').val('');
+    })
+
+    $(document).on('click', '#jnAllIP', function() {
+        $(this).prop('checked') ? $(this).prev('input').val('172.16.0.0/16') : $(this).prev('input').val('');
+    })
+
+    $(document).on('keyup', '#fcIpInput', function() {
+        if ($(this).val() == '172.17.0.0/16') {
+            $(this).next('input').prop("checked", true)
+        } else {
+            $(this).next('input').prop("checked", false)
+        }
+    })
+    $(document).on('keyup', '#jnIpInput', function() {
+        if ($(this).val() == '172.16.0.0/16') {
+            $(this).next('input').prop("checked", true)
+        } else {
+            $(this).next('input').prop("checked", false)
+        }
+    })
+
+})
+</script>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">手机号</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入手机号码" data-original-title="手机号">
+        <input type="text" class="form-control mobile" required="" name="t_mobile" data-label="手机号" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">需求描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入需求描述" data-original-title="需求描述">
+        <textarea type="text" minlength="10" class="form-control" required="" name="t_desc" data-label="需求描述" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<!-- <tr>
+    <td width="20%"><span class="js_name">交接人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要填写详细的交接人信息" data-original-title="交接人"><textarea type="text" class="form-control valid" name="t_transfer" data-label="交接人" value="" rows="3" aria-invalid="false"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">说明</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="需要填写详细的说明信息" data-original-title="说明"><textarea type="text" class="form-control valid" name="t_comment" data-label="说明" value="" rows="3" aria-invalid="false"></textarea></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr> -->

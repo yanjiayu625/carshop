@@ -1,0 +1,58 @@
+<tr>
+	<td width="20%" style="width: 305px;"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">凤凰令牌</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="凤凰令牌" style="width: 610px;">
+		<input type="hidden" class="form-control" required="" name="h_ifengtoken" data-label="凤凰令牌" value="" data-rule-regex="/^1/" data-msg-regex="您还没有成功申请凤凰令牌" aria-required="true">
+		<p class="js_ifnegtoken info_special_ps"></p>
+		<script>
+			$(function() {
+			    $("[name = 'i_title']").val('申请跳板机').attr('readonly','readonly')
+				$.ajax({
+					url: "/api/issue_check/checkIfengToken",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(result) {
+                        if(result.status){
+//                        	$(".js_ifnegtoken").html("您已申请凤凰令牌");
+//                        	$("#iplist").removeAttr("readonly");
+//                        	$("[name = 't_steppingstones']").removeAttr("disabled");
+//                        	$("[name ='h_ifengtoken']").val(1);
+//                        	$(".submit").attr("disabled",false);
+
+							$("[name ='h_ifengtoken']").val(1);
+							$("#iplist").removeAttr("readonly");
+                        	$("[name = 't_steppingstones']").removeAttr("disabled");
+							$(".js_ifnegtoken").html('<span class="red">如果您还没有申请凤凰令牌</span> 请扫描下方二维码申请凤凰令牌 <br><img style="width:170px;height:170px;margin:10px 0 0 0"" src="/img/android1.png" alt="" /><img style="width:170px;height:170px;margin:10px 0 0 10px" src="/img/ios1.png" alt="" /><p><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">android</span><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">IOS</span></p><p><a href="/download/IfengToken-V1.0.docx">点击下载使用说明</a></p>')
+							$(".submit").attr("disabled",false);
+
+                        }else{
+                        	$("[name ='h_ifengtoken']").val(2);
+							$(".js_ifnegtoken").html('<span class="red">您还没有申请凤凰令牌</span> 请扫描下方二维码申请凤凰令牌 <br><img style="width:170px;height:170px;margin:10px 0 0 0"" src="/img/android1.png" alt="" /><img style="width:170px;height:170px;margin:10px 0 0 10px" src="/img/ios1.png" alt="" /><p><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">android</span><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">IOS</span></p><p><a href="/download/IfengToken-V1.0.docx">点击下载使用说明</a></p>')
+							$(".submit").attr("disabled",true);
+						}
+                    },
+                    error: function() {
+                    	console.log("error");
+                    }
+
+				})
+			})
+		</script>
+
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请跳板机</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请跳板机">
+		<input type="checkbox" name="t_steppingstones" disabled data-label="申请跳板机" value="1" required="" checked="checked" aria-required="true">
+		<label>是</label>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

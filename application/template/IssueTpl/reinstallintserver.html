@@ -1,0 +1,109 @@
+<tr>
+		<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">SN</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN" data-original-title="SN">
+			<input type="text" class="form-control" required="" name="t_SNCode" data-label="SN" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">内网IP</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入内网IP" data-original-title="内网IP">
+			<input type="text" class="form-control iptest" required="" name="t_IPCode" data-label="内网IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">系统</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择操作系统" data-original-title="系统">
+			<input type="radio" name="t_os" data-label="系统" value="1" required="" checked="checked" aria-required="true">
+			<label>Linux　　</label>
+			<input type="radio" name="t_os" data-label="系统" value="2" required="" aria-required="true">
+			<label>Win　　</label>
+			<input type="radio" name="t_os" data-label="系统" value="3" required="" aria-required="true">
+			<label>Esxi</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr class="" style="background: rgb(255, 255, 255);">
+		<td width="20%" style="width: 306px;">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">操作系统版本</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择操作系统版本" data-original-title="操作系统版本" style="width: 610px;">
+			<select class="valid" required="" name="t_OSVersion" data-label="操作系统版本" aria-required="true" aria-invalid="false"><option value="5">CentOs6.5</option><option value="6">CentOs7.2</option></select>
+		</td>
+		<td width="25%" style="width: 381px;"></td>
+		<td width="15%" style="width: 228px;"></td>
+		<script>
+		$(function() {
+			var oschangemethods = {
+				init: function(){
+					var that = this;
+					//操作系统变化
+					$("[name='t_os']").click(function() {
+						var os_val = $(this).val();
+						if(os_val == 2){
+							$("[name = 't_OSVersion']").html('<option value="1">window2003</option><option value="2">window2008 R2</option>');
+						}else if(os_val == 1){
+							$("[name = 't_OSVersion']").html('<option value="5">CentOs6.5</option><option value="6">CentOs7.2</option>');
+						}else{
+							$("[name = 't_OSVersion']").html('<option value="7">5.5</option><option value="8">6.0</option>');
+						}
+					})
+				
+					 $("[name='t_os']").eq(0).trigger("click");
+				}
+			}
+			oschangemethods.init();
+
+		})
+		</script>
+	</tr>
+
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">安装包</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择安装包安装包" data-original-title="安装包">
+			<input type="radio" name="t_package" data-label="安装包" value="1" required="" checked="checked" aria-required="true">
+			<label>基础安装包　　</label>
+			<input type="radio" name="t_package" data-label="安装包" value="2" required="" aria-required="true">
+			<label>开发包</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+	<tr>
+		<td width="20%">
+			<i class="glyphicon glyphicon-star red"></i>
+			<span class="js_name">当前状态</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择当前状态" data-original-title="当前状态">
+			<input type="radio" name="t_installtime" data-label="安装时间" value="1" required="" checked="checked" aria-required="true">
+			<label>已关机可以安装　　</label>
+			<input type="radio" name="t_installtime" data-label="安装时间" value="2" required="" aria-required="true">
+			<label>未关机可以安装</label>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>
+
+	<tr>
+		<td width="20%">
+			<span class="js_name">特殊要求</span>
+		</td>
+		<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入特殊要求" data-original-title="特殊要求">
+			<textarea type="text" class="form-control" name="t_specialrequire" data-label="特殊要求" value="" rows="3"></textarea>
+		</td>
+		<td width="25%"></td>
+		<td width="15%"></td>
+	</tr>

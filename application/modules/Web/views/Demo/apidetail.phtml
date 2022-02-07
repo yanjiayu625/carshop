@@ -1,0 +1,134 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.clear{zoom:1}
+.clear:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
+.field{width: 100%;margin: 10px auto 10px; border: 1px solid #DEDEDE;border-radius: 3px;box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);}
+.line{border-bottom: 1px solid #eee;}
+.line p{width: 70%;line-height: 30px;margin: 0 0;float: left;padding-left: 15px; min-height:31px;border-left: 1px solid #ddd;}
+.line .title{font-size: 20px;background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);color: #333;}
+.line .left{width: 30%;text-align: right;padding-right: 10px;}
+.action {text-align: center;}
+</style>
+
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>提案管理</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 介绍 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-list-alt"></i> api接口说明</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                        </div>
+                        <p class="action">
+                            <a href="javascript:history.go(-1)" class="btn btn-default submit_diyinfo js_cancelExecutor"><i class="glyphicon glyphicon-remove"></i>返回</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src='/js/jquery/jquery.select2.min.js'></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
+<script src="/js/ifos.js"></script>
+<script>
+$(document).ready(function(){
+    var list ={
+        init: function(){
+            var that =this;
+            $('#IssueAdmin').addClass('active').find('ul').slideToggle();
+            $('#IssueAdmin-set').css({
+                "background-color": "#eeeeee"
+            });
+            that.getdata();
+        },
+        getdata: function(){
+            $.ajax({
+                url: "/api/issue_admin/getServerApiInfo",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    name:$.getUrlParam("name")
+                },
+                success: function(result) {
+                    if(result.status){
+                        $.each(result.data,function(k,v){
+                            //多选
+                            var datahtm = '';
+                            if(JSON.stringify(v.data) != "{}"){
+                                var data = [];
+                                $.each(v.data,function(key,val){
+                                    data.push(key+":　"+val);
+                                })
+                                datahtm+='<div  class="line clear">';  
+                                datahtm+='  <p class="left">值</p>';  
+                                datahtm+='  <p class="">'+data.join('<br>')+'</p>';
+                                datahtm+='</div>';  
+                            }
+                            //正则信息
+                            var reghtm = '';
+                            if(v.regex){
+                                reghtm+='<div class="line clear">';
+                                reghtm+='   <p class="left">正则表达式</p>';
+                                reghtm+='   <p class="">'+v.regex+'</p>';
+                                reghtm+='</div>';
+                                reghtm+='<div  class="line clear">';
+                                reghtm+='   <p class="left">错误提示</p>';
+                                reghtm+='   <p class="">'+v.msg+'</p>';
+                                reghtm+='</div>';
+                            }
+                            //基本信息
+                            var htm='';
+                            htm+='<div class="field clear">';
+                            htm+='  <div class="line clear">';
+                            htm+='      <p class="left title">字段</p>';
+                            htm+='      <p class="title">'+v.field+'</p>';
+                            htm+='  </div>';
+                            htm+='  <div  class="line clear">';
+                            htm+='      <p class="left">名称</p>';
+                            htm+='      <p class="">'+v.name+'</p>';
+                            htm+='  </div>';
+                            htm+='  <div  class="line clear">';
+                            htm+='      <p class="left">是否必填</p>';
+                            htm+='      <p class="red">'+(v.required?"是":"否")+'</p>';
+                            htm+='  </div>';
+                            htm+=reghtm;   
+                            htm+=datahtm;   
+                            htm+='</div>';
+                            $(".box-content").append(htm);
+                        })
+                    }
+                }
+            })
+        }
+    }
+
+    list.init();
+
+})
+   
+</script>

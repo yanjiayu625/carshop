@@ -1,0 +1,236 @@
+1<style>
+.form-control {
+    height: 32px;
+}
+.daily_exe_tpl{margin-bottom: 0px;}
+.daily_exe_tpl tr td:first-child {
+    text-align: right;
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.daily_exe_tpl tr td:nth-child(2) {
+    vertical-align: middle;
+    border-top: 0px;
+}
+
+.daily_exe_tpl tr td:nth-child(3) {
+    vertical-align: middle;
+    border-top: 0px;
+    position: relative;
+}
+
+.daily_exe_tpl tr td:nth-child(3) label {
+    width: 200px;
+    height: 48px;
+    position: absolute;
+    top: 0px;
+    line-height: 48px;
+}
+
+.daily_exe_tpl tr td:nth-child(4) {
+    border-top: 0px;
+}
+
+.daily_exe_tpl select {
+    height: 32px;
+}
+
+#info textarea {
+    height: auto !important;
+}
+
+#info select {
+    height: 32px !important;
+}
+
+#info label {
+    padding-left: 10px;
+}
+
+.modal-dialog table select {
+    padding-top: 5px!important;
+}
+
+.box-content .table tr td select {
+    width: 100%;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+#modal_validate table tr td {
+    position: relative;
+}
+
+#modal_validate table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+#editTableModal table tr td {
+    position: relative;
+}
+
+#editTableModal table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+.option_filds {
+    display: none;
+}
+
+.option_filds textarea {
+    height: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-color: #ccc !important;
+}
+
+#createServerForm .form_atcion .reset {
+    margin-left: 30%;
+}
+
+#createServerForm .form_atcion .submit {
+    margin-left: 30px;
+}
+
+.info_special_ps {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+    padding: 5px;
+    margin: 5px 0 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.dailytitle {
+    text-align: center !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.server_item {
+    border: 1px solid #ddd;
+    margin-bottom: 18px;
+    position: relative;
+}
+.remove_server{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    z-index: 100;
+}
+.btn_area{width: 100%}
+</style>
+<form action="" id="vsan">
+    <h3 class="js_dailytitle center"></h3>
+        <table class="table daily_exe_tpl">
+            <tbody>
+                <tr>
+                    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+                        <span class="js_field">relate</span>
+                    </td>
+                    <td width="60%" colspan="2">
+                        <input type="text" class="form-control relate" name="vname" required placeholder="可以填多个，用英文逗号连接">
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="js_err" style="color:#f00;padding-left: 24%;visibility:hidden;"></p>
+    <table class="btn_area js_servers">
+        <tbody>
+            <tr>
+                <td width="30%">
+                    <span class="js_field"></span>
+                </td>
+                <td width="60%" colspan="2">
+                   
+                    <p class="form_atcion">
+                        <button class="btn btn-primary submit" type="submit"><i class="glyphicon glyphicon-share"></i>提交</button>
+                    </p>
+                </td>
+                <td width="10%"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var list = {
+        init: function() {
+            var that = this;
+            $("#vsan").validate({
+                ignore: [],
+                errorPlacement: function(error, element) {
+                    $(element).closest("tr").children('td').eq(2).html(error);
+                },
+                //验证通过后提交数据
+                submitHandler: function(form) {
+                    $(".submit").attr('disabled', true)
+                    $(".js_err").css({visibility:'hidden'})
+                    that.saveVsanInfo();
+                },
+                debug: true
+            });
+            $(".js_remark_title,.js_remark, .modal-footer").hide();
+            $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' 网络环境按需部署(子)')
+
+        },
+        saveVsanInfo: function() {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/api/Issue_Exe/batchOnlineNewWork?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                data: {
+                    relate:$(".relate").val(),
+                },
+                success: function(data) { //提交成功的回调函数
+                    if(data.status){
+                    	$('.js_remark').val(data.msg)
+                    	$("#callback1").trigger('click')
+                    }else{
+                    	$(".js_err").text(data.msg)
+                    	$(".js_err").css({visibility:'visible'})
+                    	$(".submit").attr('disabled', false)
+                    }
+                }
+            });
+            
+        },
+    }
+
+    list.init();
+
+});
+</script>

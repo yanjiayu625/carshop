@@ -1,0 +1,84 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">工位号</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择工位号" data-original-title="工位号">
+		<input type="text" class="form-control" name="t_location" data-label="工位号" value="" required="" checked="checked" aria-required="true">
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">是否全格</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择要格式化的区域" data-original-title="是否全格">
+		<input type="radio" name="t_delete" data-label="是否全格" value="1" required="" checked="checked" aria-required="true">
+		<label>全格</label>
+		<input type="radio" name="t_delete" data-label="是否全格" value="2" required="" aria-required="true">
+		<label>只格C盘</label>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">系统类型</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择系统类型" data-original-title="系统类型">
+		<input type="radio" name="t_ostype" data-label="系统类型" value="1" required="" checked="checked" aria-required="true">
+		<label>32位</label>
+		<input type="radio" name="t_ostype" data-label="系统类型" value="2" required="" aria-required="true">
+		<label>64位</label>
+		<p class="info_special_ps">若无特殊需求，默认安装32位</p>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">机型</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="机型">
+		<input type="radio" name="t_hardtype" data-label="机型" value="1" required="" checked="checked" aria-required="true">
+		<label>台式机</label>
+		<input type="radio" name="t_hardtype" data-label="机型" value="2" required="" aria-required="true">
+		<label>笔记本</label>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">数量</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入机器数量" data-original-title="数量">
+		<span class="glyphicon glyphicon-minus js_less"></span>
+		<input type="text" class="form-control number numinput" required="" name="t_number" data-label="数量" value="1" data-rule-regex="" data-msg-regex="" placeholder="1" style="width:34px;display:inline;" aria-required="true">
+		<span class="glyphicon glyphicon-plus js_add"></span>
+		<script>
+		$(function() {
+		$('.submit').attr('disabled',true)
+			 //加减号
+            $(".js_less").click(function() {
+                var num = parseInt($(".numinput").val())
+                if (num != 1) {
+                    $(".numinput").val(num - 1)
+                }
+            })
+            $(".js_add").click(function() {
+                var num = parseInt($(".numinput").val())
+                if (num != 5) {
+                    $(".numinput").val(num + 1)
+                }
+            })
+		})
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

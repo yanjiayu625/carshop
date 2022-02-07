@@ -1,0 +1,1009 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.title{padding: 10px 15px;}
+.backarea{border-top: 1px solid #e5e5e5;background: #eee;border-radius: 3px;}
+.goback{margin: 5px 0 5px 90%;}
+.showTreeData{display: none;}
+#dataTreeView{width: 390px;margin:10px 10px;float: left;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom: 1px solid #ddd;}
+#change-treeview{margin: 0 15px;}
+.serveType{margin-right: 20px;}
+.form_datetime{width: 200px !important; display: inline-block;}
+.err{ width: 290px;height: 40px; position: absolute;top: 40px;left: 130px; background: url(/img/tip.png) no-repeat; background-size: 100% 100%; padding: 10px 10px; color: #f00;z-index: 10;display: none;}
+table th,td{text-align: center;}
+.SingleDataInfo{display: none;}
+.showAllData{position:relative;}
+.heightChartChange{position:absolute;top: 20px;}
+.pie{left:20px;}
+.column{left:100px;}
+.show-left-menu{color:#2fa4e7;position: fixed;top: 50%;left: 5px;cursor: pointer;display: none;}
+.loading-alldata{position: absolute;left: 45%;top:200px;}
+.data-list{
+    width: calc(100% - 450px);margin-top: 10px;
+    float: left;
+}
+
+.table-area{padding: 10px 10px;position: relative;}
+.table-area .loading-data-list{position: absolute;top: 200px;left: 50%;display: none;}
+.modal-dialog{width: 80% !important;}
+iframe{width: 100%;min-height: 700px; }
+.search-area{min-width:400px;position: absolute;border:1px solid #eee;left: 750px;top: 50px;padding: 10px 10px;border-radius: 4px;display: none;}
+.search-area .search-item {width: 200px;float: left;}
+.search-area .search-item .form-control{width: 100px;display: inline;}
+.dataTables_paginate{;height: 40px;margin: 10px 0;border-radius: 4px;text-align: center;}
+.dataTables_paginate .paginate_button{width: 30px;height: 30px;line-height: 1;text-align: center;display: inline-block;border: 1px solid #ddd;cursor: pointer;}
+.dataTables_paginate .paginate_button:hover{text-decoration:none;}
+.dataTables_paginate .first{width: 60px;}
+.dataTables_paginate .last{width: 60px;}
+.dataTables_paginate .next{width: 60px;}
+.dataTables_paginate .previous{width: 60px;}
+.dataTables_paginate .disabled{width: 60px;color: #999;cursor: not-allowed;}
+.dataTables_paginate .current{background: #f5f5f5;color: #999}
+.buttons-excel,.buttons-csv,.buttons-pdf{
+    background-color: #177bbb;
+    color: #fff;
+    border-color: #177bbb;
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.show_data{display: none;position: relative;}
+h3{position: absolute;left: 34%;top: 50px;}
+.search-bar{margin: 20px 0;position: relative;}
+table{width: 100% !important;}
+.dataTables_wrapper{position: relative;overflow: visible;}
+.dt-buttons{ text-align: right;padding: 10px; position: absolute;right:0px;top: -16px;}
+.buttons-excel,.buttons-csv,.buttons-pdf{color: #fff !important;border-bottom: 0;margin-right: 10px;}
+td{vertical-align:middle !important;}
+.issue_type{width: 300px !important;margin-bottom: 10px;position: absolute;top: 0;left: 0;}
+.search_sub{margin-left: 306px;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>数据统计</li>
+                    <li>时间统计</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-magnet"></i> 时间统计</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="nav nav-tabs" id="issueType">
+                                        <li class="active"><a href="#allCheck">所有提案审批平均时间</a></li>
+                                        <li><a href="#allExe">所有提案执行平均时间</a></li>
+                                        <li class=""><a href="#subCheck">各类提案审批平均时间</a></li>
+                                        <li class=""><a href="#subExe">各类提案执行平均时间</a></li>
+                                    </ul>
+                                    <div class="data_area">
+                                        <div class="show_data">
+                                            <div class="search-bar">
+                                                <input type="text" class="form-control form_datetime" issueType="1" name="t_start_time" data-label="停用时间" readonly="" placeholder="开始时间" value="">
+                                                <input type="text" class="form-control form_datetime" issueType="1" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                                 <a class="btn btn-primary search_btn" href="#">
+                                                    <i class="glyphicon glyphicon-search"></i> 搜索
+                                                </a>
+                                                <p class="err js_err">开始时间必须小于结束时间</p>
+                                            </div>
+                                            <h3 class="js_allCheckTime">审批平均时间</h3>
+                                            <table class="table table-striped table-bordered js_AllCheckDataInfo">
+                                            </table>
+
+                                        </div>
+                                        <div class="show_data">
+                                            <div class="search-bar">
+                                                <input type="text" class="form-control form_datetime" issueType="2" name="t_start_time" data-label="停用时间" readonly="" placeholder="开始时间" value="">
+                                                <input type="text" class="form-control form_datetime" issueType="2" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                                 <a class="btn btn-primary search_btn" href="#">
+                                                    <i class="glyphicon glyphicon-search"></i> 搜索
+                                                </a>
+                                                <p class="err js_err">开始时间必须小于结束时间</p>
+                                            </div>
+                                            <h3 class="js_allExeTime">执行平均时间</h3>
+                                            <table class="table table-striped table-bordered js_allExeDataInfo">
+                                            </table>
+
+                                        </div>
+                                        <div class="show_data">
+                                            <div class="search-bar search_sub">
+                                                <input type="text" class="form-control form_datetime" issueType="3" name="t_start_time" data-label="停用时间" readonly="" placeholder="开始时间" value="">
+                                                <input type="text" class="form-control form_datetime" issueType="3" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                                 <a class="btn btn-primary search_btn" href="#">
+                                                    <i class="glyphicon glyphicon-search"></i> 搜索
+                                                </a>
+                                                <p class="err js_err">开始时间必须小于结束时间</p>
+                                            </div>
+                                            <h3 class="js_subCheckTime">审批平均时间</h3>
+                                            
+                                            <table class="table table-striped table-bordered js_subCheckDataInfo">
+                                            </table>
+
+                                        </div>
+                                        <div class="show_data">
+                                            <div class="search-bar search_sub">
+                                                <input type="text" class="form-control form_datetime" issueType="4" name="t_start_time" data-label="停用时间" readonly="" placeholder="开始时间" value="">
+                                                <input type="text" class="form-control form_datetime" issueType="4" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                                 <a class="btn btn-primary search_btn" href="#">
+                                                    <i class="glyphicon glyphicon-search"></i> 搜索
+                                                </a>
+                                                <p class="err js_err">开始时间必须小于结束时间</p>
+                                            </div>
+                                            <h3 class="js_subExeTime">执行平均时间</h3>
+                                            <table class="table table-striped table-bordered js_subExeDataInfo">
+                                            </table>
+
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+        </div>
+    </div>
+</div>
+    
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript"  src='/js/jquery/jquery.dataTables1.10.16.min.js'></script>   
+<script src='/js/jquery/dataTables.buttons.js' type="text/javascript"></script>   
+<script src='/js/jszip.min.js' type="text/javascript"></script>    
+<script src='/js/jquery/pdfmake.js' type="text/javascript"></script>    
+<script src='/js/jquery/vfs_fonts.js' type="text/javascript"></script>    
+<script src='/js/jquery/buttons.html5.js' type="text/javascript"></script> 
+
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+
+        var list = {
+            init: function(){
+                var that = this;
+                $('#IssueData').addClass('active').find('ul').slideToggle();
+                $('#IssueData-time').css({
+                    "background-color": "#eeeeee"
+                });
+                $(".form_datetime").datetimepicker({
+                    'language': 'zh-CN',
+                    'minView': "month",
+                    'format': "yyyy-mm-dd",
+                    'autoclose':true,
+                    'showMeridian':true,
+                    'todayBtn':true
+                });
+
+                //tap切换效果
+                $("#myTab li").click(function(){
+                    var index = $(this).index();
+                })
+                that.setInitIssue();
+                that.getIssueSelect();
+
+                $(".show_data").eq(0).show()
+                
+                that.setAllCheckAverageTime();
+                that.setAllExeAverageTime();
+
+                $("#issueType li").on('click', function() {
+                    $(this).addClass("active").siblings().removeClass('active');
+                    $(".data_area .show_data").eq($(this).index()).show().siblings().hide();
+                })
+
+
+                $(document).on('change','.form_datetime', function() {
+                    $(this).siblings(".search_btn").trigger("click");
+                })
+                $(document).on('change','.issue_type', function() {
+                    if($(this).parents('.show_data').index() == 2){
+                        that.setSubCheckAverageTime();
+                    }else{
+                        that.setSubExeAverageTime();
+                    }
+
+                })
+                $(document).on('click','.js_ignore', function() {
+                    var type = $(this).attr("type");
+                    list.setIssueIgnore($(this).attr('id'), function() {
+                        if(type == 1){
+                            list.setAllCheckAverageTime()
+                        }else if(type == 2){
+                            list.setAllExeAverageTime()
+                        }else if(type == 3){
+                            list.setSubCheckAverageTime()
+                        }else{
+                            list.setSubExeAverageTime()
+                        }
+
+                    })
+
+                })
+                $(document).on('click','.search_btn', function() {
+                    var parent = $(this).parent(".search-bar")
+
+                    var start = parent.find("input[name='t_start_time']").val()
+                    var end = parent.find("input[name='t_end_time']").val()
+
+                    if(new Date(start.replace(/-/g, "/")).getTime() >new Date(end.replace(/-/g, "/")).getTime()){// 开始时间大于结束时间
+
+                        parent.find(".js_err").html('<label id="t_port-error" class="error" for="t_port">开始时间必须小于结束时间.</label>')
+                        parent.find(".js_err").show();
+                        return false;
+                    }else{
+                        parent.find(".js_err").hide();
+
+                        var index = $(this).parents(".show_data").index()
+                        if(index == 0) {
+                            list.setAllCheckAverageTime();
+                        }else if( index == 1) {
+                            list.setAllExeAverageTime();
+                        }else if( index == 2) {
+                            list.setSubCheckAverageTime();
+                        }else if( index == 3) {
+                            list.setSubExeAverageTime();
+                        }
+                    }
+                })
+            },
+            sortNumber:function(a,b) {
+                return b-a
+            },
+            setAllCheckAverageTime: function() {
+                var that = this;
+                var start = $(".show_data").eq(0).find("input[name='t_start_time']").val();
+                var end = $(".show_data").eq(0).find("input[name='t_end_time']").val();
+
+                that.getIssueAverageTime('check','',start,end,function(time) {
+                    $(".js_allCheckTime").html("审批平均时间："+time);
+                    that.checkAveTime = time;
+                    that.rederAllCheckTable(time);
+                    
+                });
+
+            }, 
+            setAllExeAverageTime: function() {
+                var that = this;
+                var start = $(".show_data").eq(1).find("input[name='t_start_time']").val();
+                var end = $(".show_data").eq(1).find("input[name='t_end_time']").val();
+
+                that.getIssueAverageTime('exe','',start,end,function(time) {
+                    $(".js_allExeTime").html("执行平均时间："+time);
+                    that.rederAllExeTable(time);
+                    
+                });
+
+            },
+            setSubCheckAverageTime: function() {
+                var that = this;
+                var start = $(".show_data").eq(2).find("input[name='t_start_time']").val();
+                var end = $(".show_data").eq(2).find("input[name='t_end_time']").val();
+
+                that.getIssueAverageTime('check',$(".js_subCheckTime").next('select').val(),start,end,function(time) {
+                    $(".js_subCheckTime").html("审批平均时间："+time);
+                    that.rederSubCheckTable("/api/Issue_data/getIssueCheckTime?type="+$(".js_subCheckTime").next('select').val(),$(".js_subCheckTime").next('select').find("option:checked").text(),time);
+                    
+                });
+
+            },  
+            setSubExeAverageTime: function() {
+                var that = this;
+                var start = $(".show_data").eq(3).find("input[name='t_start_time']").val();
+                var end = $(".show_data").eq(3).find("input[name='t_end_time']").val();
+
+                that.getIssueAverageTime('exe',$(".js_subExeTime").next('select').val(),start,end,function(time) {
+                    $(".js_subExeTime").html("执行平均时间："+time);
+                    that.checkAveTime = time;
+                    that.rederSubExeTable("/api/Issue_data/getIssueExeTime?type="+$(".js_subExeTime").next('select').val(),$(".js_subExeTime").next('select').find("option:checked").text(),time);
+                    
+                });
+
+            }, 
+            getIssueSelect: function(){
+                var that = this;
+
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/Issue_data/getIssueSelect",
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(result.status) {
+                            var issueHtm = '<select name="" class="form-control issue_type">'
+                            $.each(result.data, function(key,val) {
+                                issueHtm += '<option value="'+val.id+'">'+val.text+'</option>'
+
+                            })
+                            issueHtm+='</select>'
+
+                            $(".js_subExeTime").after(issueHtm);
+                            $(".js_subCheckTime").after(issueHtm);
+                            that.setSubCheckAverageTime();
+                            that.setSubExeAverageTime();
+                        }
+                        
+                    }
+                });
+            }, 
+            getIssueAverageTime: function(action,type,start,end,callback){
+                var that = this;
+
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/api/Issue_data/getIssueAverageTime?action="+action+'&type='+type+'&start='+start+'&end='+end,
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(result.status){
+                            callback(result.data)
+                        }
+                        
+                    }
+                });
+            }, 
+            rederAllCheckTable: function(data){
+                $('.js_AllCheckDataInfo').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [
+                        // 'pageLength',
+                        { 
+                            "extend": 'excelHtml5', 
+                            'title': '所有提案审批平均时间',//导出文件名字
+                            'text': '导出excel',//定义导出excel按钮的文字 
+                            'exportOptions': {
+                                'columns': [ 0, 1, 2, 3,4 ]
+                            },
+                            'messageTop':$(".show_data").eq(0).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(0).find("input[name='t_end_time']").val()+'\n\n审批平均时间:'+data
+                          
+                        },{ 
+                            "extend": 'pdfHtml5', 
+                            'title': '所有提案审批平均时间',//导出文件名字
+                            'text': '导出pdf',//定义导出excel按钮的文字 
+                            "aButtons": "true",
+                            // 'download': 'open',//直接在窗口打开
+                            // 'orientation': 'landscape',
+                            // 'pageSize': 'LEGAL',
+                            'exportOptions': {
+                                'columns': [ 0, 1, 2, 3,4 ]
+                            },
+                            'messageTop':$(".show_data").eq(0).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(0).find("input[name='t_end_time']").val()+'\n\n审批平均时间:'+data
+                          
+                        }
+                    ],
+                    'lengthMenu': [
+                        [ 10, 25, 50, 100, 1000000 ],
+                        [ '10', '25', '50', '100','所有' ]
+                    ],
+                    // 'buttons': [
+                    //     'pageLength'
+                    // ]
+                    "bServerSide": true,
+                    "bDestroy":true,
+                    // "searching": true
+                    "sAjaxSource": "/api/Issue_data/getIssueCheckTime?start="+$(".show_data").eq(0).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(0).find("input[name='t_end_time']").val(),
+                    "aoColumns": [
+                        {
+                            "sTitle": "提案号",
+                            "sWidth": "10%",
+                            "mDataProp": "server_id"
+                        }, {
+                            "sTitle": "提案标题",
+                            "sWidth": "40%",
+                            "mDataProp": "server_title"
+                        }, {
+                            "sTitle": "提案类型",
+                            "sWidth": "15%",
+                            "mDataProp": "type_name"
+                        }, {
+                            "sTitle": "审批时间",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "check_time_str"
+                        }, {
+                            "sTitle": "审批人",
+                            "sWidth": "15%",
+                            "sClass": "hidden",
+                            "mDataProp": "check_person"
+                        }, {
+                            "sTitle": "审批人",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "check_person"
+                        }, {
+                            "sTitle": "操作",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "server_id"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [0],
+                        "mRender": function (data, type, item) {
+                            var html = '<a class="btn btn-primary btn-sm" href="/issue/server/detail?id=' + data + '&no-cache=' + Math.random()+'">';
+                            html += data;
+                            html += '</a>';
+                            return html
+                        }
+                    },
+                    {
+                        "aTargets": [5],
+                        "mRender": function (data, type, item) {
+                            if(data!=''){
+                                var secondArr = [];
+
+                                var personHtm = ''
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    secondArr.push(val.second)
+                                })
+                                secondArr.sort(list.sortNumber);
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    if(val.second==secondArr[0]){
+                                        personHtm+='<p style="color:#e12b31">'+val.user+':'+val.time+'　</p>'
+                                    }else{
+                                        personHtm+='<p>'+val.user+':'+val.time+'　</p>'
+                                    }
+
+                                })
+                                return personHtm;
+                            }else{
+                                return data
+                            }
+                        }
+                    },
+                    {
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            return '<a class="btn btn-warning btn-sm js_ignore" type="1" id="'+data+'">忽略</a>'
+                        }
+                    }
+                    ]
+                } );
+            }, 
+            rederAllExeTable: function(data){
+                $('.js_allExeDataInfo').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': '所有提案执行平均时间',//导出文件名字
+                        'text': '导出excel',//定义导出excel按钮的文字 
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        },
+                        'messageTop':$(".show_data").eq(1).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(1).find("input[name='t_end_time']").val()+'\n\n执行平均时间:'+data
+                      
+                    },{ 
+                        "extend": 'pdfHtml5', 
+                        'title': '所有提案执行平均时间',//导出文件名字
+                        'text': '导出pdf',//定义导出excel按钮的文字 
+                        "aButtons": "true",
+                        // 'download': 'open',//直接在窗口打开
+                        // 'orientation': 'landscape',
+                        // 'pageSize': 'LEGAL',
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        },
+                        'messageTop':$(".show_data").eq(1).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(1).find("input[name='t_end_time']").val()+'\n\n执行平均时间:'+data
+                      
+                    }],
+                    'lengthMenu': [
+                        [ 10, 25, 50, 100, 1000000 ],
+                        [ '10', '25', '50', '100','所有' ]
+                    ],
+                    // data: data,
+                    "bServerSide": true,
+                    "bDestroy":true,
+                    "sAjaxSource": "/api/Issue_data/getIssueExeTime?start="+$(".show_data").eq(1).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(1).find("input[name='t_end_time']").val(),
+                    "aoColumns": [
+                        {
+                            "sTitle": "提案号",
+                            "sWidth": "10%",
+                            "mDataProp": "server_id"
+                        }, {
+                            "sTitle": "提案标题",
+                            "sWidth": "40%",
+                            "mDataProp": "server_title"
+                        }, {
+                            "sTitle": "提案类型",
+                            "sWidth": "15%",
+                            "mDataProp": "type_name"
+                        }, {
+                            "sTitle": "执行时间",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "exe_time_str"
+                        }, {
+                            "sTitle": "执行人",
+                            "sWidth": "15%",
+                            "sClass": "hidden",
+                            "mDataProp": "exe_person"
+                        }, {
+                            "sTitle": "执行人",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "exe_person"
+                        }, {
+                            "sTitle": "操作",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "server_id"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [0],
+                        "mRender": function (data, type, item) {
+                            var html = '<a class="btn btn-primary btn-sm" href="/issue/server/detail?id=' + data + '&no-cache=' + Math.random()+'">';
+                            html += data;
+                            html += '</a>';
+                            return html
+                        }
+                    },
+                    {
+                        "aTargets": [5],
+                        "mRender": function (data, type, item) {
+                            if(data!=''){
+                                var secondArr = [];
+
+                                var personHtm = ''
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    secondArr.push(val.second)
+                                })
+                                secondArr.sort(list.sortNumber);
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    if(val.second==secondArr[0]){
+                                        personHtm+='<p style="color:#e12b31">'+val.user+':'+val.time+'　</p>'
+                                    }else{
+                                        personHtm+='<p>'+val.user+':'+val.time+'　</p>'
+                                    }
+
+                                })
+                                return personHtm;
+                            }else{
+                                return data
+                            }
+                        }
+                    },
+                    {
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            return '<a class="btn btn-warning btn-sm js_ignore" type="2" id="'+data+'">忽略</a>'
+                        }
+                    }
+                    ]
+                } );
+            },
+            rederSubCheckTable: function(url,type,time){
+                $('.js_subCheckDataInfo').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': type+':提案审批平均时间',//导出文件名字
+                        'text': '导出excel',//定义导出excel按钮的文字 
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        },
+                        'messageTop':$(".show_data").eq(2).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(2).find("input[name='t_end_time']").val()+'\n\n'+type+'　审批平均时间:'+time
+                      
+                    },{ 
+                        "extend": 'pdfHtml5', 
+                        'title': type+':提案审批平均时间',//导出文件名字
+                        'text': '导出pdf',//定义导出excel按钮的文字 
+                        "extend": 'pdfHtml5', 
+                        "aButtons": "true",
+                        // 'download': 'open',//直接在窗口打开
+                        // 'orientation': 'landscape',
+                        // 'pageSize': 'LEGAL',
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        },
+                        'messageTop':$(".show_data").eq(2).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(2).find("input[name='t_end_time']").val()+'\n\n'+type+'　审批平均时间:'+time
+                      
+                    }],
+                    'lengthMenu': [
+                        [ 10, 25, 50, 100, 1000000 ],
+                        [ '10', '25', '50', '100','所有' ]
+                    ],
+                    "bServerSide": true,
+                    "bDestroy":true,
+                    "sAjaxSource": url+"&start="+$(".show_data").eq(2).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(2).find("input[name='t_end_time']").val(),
+                    "aoColumns": [
+                        {
+                            "sTitle": "提案号",
+                            "sWidth": "10%",
+                            "mDataProp": "server_id"
+                        }, {
+                            "sTitle": "提案标题",
+                            "sWidth": "40%",
+                            "mDataProp": "server_title"
+                        }, {
+                            "sTitle": "提案类型",
+                            "sWidth": "15%",
+                            "mDataProp": "type_name"
+                        }, {
+                            "sTitle": "审批时间",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "check_time_str"
+                        }, {
+                            "sTitle": "审批人",
+                            "sWidth": "15%",
+                            "sClass": "hidden",
+                            "mDataProp": "check_person"
+                        }, {
+                            "sTitle": "审批人",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "check_person"
+                        }, {
+                            "sTitle": "操作",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "server_id"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [0],
+                        "mRender": function (data, type, item) {
+                            var html = '<a class="btn btn-primary btn-sm" href="/issue/server/detail?id=' + data + '&no-cache=' + Math.random()+'">';
+                            html += data;
+                            html += '</a>';
+                            return html
+                        }
+                    },
+                    {
+                        "aTargets": [5],
+                        "mRender": function (data, type, item) {
+                            if(data!=''){
+                                var secondArr = [];
+
+                                var personHtm = ''
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    secondArr.push(val.second)
+                                })
+                                secondArr.sort(list.sortNumber);
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    if(val.second==secondArr[0]){
+                                        personHtm+='<p style="color:#e12b31">'+val.user+':'+val.time+'　</p>'
+                                    }else{
+                                        personHtm+='<p>'+val.user+':'+val.time+'　</p>'
+                                    }
+
+                                })
+                                return personHtm;
+                            }else{
+                                return data
+                            }
+                        }
+                    },
+                    {
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            return '<a class="btn btn-warning btn-sm js_ignore" type="3" id="'+data+'">忽略</a>'
+                        }
+                    }
+                   
+                    ]
+                } );
+            },
+            rederSubExeTable: function(url,type,time){
+                $('.js_subExeDataInfo').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': type+':提案执行平均时间',//导出文件名字
+                        'text': '导出excel',//定义导出excel按钮的文字
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        }, 
+                        'messageTop':$(".show_data").eq(3).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(3).find("input[name='t_end_time']").val()+'\n\n'+type+'　执行平均时间:'+time
+                      
+                    },{ 
+                       "extend": 'pdfHtml5', 
+                        'title': type+':提案执行平均时间',//导出文件名字
+                        'text': '导出pdf',//定义导出excel按钮的文字 
+                        "extend": 'pdfHtml5', 
+                        "aButtons": "true",
+                        // 'download': 'open',//直接在窗口打开
+                        // 'orientation': 'landscape',
+                        // 'pageSize': 'LEGAL',
+                        'exportOptions': {
+                            'columns': [ 0, 1, 2, 3,4 ]
+                        },
+                        'messageTop':$(".show_data").eq(3).find("input[name='t_start_time']").val()+'——'+$(".show_data").eq(3).find("input[name='t_end_time']").val()+'\n\n'+type+'　执行平均时间:'+time
+                      
+                    }],
+                    'lengthMenu': [
+                        [ 10, 25, 50, 100, 1000000 ],
+                        [ '10', '25', '50', '100','所有' ]
+                    ],
+                    // data: data,
+                    "bServerSide": true,
+                    "bDestroy":true,
+                    "sAjaxSource": url+"&start="+$(".show_data").eq(3).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(3).find("input[name='t_end_time']").val(),
+                    "aoColumns": [
+                        {
+                            "sTitle": "提案号",
+                            "sWidth": "10%",
+                            "mDataProp": "server_id"
+                        }, {
+                            "sTitle": "提案标题",
+                            "sWidth": "40%",
+                            "mDataProp": "server_title"
+                        }, {
+                            "sTitle": "提案类型",
+                            "sWidth": "15%",
+                            "mDataProp": "type_name"
+                        }, {
+                            "sTitle": "执行时间",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "exe_time_str"
+                        }, {
+                            "sTitle": "执行人",
+                            "sWidth": "15%",
+                            "sClass": "hidden",
+                            "mDataProp": "exe_person"
+                        }, {
+                            "sTitle": "执行人",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "exe_person"
+                        }, {
+                            "sTitle": "操作",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "server_id"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    "aoColumnDefs": [
+                    {
+                        "aTargets": [0],
+                        "mRender": function (data, type, item) {
+                            var html = '<a class="btn btn-primary btn-sm" href="/issue/server/detail?id=' + data + '&no-cache=' + Math.random()+'">';
+                            html += data;
+                            html += '</a>';
+                            return html
+                        }
+                    },
+                    {
+                        "aTargets": [5],
+                        "mRender": function (data, type, item) {
+                            if(data!=''){
+                                var secondArr = [];
+
+                                var personHtm = ''
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    secondArr.push(val.second)
+                                })
+                                secondArr.sort(list.sortNumber);
+
+                                $.each(JSON.parse(data), function(key,val) {
+                                    if(val.second==secondArr[0]){
+                                        personHtm+='<p style="color:#e12b31">'+val.user+':'+val.time+'　</p>'
+                                    }else{
+                                        personHtm+='<p>'+val.user+':'+val.time+'　</p>'
+                                    }
+
+                                })
+                                return personHtm;
+                            }else{
+                                return data
+                            }
+                        }
+                    },
+                    {
+                        "aTargets": [6],
+                        "mRender": function (data, type, item) {
+                            return '<a class="btn btn-warning btn-sm js_ignore" type="4" id="'+data+'">忽略</a>'
+                        }
+                    }
+                    ]
+                } );
+            },
+            setInitIssue: function(id) {
+                var that = this;
+
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/Issue_data/setInitIssue",
+                    // data:{
+                    //     // id:id
+                    // },
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        
+                    }
+                });
+
+            },
+            setIssueIgnore: function(id,cb) {
+                var that = this;
+
+                // 获取结构树数据
+                $.ifosAjax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/api/Issue_data/setIssueIgnore",
+                    data:{
+                        id:id
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    },
+                    success: function(result) {
+                        if(result.status){
+                            cb()
+                        }
+                        
+                    }
+                });
+
+            }
+
+           
+        }
+        list.init();
+      
+    });
+</script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PMS系统邮件</title>
+    <style>
+        div,form,ul,ol,li,span,p,dl,dt,dd,img{margin:0;padding:0;border:0;}
+        body{overflow-x:hidden;font-family:"Microsoft YaHei" ! important;font-size:12px;color:#666;}
+        .area{width: 1000px;margin:0 auto;}
+        #content-header{margin-top:10px;font-size:28px;margin-bottom:10px;background: #48afe9;}
+        .widget-title{width:100%;background:#efefef;border-left:1px solid #CDCDCD;border-top:1px solid #CDCDCD;border-right:1px solid #CDCDCD;padding-left:18px;font-size:18px;height:25px;}
+        .widget-content{padding:15px;margin: 0 auto;}
+        .content-box{width:100%;background:none repeat scroll 0 0 #F9F9F9;border:1px solid #CDCDCD;}
+        .table-bordered{width:98%;border-top:1px solid #ddd;border-left:1px solid #ddd;}
+        .table-bordered thead{font-size:12px;font-weight:bold;background:#efefef;}
+        .table-bordered td,th{border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
+        .footer table{width: 100%;}
+    </style>
+</head>
+<body>
+<div id="content-header">
+    <p class="area" style="color: #ffffff;padding-left:20px;"> PMS系统 -- 信息提醒邮件</p>
+</div>
+
+<div class="widget-content">
+    <table class="widget-title">
+        <tr>
+            <td>系统自动提示信息通知</td>
+        </tr>
+    </table>
+    <table class="content-box" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align=center>
+                <br>
+                <table class="table-bordered">
+                    <tbody>
+                        %{ServerInfo}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td height="20"> </td>
+        </tr>
+    </table>
+</div>
+<div class="footer">
+    <hr>
+    <!-- <div class="area"> -->
+    <table>
+        <tr>
+            <td style="padding-left:10px;">©流程控制 2016-2020</td>
+            <td style="text-align:right;padding-right:10px;">凤凰网运维中心</td>
+        </tr>
+    </table>
+    <!-- </div> -->
+</div>
+
+</body>
+</html>

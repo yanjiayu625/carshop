@@ -1,0 +1,73 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">标题</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入申请标题" data-original-title="标题">
+		<input type="text" class="form-control" required="" name="t_title" data-label="标题" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请说明</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入申请说明" data-original-title="申请说明">
+		<textarea type="text" class="form-control" required="" name="t_info" data-label="申请说明" value="" rows="3" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">添加域名</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="添加域名" data-original-title="添加域名">
+		<div id="domain">
+			<input type="hidden" class="form-control" required="" name="t_custom_ifeng_domain" data-label="添加域名" value="" aria-required="true">
+			<input type="text" class="form-control hostname" placeholder="" name="ifeng_domain0" required="" style="width:20%;margin-right:10px;display:inline;  padding-right: 0px;" aria-required="true" "="">
+			<input type="text" name="h_second_level_domain" class="form-control second_level_domain" style="width:20%;margin-right:10px;display:inline;" value="">
+			<select class="domain" required="" name="h_domain" data-label="下拉框" style="width:20%;margin-right:10px;display:inline;    padding-right: 0px;" aria-required="true">
+				<option value="ifengidc">ifengidc</option>
+				<option value="ifeng">ifeng</option>
+			</select>
+		</div>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">URL</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入申请URL" data-original-title="URL">
+		<input type="text" class="form-control url_list" required="" name="h_url" data-label="URL" value="" data-rule-regex="" data-msg-regex="" aria-required="true" style="width:80%;margin-right:10px;display:inline;    padding-right: 0px;">
+		<span style="cursor: pointer;" class="glyphicon glyphicon-plus" onclick="Addlist()"></span>
+	<script>
+			function Addlist() {
+				var list =$(".list").val();
+				if(list){
+					$(".list").val(list+'\n'+$(".url_list").val())
+				}else{
+					$(".list").val($(".url_list").val())
+				}
+			}
+		</script>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">列表</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入列表" data-original-title="列表">
+		<textarea type="text" class="form-control list" required="" name="h_list" data-label="列表" value="" rows="5" readonly="" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

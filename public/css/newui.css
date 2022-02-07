@@ -1,0 +1,81 @@
+body{margin:0 auto;padding:0;font:14px '\5FAE\8F6F\96C5\9ED1';}
+.clear{clear:both;}
+.red{color: #f00;}
+/*录入新设备页面样式*/
+#myTabContent .controls{margin-bottom: 15px;position:relative; }
+#myTabContent .controls .err{position:absolute;color: #f00;top: 39px;left: 20px;font-size: 12px; }
+#myTabContent .mastername,.idcname{width: 370px;height: 33px;line-height: 33px;padding: 8px 12px;font-size: 13px;line-height: 1.42857143;color: #555555;background-color: #eee;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);}
+.select2 .select2-selection--single{width: 372px !important;height: 32px;margin-left: 14px;border-color: #ccc; }
+.select2 .select2-selection--single .select2-selection__rendered{line-height: 32px;}
+.select2-container--default .select2-selection--single .select2-selection__arrow{top:-5px;right: -78px;}
+.box-content .table tr td select{width: 210px;height: 38px;line-height: 38px;font-size: 13px;padding-left: 11px;border-radius: 3px;border: 1px solid #ccc}
+.box-content .table tr td select.error{border: 1px solid #f00}
+.box-content .device_infomation table .form-group{position: relative;}
+.box-content .device_infomation table .form-group span{position: absolute;top: 39px;left: 20px;color: #f00;font-size: 12px;}
+.device_infomation{margin-top: 0px;}
+.device_infomation .tip{height: 45px;line-height: 45px;background: url(/img/bg.png) repeat-x;padding-left: 70px;color: #b68613;font-weight: bold; margin: 20px 10px;box-shadow: 0 0 10px #BDBDBD;position: relative;}
+.device_infomation .tip .tip_close{position: absolute;right: 10px;top:14px;cursor: pointer;}
+.device_infomation .field{width: 150px;text-align: right;line-height: 42px;border-right: 0;}
+.device_infomation .require{width: 10px;line-height: 42px;border-left: 0;}
+.device_infomation input{width: 370px;}
+.device_content{margin-bottom: 20px;}
+.device_content .list_left{width: 200px;float: left;text-align: right;}
+.device_content .list_left p{height: 39px;line-height: 22px;margin: 10px 0;}
+.device_content .list_left p span{color: #f00;}
+.device_content .list_right{margin-left: 210px;}
+.device_content .list_right div{height: 40px;line-height: 40px;margin: 10px 0;}
+.device_content .list_right div .mastername,.idcname{width: 370px;height: 33px;line-height: 33px;border:1px solid #ccc;border-radius: 5px;float: left;margin-right: 4px;padding-left: 10px;background: #eee;}
+.device_content .list_right div span{color: #f00;}
+.device_content .list_right div .err{position: absolute;left: 521px;}
+.device_content .list_right input{width: 372px;height: 32px;line-height: 32px;border:1px solid #ccc;border-radius: 5px;padding-left: 10px}
+.device_content .list_right .select2 .select2-selection--single{margin: -10px 0 0 0;}
+.device_content .list_right .select2-selection__arrow{left: 344px;}
+.device_content .new_submit{margin: 0 20px 0 50px;}
+.device_content .to_edit{margin: 0 20px 0 210px;}
+.device_content .edit_submit{margin: 0 20px 0 50px;}
+.device_content .detail{width: 370px;height: 32px;padding: 8px 12px;font-size: 14px;line-height: 1.42857143;color: #555555;background-color: #eee;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);}
+
+/*单条录入提交时对话框*/
+.wait_dialog{width: 300px;background: #fff;position: absolute;z-index: 999;display: none;border-radius: 3px;}
+.wait_dialog .progress{height: 30px;margin-bottom: 10px;}
+.wait_dialog p{text-align: center;font-size: 18px;}
+.result_dialog{width: 300px;height: 100px;position: absolute;z-index: 999;display: none;background: #fff;border-radius: 3px;text-align: center;font-size: 18px;}
+.result_dialog .tip{height: 40px;background: #2fa4e7;border-radius: 3px;line-height: 40px;color: #fff;}
+.result_dialog button{}
+.dialog-overlay{-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=45)"; /*IE8*/
+filter:alpha(opacity=45);  /*IE5、IE5.5、IE6、IE7*/
+opacity: .45; width: 100%; opacity: 0.5; position: absolute; overflow: hidden; left: 0px; top: 0px; z-index: 888; background: rgb(0, 0, 0);display: none;}
+
+/*复杂搜索框样式*/
+.alert-info{position: relative;}
+.alert-info .btn-primary{position: absolute;top:42px;left: 657px;}
+
+/*设备列表样式*/
+.search_out{position: relative;}
+.search_out .search_area{line-height: 34px; margin-bottom: 33px; border: 1px solid #ddd;}
+.search_out .search_area .searchall{padding: 8px 0 10px 30px;position: relative;}
+.search_out .search_area .searchall .searchval{width: 594px;border: 1px solid #ccc;padding-left:10px; 
+border-radius: 3px;font:14px;}
+.search_out .search_area .searchall a{position: absolute;top: 9px;left: 654px;;}
+.search_out .search_area .conditions{padding: 8px 0 0px 30px;border-top:1px dotted #eee;display: none;}
+.search_out .search_area .conditions .term{width: 370px;margin: 0 30px 0 0;float: left;}
+.search_out .more{width: 130px;height: 24px;line-height: 24px;cursor: pointer;padding-left: 14px;position: absolute;bottom: -33px;left: 380px;border: 1px solid #ddd;background: #fff;border-top: 0;}
+.search_out .more:hover{color: #ff6000;}
+.search_out .more:hover .icon{ background-position: -170px -100px;}
+.search_out .more .icon{width: 15px;height: 7px;display: inline-block;position: absolute;top: 10px;margin-left: 3px;background: url(../img/list_icon_dw.png); background-position: -170px -80px;}
+.search_out .more .up{background-position: -150px -80px;}
+.search_out .more:hover .up{background-position: -150px -100px;}
+.box-content .datatable td{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;word-break:break-all;}
+.box-content .datatable th{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;word-break:break-all;}
+
+/*模板管理样式*/
+.model_table{}
+.model_table td{line-height: 38px !important;}
+
+/*修改设备详情*/
+#edit_table input{width: 370px;}
+#edit_table .form-group{position: relative;}
+#edit_table .form-group span{position: absolute !important;top: 39px;left: 20px;color: #f00;font-size: 12px;}
+#edit_table .hostname,.idcname{width: 370px;height: 33px;padding: 8px 12px;font-size: 13px;line-height: 1.42857143;color: #555555;background-color: #eee;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);}
+#edit_table .controls{position: relative;margin-bottom: 15px;}
+#edit_table .controls .err{position:absolute;color: #f00;top: 41px;left: 20px;font-size: 12px;}

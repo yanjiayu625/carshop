@@ -1,0 +1,42 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">工位号</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择工位号" data-original-title="工位号">
+		<input type="text" class="form-control" name="t_location" data-label="工位号" value="" required="" checked="checked" aria-required="true">
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">问题描述</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入对工单的详细描述" data-original-title="工作描述">
+		<textarea type="text" class="form-control" required="" name="t_discription" data-label="工作描述" value="" rows="3" placeholder="请输入对工单的详细描述" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 284px;">
+		<span class="js_name">问题截图</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请上传问题截图" data-original-title="问题截图" style="width: 566px;">
+		<div id="uploader" name="h_upload" class="wu-example">
+			<div id="thelist" class="uploader-list"></div>
+			<div class="btns">
+				<div id="picker">选择文件</div>
+				<input type="hidden" class="form-control" name="t_upload" data-label="问题截图" value=""></div>
+		</div>
+	</td>
+	<td width="25%" style="width: 353px;"></td>
+	<td width="15%" style="width: 212px;"></td>
+</tr>
+<script style="">
+$(function() {
+	$('.submit').attr('disabled',true)
+})
+</script>

@@ -1,0 +1,46 @@
+<?php include TPL_MAIN_HEADER ?>
+
+<div class="ch-container">
+    <div class="row">
+
+        <?php include TPL_LEFT_ERROR_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content" style="font-size:16px;color:#848484;text-align:center;">
+                          	<p style="font-size:50px; color:#006cc4;font-weight:bold;">403</p>
+                          	<p style="font-size:30px; color:#006cc4;">抱歉！您没有访问该页面的权限 :(</p>
+                          	<p>请邮件或RTX管理员(zhangyang7)，谢谢！</p>
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+            </div><!--/row-->
+
+        </div>
+    </div>
+  <?php include TPL_MAIN_FOOTER ?>
+    
+    <!-- jQuery -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <script src="js/ifos.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#device-new').css({"background-color": "#eeeeee"});
+            $('#IdcOS').addClass('active').find('ul').slideToggle();
+        });
+    </script>

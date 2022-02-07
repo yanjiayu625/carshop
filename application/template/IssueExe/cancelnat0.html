@@ -1,0 +1,29 @@
+<p class="title js_msg">
+<p>
+<script src="/js/jquery.tools.js"></script>
+<script>
+$(function() {
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/api/issue_exe/getNatIpExpireInfo?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+        success: function(data) { //提交成功的回调函数
+        	$(".js_msg").html(data.msg)
+        }
+    });
+
+    $(document).on('click', "#callback1", function() {
+	    $.ajax({
+	        type: "post",
+	        dataType: "json",
+	        url: "/api/issue_exe/updateCancelNatIssue?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+	        data: {
+	        	data:$(".js_msg").html(),
+	        },
+	        success: function(data) { //提交成功的回调函数
+	        }
+	    });
+    })
+
+})
+</script>

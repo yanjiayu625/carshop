@@ -1,0 +1,456 @@
+<tr>
+    <td width="20%"></td>
+    <td width="40%">
+        <span class="btn btn-primary js_submitType">单条录入</span>
+        <span class="btn btn-default js_submitType">批量上传</span>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr id="selectType">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">业务负责人</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入业务负责人" data-original-title="业务负责人">
+        <input type="text" class="form-control" required="" name="t_name_business" data-label="业务负责人" value="" data-rule-regex="" data-msg-regex="" aria-required="true" data-rule-remote="/api/issue_check/checkHeadName">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type">
+    <td width="20%">
+        <span class="js_name">批量信息导入</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请上传EXCEL文件" data-original-title="上传CSV文件">
+        <div id="uploader" name="h_uploadcsv" class="wu-example">
+
+            <div id="thelist" class="uploader-list"></div>
+            <div class="btns" style="position: relative;">
+                <div id="serveronline">选择文件</div>
+                
+                <a style="position: absolute;left: 100px;top: 10px;" href="/download/template/批量服务器固件变更(模板).xlsx">批量Excel文件模板点击下载</a>
+            </div>
+            
+        </div>
+    </td>
+    <td width="25%" class="siggle_error"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Excel下载</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入Excel下载" data-original-title="Excel下载">
+        <input type="text" class="form-control" required="" name="t_download_excel" data-label="Excel下载" value="" data-rule-regex="" data-msg-regex="" aria-required="true" >
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr class="submit-type">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">变更固件类型选择</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择变更固件类型" data-original-title="变更固件类型选择">
+        <select class="form-control valid" required="" name="t_change_type" data-label="变更固件类型选择" aria-required="true" aria-invalid="false">
+            <option value="1">内存</option>
+            <option value="2">硬盘</option>
+            <option value="3">其他</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器内网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="服务器内网IP"><input type="text" class="form-control iptest" required="" name="t_intIp" data-label="服务器内网IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">主机名</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="主机名">
+        <input type="text" class="form-control" required="" name="t_hostname" data-label="主机名" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type">
+    <td width="20%"><span class="js_name">服务器公网IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="服务器公网IP"><input type="text" class="form-control iptest" name="t_out_ip" data-label="服务器公网IP" value="" data-rule-regex="" data-msg-regex=""> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_memory">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原容量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原容量">
+        <input type="text" class="form-control" required="" name="t_old_capacity" data-label="原容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_memory">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">目标容量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="目标容量">
+        <input type="text" class="form-control" required="" name="t_new_capacity" data-label="目标容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type  js_firware_type js_type_memory">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存单条容量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存单条容量">
+        <input type="text" class="form-control" required="" name="t_new_single_capacity" data-label="新增内存单条容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_memory">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存数量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存数量">
+        <input type="text" class="form-control" required="" name="t_new_num" data-label="新增内存数量" value="" data-rule-regex="/^\d*[02468]$/" data-msg-regex="内存数量必须为偶数." aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr class="submit-type js_firware_type js_type_hd">
+    <td width="20%"><span class="js_name">新增HDD单盘容量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增HDD单盘容量">
+        <input type="text" class="form-control" name="t_new_hdd_capacity" data-label="新增HDD单盘容量" value="" data-rule-regex="" data-msg-regex=""> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_hd">
+    <td width="20%"><span class="js_name">新增HDD硬盘数量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增HDD硬盘数量">
+        <input type="text" class="form-control" name="t_new_hdd_num" data-label="新增HDD硬盘数量" value="" data-rule-regex="" data-msg-regex=""> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_hd">
+    <td width="20%"><span class="js_name">新增SSD单盘容量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增SSD单盘容量">
+        <input type="text" class="form-control" name="t_new_ssd_capacity" data-label="新增SSD单盘容量" value="" data-rule-regex="" data-msg-regex=""> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_hd">
+    <td width="20%"><span class="js_name">新增SSD硬盘数量</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增SSD硬盘数量">
+        <input type="text" class="form-control" name="t_new_ssd_num" data-label="新增SSD硬盘数量" value="" data-rule-regex="" data-msg-regex=""> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_other">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原配置</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原配置">
+        <input type="text" class="form-control" required="" name="t_old_setting" data-label="原配置" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type  js_firware_type js_type_other">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增配置</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增配置">
+        <input type="text" class="form-control" required="" name="t_new_setting" data-label="新增配置" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="submit-type js_firware_type js_type_other">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">需求描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="需求描述">
+        <textarea type="text" class="form-control" required="" name="t_require_desc" data-label="需求描述" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></textarea> </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+
+<tr class="js_operat_time" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 226px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">操作开始时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择操作开始时间" data-original-title="操作开始时间" style="width: 451px;">
+        <input type="text" class="form-control form_datetime" required="" name="t_operate_time" data-label="操作开始时间" readonly="" size="16" aria-required="true">
+    </td>
+    <td width="25%" style="width: 281px;"></td>
+    <td width="15%" style="width: 169px;"></td>
+</tr>
+<script type="text/javascript" style="">
+$(function(){
+    $(".js_submitType").click( function() {
+        $(this).addClass("btn-primary").removeClass("btn-default").siblings().addClass("btn-default").removeClass("btn-primary");
+        $(".submit-type").remove();
+        if($(this).index()){//批量
+            $(".submit").attr("disabled", true);
+            $("#selectType").after(`<tr class="submit-type">
+                <td width="20%">
+                    <span class="js_name">批量信息导入</span>
+                </td>
+                <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请上传EXCEL文件" data-original-title="上传CSV文件">
+                    <input type="hidden" class="form-control" name="t_custom_firmwarechanges_excel" data-label="上传Excel文件" value="" aria-required="true">
+                    <div id="uploader" name="h_uploadcsv" class="wu-example">
+
+                        <div id="thelist" class="uploader-list"></div>
+                        <div class="btns" style="position: relative;">
+                            <div id="serveronline">选择文件</div>
+                            
+                            <a style="position: absolute;left: 100px;top: 10px;" href="/download/template/批量服务器固件变更(模板).xlsx">批量Excel文件模板点击下载</a>
+                        </div>
+                        
+                    </div>
+                </td>
+                <td width="25%" class="siggle_error"></td>
+                <td width="15%"></td>
+            </tr>
+            <tr class="submit-type hidden">
+                <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Excel下载</span></td>
+                <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入Excel下载" data-original-title="Excel下载">
+                    <input type="text" class="form-control" required="" name="t_download_excel" data-label="Excel下载" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+                </td>
+                <td width="25%"></td>
+                <td width="15%"></td>
+            </tr>
+            `);
+
+            var uploader = WebUploader.create({
+                // swf文件路径
+                swf: '/js/Uploader.swf',
+                duplicate :true,
+
+                // 文件接收服务端。
+                server: '/api/Issue_Check/uploadBatchExcel?type=firmwarechanges',
+
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#serveronline',
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                auto: true
+                // fileNumLimit:1
+            });
+            // 当有文件被添加进队列的时候
+            uploader.on('fileQueued', function (file) {
+                $("#uploader").parent().next().html('')
+                $("#thelist").empty();
+                $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                        '<h4 class="info">' + file.name + '</h4>' +
+                        '<p class="state">等待上传...</p>' +
+                        '</div>');
+            });
+            uploader.on('uploadSuccess', function (file, response) {
+                console.log(response)
+                if(response.status){
+                    $(".submit").attr("disabled", false);
+                    $('#' + file.id).find('p.state').text("上传完毕");
+
+                    $('[name="t_download_excel"]').val('<a href ="'+response.file+'">点击下载批量服务器固件变更Excel文件</a>')
+                }else {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                    $("#uploader").parent().next().html('<label class="error">'+response.msg+'</label>')
+                }
+
+            });
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function (file, percentage) {
+                $("#ExcelData").html('')
+                var $li = $('#' + file.id),
+                        $percent = $li.find('.progress .progress-bar');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<div class="progress progress-striped active">' +
+                            '<div class="progress-bar" role="progressbar" style="width:0%">' +
+                            '</div>' +
+                            '</div>').appendTo($li).find('.progress-bar');
+                }
+
+                $li.find('p.state').text('上传中');
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+            uploader.on('uploadError', function (file, reason) {
+                $('#' + file.id).find('p.state').text('上传出错');
+            });
+            uploader.on('error', function (file, type) {
+                $('#' + file.id).find('p.state').text('上传出错');
+            });
+
+            uploader.on('uploadComplete', function (file) {
+                $('#' + file.id).find('.progress').fadeOut();
+            });
+            uploader.on("uploadFinished", function () {
+                // uploader.destroy();
+            });
+
+
+
+        }else{//单条
+            $(".submit").attr("disabled", false);
+            $("#selectType").after(`<tr class="submit-type">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">变更固件类型选择</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择变更固件类型" data-original-title="变更固件类型选择">
+                        <select class="form-control valid" required="" name="t_change_type" data-label="变更固件类型选择" aria-required="true" aria-invalid="false">
+                            <option value="1">内存</option>
+                            <option value="2">硬盘</option>
+                            <option value="3">其他</option>
+                        </select>
+                    </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">主机名</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="主机名">
+                        <input type="text" class="form-control" required="" name="t_hostname" data-label="主机名" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+                    </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器内网IP</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="服务器内网IP"><input type="text" class="form-control iptest" required="" name="t_intIp" data-label="服务器内网IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type">
+                    <td width="20%"><span class="js_name">服务器公网IP</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="服务器公网IP"><input type="text" class="form-control iptest" name="t_out_ip" data-label="服务器公网IP" value="" data-rule-regex="" data-msg-regex=""> </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type js_firware_type js_type_memory">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原容量</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原容量">
+                        <input type="text" class="form-control" required="" name="t_old_capacity" data-label="原容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type js_firware_type js_type_memory">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">目标容量</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="目标容量">
+                        <input type="text" class="form-control" required="" name="t_new_capacity" data-label="目标容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+                    </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type js_firware_type js_type_memory">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存单条容量</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存单条容量">
+                        <input type="text" class="form-control" required="" name="t_new_single_capacity" data-label="新增内存单条容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+                    </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+                <tr class="submit-type js_firware_type js_type_memory">
+                    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存数量</span></td>
+                    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存数量">
+                        <input type="text" class="form-control" required="" name="t_new_num" data-label="新增内存数量" value="" data-rule-regex="/^\d*[02468]$/" data-msg-regex="内存数量必须为偶数." aria-required="true">
+                    </td>
+                    <td width="25%"></td>
+                    <td width="15%"></td>
+                </tr>
+
+           `);
+            $('[name="t_change_type"]').trigger('change');
+            $(document).off('change').on('change', '[name="t_change_type"]', function() {
+                siggleAdd();
+            })
+            $(document).off('keyup').on('keyup', '[name="t_hostname"]', function() {
+                if($("[name='t_intIp']").val()){
+                    $("[name='t_hostname']").removeClass('error');
+                    $("[name='t_hostname']").parent().next().html('');
+                    $.ajax({
+                        url: "/api/issue_check/checkIpAndHostname?t_intIp="+$("[name='t_intIp']").val()+'&t_hostname='+$("[name='t_hostname']").val(),
+                        type: "get",
+                        dataType: "json",
+                        asyck:false,
+                        success: function(result) {
+                            if(result === true){
+                                $(".submit").attr('disabled',false);
+                            }else{
+                                $(".submit").attr('disabled',true);
+                                $("[name='t_hostname']").addClass('error');
+                                $("[name='t_hostname']").parent().next().html('<label id="t_hostname-error" class="error" for="t_hostname">'+result+'.</label>');
+                                return false;
+
+                            }
+                        }
+                    })
+                    
+                }
+            })
+
+            $(document).on('keyup', '[name="t_intIp"]', function() {
+                console.log(123)
+                var that = this
+                var intIp = $(this).val();
+                var isIp = /^((\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5]))$/.test(intIp)
+                if(isIp && $("[name='t_hostname']").val()){
+                    
+                    $("[name='t_hostname']").trigger("keyup")
+                }
+            })
+            $(document).on('blur', '[name="t_intIp"]', function() {
+                $("[name='t_intIp']").trigger('keyup')
+            })
+            $(document).off('blur').on('blur', '[name="t_hostname"]', function() {
+                $("[name='t_hostname']").trigger('keyup')
+            })
+          
+
+        }
+    })
+    $(".js_submitType").eq(0).trigger('click');
+
+	// $("[name='t_intIp']").keyup(function() {
+	// 	var that = this
+	// 	var intIp = $(this).val();
+	// 	var isIp = /^((\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|[1]\d\d|2[0-4]\d|25[0-5]))$/.test(intIp)
+	// 	if(isIp && $("[name='t_hostname']").val()){
+			
+ //            $("[name='t_hostname']").trigger("keyup")
+	// 	}
+	// })
+	// $("[name='t_intIp']").blur(function() {
+	// 	$("[name='t_intIp']").trigger('keyup')
+	// })
+	// $("[name='t_hostname']").keyup( function() {
+ //    	if($("[name='t_intIp']").val()){
+	//     	$("[name='t_hostname']").removeClass('error');
+	//         $("[name='t_hostname']").parent().next().html('');
+	//     	$.ajax({
+	//             url: "/api/issue_check/checkIpAndHostname?t_intIp="+$("[name='t_intIp']").val()+'&t_hostname='+$("[name='t_hostname']").val(),
+	//             type: "get",
+	//             dataType: "json",
+	//             asyck:false,
+	//             success: function(result) {
+	//                	if(result === true){
+	//                		$(".submit").attr('disabled',false);
+	//                	}else{
+	//                		$(".submit").attr('disabled',true);
+	//                		$("[name='t_hostname']").addClass('error');
+	//     				$("[name='t_hostname']").parent().next().html('<label id="t_hostname-error" class="error" for="t_hostname">'+result+'.</label>');
+	//                		return false;
+
+	//                	}
+	//             }
+	//         })
+ //    	}
+ //    })
+
+ //    $("[name='t_hostname']").blur(function() {
+ //    	$("[name='t_hostname']").trigger("keyup")
+
+ //    })
+
+
+    function siggleAdd() {
+		$(".js_firware_type").remove();
+		if($('[name="t_change_type"]').val()==1){
+			$(".js_operat_time").before('<tr class="submit-type js_firware_type js_type_memory"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原容量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原容量"><input type="text" class="form-control" required="" name="t_old_capacity" data-label="原容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_memory"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">目标容量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="目标容量"><input type="text" class="form-control" required="" name="t_new_capacity" data-label="目标容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_memory"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存单条容量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存单条容量"><input type="text" class="form-control" required="" name="t_new_single_capacity" data-label="新增内存单条容量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_memory"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增内存数量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增内存数量"><input type="text" class="form-control" required="" name="t_new_num" data-label="新增内存数量" value="" data-rule-regex="/^\d*[02468]$/" data-msg-regex="内存数量必须为偶数." aria-required="true"></td><td width="25%"></td><td width="15%"></td></tr>');
+
+		}else if($('[name="t_change_type"]').val()==2){
+			$(".js_operat_time").before('<tr class="submit-type js_firware_type js_type_hd"><td width="20%"><span class="js_name">新增HDD单盘容量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增HDD单盘容量"><input type="text" class="form-control" name="t_new_hdd_capacity" data-label="新增HDD单盘容量" value="" data-rule-regex="" data-msg-regex=""> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_hd"><td width="20%"><span class="js_name">新增HDD硬盘数量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增HDD硬盘数量"><input type="text" class="form-control" name="t_new_hdd_num" data-label="新增HDD硬盘数量" value="" data-rule-regex="" data-msg-regex=""> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_hd"><td width="20%"><span class="js_name">新增SSD单盘容量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增SSD单盘容量"><input type="text" class="form-control" name="t_new_ssd_capacity" data-label="新增SSD单盘容量" value="" data-rule-regex="" data-msg-regex=""> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_hd"><td width="20%"><span class="js_name">新增SSD硬盘数量</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增SSD硬盘数量"><input type="text" class="form-control" name="t_new_ssd_num" data-label="新增SSD硬盘数量" value="" data-rule-regex="" data-msg-regex=""> </td><td width="25%"></td><td width="15%"></td></tr>');
+
+		}else if($('[name="t_change_type"]').val()==3){
+			$(".js_operat_time").before('<tr class="submit-type js_firware_type js_type_other"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">原配置</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="原配置"><input type="text" class="form-control" required="" name="t_old_setting" data-label="原配置" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_other"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">新增配置</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="新增配置"><input type="text" class="form-control" required="" name="t_new_setting" data-label="新增配置" value="" data-rule-regex="" data-msg-regex="" aria-required="true"> </td><td width="25%"></td><td width="15%"></td></tr><tr class="submit-type js_firware_type js_type_other"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">需求描述</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="需求描述"><textarea  type="text" class="form-control" required="" name="t_require_desc" data-label="需求描述" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></textarea> </td><td width="25%"></td><td width="15%"></td></tr>');
+
+		}
+
+	}
+	
+	$('[name="t_change_type"]').trigger('change');
+	
+})
+</script>

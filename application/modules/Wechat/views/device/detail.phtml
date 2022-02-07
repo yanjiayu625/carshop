@@ -1,0 +1,128 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="/index">首页</a></li>
+          <li>IFOS装机平台</li>
+          <li>物理机管理</li>
+          <li>设备详情</li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-list-alt"></i> 设备详情</h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="device_content">
+              <div class="list_left">
+                <p>SN</p>
+                <p>IP</p>
+                <p>MAC</p>
+                <p>主机名</p>
+                <p>管理IP卡</p>
+                <p>系统安装模板</p>
+                <p>硬件配置模板</p>
+                <p>机房位置</p>
+                <p>状态</p>
+                <p>创建时间</p>
+                <p>信息录入人</p>
+              </div>
+              <div class="list_right">
+                <div>
+                  <p class="detail js_sn"></p>
+                </div>
+                <div>
+                  <p class="detail js_ip"></p>
+                </div>
+                <div>
+                  <p class="detail js_mac"></p>
+                </div>
+                <div>
+                  <p class=" detail js_hostname"></p>
+                </div>
+                <div>
+                  <p class="detail js_oobip"></p>
+                </div>
+                <div>
+                  <p class="detail js_ostmpname"></p>
+                </div>
+                <div>
+                  <p class="detail js_hardwarename"></p>
+                </div>
+                <div>
+                  <p class="detail js_idc"></p>
+                </div>
+                <div>
+                  <p class="detail">等待安装</p>
+                </div>
+                <div>
+                  <p class="detail js_createtime" idcid=""></p>
+                </div>
+                <div>
+                  <p class="detail js_user" idcid=""></p>
+                </div>
+              </div>
+              <a class="btn btn-primary js_edit_btn to_edit" href=""><i class="glyphicon glyphicon-edit"></i> 修改设备信息 </a>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-backward"></i> 返回</a>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+  <?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.dataTables.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+    $(".js_edit_btn").attr("href", "/idcos/device/edit?id=" + window.location.search.substr(4))
+
+    //获取设备信息并渲染
+    $.ifosAjax({
+      url: "/api/idcos_device/getDeviceInfo",
+      type: "get",
+      data: {
+        id: window.location.search.substr(4)
+      },
+      dataType: "json",
+      async: false,
+      contentType: 'application/json',
+      success: function(data) {
+        $(".js_sn").html(data.sn);
+        $(".js_hostname").html(data.hostname);
+        $(".js_ip").html(data.ip);
+        $(".js_mac").html(data.macaddr);
+        $(".js_oobip").html(data.oobip);
+        $(".js_ostmpname").html(data.ostmpname);
+        $(".js_hardwarename").html(data.hardwarename);
+        $(".js_idc").html(data.idc);
+        $(".js_createtime").html(data.createtime);
+        $(".js_user").html(data.user);
+
+      }
+    });
+  });
+  </script>

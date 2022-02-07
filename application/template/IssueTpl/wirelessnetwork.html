@@ -1,0 +1,99 @@
+<tr>
+    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">AP故障数量</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="AP故障数量">
+        <input type="text" class="form-control" required="" name="t_ap_fault" data-label="AP故障数量" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">AC健康状态</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="AC健康状态">
+        <input type="radio" name="t_ac_health" data-label="AC健康状态" value="1" required="" checked="checked" aria-required="true" class="valid">
+        <label>正常</label>
+        <input type="radio" name="t_ac_health" data-label="AC健康状态" value="2" required="" class="valid" aria-required="true">
+        <label>不正常</label>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 284px;">
+        <span class="js_name">AC健康状态说明</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="AC健康状态说明" style="width: 566px;">
+        <textarea type="text" class="form-control" name="t_ac_health_status" data-label="AC健康状态说明" value="" rows="3"></textarea>
+    </td>
+    <td width="25%" style="width: 353px;"></td>
+    <td width="15%" style="width: 212px;"></td>
+</tr>
+<tr>
+    <td width="20%">
+        <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">IMC服务器状态</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="IMC服务器状态">
+        <input type="radio" name="t_imc" data-label="IMC服务器状态" value="1" required="" checked="checked" aria-required="true" class="valid">
+        <label>正常</label>
+        <input type="radio" name="t_imc" data-label="IMC服务器状态" value="2" required="" class="valid" aria-required="true">
+        <label>不正常</label>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+    <td width="20%" style="width: 284px;">
+        <span class="js_name">IMC服务器状态说明</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="IMC服务器状态说明" style="width: 566px;">
+        <textarea type="text" class="form-control" name="t_imc_status" data-label="IMC服务器状态说明" value="" rows="3"></textarea>
+    </td>
+    <td width="25%" style="width: 353px;"></td>
+    <td width="15%" style="width: 212px;"></td>
+</tr>
+<tr>
+    <td width="20%">
+        <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">IMC同步机制检查</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="IMC同步机制检查">
+        <input type="radio" name="t_imc_sync" data-label="IMC同步机制检查" value="1" required="" checked="checked" aria-required="true" class="valid">
+        <label>正常</label>
+        <input type="radio" name="t_imc_sync" data-label="IMC同步机制检查" value="2" required="" class="valid" aria-required="true">
+        <label>不正常</label>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%">
+        <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">Protal认证检查</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="Protal认证检查">
+        <input type="radio" name="t_protal" data-label="Protal认证检查" value="1" required="" checked="checked" aria-required="true" class="valid">
+        <label>正常</label>
+        <input type="radio" name="t_protal" data-label="Protal认证检查" value="2" required="" class="valid" aria-required="true">
+        <label>不正常</label>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%">
+        <i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">AC运行时间截图</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="AC运行时间截图">
+        <input type="text" class="form-control" required="" name="t_ac_time" data-label="AC运行时间截图" value="" data-rule-regex="" data-msg-regex="" aria-required="true"></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script>
+    $(function() {
+         $(".submit").attr("disabled",true);  
+    })
+</script>

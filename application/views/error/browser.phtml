@@ -1,0 +1,31 @@
+<?php include TPL_LOGIN_HEADER ?>
+<body>
+<style>
+    body{background: url(/img/login_bg1.jpg) no-repeat center center #bec5ca;}
+    .login-header .logo{width: 50px;height: 50px;margin-right: 10px;vertical-align:-14px;}
+    form{margin-top: 20px;position: relative;}
+    form .input-prepend{margin-top: 10px;}
+    form .login_action{margin-top: -20px;}
+    #alertInfo{width: 0px;height: 38px;position: absolute;bottom: -10px;right: -123px;display: none;overflow: hidden;line-height: 38px;padding:  0 0;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <div class="col-md-12 center login-header">
+            <h2><img class="logo" src="/img/logo10.png" alt="">欢迎使用 IFOS 系统</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-content" style="font-size:16px;color:#848484;text-align:center;">
+                <p style="font-size:50px; color:#006cc4;font-weight:bold;">　　</p>
+                <p style="font-size:50px; color:#006cc4;font-weight:bold;">　　</p>
+                <p style="font-size:30px; color:#006cc4;">抱歉！<?php echo $msg ?> </p>
+                <p><a href="https://support.microsoft.com/zh-cn/help/17621/internet-explorer-downloads">IE浏览器下载</a></p>
+                <p><a href="http://www.firefox.com.cn/">火狐浏览器下载</a></p>
+                <p><a href="http://www.google.cn/chrome/browser/desktop/index.html">谷歌浏览器下载</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

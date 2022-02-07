@@ -1,0 +1,342 @@
+<tr>
+    <td width="20%"></td>
+    <td width="40%">
+        <p class="alert alert-danger js_hasAuth" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">您可以申请该服务!</p>
+        <script>
+            $(function() {
+                $(".submit").hide()
+                $(".submit_alert").show()
+                $.ajax({
+                    url: "/api/issue_check/checkUserDepartment?type="+$.getUrlParam('name'),
+                    type: "GET",
+                    dataType: "json",
+                    success: function(result) {
+                        if(!result.status){
+                            $(".submit_alert").addClass('btn-inverse').removeClass("btn-primary")
+                        }
+                        $(".submit_alert").attr("disabled",!result.status); 
+                        $(".js_hasAuth").html(result.msg)
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })
+            })
+        </script>
+
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%">
+        <span class="js_name">批量信息录入</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请上传EXCEL文件" data-original-title="上传CSV文件">
+        <div id="uploader" name="h_uploadcsv" class="wu-example">
+
+            <div id="thelist" class="uploader-list"></div>
+            <div class="btns" style="position: relative;">
+                <div id="serveronline">选择文件</div>
+                <input type="hidden" class="form-control" name="h_uploadexcelfile" data-label="上传Excel文件" value="" aria-required="true">
+                <a style="position: absolute;left: 100px;top: 10px;" href="/download/template/批量下线服务器信息文档(模板).xlsx">服务器批量下线Excel文件模板点击下载</a>
+            </div>
+            
+        </div>
+
+        <script>
+            $(function () {
+                $(".submit").attr("disabled", true);
+
+                function getIdFromSearch(search) {
+                    if (search) search = search.substring(1)
+                    var formData = {}
+                    search = search.split('&')
+                    $.each(search, function (i, item) {
+                        item = item.split('=')
+                        formData[item[0]] = item[1]
+                    })
+                    return formData.id || ''
+                }
+
+                var uploader = WebUploader.create({
+                    // swf文件路径
+                    swf: '/js/Uploader.swf',
+                    duplicate :true,
+
+                    // 文件接收服务端。
+                    server: '/api/Issue_Check/uploadExcel?type=batchOffline&id=' + getIdFromSearch(location.search),
+
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: '#serveronline',
+
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false,
+                    auto: true
+                    // fileNumLimit:1
+                });
+                // 当有文件被添加进队列的时候
+                uploader.on('fileQueued', function (file) {
+                    $("#uploader").parent().next().html('')
+                    $("#thelist").empty();
+                    $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                            '<h4 class="info">' + file.name + '</h4>' +
+                            '<p class="state">等待上传...</p>' +
+                            '</div>');
+                });
+                uploader.on('uploadSuccess', function (file, response) {
+                    if(response.status){
+                        $('#' + file.id).find('p.state').text("上传完毕");
+                        //为保证只有一个文件上传：如果多个文件上传，取消第一个文件
+                        if ($("#thelist .item").size() > 1) {
+                            uploader.removeFile(file);
+                            $("#thelist .item").eq(0).remove()
+                        }
+                        $("[name = 'h_uploadexcelfile']").val('1')
+
+                        $("#ExcelData").empty()//清空之前机器的数据
+                        var submit_flag = true; //
+                        $.each(response.data, function (i, item) {
+                            var CSVhtm = '<tr>'
+                            $.each(item, function (i2, item2) {
+                                var styleCss = 'padding:5px 3px;text-align:center;'
+                                submit_flag = submit_flag && (!item2.chg)
+                                if(item2.chg) {
+                                  styleCss += 'color:#e12b31'
+                                }
+                                CSVhtm += '<td style="' + styleCss + '">' + item2.val + '</td>'
+                            })
+                            CSVhtm += '</tr>'
+                            $("#ExcelData").append(CSVhtm)
+                            $(".machine_empty_error").html('')
+                        })
+                        if(!submit_flag){
+                            $(".submit_alert").addClass('btn-inverse').removeClass("btn-primary")
+                        }else{
+                            $(".submit_alert").addClass('btn-primary').removeClass("btn-inverse")
+
+                        }
+                        $(".submit_alert").attr('disabled', !submit_flag)
+                        
+                        $(".download_file").remove();
+                        if (response.status) {
+                            // $(".submit").attr("disabled", false);
+
+                            $("[name = 't_server_offline']").val($("#tablehtml").html().replace(/\n/g, ""));
+                            $("[name = 't_custom_server_batch_offline']").val(JSON.stringify(response.data));
+                        } else {
+                            // $(".submit").attr("disabled", true);
+                        }
+                    }else {
+                        $('#' + file.id).find('p.state').text('上传出错');
+                        $("#uploader").parent().next().html('<label class="error">'+response.msg+'</label>')
+                    }
+
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function (file, percentage) {
+                    $("#ExcelData").html('')
+                    var $li = $('#' + file.id),
+                            $percent = $li.find('.progress .progress-bar');
+
+                    // 避免重复创建
+                    if (!$percent.length) {
+                        $percent = $('<div class="progress progress-striped active">' +
+                                '<div class="progress-bar" role="progressbar" style="width:0%">' +
+                                '</div>' +
+                                '</div>').appendTo($li).find('.progress-bar');
+                    }
+
+                    $li.find('p.state').text('上传中');
+
+                    $percent.css('width', percentage * 100 + '%');
+                });
+                uploader.on('uploadError', function (file, reason) {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                });
+                uploader.on('error', function (file, type) {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                });
+
+                uploader.on('uploadComplete', function (file) {
+                    $('#' + file.id).find('.progress').fadeOut();
+                });
+                uploader.on("uploadFinished", function () {
+                    // uploader.destroy();
+                });
+            });
+        </script>
+
+
+    </td>
+    <td width="25%" class="siggle_error"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><span class="js_name">单条信息录入</span></td>
+    <td width="40%" id="siggleAddMachine" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入服务器" data-original-title="服务器">
+        <div style="background: #f5f5f5;padding: 10px 10px;">
+            <p style="height: 34px;">
+                <span style="width: 76px;display: inline-block;">SN ：</span><input type="text" style="width: 70%;display: inline;" class="form-control" name="h_siggle_sn" data-label="服务器" value="" aria-required="true" ／>
+            </p>
+            <p style="height: 34px;">
+                <span style="width: 76px;display: inline-block;">主机名：</span><input type="text" style="width: 70%;display: inline;" class="form-control" name="h_siggle_hostname" data-label="服务器" value="" aria-required="true" ／>
+            </p>
+            <p style="height: 34px;">
+                <span style="width: 76px;display: inline-block;">内网IP ：</span><input type="text" style="width: 70%;display: inline;" class="form-control" name="h_int_ip" data-label="内网IP" value="" aria-required="true" ／>
+            </p>
+            <p style="height: 34px;">
+                <span style="width: 76px;display: inline-block;">外网IP ：</span><input type="text" style="width: 70%;display: inline;" class="form-control" name="h_ext_ip" data-label="外网IP" value="" aria-required="true" ／>
+            </p>
+            <p class="info_special_ps">以上至少填写一项</p>
+            <span class="btn btn-success js_add_machine"><i class="glyphicon glyphicon-plus"></i> 增加一台机器</span>
+            
+        </div>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+    <script type="text/javascript" >
+    $(function() {
+        $(document).on('click', '.js_add_machine', function() {
+            $.ajax({
+                url: "/api/issue_check/checkOfflineInfo",
+                type: "GET",
+                dataType: "json",
+                data:{
+                    sn:$("[name='h_siggle_sn']").val(),
+                    hostname:$("[name='h_siggle_hostname']").val(),
+                    int_ip:$("[name='h_int_ip']").val(),
+                    ext_ip:$("[name='h_ext_ip']").val(),
+                },
+                success: function(result) {
+
+                    if(result.status){
+
+                        var batch = [];
+                        var machines = $("[name = 't_custom_server_batch_offline']").val();
+                        if(!!machines){//有机器
+                            var pushFlag = true;
+                            $.each(JSON.parse(machines), function(key, item){
+                                if(item[0].val == result.data[0].val){
+                                    $(".siggle_error").html('<label class="error">服务器信息重复</label>')
+                                    pushFlag = false;
+                                    return false
+                                }
+                            })
+                            if(pushFlag){
+                                batch.push(result.data)
+                                var CSVhtm = '<tr>'
+                                $.each(result.data, function (i2, item2) {
+                                    var styleCss = 'padding:5px 3px;text-align:center;'
+                                    if(item2.chg) {
+                                      styleCss += 'color:#e12b31'
+                                    }
+                                    CSVhtm += '<td style="' + styleCss + '">' + item2.val + '</td>'
+                                })
+                                CSVhtm += '</tr>'
+                                $("#ExcelData").append(CSVhtm)
+                                $(".machine_empty_error").html('')
+                                $(".siggle_error").html('')
+                                $("[name='h_siggle_sn']").val()
+                                $("[name='h_siggle_hostname']").val()
+                                $("[name='h_siggle_ip']").val()
+                                var machinesArr = JSON.parse(machines)
+                                machinesArr.push(result.data)
+                                $("[name = 't_custom_server_batch_offline']").val(JSON.stringify(machinesArr))
+
+                                $('input[name=h_siggle_sn]').val('')
+                                $('input[name=h_siggle_hostname]').val('')
+
+                            }
+                        }else{//没有机器 
+                            batch.push(result.data)
+                            var CSVhtm = '<tr>'
+                            $.each(result.data, function (i2, item2) {
+                                var styleCss = 'padding:5px 3px;text-align:center;'
+                                if(item2.chg) {
+                                  styleCss += 'color:#e12b31'
+                                }
+                                CSVhtm += '<td style="' + styleCss + '">' + item2.val + '</td>'
+                            })
+                            CSVhtm += '</tr>'
+                            $("#ExcelData").append(CSVhtm)
+                            $(".machine_empty_error").html('')
+                            $(".siggle_error").html('')
+                            $("[name='h_siggle_sn']").val()
+                            $("[name='h_siggle_hostname']").val()
+                            $("[name='h_siggle_ip']").val()
+                            $("[name = 't_custom_server_batch_offline']").val(JSON.stringify(batch))
+
+                            $('input[name=h_siggle_sn]').val('')
+                            $('input[name=h_siggle_hostname]').val('')
+                        }
+                       
+                    }else{
+                        $(".siggle_error").html('<label class="error">'+result.msg+'</label>')
+                    }
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+        })
+        
+    })
+    </script>
+</tr>
+
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">服务器下线信息</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="文件详情" colspan="2">
+        <input type="hidden" class="form-control" required="" name="t_custom_server_batch_offline" data-label="批量服务器下线信息" value="" aria-required="true">
+        <div id="tablehtml">
+            <table class="table-bordered" style="text-align: center;width:100%">
+                <tbody>
+                <tr>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="10%">SN
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">主机名
+                    </th> 
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">内网IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">外网IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">管理卡IP
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">原机房
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">原模块
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">原机架
+                    </th>
+                    <th style="text-align:center !important; padding: 8px 2px;overflow: hidden;text-overflow: ellipsis;white-space: pre-line;"
+                        width="8%">原U位
+                    </th>
+                </tr>
+                </tbody>    
+                <tbody id="ExcelData">
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td width="15%" class="machine_empty_error"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">下线原因</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入下线原因" data-original-title="下线原因">
+        <textarea type="text" class="form-control" required="" name="t_offline_reason" data-label="下线原因" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>

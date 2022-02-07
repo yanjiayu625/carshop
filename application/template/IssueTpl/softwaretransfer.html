@@ -1,0 +1,36 @@
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">待转移软件</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择待转移软件" data-original-title="待转移软件">
+		<input data-label="待转移软件" class="form-control" type="text" name="t_software" required="" aria-required="true">
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">接收员工</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入接收员工域账号" data-original-title="接收员工">
+		<input type="text" class="form-control" required="" name="t_person" data-label="接收员工" value="" data-rule-regex="" data-msg-regex="" placeholder="域账户不能为空" aria-required="true">
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">转移原因</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入转移原因" data-original-title="转移原因">
+		<textarea type="text" class="form-control" required="" name="t_reason" data-label="转移原因" value="" rows="3" placeholder="请输入转移原因" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<script>
+$(function() {
+	$('.submit').attr('disabled',true)
+})
+</script>

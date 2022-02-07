@@ -1,0 +1,313 @@
+<?php include TPL_MAIN_HEADER ?>
+<style type="text/css">
+.select2 .select2-selection--single{width: 282px !important;height: 40px;margin-left: 0px;border-color: #ccc; }
+.select2 .select2-selection--single .select2-selection__rendered{line-height: 40px;}
+.select2-container--default .select2-selection--single .select2-selection__arrow{top:7px;left: 254px;}
+.select2-container--open .select2-dropdown--below{width: 282px !important;margin-left: 0px;}
+.select2-container--open .select2-dropdown--above{width: 280px !important;margin-left: 0px;}
+</style>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            物理机管理
+          </li>
+          <li>
+            等待安装的设备
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-list"></i> 等待安装的设备 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content">
+                <div class="search_out">
+                    <div class="search_area">
+                        <div class="searchall">
+                            <input class="searchval js_searchval" placeholder="可输入SN,主机名,IP等，进行全局模糊查询" type="text">
+                            <a class="btn btn-primary" href="#" id="search">
+                                <i class="glyphicon glyphicon-search"></i> 搜索
+                            </a>
+                        </div>
+                        <div class="conditions">
+                            <p class="term">
+                                <select class="select js_ostmpname" about="10">
+                                    <option value="">请选择系统安装模板</option>
+                                </select>
+                            </p>
+                           
+                            <p class="term">
+                                <select class="select js_hardwarename" about="11">
+                                    <option value="">请选择硬件配置模板</option>
+                                </select>
+                            </p>
+                            <p class="clear"></p>
+                        </div>
+                    </div>
+                    <p class="more js_more"><span class="world">展开更多选项</span><span class="icon"></span></p>
+                </div>
+                <p>
+                    <a class="btn btn-danger js_deleteDevice"><i class="glyphicon glyphicon-shopping-cart"></i> 取消安装</a>
+                    
+                </p>
+                <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                </table>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+
+  <div class="dialog-overlay"></div>
+  <div class="wait_dialog js_wait_dialog">
+    <div class="progress progress-striped progress-success active">
+      <div class="progress-bar" style="width: 100%;"></div>
+    </div>
+    <p>正在提交数据，请等待</p>
+  </div>
+  <div class="result_dialog js_result_dialog">
+    <p class="tip"></p>
+    <button>关闭</button>
+  </div>
+  <?php include TPL_MAIN_FOOTER ?>
+
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/jquery.dataTables.min.js'></script>
+  <script src='/js/jquery/jquery.select2.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script src="/js/devicelist.js"></script>
+  <script type="text/javascript">
+
+  $(document).ready(function() {
+
+    $('#device-waiting').css({
+      "background-color": "#eeeeee"
+    });
+    $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+    var state = {
+      "0": {
+        "class": "default",
+        "name": "等待安装"
+      },
+      "1": {
+        "class": "primary",
+        "name": "正在安装"
+      },
+      "2": {
+        "class": "success",
+        "name": "安装成功"
+      },
+      "3": {
+        "class": "danger",
+        "name": "安装失败"
+      },
+      "4": {
+        "class": "warning",
+        "name": "自动上报"
+      }
+    };
+
+    var dataTable = $('.datatable').DataTable({
+      "sDom": "<'row'<'col-md-6'l>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+      "sPaginationType": "bootstrap",
+      // "sPaginationType": "full_numbers",
+      "oLanguage": {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+          "sFirst": "首页",
+          "sPrevious": "上页",
+          "sNext": "下页",
+          "sLast": "末页"
+        },
+        "oAria": {
+          "sSortAscending": ": 以升序排列此列",
+          "sSortDescending": ": 以降序排列此列"
+        }
+      },
+      "ajax": "/api/idcos_device/getDeviceList?status=0",
+      "bSort": false,
+      "aaSorting": [7, "desc"],
+      "aoColumns": [{
+        "sTitle": '<input type="checkbox">',
+        "mDataProp": "id"
+      },{
+        "sTitle": "SN",
+        "sClass": "center",
+        "mDataProp": "sn"
+      }, {
+        "sTitle": "主机名",
+        "mDataProp": "hostname"
+      }, {
+        "sTitle": "IP",
+        "sClass": "center",
+        "mDataProp": "ip"
+      }, {
+        "sTitle": "管理卡IP",
+        "sClass": "center",
+        "mDataProp": "oobip"
+      }, {
+        "sTitle": "系统安装模板",
+        "mDataProp": "ostmpname"
+      }, {
+        "sTitle": "硬件安装模板",
+        "sClass": "center",
+        "mDataProp": "hardwarename"
+      }, {
+        "sTitle": "提交时间",
+        "sClass": "center",
+        "mDataProp": "createtime"
+      }, {
+        "sTitle": "安装状态",
+        "sClass": "center",
+        "mDataProp": "status"
+      },{
+        "sTitle": "id",
+        "sClass": "hide",
+        "mDataProp": "id"
+      }, {
+        "sTitle": "系统安装模板",
+        "sClass": "hide",
+        "mDataProp": "ostmpname"
+      }, {
+        "sTitle": "硬件安装模板",
+        "sClass": "hide",
+        "mDataProp": "hardwarename"
+      }],
+      "aoColumnDefs": [{
+        "aTargets": [0],
+         "mRender": function(data, type, full) {
+          return '<input type="checkbox" class="device">';
+        }
+      },{
+        "aTargets": [1],
+        "mRender": function(data, type, full) {
+          return '<a href="/idcos/device/detail?id=' + full['id'] + '">' + wordBreak(data,10) + '</a>';
+        }
+      },{
+         "aTargets": [2],
+        "mRender": function(data, type, full) {
+          return wordBreak(data,15);
+        }
+      },{
+        "aTargets": [5],
+        "mRender": function(data, type, full) {
+          return '<a href="/idcos/config/detailos?id=' + full['ostmpid'] + '">' + wordBreak(data,15) + '</a>';
+        }
+      },{
+        "aTargets": [6],
+        "mRender": function(data, type, full) {
+          return '<a href="/idcos/config/detailhardware?id=' + full['hardwareid'] + '">' + wordBreak(data,15) + '</a>';
+        }
+      },{
+        "aTargets": [8],
+        "mRender": function(data, type, full) {
+          return '<span class="label label-' + state[data]["class"] + '">' + state[data]["name"] + '</span>';
+        }
+      }]
+    });
+
+    //字符截取
+    function wordBreak(s,len){
+        var fild = s;
+        if( $(window).width() < 1500){
+          if(fild.length>len){
+              fild=fild.substr(0,len)+"...";
+          }
+        }
+      return fild;
+    }
+
+    dataTable.on( 'xhr', function () {
+      var json = dataTable.ajax.json();
+      if(!!json.status && json.status == 401) {
+        $.confirm(json.msg, function() {
+          window.location.href = "/login/logout";
+        });
+      }
+    });
+
+
+
+    $('#search').click(function() {
+      var str = $('.js_searchval').val();
+      dataTable.search(str.replace(/\,|\n|;/g, '|'), true, false).draw();
+    });
+    
+     $('.js_searchval').on('keyup', function(event) {
+        if (event.keyCode == "13") {
+            //回车执行查询
+            $('#search').click();
+        }
+    });
+
+    //下拉列表条件变化，表格信息渲染出搜索结果
+    $('.select').change(function() {
+      if ($(this).val()) {
+        dataTable.column($(this).attr('about')).search($(this).val()).draw();
+      } else {
+        dataTable.column($(this).attr('about')).search("").draw();
+      }
+    });
+
+    //全选&&取消全选
+    $("table thead input").on("click",function(){
+      var check = $(this).prop("checked");
+      $("tbody input").prop("checked", check);
+    })
+
+    //监听分页事件
+    // dataTable.on( 'page.dt', function () {
+    //     console.log(1);
+    //     var info = dataTable.page.info();
+    //     $("table thead input").prop("checked",false);
+    //     $("tbody input").prop("checked", false);
+        
+    // } );
+
+    $(".pagination").click(function(){
+      $("table thead input").prop("checked",false);
+      $("tbody input").prop("checked", false);
+
+    })
+  });
+
+  </script>

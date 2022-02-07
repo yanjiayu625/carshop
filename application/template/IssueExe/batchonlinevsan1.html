@@ -1,0 +1,143 @@
+<style>
+.form-control {
+    height: 32px;
+}
+
+.table>tbody>tr>td {
+    border-top: 0;
+}
+
+.daily_exe_tpl tr td:nth-child(1) {
+    vertical-align: right;
+    border-top: 0px;
+}
+.daily_exe_tpl tr td:nth-child(2) {
+    vertical-align: left;
+    border-top: 0px;
+}
+
+.daily_exe_tpl tr td:nth-child(3) {
+    vertical-align: left;
+    border-top: 0px;
+    position: relative;
+}
+
+.modal-footer {
+    text-align: center!important;
+}
+
+#modal_validate table tr td {
+    position: relative;
+}
+
+#modal_validate table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+#editTableModal table tr td {
+    position: relative;
+}
+
+#editTableModal table tr td label.error {
+    width: 200px;
+    color: #f00;
+    font-size: 12px;
+    position: absolute;
+    left: 100%;
+    top: 15px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.info_special_ps {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+    padding: 5px;
+    margin: 5px 0 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    z-index: 1110 !important;
+}
+
+.modal {
+    z-index: 1111 !important;
+}
+
+.modal-xlg {
+    width: 1200px !important;
+}
+
+</style>
+<form action="" id="vasnExe">
+    <h3 class="js_dailytitle center dailytitle">提案ID</h3>
+    <table  width="100%" class="table daily_exe_tpl" id="info">
+        <tbody>
+            <tr>
+                <td  width="30%">
+                    <p class="title">虚拟创建结果文件 <p>
+                </td>
+                <td  width="40%">
+                    <input type="text" required="" aria-required="true" name="fields" class="form-control">
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="form_atcion center">
+        <button class="btn btn-primary js_exevsan"><i class="glyphicon glyphicon-share"></i>确定</button>
+    </p>
+</form>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/webuploader.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".js_remark_title").remove();
+    $(".js_remark,.modal-footer").hide();
+    $(".js_dailytitle").html('提案：' + $.getUrlParam('id') + ' Vsan集群部署(子)')
+
+    $("#vasnExe").validate({
+        ignore: [],
+        errorPlacement: function(error, element) {
+            $(element).closest("tr").children('td').eq(2).html(error);
+        },
+        //验证通过后提交数据
+        submitHandler: function(form) {
+            $.ajax({
+                url: "/api/issue_exe/updateVmCloneFile?id=" + $.getUrlParam("id") + "&role=" + $.getUrlParam("role"),
+                type: "POST",
+                dataType: "json",
+                data: {
+                    fields: $("input[name='fields']").val()
+                },
+                success: function(result) {
+                    if (result.status) {
+                        $(".js_remark").val(result.msg)
+                        $("#callback1").trigger('click');
+
+                    } else {
+                        $(".form_atcion").before('<label id="t_log_pic-error" class="error" for="t_log_pic">' + result.msg + '.</label>');
+
+                    }
+                }
+            })
+
+        },
+        debug: true
+    });
+
+});
+</script>

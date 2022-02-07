@@ -1,0 +1,184 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/index">首页</a>
+          </li>
+          <li>
+            IFOS装机平台
+          </li>
+          <li>
+            配置信息管理
+          </li>
+          <li>
+            添加新操作系统
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-film"></i> 编辑系统管理 </h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <form class="box-content" id="location_form" novalidate>
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <td width="20%">
+                      <h4><i class="glyphicon glyphicon-star red"></i>操作系统版本</h4></td>
+                    <td>
+                      <input type="hidden" class="form-control" value="" name="id">
+                      <div class="form-group col-md-4">
+                        <input type="text" class="form-control" value="" name="name">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4><i class="glyphicon glyphicon-star red"></i>PXE配置</h4></td>
+                    <td>
+                      <div id="mirrorconf-editor"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4>对应KS模板</h4></td>
+                    <td>
+                      <div id="ksconf-editor"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-edit"></i> 提交 </button>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </form>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+<?php include TPL_MAIN_FOOTER ?>
+  
+  <!-- jQuery jquery.validate.js-->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/jquery/jquery.validate.js"></script>
+  <script src='/js/ace/ace.js'></script>
+  <script src='/js/ace/theme-terminal.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#config-os').css({
+      "background-color": "#eeeeee"
+    });
+    $('#Config').addClass('active').find('ul').slideToggle();
+
+    // ace mirrorconf编辑器
+    var mirrorconfEditor = ace.edit("mirrorconf-editor");
+    mirrorconfEditor.setTheme("ace/theme/terminal");
+    $('#mirrorconf-editor textarea').attr('name', 'mirrorconf');
+    // ace ksconf编辑器
+    var ksconfEditor = ace.edit("ksconf-editor");
+    ksconfEditor.setTheme("ace/theme/terminal");
+    $('#ksconf-editor textarea').attr('name', 'ksconf');
+
+
+    // 获取数据
+    $.ifosAjax({
+      type: "get",
+      dataType: "json",
+      url: "/api/idcos_config/getOsTmpInfo",
+      data: {
+        "id": $.getUrlParam("id")
+      },
+      error: function(err) {
+        console.log(err);
+      },
+      success: function(result) {
+        if (!!result) {
+          var data = result;
+          $("input[name='id']").val(data.id);
+          $("input[name='name']").val(data.name);
+          mirrorconfEditor.setValue(data.mirrorconf);
+          ksconfEditor.setValue(data.ksconf);
+        } else {
+          console.log("没有数据");
+        }
+      }
+    });
+
+    $("#location_form").validate({
+      rules: {
+        name: {
+          required: true,
+          remote: {
+            url: "/api/idcos_general/checkOsName",
+            type: "get",
+            dataType: "json",
+            data: {
+              name: function() {
+                return $("input[name='name']").val();
+              },
+              id: function() {
+                return $("input[name='id']").val();
+              }
+            }
+          }
+        }
+      },
+      messages: {
+        name: {
+          required: "请输入操作系统版本",
+          remote: "操作系统版本不能重复"
+        }
+      },
+      submitHandler: function() {
+        var datas = {
+          id: $("input[name='id']").val(),
+          name: $("input[name='name']").val(),
+          mirrorconf: mirrorconfEditor.getValue(),
+          ksconf: ksconfEditor.getValue()
+        };
+
+        $.ifosAjax({
+          type: "post",
+          dataType: "json",
+          url: "/api/idcos_config/updateOsTmp",
+          data: {
+            'osJson': JSON.stringify(datas)
+          },
+          error: function(err) {
+            console.log(err);
+          },
+          success: function(result) {
+            if (!!result.status) {
+              $.alert('修改成功', function() {
+                window.location.href = "/idcos/config/os";
+              });
+            } else {
+              $.alert('修改失败', function() {});
+            }
+          }
+        });
+      },
+      debug: true
+    });
+  });
+  </script>

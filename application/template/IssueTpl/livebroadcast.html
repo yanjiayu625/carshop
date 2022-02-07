@@ -1,0 +1,72 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Stream</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="Stream"><select class="form-control" required="" name="t_stream" data-label="Stream" aria-required="true">
+            <option value="1">N_BAK_FHZW</option>
+            <option value="2">N_BAK_FHZW2</option>
+            <option value="3">N_CCTV_1</option>
+            <option value="4">N_CCTV_13</option>
+            <option value="5">N_CCTV_1_SD</option>
+            <option value="6">N_CCTV_2</option>
+            <option value="7">N_IFENG_BAK_FHZW</option>
+            <option value="8">N_IFENG_FHZW</option>
+            <option value="9">N_NEW_BBC</option>
+            <option value="10">N_NEW_CCTV_1</option>
+            <option value="11">N_NEW_CCTV_13</option>
+            <option value="12">N_NEW_CCTV_2</option>
+            <option value="13">N_NEW_CNN</option>
+        </select></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">Channel</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="Channel"><select class="form-control" required="" name="t_channel" data-label="Channel" aria-required="true">
+            <option value="1">资讯台</option>
+            <option value="2">中文台</option>
+            <option value="3">香港台</option>
+            <option value="4">备用频道</option>
+            <option value="5">CCTV13</option>
+            <option value="6">游戏频道</option>
+            <option value="7">东方卫视</option>
+            <option value="8">CCTV4</option>
+            <option value="9">浙江卫视</option>
+            <option value="10">天津卫视</option>
+            <option value="11">深圳卫视</option>
+            <option value="12">凤凰原创</option>
+            <option value="13">凤凰直播</option>
+        </select></td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">开始时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择开始时间" data-original-title="开始时间">
+        <input type="text" class="form-control form_datetime1" required="" name="t_starttime" data-label="开始时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">结束时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入结束时间" data-original-title="结束时间">
+        <input type="text" class="form-control form_datetime1" required="" name="t_endtime" data-label="结束时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" style="">
+$(function() {
+    $(".form_datetime1").datetimepicker({
+        'language': 'zh-CN',
+        'autoclose': true,
+        'showMeridian': true,
+        'format': "yyyy-mm-dd hh:ii",
+        'todayBtn':true,
+        'minuteStep': 30,
+    });
+})
+</script>

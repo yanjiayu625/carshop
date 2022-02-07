@@ -1,0 +1,151 @@
+<tr class="hidden" style="background: rgb(255, 255, 255);">
+  <td width="20%" style="width: 308px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器列表</span>
+  </td>
+  <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+    data-content="" data-original-title="服务器列表" style="width: 616px;"><input type="text"
+      class="form-control js_custom_server_list" required="" name="t_custom_server_list" data-label="服务器列表" value=""
+      data-rule-regex="" data-msg-regex=""></td>
+  <td width="25%" style="width: 385px;"></td>
+  <td width="15%" style="width: 230px;"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+  <td width="20%" style="width: 308px;"><i class="glyphicon glyphicon-star red"></i><span class="js_name">服务器列表</span>
+  </td>
+  <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+    data-content="" data-original-title="服务器列表" style="width: 616px;">
+    <p class="alert alert-danger"
+      style="margin-bottom:14px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">
+      以下几个端口不允许填写: 22、53、80、123、443
+    </p>
+    <div class="js_server_box">
+      <div class="js_server">
+        <input type="text" class="form-control js_ip iptest"
+          style="width: 200px !important; display: inline-block; float: left; margin-right: 10px; margin-bottom: 10px;"
+          required="" name="ip1" value="" placeholder="请输入访问的服务器IP">
+        <input type="text" class="form-control js_port"
+          style="width: 100px !important; display: inline-block; float: left;margin-right: 10px; margin-bottom: 10px;"
+          required="" name="port1" value="" placeholder="端口号">
+        <select name="http1" class="js_http"
+          style="width: 100px !important; height: 32px !important; display: inline-block; float: left;">
+          <option value="TCP">TCP</option>
+          <option value="UDP">UDP</option>
+          <option value="TCP+UDP">TCP+UDP</option>
+        </select>
+        <i class="glyphicon glyphicon-plus js_addServer" style="color: #2fa4e7;cursor: pointer; margin: 5px 10px;"></i>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </td>
+  <td width="25%" class="js_ipErr"></td>
+  <td width="15%" style="width: 230px;"></td>
+</tr>
+<tr>
+  <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请原因</span></td>
+  <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+    data-content="" data-original-title="申请原因"><textarea type="text" class="form-control" required=""
+      name="t_applyreason" data-label="申请原因" value="" rows="3" aria-required="true"></textarea></td>
+  <td width="25%"></td>
+  <td width="15%"></td>
+</tr>
+<script>
+  $(function () {
+    var tfirewallaclBox = {
+      init: function () {
+        var that = this;
+        $(".js_addServer").click(function () {
+          that.addServer();
+        })
+      },
+      index: 2,
+      addServer: function () {
+        var that = this
+        var serverHtml = "";
+        serverHtml += '<div class="js_server">';
+        serverHtml += '  <input type="text" class="form-control js_ip iptest" style="width: 200px !important; display: inline-block; float: left;margin-right: 10px;margin-bottom: 10px;" required="" name="ip' + that.index + '" value="" placeholder="请输入访问的服务器IP">';
+        serverHtml += '<input type="text" class="form-control js_port" style="width: 100px !important; display: inline-block; float: left;margin-right: 10px; margin-bottom: 10px;" required="" name="port' + that.index + '" value="" placeholder="端口号">'
+        serverHtml += '<select class="js_http" name="protocol' + that.index + '" style="width: 100px !important; height: 32px !important; display: inline-block; float: left;">';
+        serverHtml += '<option value="TCP">TCP</option>';
+        serverHtml += '<option value="UDP">UDP</option>';
+        serverHtml += ' <option value="TCP+UDP">TCP+UDP</option>';
+        serverHtml += '</select>';
+        serverHtml += '<i class="glyphicon glyphicon-minus js_delServer" style="color: #2fa4e7;cursor: pointer; margin: 5px 10px;"></i>';
+        serverHtml += '<div class="clear"></div>';
+        serverHtml += '</div>';
+        $(".js_server_box").append(serverHtml);
+        that.index++
+      },
+      getCustomDate: function () {
+        var listArr = []
+        $(".js_server").each(function (index, item) {
+          listArr.push({ ip: $(this).find(".js_ip").val(), protocol: $(this).find(".js_http").val(), port: $(this).find(".js_port").val() })
+        })
+        $(".js_custom_server_list").val(JSON.stringify(listArr))
+
+      },
+      checkIpAndPort: function (ip, port, cb) {
+        var that = this
+        if (ip && port)
+          $.ajax({
+            url: "/api/issue_check/checkFireworkAcl",
+            type: "get",
+            dataType: "json",
+            data: {
+              ip: ip,
+              port: port,
+            },
+            success: function (result) {
+              if (result != true) {
+                $(".js_ipErr").html('<label class="error" for="i_title">' + result + '.</label>')
+                $(".submit").attr("disabled", true);
+                cb(false)
+              } else {
+                cb(true)
+                $(".submit").attr("disabled", false);
+              }
+            },
+            error: function () {
+              console.log("error");
+            }
+          })
+
+      }
+    }
+    tfirewallaclBox.init()
+    $(document).on("click", ".js_delServer", function () {
+      $(this).parents(".js_server").remove();
+      $(".js_ip").trigger("blur")
+    })
+
+    $(document).on("change", ".js_http", function () {
+      tfirewallaclBox.getCustomDate()
+    })
+    $(document).on("blur", ".js_ip, .js_port", function () {
+      var $parent = $(this).parent()
+      tfirewallaclBox.getCustomDate()
+      tfirewallaclBox.checkIpAndPort($parent.find(".js_ip").val(), $parent.find(".js_port").val(), function (flag) {
+        if (flag) {
+          $parent.find(".js_ip").removeClass("error");
+          $parent.find(".js_port").removeClass("error");
+
+          var hasServerError = true
+          $(".js_server").each(function (index) {
+            if ($(this).find(".js_ip").hasClass("error")) {
+              hasServerError = false
+            }
+          })
+          if (hasServerError) {
+            $(".js_ipErr").html("")
+          }
+          $(".submit").attr("disabled", hasServerError);
+
+        } else {
+          $parent.find(".js_ip").addClass("error");
+          $parent.find(".js_port").addClass("error");
+        }
+
+      })
+    })
+
+
+  })
+</script>

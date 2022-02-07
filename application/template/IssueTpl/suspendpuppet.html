@@ -1,0 +1,62 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">主机名</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入主机名" data-original-title="主机名">
+        <input type="text" class="form-control" id="hostname" required="" name="t_hostname" data-label="主机名" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hashostname hidden" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">SN</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入SN" data-original-title="SN">
+        <input type="text" class="form-control" readonly="" required="" name="t_sn" data-label="SN" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hashostname hidden" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">IP</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入IP" data-original-title="IP">
+        <input type="text" class="form-control" readonly="" required="" name="t_ip" data-label="IP" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hashostname hidden" style="">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">MAC</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入MAC" data-original-title="MAC">
+        <input type="text" class="form-control" readonly="" required="" name="t_mac" data-label="MAC" value="" data-rule-regex="" data-msg-regex="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script type="text/javascript" style="">
+$(function() {
+	$(".submit").attr("disabled", true).addClass("btn-default").removeClass('btn-primary');
+	$("#hostname").on('blur', function() {
+		$.ajax({
+			url: "/api/issue_check/checkHostInfo?hostname="+$("#hostname").val(),
+	        type: "GET",
+	        dataType: "json",
+	        success: function(result) {
+	            if(result['data'].length==0){
+	            	$(".hashostname").addClass("hidden");
+	            	$("#hostname").addClass("error");
+	            	$("#hostname").parent().next().html('<label id="hostname-error" class="error" for="hostname">主机名不存在.</label>');
+	            	$(".submit").attr("disabled", true).addClass("btn-default").removeClass('btn-primary');
+	            }else{
+	            	$(".hashostname").removeClass("hidden");
+	            	$("input[name='t_sn']").val(result.data.sn);
+	            	$("input[name='t_ip']").val(result.data.ip);
+	            	$("input[name='t_mac']").val(result.data.mac);
+	            	$("#hostname").parent().next().html('');
+	            	$(".submit").attr("disabled", false).addClass("btn-primary").removeClass('btn-default');
+	            }
+	        },
+	        error: function() {
+	        	console.log("error");
+	        }
+		})
+	})
+})	
+</script>

@@ -1,0 +1,414 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    table {
+    }
+
+    table tbody tr:nth-child(odd) {
+        background: #fff;
+    }
+
+    table tbody tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    table td {
+        padding: 0 0 0 15px;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    table.checkJson {
+    }
+
+    table.checkJson tr td:first-child {
+        width: 30%;
+    }
+
+    table.checkJson tr td:last-child {
+        width: 70%;
+    }
+
+    .approte_action {
+        width: 30%;
+        height: 38px;
+        padding-left: 10px;
+        float: left;
+        line-height: 38px;
+    }
+
+    .agree {
+        margin-right: 30px;
+    }
+
+    .proposal_id {
+        margin-right: 20%;
+        text-align: right;
+    }
+    #addCheck .title{color: #317eac;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <div id="content" class="col-lg-12 col-sm-12">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>提案服务</li>
+                    <li>提案详情</li>
+                </ul>
+            </div>
+            <div class="row">
+                <!-- 概要信息 -->
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-bookmark"></i> 概要信息</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table class="box col-md-4">
+                                <tr>
+                                    <td width="30%">标题</td>
+                                    <td width="70%" class="js_title"></td>
+                                </tr>
+                                <tr>
+                                    <td>提案类型</td>
+                                    <td class="js_name"></td>
+                                </tr>
+                            </table>
+                            <h3 class="proposal_id">提案ID：<span class="js_id"></span></h3>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box col-md-4">
+                    <div class="box">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i>动态信息</h2>
+
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <table class="box col-md-12">
+                                    <tr>
+                                        <td width="30%">提案状态</td>
+                                        <td width="70%" class="js_status"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>提案结果</td>
+                                        <td class="js_result"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>提案创建时间</td>
+                                        <td class="js_createtime"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>提案结束时间</td>
+                                        <td class="js_endtime"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>最后更新时间</td>
+                                        <td class="js_updatetime"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>最后更新人</td>
+                                        <td class="js_exe_person"></td>
+                                    </tr>
+                                </table>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i> 审批记录</h2>
+
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <table class="box col-md-12 checkJson js_checkJson">
+                                </table>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i> 执行结果</h2>
+
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <table class="box col-md-12 checkJson js_exeJson">
+                                </table>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box col-md-8">
+                    <div class="box">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i> 提案详细信息</h2>
+
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <table class="box col-md-12 js_details">
+                                    <tr>
+                                        <td width="150px">标题</td>
+                                        <td class="js_title"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>提案类型</td>
+                                        <td class="js_name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>服务申请人</td>
+                                        <td class="js_applicant"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>申请人邮箱</td>
+                                        <td class="js_email"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>申请人部门</td>
+                                        <td class="js_department"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>是否紧急</td>
+                                        <td class="js_urgent"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>风险等级</td>
+                                        <td class="js_risk"></td>
+                                    </tr>
+                                    <tr><td></td><td></td></tr>
+                                </table>
+                                <div class="clear"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i> 执行操作</h2>
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <p class="approte_action">您需要指派此提案</p>
+                                <button class="btn btn-primary agree js_appoint">指派提案</button>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box" id="js_logBox">
+                        <div class="box-inner">
+                            <div class="box-header well" data-original-title="">
+                                <h2><i class="glyphicon glyphicon-bookmark"></i> 日志</h2>
+
+                                <div class="box-icon">
+                                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <table class="box col-md-12 table table-bordered">
+                                    <tr>
+                                        <td>执行人</td>
+                                        <td>角色</td>
+                                        <td>操作</td>
+                                        <td>详细信息</td>
+                                        <td>途径</td>
+                                        <td>时间</td>
+                                    </tr>
+                                    <tbody class="js_log">
+
+                                    </tbody>
+
+                                </table>
+                                <div class="clear"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <?php include TPL_MAIN_FOOTER ?>
+</div>
+
+<!-- jQuery -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src='/js/jquery/jquery.select2.min.js'></script>
+<script src="/js/jquery/jquery.validate.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
+<script src="/js/ifos.js"></script>
+<script src="/js/proposal.detail.js"></script>
+<script>
+    $(document).ready(function() {
+        var list = {
+            init: function() {
+                var that = this;
+                $(document).on("click", ".js_appoint", function () {
+                    that.getData();
+                })
+                $(document).on("blur","#exeName",function(){
+                    $("#exeName").next("label").remove();
+                    list.executorFlag = false;
+                    //执行人验证
+                    that.checkexeName()
+                })
+
+            },
+            checkexeName: function( persons) {
+                $.ajax({
+                    url: "/api/issue_check/checkExecutor",
+                    type: "GET",
+                    data:{person:$("#exeName").val()},
+                    async:false,
+                    dataType: "json",
+                    success: function(data) {
+                        list.executorFlag = !data.status
+                        console.log(data)
+                        if(!data.status) {
+                            $("#exeName").after('<label class="error">'+data.msg+'</label>');
+                        }else{
+                            $("#exeName").next("label").remove();
+                        }
+                    }
+                });
+            },
+            getData: function() {
+                $.ajax({
+                    url: "/api/issue_server/getTransferUser",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        id:$.getUrlParam("id"),
+                        exeId:$(".js_appoint").attr("exeGroup")
+                    },
+                    success: function(result) {
+                        if(result.status){
+                            var addhtm = ''
+                            var user = $("#user").html()
+                            if(result.data.length){
+                                var addoption='<option value="'+user+'">'+user+'</option>';
+                                $.each(result.data,function(k,v){
+                                    addoption += '<option value="'+v+'">'+v+'</option>';
+                                })
+                                addhtm = '<select class="form-control" name="exe" id="exeName">'+addoption+'</select>';
+                                list.addDialog("请选择执行人员",addhtm,list.appoint_action);
+                            }else{
+                                addhtm = '<input type="text" class="form-control" name="exe" id="exeName"/>';
+                                list.addDialog("请选择执行人员",addhtm,list.appoint_action);
+
+                            }
+                        }
+                    }
+                })
+
+            },
+            executorFlag: false,
+            appoint_action: function() {
+                $("#exeName").trigger('blur');
+                if(!list.executorFlag){
+                    $.ajax({
+                        url: "/api/issue_server/appointServer",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            id:$.getUrlParam("id"),
+                            exeUser:$("#exeName").val(),
+                            exeId:$(".js_appoint").attr("exeGroup")
+                        },
+                        success: function(result) {
+                            $.alert(result.msg,function(){
+                                window.location.href="/issue/server/myAssignment"
+                            });
+                        }
+                    })
+                    $('#addCheck').modal('hide');
+                    $('#addCheck').remove();
+                    $('.modal-backdrop').remove()
+                    
+                }
+
+            },
+            addDialog: function(ac,addhtm,callback) {
+                $('#addCheck').remove();
+                var htm = ' <div class="modal fade in" id="addCheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                htm += ' <div class="modal-dialog modal-sm">';
+                htm += '  <div class="modal-content">';
+                htm += '    <div class="modal-body">';
+                htm += '            <p class="title">'+ac+'<p>';
+                htm += addhtm;
+                htm += '    </div>';
+                htm += '    <div class="modal-footer">';
+                htm += '      <a href="#" class="btn btn-default" data-dismiss="modal" >取消</a>';
+                htm += '      <a href="#" class="btn btn-primary" ' + (typeof callback == 'function' ? ('id="callback1"') : '') + '>确定</a>';
+                htm += '    </div>';
+                htm += '  </div>';
+                htm += ' </div>';
+                htm += '</div>';
+                $('body').append(htm);
+                $('#addCheck').modal('show');
+                $("#callback1").on("click",function(){
+                    callback();
+                })
+
+            },
+            gohref: function(){
+                window.location.href="/issue/server/myAssignment";
+            }
+        }
+
+        list.init();
+
+    })
+</script>

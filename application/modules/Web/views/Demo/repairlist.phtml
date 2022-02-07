@@ -1,0 +1,813 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+    .box-content .table th{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;word-break:break-all;}
+.title{padding: 10px 15px;}
+.backarea{border-top: 1px solid #e5e5e5;background: #eee;border-radius: 3px;}
+.goback{margin: 5px 0 5px 90%;}
+.showTreeData{display: none;}
+#dataTreeView{width: 390px;margin:10px 10px;float: left;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom: 1px solid #ddd;}
+#change-treeview{margin: 0 15px;}
+.serveType{margin-right: 20px;}
+.form_datetime{width: 150px !important; display: inline-block;margin-right:6px;}
+.err{ width: 290px;height: 40px; position: absolute;top: 40px;left: 164px; background: url(/img/tip.png) no-repeat; background-size: 100% 100%; padding: 10px 10px; color: #f00;z-index: 10;display: none;}
+table th,td{text-align: center;}
+.SingleDataInfo{display: none;}
+.showAllData{position:relative;}
+.show-left-menu{color:#2fa4e7;position: fixed;top: 50%;left: 5px;cursor: pointer;display: none;}
+.loading-alldata{position: absolute;left: 45%;top:200px;}
+.table-area{padding: 10px 10px;position: relative;}
+.table-area .loading-data-list{position: absolute;top: 200px;left: 50%;display: none;}
+.modal-dialog{width: 80% !important;}
+iframe{width: 100%;min-height: 700px; }
+.search-area{min-width:400px;position: absolute;border:1px solid #eee;left: 750px;top: 50px;padding: 10px 10px;border-radius: 4px;display: none;}
+.dataTables_paginate{;height: 40px;margin: 10px 0;border-radius: 4px;text-align: center;}
+.dataTables_paginate .paginate_button{width: 30px;height: 30px;line-height: 1;text-align: center;display: inline-block;border: 1px solid #ddd;cursor: pointer;}
+.dataTables_paginate .paginate_button:hover{text-decoration:none;}
+.dataTables_paginate .first{width: 60px;}
+.dataTables_paginate .last{width: 60px;}
+.dataTables_paginate .next{width: 60px;}
+.dataTables_paginate .previous{width: 60px;}
+.dataTables_paginate .disabled{width: 60px;color: #999;cursor: not-allowed;}
+.dataTables_paginate .current{background: #f5f5f5;color: #999}
+.buttons-excel,.buttons-csv,.buttons-pdf{
+    background-color: #177bbb;
+    color: #fff;
+    border-color: #177bbb;
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.show_data{display: block;position: relative;min-height: 680px;}
+h3{float: left;margin-right: 50px;}
+.search-bar{margin-bottom: 10px;position: relative;height: 40px; padding-left: 20px;}
+table{width: 100% !important;}
+.dataTables_wrapper{position: relative;overflow: visible;}
+.dt-buttons{ text-align: right;padding: 10px; position: absolute;right:0px;top: -16px;}
+.buttons-excel,.buttons-csv,.buttons-pdf{color: #fff !important;border-bottom: 0;margin-right: 10px;}
+td{vertical-align:middle !important;}
+.issue_type{width: 150px !important;margin-bottom: 10px;float: left; margin-right: 10px;}
+.search-item{width: 150px !important;margin-bottom: 10px;float: left; margin-right: 10px;}
+.search_sub{margin-left: 306px;}
+.loading-data-list{position: absolute;top: 200px;left: 50%;display: block;}
+.search_btn{ margin-left: 0px;}
+.clear_btn{ margin-left: 0px;}
+.back_btn{position: absolute; top: 54px; left: 174px;; z-index: 10; display: none;}
+.heightChartChange{position:absolute;top: 54px;z-index: 10}
+.pie{left:20px;}
+.column{left:90px;}
+.data-list{ margin-top: 50px;}
+</style>
+<div class="ch-container">
+    <div class="row">
+        <?php include TPL_LEFT_ISSUE_MENU ?>
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="/index">首页</a></li>
+                    <li>IFOS事务跟踪</li>
+                    <li>数据统计</li>
+                    <li>报修统计</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-magnet"></i> 报修统计</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="data_area">
+                                        <div class="show_data">
+                                            <div class="search-bar">
+                                                <!-- <select name="" class="form-control issue_type">
+                                                    <option value="">请选择故障类型</option>
+                                                    <option value="硬盘故障">硬盘故障</option>
+                                                    <option value="内存故障">内存故障</option>
+                                                    <option value="CPU故障">CPU故障</option>
+                                                    <option value="网卡故障">网卡故障</option>
+                                                    <option value="主板故障">主板故障</option>
+                                                    <option value="电源故障">电源故障</option>
+                                                    <option value="RAID卡故障">RAID卡故障</option>
+                                                    <option value="硬盘故障">硬盘故障</option>
+                                                    <option value="其他">其他</option>
+                                                </select>
+                                                <input class="form-control search-item js_sn" placeholder="SN" />
+                                                <input class="form-control search-item js_brand" placeholder="品牌" />
+                                                <input class="form-control search-item js_model" placeholder="型号" /> -->
+                                                <input type="text" class="form-control form_datetime" issueType="1" name="t_start_time" data-label="停用时间" readonly="" placeholder="开始时间" value="">
+                                                <input type="text" class="form-control form_datetime" issueType="1" name="t_end_time" data-label="停用时间" readonly="" placeholder="结束时间">
+                                                <a class="btn btn-primary search_btn" href="#"> <i class="glyphicon glyphicon-search"></i> 搜索 </a>
+                                                <a class="btn btn-default clear_btn" href="#"> <i class="glyphicon glyphicon-remove"></i> 清除条件 </a>
+                                                <p class="err js_err">开始时间必须小于结束时间</p>
+                                            </div>
+                                            <!-- <div class="search-bar"> -->
+                                                <!-- <input class="form-control search-item js_intIp" placeholder="内网IP" /> -->
+                                                <!-- <input class="form-control search-item js_num" placeholder="报修次数" /> -->
+                                                
+
+                                            <!-- </div> -->
+                                            <!-- <h3 class="js_allCheckTime">审批平均时间</h3> -->
+                                            <img class="loading-data-list" src="/img/ajax-loaders/ajax-loader-6.gif" title="img/ajax-loaders/ajax-loader-6.gif">
+                                            <!-- <h3 class="js_onlineServer">在线服务器总数:--</h3> -->
+                                            <!-- <h3 class="js_t_rate">总体故障率:--</h3> -->
+                                            <!-- <h3 class="js_rate">品牌故障率: <select name="brand" id="brand"></select> <span id="brandRate"></span></h3> -->
+                                            <button class="btn btn-default btn-primary heightChartChange pie" type="">饼图</button>     
+                                            <button class="btn btn-default heightChartChange column" type="">柱状图</button>  
+                                            <button class="btn btn-primary back_btn" href="#"> <i class="glyphicon glyphicon-chevron-left"></i> 返回 </button>
+                                            <div id="container" style="min-width: 600px; height: 600px; margin: 0 auto;"></div>
+                                            <div class="data-list">
+                                                <table class="table table-striped table-bordered js_allData">
+                                                </table>
+                                                <table class="table table-striped table-bordered js_brandData">
+                                                </table>
+
+                                                <table class="table table-striped table-bordered js_DataInfo">
+                                                </table>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+        </div>
+    </div>
+</div>
+ <!--detail  Modal -->
+ <div class="modal fade" id="serverDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12">
+                <h4 class="title">提案详情</h4>
+                <div id="serverDetatilIframe" class="">
+                    
+                </div>
+                </div>
+            </div>
+            <div class="backarea">
+                <a class="btn btn-default goback"><i class="glyphicon glyphicon-minus-sign"></i> 关闭</a>
+            </div>
+        </div>
+    </div>
+</div><!--end detail Modal-->
+    
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-treeview.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script type="text/javascript"  src='/js/jquery/jquery.dataTables1.10.16.min.js'></script>    
+
+<script src='/js/dataTables.buttons.min.js'></script>    
+<script src='/js/jszip.min.js'></script>    
+<script src='/js/buttons.html5.min.js'></script> 
+
+<script src="/js/hCharts/highcharts.js"></script>
+<script src="/js/hCharts/modules/data.js"></script>
+<script src="/js/hCharts/modules/drilldown.js"></script>
+<script src="/js/hCharts/modules/exporting.js"></script>
+
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+
+        var list = {
+            init: function(){
+                var that = this;
+                $('#IssueData').addClass('active').find('ul').slideToggle();
+                $('#IssueData-repairlist').css({
+                    "background-color": "#eeeeee"
+                });
+                $(".form_datetime").datetimepicker({
+                    'language': 'zh-CN',
+                    'minView': "month",
+                    'format': "yyyy-mm-dd",
+                    'autoclose':true,
+                    'showMeridian':true,
+                    'todayBtn':true
+                });
+                $(".show_data").eq(0).find("input[name='t_start_time']").val($.getUrlParam('start'));
+                $(".show_data").eq(0).find("input[name='t_end_time']").val($.getUrlParam('end'));
+
+                that.getRepairStatistic()
+                if(!!$.getUrlParam('model')) {
+                    that.getRepairList($.getUrlParam('brand'),$.getUrlParam('model'))
+                }
+
+                $(document).on('change','.issue_type, .js_sn, .js_brand, .js_model, .js_intIp, .js_num', function() {
+                    $(".search_btn").trigger("click");
+                })
+                
+                $(document).on('click','.search_btn', function() {
+                    var start = $("input[name='t_start_time']").val()
+                    var end = $("input[name='t_end_time']").val()
+
+                    if(new Date(start.replace(/-/g, "/")).getTime() >new Date(end.replace(/-/g, "/")).getTime()){// 开始时间大于结束时间
+
+                        $(".search-bar").find(".js_err").html('<label id="t_port-error" class="error" for="t_port">开始时间必须小于结束时间.</label>')
+                        $(".search-bar").find(".js_err").show();
+                        return false;
+                    }else{
+                        $(".search-bar").find(".js_err").hide();
+                        that.getRepairStatistic()
+                        var url = "/issue/admin/repairlist?start="+$(".show_data").eq(0).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(0).find("input[name='t_end_time']").val()+"&type="+that.charSetting.chart.type;
+                        window.location.href = url
+                    }
+                })
+
+                $(".clear_btn").click( function () {
+                    // $(".issue_type").val("");
+                    // $(".js_sn").val("");
+                    // $(".js_brand").val("");
+                    // $(".js_model").val("");
+                    // $(".js_intIp").val("");
+                    // $(".js_num").val("");
+                    // $(".form_datetime").val("");
+                    // $(".search-bar").find(".js_err").hide();
+                    // $(".js_t_rate").html("总体故障率: --");
+                    // $("#brandRate").html("--");
+                    // $("#brand").html("");
+                    // // $(".js_rate").html("品牌故障率: --");
+                    // $(".js_onlineServer").html("在线服务器: --");
+                    // that.getRepairStatistic("");
+                    var url = "/issue/admin/repairlist"
+                    window.location.href = url
+                })
+
+                $("#brand").change(function() {
+                    $("#brandRate").html(that.brandRates[$(this).val()])
+                })
+
+                $(".back_btn").click( function() {
+                    var url = "/issue/admin/repairlist?start="+$.getUrlParam('start')+"&end="+$.getUrlParam('end')+"&type="+that.charSetting.chart.type;
+                    window.location.href = url
+                })
+                //tap切换效果
+                $(".heightChartChange").click(function(){
+                    var index = $(this).index();
+                    $(this).addClass("btn-primary").removeClass("btn-default");
+                    $(this).siblings(".heightChartChange").addClass("btn-default").removeClass("btn-primary");
+                    
+                    that.charSetting.chart.type == 'pie'? that.charSetting.chart.type = 'column': that.charSetting.chart.type = 'pie'
+                    if(true) {
+                        $('#container').highcharts().destroy();
+                        $('#container').highcharts(that.charSetting);
+                    }
+                })
+                if($.getUrlParam('type')=="column") {
+                    that.charSetting.chart.type = $.getUrlParam('type');
+                    $(".heightChartChange").eq(1).addClass("btn-primary").removeClass("btn-defalut");
+                    $(".heightChartChange").eq(0).addClass("btn-default").removeClass("btn-primary");
+                }
+                $(document).on('click', '.js_showDetail', function(event) {
+                    $(this).parents('tr').css({color:'#428bca'})
+                    $('#serverDetail').modal('show');
+                    $("#serverDetatilIframe").html('<iframe src="/issue/server/detail?id=' + $(this).attr('serverId') + '&no-cache=' + Math.random()+'"></iframe>')
+                })
+                $(document).on('click', '.goback', function(event) {
+                   $('#serverDetail').modal('hide');
+                   $("#serverDetatilIframe").html('')
+                })
+            },
+            loadingData: false,
+            brandRates:{
+
+            },
+            getRepairList: function(brand, model) {
+                $(".data-list").empty();
+                $(".loading-data-list").show();
+                var that = this
+                if(true) {
+                    that.loadingData = true
+                    that.brandRates = {};
+                    $.ifosAjax({
+                        type: "get",
+                        dataType: "json",
+                        url: "/api/Issue_data/getRepairList?start="+$.getUrlParam('start')+"&end="+$.getUrlParam('end')+"&brand="+$.getUrlParam('brand')+"&model="+model,
+                        error: function(err) {
+                            console.log(err);
+                        },
+                        success: function(result) {
+                            that.loadingData = false
+                            
+                            $(".data-list").append('<table class="table table-striped table-bordered js_DataInfo"></table>')
+                            // $(".js_t_rate").html("总体故障率: "+result.rate)
+                            // $(".js_onlineServer").html("在线服务器: "+result.onlineServer+"台");
+                            that.renderData(result.aaData);
+
+                            $.each(result, function(key, val) {
+                                if(key!="rate"  && key!="onlineServer" && key!="aaData" ) {
+                                    if(val != "0%") {
+                                        that.brandRates[key]= val
+                                        $("#brand").append('<option value="'+key+'">'+key+'</option>')
+
+                                    }
+                                }
+                            })
+                            $("#brand").trigger("change");
+                            window.scrollTo({ 
+                                top: 900, 
+                                behavior: "smooth" 
+                            });
+                        }
+                    });
+                }
+            },
+            getRepairStatistic: function(brand) {
+                $(".loading-data-list").show();
+                var that = this
+                if(!that.loadingData) {
+                    that.loadingData = true
+                    that.brandRates = {};
+                    $.ifosAjax({
+                        type: "get",
+                        dataType: "json",
+                        url: "/api/issue_data/getRepairStatistic?start="+($.getUrlParam('start')||"")+"&end="+($.getUrlParam('end')||"")+"&brand="+($.getUrlParam('brand')||""),
+                        error: function(err) {
+                            console.log(err);
+                        },
+                        success: function(result) {
+                            that.loadingData = false
+                            $(".loading-data-list").hide();
+                            // $(".js_t_rate").html("总体故障率: "+result.data.rate)
+                            // $(".js_onlineServer").html("在线服务器: "+result.data.server_num+"台");
+
+                            if(result.code == 200) {
+                                
+                                list.charSetting.series[0].data = [];
+                                list.charSetting.drilldown.series = [];
+                                list.total = 0;
+                                $("#totleInfo").empty();
+
+                                if(!$.getUrlParam('brand')) {//总体统计
+                                    that.renderAllBrandData(result.data.list);
+                                    $('.js_allData').show()
+                                    $('.js_brandData').hide()
+                                    $('.js_DataInfo').hide()
+                                    $.each(result.data.list,function(key, val){
+                                        //一层数据
+                                        var dataObj = {};
+                                      
+                                        dataObj.name = val.brand
+                                        dataObj.y = parseInt(val.repair_num);
+                                        dataObj.server_num = val.server_num;
+                                        dataObj.rate = val.rate;
+                                        dataObj.drilldown = true;
+                                        list.charSetting.series[0].data.push(dataObj);
+                                        list.charSetting.title.text = "总体故障统计(在线总数:"+result.data.server_num+"台, 故障率:"+result.data.rate+")"
+                                        list.charSetting.subtitle.text = "点击可查看各品牌详细状况";
+                                    
+                                    })
+
+                                }else{//品牌统计
+                                    $(".back_btn").show();
+                                    $('.js_allData').hide()
+                                    $('.js_brandData').show()
+                                    $('.js_DataInfo').hide()
+                                    that.renderSingleBrandData(result.data.list, $.getUrlParam('brand'));
+
+                                    $.each(result.data.list,function(key, val){
+                                        var dataObj = {};
+                                        dataObj.name = val.model
+                                        dataObj.brand = $.getUrlParam('brand')
+                                        dataObj.y = parseInt(val.repair_num);
+                                        dataObj.server_num = val.server_num;
+                                        dataObj.rate = val.rate;
+                                        dataObj.drilldown = false;
+                                        list.charSetting.series[0].data.push(dataObj);
+                                        list.charSetting.title.text = $.getUrlParam('brand')+"故障统计(在线总数："+result.data.server_num+"台, 故障率:"+result.data.rate+")";
+                                        list.charSetting.subtitle.text = "点击可查看各型号详细状况";
+                                            
+                                      
+    
+                                    })
+                                }
+
+                                list.chart = $('#container').highcharts(list.charSetting);
+                                
+                            }
+                            
+                        }
+                    });
+                }
+            },
+            charSetting:{
+                chart: {
+                    type: 'pie',
+                    // type: 'column',
+                    events: {
+                    drillup: function(e) {
+                        // 上钻回调事件
+                        // list.setTitle("故障统计",list.total);
+                        // $(".js_AllDataInfo").show();
+                        // $(".js_SingleDataInfo").hide();/
+                    }
+                }    
+                },
+                title: {
+                    text: '总体故障统计',
+                    style:{
+                        fontWeight:"bold",
+                        fontSize:"30px"
+                    }
+                },
+                subtitle: {
+                    text: ''
+                },
+                colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00',
+				 '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: '数量'
+                    }
+
+                },
+                credits:{
+                     enabled:false // 禁用版权信息
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}: 总数量: {point.server_num} 故障台次: {point.y}  故障率: {point.rate}'
+                        }
+                    },
+                    column: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function(e) {
+                                if(e.point.drilldown){
+                                    //进入品牌统计
+                                    var url = '/issue/admin/repairlist?brand='+e.point.name+"&start="+$(".show_data").eq(0).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(0).find("input[name='t_end_time']").val()+"&type="+list.charSetting.chart.type
+                                    window.location.href = url
+                                   
+                                }else{
+                                    //
+                                    window.scrollTo({ 
+                                        top: 900, 
+                                        behavior: "smooth" 
+                                    });
+                                    list.getRepairList(e.point.brand,e.point.name);
+                                }
+                            }
+                        },
+                    },
+                    pie: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function(e) {
+                                if(e.point.drilldown){
+                                    //修改标题
+                                    var url = '/issue/admin/repairlist?brand='+e.point.name+"&start="+$(".show_data").eq(0).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(0).find("input[name='t_end_time']").val()+"&type="+list.charSetting.chart.type;
+                                    window.location.href = url
+                                   
+                                }else{
+                                    window.scrollTo({ 
+                                        top: 900, 
+                                        behavior: "smooth" 
+                                    });
+                                    list.getRepairList(e.point.brand,e.point.name);
+                                }
+                            }
+                        },
+                    }
+                },
+                series:[{
+                    name: '故障台次',
+                    colorByPoint: true,
+                    data:[]
+                }
+                ],
+                drilldown:{
+                    series:[],
+                }
+            },
+            renderData: function(dataList) {
+                $('.js_DataInfo').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': '故障统计',//导出文件名  
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    'lengthMenu': [
+                        [ 10, 25, 50, 100, 1000000 ],
+                        [ '10', '25', '50', '100','所有' ]
+                    ],
+                    // 'buttons': [
+                    //     'pageLength'
+                    // ]
+                    // "bServerSide": true,
+                    "bDestroy":true,
+                    data: dataList,
+                    // "searching": true
+                    // "sAjaxSource": "/api/Issue_data/getDomainIssue?start="+$(".show_data").eq(0).find("input[name='t_start_time']").val()+"&end="+$(".show_data").eq(0).find("input[name='t_end_time']").val()+'&type='+$(".issue_type").val(),
+                    "aoColumns": [
+                        {
+                            "sTitle": "提案号",
+                            "sWidth": "10%",
+                            "mDataProp": "server_id"
+                        }, {
+                            "sTitle": "SN",
+                            "sWidth": "10%",
+                            "mDataProp": "sn"
+                        }, {
+                            "sTitle": "内网IP",
+                            "sWidth": "10%",
+                            "mDataProp": "int_ip"
+                        }, {
+                            "sTitle": "管理卡IP",
+                            "sWidth": "10%",
+                            "mDataProp": "oob_ip"
+                        }, {
+                            "sTitle": "品牌",
+                            "sWidth": "10%",
+                            "mDataProp": "brand"
+                        }, {
+                            "sTitle": "型号",
+                            "sWidth": "10%",
+                            "mDataProp": "model"
+                        }, {
+                            "sTitle": "机房位置",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "idc_name"
+                        }, {
+                            "sTitle": "故障类型",
+                            "sWidth": "10%",
+                            "sClass": "center",
+                            "mDataProp": "type"
+                        }, {
+                            "sTitle": "报修次数",
+                            "sWidth": "5%",
+                            "sClass": "center",
+                            "mDataProp": "num"
+                        }, {
+                            "sTitle": "报修时间",
+                            "sWidth": "15%",
+                            "sClass": "center",
+                            "mDataProp": "c_time"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    'ordering':true,
+                    "aaSorting": [0, "desc"],
+                    "aoColumnDefs": [
+                        {
+                            "aTargets": [0],
+                            "mRender": function (data, type, item) {
+                                var html = '<button class="btn btn-primary btn-sm js_showDetail" serverId="'+data+'">';
+                                html += data;
+                                html += '</button>';
+                                return html
+                            }
+                        },
+                        {
+                            "aTargets": [6],
+                            "mRender": function (data, type, item) {
+                                
+                                return item.idc_name+ "　<br>" + item.idc_module+ "　"+item.cabinet_num+ "　"+item.u_bit
+                            }
+                        },
+                        {
+                            "aTargets": [7],
+                            "mRender": function (data, type, item) {
+                            var dataArr = JSON.parse(data)
+                            var htm = "";
+                            $.each(dataArr, function(key, val) {
+                                htm+= '<p> '+val+'</p>'
+
+                            })
+                                return htm
+                            }
+                        }
+                    ]
+                } );
+                $(".loading-data-list").hide()
+
+                if($(window).height()>$("body").height()){
+                    $('footer').css({'position':'absolute','padding':'0 20px'})
+                }else{
+                    $('footer').css({'position':'static','padding':'0 0px'})
+                }
+
+            },
+            renderAllBrandData: function(dataList) {
+                $('.js_allData').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': '总体故障统计',//导出文件名  
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    // 'buttons': [
+                    //     'pageLength'
+                    // ]
+                    // "bServerSide": true,
+                    "bDestroy":true,
+                    data: dataList,
+                    "aoColumns": [
+                        {
+                            "sTitle": "品牌",
+                            "sWidth": "10%",
+                            "mDataProp": "brand"
+                        }, {
+                            "sTitle": "在线数量",
+                            "sWidth": "10%",
+                            "mDataProp": "server_num"
+                        }, {
+                            "sTitle": "故障台次",
+                            "sWidth": "10%",
+                            "mDataProp": "repair_num"
+                        }, {
+                            "sTitle": "故障率",
+                            "sWidth": "10%",
+                            "mDataProp": "rate"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    'ordering':true,
+                    // "aaSorting": [0, "desc"],
+                } );
+                $(".loading-data-list").hide()
+
+                if($(window).height()>$("body").height()){
+                    $('footer').css({'position':'absolute','padding':'0 20px'})
+                }else{
+                    $('footer').css({'position':'static','padding':'0 0px'})
+                }
+
+            },
+            renderSingleBrandData: function(dataList, brand) {
+                $('.js_brandData').DataTable( {
+                    'dom': 'liBtrp',
+                    "sPaginationType": "full_numbers",
+                    'buttons': [{ 
+                        "extend": 'excelHtml5', 
+                        'title': brand+ '故障统计',//导出文件名  
+                        'text': '导出Excel',//定义导出excel按钮的文字  
+                        customize: function( xlsx ) { 
+                            var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                            // $('row c[r^="C"]', sheet).attr( 's', '2' ); 
+                        } 
+                    }],
+                    // 'buttons': [
+                    //     'pageLength'
+                    // ]
+                    // "bServerSide": true,
+                    "bDestroy":true,
+                    data: dataList,
+                    "aoColumns": [
+                        {
+                            "sTitle": "型号",
+                            "sWidth": "10%",
+                            "mDataProp": "model"
+                        }, {
+                            "sTitle": "在线数量",
+                            "sWidth": "10%",
+                            "mDataProp": "server_num"
+                        }, {
+                            "sTitle": "故障台次",
+                            "sWidth": "10%",
+                            "mDataProp": "repair_num"
+                        }, {
+                            "sTitle": "故障率",
+                            "sWidth": "10%",
+                            "mDataProp": "rate"
+                        }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "处理中...",
+                        "sLengthMenu": "显示 _MENU_ 项结果",
+                        "sZeroRecords": "没有匹配结果",
+                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                        "sInfoPostFix": "",
+                        "sSearch": "搜索:",
+                        "sUrl": "",
+                        "sEmptyTable": "表中数据为空",
+                        "sLoadingRecords": "载入中...",
+                        "sInfoThousands": ",",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": 以升序排列此列",
+                            "sSortDescending": ": 以降序排列此列"
+                        }
+                    },
+                    'ordering':true,
+                    // "aaSorting": [0, "desc"],
+                } );
+                $(".loading-data-list").hide()
+
+                if($(window).height()>$("body").height()){
+                    $('footer').css({'position':'absolute','padding':'0 20px'})
+                }else{
+                    $('footer').css({'position':'static','padding':'0 0px'})
+                }
+
+            },
+           
+        }
+        list.init();
+      
+    });
+</script>

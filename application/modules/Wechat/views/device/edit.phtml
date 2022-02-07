@@ -1,0 +1,165 @@
+<?php include TPL_MAIN_HEADER ?>
+<style>
+.select2-container--open .select2-dropdown--below {
+  width: 282px !important;
+  margin-left: 0;
+}
+
+.select2-container--open .select2-dropdown--above {
+  width: 282px !important;
+  margin-left: 0;
+}
+</style>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="/index">首页</a></li>
+          <li>IFOS装机平台</li>
+          <li>物理机管理</li>
+          <li>修改设备详细信息</li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-edit"></i> 修改设备详情</h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="device_content" style="margin-top:20px;">
+              <div class="list_left">
+                <p><span>★</span>SN</p>
+                <p><span>★</span>IP</p>
+                <p><span>★</span>MAC</p>
+                <p><span>★</span>主机名</p>
+                <p>管理IP卡</p>
+                <p><span>★</span>系统安装模板</p>
+                <p><span>★</span>硬件配置模板</p>
+                <p><span>★</span>机房位置</p>
+              </div>
+              <div class="list_right">
+                <div>
+                  <p class="detail js_sn"></p>
+                  <span>*</span>
+                </div>
+                <div>
+                  <input class="js_blur js_ip js_blur js_IPblur" type="text" fld="IP" action="edit">
+                  <span></span>
+                </div>
+                <div>
+                  <p class="mastername js_mac"></p>
+                  <!-- <input class="js_blur js_mac js_MACblur" type="text" fld="MAC"> -->
+                  <span></span>
+                </div>
+                <div>
+                  <p class="mastername js_hostname"></p>
+                  <span></span>
+                </div>
+                <div>
+                  <input class="js_oobip js_IPcard" type="text">
+                  <span></span>
+                </div>
+                <div>
+                  <select class="js_ostmpname" id="selectOstmp">
+                    <option value=''>请选择系统安装模板</option>
+                  </select>
+                  <span class="err"></span>
+                </div>
+                <div>
+                  <select class="js_hardwarename" id="selectHardwar">
+                    <option value=''>请选择硬件安装模板</option>
+                  </select>
+                  <span class="err"></span>
+                </div>
+                <div>
+                  <p class="idcname js_idcname" idcid=""></p>
+                  <span></span>
+                </div>
+                <input type="hidden" class="js_user">
+                <input type="hidden" class="js_createtime">
+              </div>
+              <a class="btn btn-success edit_submit js_edit_submit"><i class="glyphicon glyphicon-edit"></i> 提交 </a>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i class="glyphicon glyphicon-remove"></i> 取消</a>
+            </div>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+    </div>
+  </div>
+  <div class="dialog-overlay"></div>
+  <div class="wait_dialog js_wait_dialog">
+    <div class="progress progress-striped progress-success active">
+      <div class="progress-bar" style="width: 100%;"></div>
+    </div>
+    <p>正在提交数据，请等待</p>
+  </div>
+  <div class="result_dialog js_result_dialog_edit">
+    <p class="tip">设备信息已成功修改</p>
+    <button>关闭</button>
+  </div>
+  <?php include TPL_MAIN_FOOTER ?>
+  <!-- jQuery -->
+  <script src="/js/jquery/jquery.min.js"></script>
+  <script src="/js/jquery.tools.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src='/js/jquery/chosen.jquery.min.js'></script>
+  <script src='/js/jquery/jquery.select2.min.js'></script>
+  <script src="/js/ifos.js"></script>
+  <script src="/js/newdevice.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $(".select").select2();
+        $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+        // $('[data-rel="chosen"],[rel="chosen"]').chosen();
+        // 
+        //获取硬件配置信息、系统安装模板信息后渲染设备信息
+        $.when($.ajax({
+            url: "/api/IdcOs_General/getHardwareSelect"
+        }), $.ajax({
+            url: "/api/IdcOs_General/getOsTmpSelect"
+        })).done(function(data1, data2){
+            $('.js_hardwarename').select2({
+                data: data1[0]
+            });
+            $('.js_ostmpname').select2({
+                data: data2[0]
+            });
+            $.ifosAjax({
+                url: "/api/idcos_device/getDeviceInfo",
+                type: "get",
+                data: {
+                    id: location.search.substr(4)
+                },
+                dataType: "json",
+                contentType: 'application/json',
+                success: function(data) {
+                    $(".js_sn").html(data.sn);
+                    $(".js_user").val(data.user);
+                    $(".js_createtime").val(data.createtime);
+                    $(".js_hostname").html(data.hostname);
+                    $(".js_ip").val(data.ip);
+                    $(".js_mac").html(data.macaddr);
+                    $(".js_oobip").val(data.oobip);
+                    $(".js_ostmpname").val(data.ostmpid).trigger("change");
+                    $(".js_hardwarename").val(data.hardwareid).trigger("change");
+                    $(".js_idcname").html(data.idc);
+                    $(".js_idcname").attr("idccode", data.idccode)
+                }
+            })
+        })
+    });
+  </script>

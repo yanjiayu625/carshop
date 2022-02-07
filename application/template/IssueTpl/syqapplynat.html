@@ -1,0 +1,157 @@
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">手机号</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="手机号">
+        <input type="text" class="form-control" required="" name="t_phone" data-label="手机号" value="" data-rule-regex="/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|145|147|170|176|177|178)+\d{8})$/" data-msg-regex="手机号码格式错误" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">需求描述</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入需求描述" data-original-title="需求描述">
+        <textarea type="text" minlength="10" class="form-control" required="" name="t_needdesc" data-label="需求描述" value="" rows="3" aria-required="true"></textarea>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i>
+        <span class="js_name">服务器内网IP</span>
+    </td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入服务器内网IP" data-original-title="服务器内网IP" data-label="服务器内网IP">
+        <p class="alert alert-danger" style="margin-bottom:10px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;font-weight: bold;">请与相应运维中心接口人确认需求后填写，以免重复审批。
+            <br>如需开通所有访问需求请去掉勾选</p>
+        <input type="hidden" name="t_custom_nat_ip_syq" data-label="服务器内网IP">
+        <div class="ip_area">
+            <p>IP：<input type="text" class="form-control ip" style="width: 130px;display: inline;margin-right: 10px;margin-left: 10px;" required="" name="h_ip" data-label="服务器内网IP" value="" data-rule-remote="/api/issue_check/checkSyqNatIp/" aria-required="true"><input type="checkbox" checked class="js_noport" name="h_noport"><select name="h_tORu" style="width: 60px;display: inline;margin-right: 10px;margin-left: 10px;" class="js_type required"><option value="tcp">tcp</option><option value="udp">udp</option></select>目的端口：<input type="text" name="h_port0" class="required form-control port" style="width: 48px;display: inline;margin-right: 10px;padding:0 6px 0 6px" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误"><i class="glyphicon glyphicon-plus js_plusip" style="cursor: pointer;color: #2fa4e7;"></i></p>
+        </div>
+        <p class="info_special_ps">IP地址为 10.90.*.*/10.21.*.* ,请注意</p>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用开始时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择使用开始时间" data-original-title="使用开始时间">
+        <input type="text" class="form-control form_datetime" required="" name="t_starttime" data-label="使用开始时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr class="hidden">
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用结束时间</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请输入使用结束时间" data-original-title="使用结束时间">
+        <input type="text" class="form-control form_datetime" required="" name="t_endtime" data-label="使用结束时间" readonly="" size="16" value="" aria-required="true">
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<tr>
+    <td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">使用期限</span></td>
+    <td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请选择使用期限" data-original-title="请选择使用期限">
+        <select name="h_numbers" class="js_numbers" style="width: 50px;display: inline;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <select name="h_type" class="js_datetype" style="width: 50px;display: inline;margin-left: 10px;">
+            <option value="week">周</option>
+            <option value="month">月</option>
+        </select>
+    </td>
+    <td width="25%"></td>
+    <td width="15%"></td>
+</tr>
+<script type="text/javascript">
+$(function() {
+    var today = new Date()
+    $("[name='t_starttime']").val(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())
+
+    var d1 = new Date();
+    var d2 = new Date(today);
+    d2.setDate(d1.getDate() + 7);
+    $("[name='t_endtime']").val(d2.getFullYear() + '-' + (d2.getMonth() + 1) + '-' + d2.getDate())
+
+    $(document).on('change', '.js_numbers', function() {
+        var numbers = $(this).val()
+        if ($('.js_datetype').val() == 'week') {
+            var d3 = new Date(today);
+            d3.setDate(d1.getDate() + parseInt(numbers) * 7);
+            $("[name='t_endtime']").val(d3.getFullYear() + '-' + (d3.getMonth() + 1) + '-' + d3.getDate())
+        } else {
+            var d = new Date();
+            d.setMonth(d.getMonth() + parseInt(numbers));
+            var yy1 = d.getFullYear();
+            var mm1 = d.getMonth() + 1; //因为getMonth（）返回值是 0（一月） 到 11（十二月） 之间的一个整数。所以要给其加1
+            var dd1 = d.getDate();
+            if (mm1 < 10) {
+                mm1 = '0' + mm1;
+            }
+            if (dd1 < 10) {
+                dd1 = '0' + dd1;
+            }
+
+            $("[name='t_endtime']").val(yy1 + '-' + mm1 + '-' + dd1)
+        }
+    })
+    $(document).on('change', '.js_datetype', function() {
+        var numbers = $('.js_numbers').val()
+        if ($('.js_datetype').val() == 'week') {
+            var d3 = new Date(today);
+            d3.setDate(d1.getDate() + parseInt(numbers) * 7);
+            $("[name='t_endtime']").val(d3.getFullYear() + '-' + (d3.getMonth() + 1) + '-' + d3.getDate())
+        } else {
+            var d = new Date();
+            d.setMonth(d.getMonth() + parseInt(numbers));
+            var yy1 = d.getFullYear();
+            var mm1 = d.getMonth() + 1; //因为getMonth（）返回值是 0（一月） 到 11（十二月） 之间的一个整数。所以要给其加1
+            var dd1 = d.getDate();
+            if (mm1 < 10) {
+                mm1 = '0' + mm1;
+            }
+            if (dd1 < 10) {
+                dd1 = '0' + dd1;
+            }
+            $("[name='t_endtime']").val(yy1 + '-' + mm1 + '-' + dd1)
+        }
+    })
+    var portIndex = 1;
+    $(".js_plusip").click(function() {
+        $(".ip_area").append('<p>IP：<input type="text" class="form-control ip" style="width: 130px !important;display: inline;margin-right: 10px;margin-left: 10px;" required="" name="h_ip' + portIndex + '" data-label="服务器内网IP" value="" data-rule-remote="/api/issue_check/checkSyqNatIp/" aria-required="true"><input type="checkbox" checked class="js_noport" name="h_noport"><select name="h_tORu" style="width: 60px;display: inline;margin-right: 10px;margin-left: 10px;" class="js_type required"><option value="tcp">tcp</option><option value="udp">udp</option></select>目的端口：<input type="text" name="h_port' + portIndex + '"  class="required form-control port" style="width: 48px;display: inline;margin-right: 10px;padding:0 6px 0 6px" value="" data-rule-regex="/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/" data-msg-regex="端口号错误"><i class="glyphicon glyphicon-minus js_minusip" style="cursor: pointer;color: #2fa4e7;"></i>');
+        portIndex++
+    })
+    $(document).on('click', '.js_minusip', function() {
+        $(this).parents("p").remove();
+    })
+    $(document).on('click', '.submit', function() {
+        var ips = [];
+        $.each($(".ip_area p"), function(k, element) {
+            ips.push({ ip: $(element).find('.ip').val(), port: $(element).find('.port').val(), type: $(element).find('.js_type').val() })
+        })
+        $('[name="t_custom_nat_ip_syq"]').val(JSON.stringify(ips))
+    })
+    $(document).on('click', '.js_noport', function() {
+        if ($(this).siblings('.port').attr('disabled') == 'disabled') {
+            $(this).siblings('.port').attr('disabled', false)
+            $(this).siblings('.port').addClass("required")
+
+            $(this).siblings('.js_type').val('tcp')
+            $(this).siblings('.js_type').attr('disabled', false)
+            $(this).siblings('.js_type').addClass("required")
+            $(this).siblings('.js_type').css({ "background-color": "#fff" })
+        } else {
+            $(this).siblings('.port').val('')
+            $(this).siblings('.port').attr('disabled', true)
+            $(this).siblings('.port').removeClass("error")
+            $(this).siblings('.port').removeClass("required")
+
+            $(this).siblings('.js_type').val('')
+            $(this).siblings('.js_type').attr('disabled', true)
+            $(this).siblings('.js_type').removeClass("error")
+            $(this).siblings('.js_type').removeClass("required")
+            $(this).siblings('.js_type').css({ "background-color": "#eee" })
+        }
+    })
+
+})
+</script>

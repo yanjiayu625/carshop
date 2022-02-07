@@ -1,0 +1,131 @@
+<tr>
+	<td><i class="glyphicon glyphicon-star red"></i> 温馨提示</td>
+	<td>
+		<p class="js_ifnegtoken info_special_ps">
+			为了加快申请进度，请扫描下方二维码直接申请凤凰令牌 <br><img style="width:170px;height:170px;margin:10px 0 0 0"" src="/img/android1.png" alt="" /><img style="width:170px;height:170px;margin:10px 0 0 10px" src="/img/ios1.png" alt="" /><p><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">android</span><span style="width:170px;height:30px;line-height:30px;display:inline-block;text-align:center;">IOS</span></p><p><a href="/download/IfengToken-V1.0.docx">点击下载使用说明</a></p>
+		</p>
+	</td>
+	<td></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td><i class="glyphicon glyphicon-star red"></i> 特殊提醒</td>
+	<td><p class="alert alert-danger" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">再次申请将会生成新的令牌KEY，之前申请的令牌将会失效，注意！！！
+</p></td>
+	<td></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请人域账号</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请人域账号">
+		<input type="text" readonly class="form-control" required="" name="t_regionname" data-label="申请人域账号" value="" aria-required="true"></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请人手机号</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请人手机号">
+		<input type="text" class="form-control" required="" name="t_mobile" data-label="申请人手机号" value="" data-rule-regex="/^(1)\d{10}$/" data-msg-regex="手机号错误" aria-required="true"></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"> <i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">用途</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="用途">
+		<input type="checkbox" name="t_use[]" data-label="用途" value="1" required="" checked="checked" aria-required="true">
+		<label>VPN</label>
+		<br>
+		<input type="checkbox" name="t_use[]" data-label="用途" value="2" required="" aria-required="true">
+		<label>其他</label>
+		<br></td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="" style="background: rgb(255, 255, 255);">
+	<td width="20%" style="width: 299px;">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请类型</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请类型" style="width: 597px;">
+		<input class="js_applyTpye" type="radio" name="t_apply" data-label="申请类型" value="1" required="" checked="checked">
+		<label>首次申请凤凰令牌</label>
+		<input class="js_applyTpye" type="radio" name="t_apply" data-label="申请类型" value="2" required="">
+		<label>非首次申请凤凰令牌</label>
+		<script>
+		$(function(){
+			// $(".submit").attr('disabled',true)
+			// $(".submit").addClass('btn-inverse').removeClass("btn-primary")
+
+			$("[name = 'i_title']").attr("readOnly",true);
+			//从接口判断是否首次申请
+			$.ajax({
+				url: "/api/issue_check/checkIfengToken",
+                type: "GET",
+                dataType: "json",
+                success: function(result) {
+                    if(result.status){
+                    	$("[name = 'i_title']").val("再次申请凤凰令牌");
+                    	$("input[name='t_apply']").trigger('click');
+                    }else{
+                    	$("[name = 'i_title']").val("首次申请凤凰令牌");
+                    }
+                    $("input[name='t_apply']").attr('disabled',true)
+                    $("input[name='t_apply']").attr('disabled',true)
+                },
+                error: function() {
+                	console.log("error");
+                }
+
+			})
+
+			var name = $("[name = 'i_email']").val();
+			name.substring(0,name.indexOf("@"))
+			$("[name = 't_regionname']").val(name.substring(0,name.indexOf("@")));
+
+			$(".js_applyTpye").change(function(){
+				$(".js_keydetail").remove();
+				if($(".js_applyTpye:checked").val() == 1){
+					$("[name = 'i_title']").val("首次申请凤凰令牌");
+				}else{
+					$("[name = 'i_title']").val("再次申请凤凰令牌");
+					$(this).closest("tr").after('<tr class="js_keydetail"><td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">申请说明</span></td><td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请说明"><textarea type="text" class="form-control" required="" name="t_detail" data-label="申请说明" value="" rows="3" aria-required="true"></textarea></td><td width="25%"></td><td width="15%"></td></tr>');
+				}
+			})
+		})
+
+		</script>
+	</td>
+	<td width="25%" style="width: 372px;"></td>
+	<td width="15%" style="width: 223px;"></td>
+</tr>
+<tr class="js_keydetail">
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">申请说明</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="申请说明">
+		<textarea type="text" class="form-control" required="" name="t_detail" data-label="申请说明" value="" rows="3" aria-required="true"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">特殊说明</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="特殊说明">
+		<input type="hidden" class="form-control" required="" name="t_specialremarks" data-label="特殊说明" value="令牌申请成功后会收到邮件通知，请在30分钟内绑定令牌，超过30分钟无法绑定！" data-rule-regex="" data-msg-regex="" aria-required="true">
+		<p class="alert alert-danger" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">令牌申请成功后会收到邮件通知，请在30分钟内绑定令牌，超过30分钟无法绑定！</p>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

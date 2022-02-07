@@ -1,0 +1,62 @@
+<tr>
+	<td width="20%"></td>
+	<td width="40%">
+		<p class="alert alert-danger" style="margin-bottom:0px; background-color: #f2dede; border-color: #eed3d7; color: #b94a48;">说明:服务器同一故障类型统一报修，不同故障需要另建提案</p>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr>
+	<td width="20%"><i class="glyphicon glyphicon-star red"></i><span class="js_name">序列号+服务器IP</span></td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="请每行输入一组序列号和对应IP" data-original-title="序列号+服务器IP">
+	<textarea type="text" class="form-control" required="" name="t_snAndIP" data-label="序列号+服务器IP" value="" rows="3" aria-required="true"></textarea> 
+	<p class="info_special_ps">例：testsn  1.2.3.4<br>　　testsn  1.2.3.4</p>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>
+<tr class="" style="background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
+	<td width="20%" style="width: 226px;">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">故障类型</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="故障类型" style="width: 451px;">
+		<input type="checkbox" name="t_gzlx[]" data-label="故障类型" value="1" required="" checked="checked" aria-required="true">
+		<label>服务器宕机</label>
+		<br>
+		<input type="checkbox" name="t_gzlx[]" data-label="故障类型" value="2" required="" aria-required="true">
+		<label>更换硬盘</label>
+		<br>
+		<input type="checkbox" name="t_gzlx[]" data-label="故障类型" value="3" required="" aria-required="true">
+		<label>内存升级</label>
+		<br>
+		<input type="checkbox" name="t_gzlx[]" data-label="故障类型" value="4" required="" aria-required="true">
+		<label>其他故障</label>
+		<br></td>
+	<td width="25%" style="width: 281px;"></td>
+	<td width="15%" style="width: 169px;"></td>
+</tr>
+<tr class="" style="background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
+	<td width="20%" style="width: 226px;">
+		<i class="glyphicon glyphicon-star red"></i>
+		<span class="js_name">维修窗口</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="维修窗口" style="width: 451px;">
+		<input type="radio" name="t_wick" data-label="维修窗口" value="1" required="" checked="checked" aria-required="true">
+		<label>已关机可以维修</label>
+		<input type="radio" name="t_wick" data-label="维修窗口" value="2" required="" aria-required="true">
+		<label>需协调关机维修时间</label>
+	</td>
+	<td width="25%" style="width: 281px;"></td>
+	<td width="15%" style="width: 169px;"></td>
+</tr>
+<tr>
+	<td width="20%">
+		<span class="js_name">故障简单描述</span>
+	</td>
+	<td width="40%" title="" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="" data-original-title="故障简单描述">
+		<textarea type="text" class="form-control" name="t_gzms" data-label="故障简单描述" value="" rows="3"></textarea>
+	</td>
+	<td width="25%"></td>
+	<td width="15%"></td>
+</tr>

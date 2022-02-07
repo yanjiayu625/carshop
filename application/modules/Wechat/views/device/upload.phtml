@@ -1,0 +1,237 @@
+<?php include TPL_MAIN_HEADER ?>
+<div class="ch-container">
+  <div class="row">
+    <?php include TPL_LEFT_IDCOS_MENU ?>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="/index">首页</a></li>
+          <li>IFOS装机平台</li>
+          <li>物理机管理</li>
+          <li>添加新设备</li>
+        </ul>
+      </div>
+      <div class="row js_row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><i class="glyphicon glyphicon-upload"></i> 批量添加新设备</h2>
+              <div class="box-icon">
+                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content">
+              <input type="hidden" id="redisKey" value="<?php echo $tempRedisKey; ?>">
+              <?php if (!$uploadStatus) { ?>
+              <div class="box-content alerts">
+                <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>上传CSV文件错误！</strong> 错误信息：
+                  <?php echo $msg; ?>
+                </div>
+              </div>
+              <a class="btn btn-default" href="javascript:history.go(-1)"><i
+                                        class="glyphicon glyphicon-backward"></i> 返回并重新上传文件</a>
+              <?php } else { ?>
+              <div class="box-content alerts">
+                <div class="alert alert-info" id="alertText">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>CSV文件上传成功！</strong> 提示信息：<strong>正在校验数据</strong><img src="/img/ajax-loaders/ajax-loader-7.gif" title="check">
+                </div>
+              </div>
+              <?php } ?>
+              <table class="table table-bordered table-striped table-condensed hide" id="csvTable">
+                <thead>
+                  <tr>
+                    <th>SN</th>
+                    <th>主机名</th>
+                    <th>业务IP</th>
+                    <th>MAC地址</th>
+                    <th>OOBIP</th>
+                    <th>系统安装模板</th>
+                    <th>硬件配置模板</th>
+                    <th>机房名称</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+              <button id="submitButton" type="submit" class="btn btn-success " onclick="submitCSV()"> 提交数据 </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/span-->
+    </div>
+    <!--/row-->
+    <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><strong>批量添加设备</strong></h3>
+          </div>
+          <div class="modal-body" id="info">
+            <p id="info">数据传输中 <img src="/img/ajax-loaders/ajax-loader-6.gif" title="check"></p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn btn-default hide" data-dismiss="modal" id="closeModal">关闭</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php include TPL_MAIN_FOOTER ?>
+<!-- jQuery -->
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/jquery.tools.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src='/js/jquery/chosen.jquery.min.js'></script>
+<script src="/js/ifos.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $('#device-new').css({
+    "background-color": "#eeeeee"
+  });
+  $('#IdcOS').addClass('active').find('ul').slideToggle();
+
+  $.ifosAjax({
+    type: "GET",
+    dataType: "json",
+    url: "/Api/IdcOs_Device/getUploadCsvData",
+    data: {
+      key: $('#redisKey').val()
+    },
+    success: function(data) {
+
+      var csvTable = '';
+      var csvData = data['data'];
+      for (var row in csvData) {
+        var tr = '<tr>';
+        if (csvData[row]['sn']['status']) {
+          tr += '<td class="green">' + csvData[row]['sn']['val'] + '</td>';
+        } else {
+          tr += '<td class="red" title="' + csvData[row]['sn']['msg'] + '">' + csvData[row]['sn']['val'] + '</td>';
+        }
+
+        if (csvData[row]['hostname']['status']) {
+          tr += '<td class="green">' + csvData[row]['hostname']['val'] + '</td>';
+        } else {
+          tr += '<td class="red" title="' + csvData[row]['hostname']['msg'] + '">' + csvData[row]['hostname']['val'] + '</td>';
+        }
+
+        if (csvData[row]['ip']['status']) {
+          tr += '<td class="green">' + csvData[row]['ip']['val'] + '</td>';
+        } else {
+          tr += '<td class="red" title="' + csvData[row]['ip']['msg'] + '">' + csvData[row]['ip']['val'] + '</td>';
+        }
+
+        if (csvData[row]['mac']['status']) {
+          tr += '<td class="green">' + csvData[row]['mac']['val'] + '</td>';
+        } else {
+          tr += '<td class="red" title="' + csvData[row]['mac']['msg'] + '">' + csvData[row]['mac']['val'] + '</td>';
+        }
+
+        if (csvData[row]['oobip']['status']) {
+          tr += '<td class="green">' + csvData[row]['oobip']['val'] + '</td>';
+        } else {
+          tr += '<td class="red" title="' + csvData[row]['oobip']['msg'] + '">' + csvData[row]['oobip']['val'] + '</td>';
+        }
+
+        if (csvData[row]['ostmpname']['status']) {
+          tr += '<td class="hide">' + csvData[row]['ostmpname']['id'] + '</td>';
+          tr += '<td class="green">' + csvData[row]['ostmpname']['val'] + '</td>';
+        } else {
+          tr += '<td  class="hide"> </td>';
+          tr += '<td class="red" title="' + csvData[row]['ostmpname']['msg'] + '">' + csvData[row]['ostmpname']['val'] + '</td>';
+        }
+
+        if (csvData[row]['hardwarename']['status']) {
+          tr += '<td class="hide">' + csvData[row]['hardwarename']['id'] + '</td>';
+          tr += '<td class="green">' + csvData[row]['hardwarename']['val'] + '</td>';
+        } else {
+          tr += '<td class="hide"> </td>';
+          tr += '<td class="red" title="' + csvData[row]['hardwarename']['msg'] + '">' + csvData[row]['hardwarename']['val'] + '</td>';
+        }
+
+        if (csvData[row]['idc']['status']) {
+          tr += '<td class="hide">' + csvData[row]['idc']['id'] + '</td>';
+          tr += '<td class="hide">' + csvData[row]['idc']['code'] + '</td>';
+          tr += '<td class="green">' + csvData[row]['idc']['val'] + '</td>';
+        } else {
+          tr += '<td class="hide"> </td>';
+          tr += '<td class="hide"> </td>';
+          tr += '<td class="red" title="' + csvData[row]['idc']['msg'] + '">' + csvData[row]['idc']['val'] + '</td>';
+        }
+        csvTable += tr;
+      }
+
+      $('#csvTable tbody').html(csvTable);
+      if (data['status']) {
+        var success = '<strong>文件内数据校验通过，没有发现错误数据，请提交数据！</strong>'
+        $('#alertText').removeClass('alert-info').addClass('alert-success').html(success);
+        $('#submitButton').removeClass('hide');
+      } else {
+        var error = '<strong>文件内数据校验发现错误！</strong>，其中<span class="label label-warning">' + data['msg'].join(", ") + '</span> 信息有误，请核实！';
+        $('#alertText').removeClass('alert-info').addClass('alert-warning').html(error);
+      }
+      $('#csvTable').removeClass('hide');
+
+    }
+  });
+});
+
+function submitCSV() {
+
+  $('#submitModal').modal({
+    backdrop: 'static',
+    keyboard: false
+  });
+  var devices = [];
+  $('#csvTable tbody tr').each(function() {
+    var dev = {};
+    dev['sn'] = $(this).find("td").eq(0).html();
+    dev['hostname'] = $(this).find("td").eq(1).html();
+    dev['ip'] = $(this).find("td").eq(2).html();
+    dev['macaddr'] = $(this).find("td").eq(3).html();
+    dev['oobip'] = $(this).find("td").eq(4).html();
+    dev['ostmpid'] = $(this).find("td").eq(5).html();
+    dev['ostmpname'] = $(this).find("td").eq(6).html();
+    dev['hardwareid'] = $(this).find("td").eq(7).html();
+    dev['hardwarename'] = $(this).find("td").eq(8).html();
+    dev['idc'] = $(this).find("td").eq(9).html();
+    dev['idccode'] = $(this).find("td").eq(10).html();
+    devices.push(JSON.stringify(dev));
+  });
+
+  $.ifosAjax({
+    url: "/api/IdcOs_Device/postBatchDevice",
+    type: "POST",
+    data: {
+      deviceArray: JSON.stringify(devices)
+    },
+    dataType: "json",
+    success: function(data) {
+      if (data.status) {
+        $('#info').html('<p>设备全部添加成功！</p>');
+      } else {
+        var html = '<ul class="dashboard-list">'
+        for (var tr in data['data']) {
+          var li = '<li><i class="glyphicon glyphicon-remove red"></i>' +
+            ' <span class="red">' + data['data'][tr]['sn'] + '</span> 添加失败，请注意！</li>';
+          html += li;
+        }
+        $('#info').html(html);
+      }
+      $('#closeModal').removeClass('hide');
+    }
+  });
+}
+</script>

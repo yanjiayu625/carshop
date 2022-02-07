@@ -1,0 +1,6 @@
+.git
+.idea
+data/*
+conf/application.ini
+
+
