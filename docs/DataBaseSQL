@@ -7,7 +7,7 @@ CREATE TABLE `car_brand` (
   `sort_letter` varchar(10) NOT NULL DEFAULT '' COMMENT '排序字母',
   `sort_id` int(11)  NOT NULL DEFAULT 1 COMMENT '字母排序',
   `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:停用,1:启用',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态,1:启用,2:停用',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -21,7 +21,7 @@ CREATE TABLE `car_brand_tags` (
   `code` varchar(50) NOT NULL DEFAULT '' COMMENT '车系代码',
   `sort_id` int(11) NOT NULL DEFAULT 1 COMMENT '字母排序',
   `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:停用,1:启用',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态,1:启用,2:停用',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)

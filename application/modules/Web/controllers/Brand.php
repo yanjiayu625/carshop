@@ -72,8 +72,6 @@ class BrandController extends \Base\Controller_AbstractWeb
                 throw new \Exception("品牌ID值非法");
             }
 
-            $modifyInfo = [];
-
             if (!empty(trim($postInfo['brand_name']))) {
                 $brandName = addslashes(trim($postInfo['brand_name']));
                 $existName = MysqlCommon::getInstance()->getInfoByTableName('car_brand', ['id'], ['id <>' => $postInfo['id'],
@@ -84,7 +82,7 @@ class BrandController extends \Base\Controller_AbstractWeb
                 $modifyInfo['brand_name']  = $brandName;
             }
 
-            if (!empty(trim($postInfo['sort_letter']))) {
+            if (!empty($postInfo['sort_letter'])) {
                 $sortLetter =trim($postInfo['sort_letter']);
                 if (!Validate::isUpperLetter($sortLetter)) {
                     throw new \Exception('品牌首字母缩写必须为大写字母!');
@@ -92,13 +90,25 @@ class BrandController extends \Base\Controller_AbstractWeb
                 $modifyInfo['sort_letter']  = $sortLetter;
             }
 
-            if (!empty(trim($postInfo['sort_id']))) {
+            if (!empty($postInfo['sort_id'])) {
                 $sortId =trim($postInfo['sort_id']);
                 if (!Validate::isNumber($sortId)) {
                     throw new \Exception('品牌排序数字必须为数字!');
                 }
                 $modifyInfo['sort_id']  = $sortId;
             }
+
+            if (!empty($postInfo['pic_dir'])) {
+                $modifyInfo['pic_dir'] = trim($postInfo['pic_dir']);
+            }
+
+            if(empty($postInfo['status'])){
+                throw new \Exception('品牌状态参数为空!');
+            }
+            if(!in_array($postInfo['status'], ['1', '2'])){
+                throw new \Exception('品牌状态参数值非法!');
+            }
+            $modifyInfo['status'] = $postInfo['status'];
 
             if(empty($modifyInfo)){
                 throw new \Exception('品牌信息修改数据为空!');
