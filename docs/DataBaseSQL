@@ -27,7 +27,7 @@ CREATE TABLE `car_brand_tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
+//首页
 DROP TABLE IF EXISTS `car_sell_list`;
 CREATE TABLE `car_sell_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,6 +35,10 @@ CREATE TABLE `car_sell_list` (
   `tags_id` int(11)  NOT NULL DEFAULT 1 COMMENT '标签ID',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
   `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片路径',
+  `register_date` varchar(20) NOT NULL DEFAULT '' COMMENT '上牌时间,2015-01',
+  `mileage` float(8,2) NOT NULL DEFAULT 0.00 COMMENT '公里数',
+  `sell_price` float(8,2) NOT NULL DEFAULT 0.00 COMMENT '售价,单位万',
+  `is_home` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否首页推荐,0:不是,1:是',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用,2:,3,4,5',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',

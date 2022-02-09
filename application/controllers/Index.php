@@ -1,11 +1,15 @@
 <?php
-class IndexController extends \Base\Controller_AbstractIssueIndex
+class IndexController extends \Base\Controller_AbstractWechat
 {
     public function indexAction()
     {
     }
 
-    public function testAction()
+    public function getSellListAction()
     {
+        
     }
+
+
+
 }

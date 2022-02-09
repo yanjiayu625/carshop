@@ -2,5 +2,6 @@
 .idea
 data/*
 conf/application.ini
+public/error_log.txt
 
 
