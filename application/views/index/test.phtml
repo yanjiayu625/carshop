@@ -1,65 +1,265 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <!-- <script src="http://vjs.zencdn.net/5.19/video.min.js"></script> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>精美的表格样式</title>
+    <style type="text/css">
+        <!--
+        body,table{
+            font-size:12px;
+        }
+        .contentwarp{
+          width: 90%;
+          margin: 0 auto;
+        }
+        table{
+          width: 49%;
+          table-layout:fixed;
+          empty-cells:show;
+            border-collapse: collapse;
+            float: left;
+        }
+        .clearfix{
+          clear: both;
+          height: 0;
+          overflow: hidden;
+        }
+        td{
+            height:20px;
+        }
+        h1,h2,h3{
+            font-size:12px;
+            margin:0;
+            padding:0;
+        }
+
+        .title { background: #FFF; border: 1px solid #9DB3C5; padding: 1px; width:90%;margin:20px auto; }
+        .title h1 {
+            line-height: 31px;
+            text-align:center;
+            background: #2F589C;
+            background-repeat: repeat-x;
+            background-position: 0 0;
+            color: #FFF; }
+        /*.title th, .title td { border: 1px solid #CAD9EA; padding: 5px; }*/
+
+
+        /*这个是借鉴一个论坛的样式*/
+        table.淡蓝{
+            border:1px solid #cad9ea;
+            color:#666;
+        }
+        table.淡蓝 th {
+            /*background-image: url(th_bg1.gif);*/
+            background-repeat::repeat-x;
+            height:30px;
+        }
+        table.淡蓝 td,table.t1 th{
+            border:1px solid #cad9ea;
+            padding:0 1em 0;
+        }
+        table.淡蓝 tr.a1{
+            background-color:#f5fafe;
+        }
+
+        table.灰蓝{
+            border:1px solid #9db3c5;
+            color:#666;
+        }
+        table.灰蓝 th {
+            /*background-image: url(th_bg2.gif);*/
+            background-repeat::repeat-x;
+            height:30px;
+            color:#fff;
+        }
+        table.灰蓝 td{
+            border:1px dotted #cad9ea;
+            padding:0 2px 0;
+        }
+        table.灰蓝 th{
+            border:1px solid #a7d1fd;
+            padding:0 2px 0;
+        }
+        table.灰蓝 tr.a1{
+            background-color:#e8f3fd;
+        }
+
+        table.骚粉{
+            border:1px solid #fc58a6;
+            color:#720337;
+        }
+        table.骚粉 th {
+            /*background-image: url(th_bg3.gif);*/
+            background-repeat::repeat-x;
+            height:30px;
+            color:#35031b;
+        }
+        table.骚粉 td{
+            border:1px dashed #feb8d9;
+            padding:0 1.5em 0;
+        }
+        table.骚粉 th{
+            border:1px solid #b9f9dc;
+            padding:0 2px 0;
+        }
+        table.骚粉 tr.a1{
+            background-color:#fbd8e8;
+        }
+
+        -->
+    </style>
+    <script type="text/javascript">
+        function ApplyStyle(s){
+            document.getElementById("mytab1").className=s.innerText;
+            document.getElementById("mytab2").className=s.innerText;
+        }
+    </script>
 </head>
 
 <body>
-<!-- <div>
-  <video controls="true" preload="auto" data-setup="{}">
-    <source type="rtmp/flv" src="rtmp://10.80.34.151/live/N_IFENG_BAK_FHZX" />
-  </video>
-</div> -->
-<div>
-    <object id="forfun" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="300"
-            codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0">
-        <param name="movie" value="/seufld/seufld/flash/focus2.swf">
-        <param name="quality" value="high">
-        <param name="bgcolor" value="#F0F0F0">
-        <param name="menu" value="false">
-        <param name="wmode" value="opaque">
-        <param name="FlashVars" value="">
-        <param name="allowScriptAccess" value="sameDomain">
-        <embed id="forfunex" src="/img/FlashDevelopWorkSpace.swf" width="400" height="300" align="middle" quality="high" bgcolor="#f0fff8"
-               menu="false"
-               play="true"
-               loop="false"
-               FlashVars=""
-               allowScriptAccess="sameDomain"
-               type="application/x-shockwave-flash"
-               pluginspage="http://www.adobe.com/go/getflashplayer">
-        </embed>
-    </object>
+<div class="title">
+    <h1>大家好，CSS与表格的结合演示样例</h1>
+    <table><tr><td align="left">
+                点击链接切换样式：<a href="javascript:;" onclick="ApplyStyle(this)">淡蓝</a>
+                <a href="javascript:;" onclick="ApplyStyle(this)">灰蓝</a>
+                <a href="javascript:;" onclick="ApplyStyle(this)">骚粉</a>
+            </td></tr></table>
+<div class="clearfix"></div>
 </div>
-<!-- <div>
-  <p>
-    <embed src="./flash6893.swf" type="application/x-shockwave-flash" width="550" height="400"
-      quality="high" /><span style="line-height:1.5;"></span>
-  </p>
-</div> -->
-<!-- <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-  codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="550"
-  height="400" id="Untitled-1" align="middle">
-  <param name="allowScriptAccess" value="sameDomain" />
-  <param name="movie" value="./flash6893.swf" />
-  <param name="quality" value="high" />
-  <param name="bgcolor" value="#ffffff" />
-  <embed src="./flash6893.swf" quality="high" bgcolor="#ffffff" width="550" height="400" name="mymovie" align="middle"
-    allowScriptAccess="sameDomain" type="application/x-shockwave-flash"
-    pluginspage="http://www.macromedia.com/go/getflashplayer" />
-</object> -->
-<!-- <div>
-  <object data="./flash6893.swf" type="application/x-shockwave-flash" width="1002" height="335">
-    <param name="movie" value="./flash6893.swf" />
-    <param name="wmode" value="transparent" />
-  </object>
-</div> -->
-</body>
+<div class="contentwarp">
+  <table  id="mytab1"  border="1" class="淡蓝">
+    <thead>
+    <th width="10%">网名</th>
+    <th width="30%">博客</th>
+    <th width="20%">电邮</th>
+    <th width="28%">网络硬盘</th>
+    <th width="12%">QQ</th>
+    </thead>
+    <tr class="a1">
+        <td>wallimn</td>
+        <td>http://blog.csdn.net/wallimn</td>
+        <td>wallimn@tom.com</td>
+        <td>http://wallimn.ys168.com</td>
+        <td>54871876</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>wallimn</td>
+        <td>http://blog.csdn.net/wallimn</td>
+        <td>wallimn@tom.com</td>
+        <td>http://wallimn.ys168.com</td>
+        <td>54871876</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+</table>
 
+<table  id="mytab2"  border="1" class="淡蓝"  style="float: right;">
+    <thead>
+    <th width="10%">网名</th>
+    <th width="30%">博客</th>
+    <th width="20%">电邮</th>
+    <th width="28%">网络硬盘</th>
+    <th width="12%">QQ</th>
+    </thead>
+    <tr class="a1">
+        <td>wallimn</td>
+        <td>http://blog.csdn.net/wallimn</td>
+        <td>wallimn@tom.com</td>
+        <td>http://wallimn.ys168.com</td>
+        <td>54871876</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>wallimn</td>
+        <td>http://blog.csdn.net/wallimn</td>
+        <td>wallimn@tom.com</td>
+        <td>http://wallimn.ys168.com</td>
+        <td>54871876</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr class="a1">
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+    <tr>
+        <td>长三江</td>
+        <td>村在</td>
+        <td>北京天安门</td>
+        <td>东四十条</td>
+        <td>21345678</td>
+    </tr>
+</table>
+  </div>
+
+
+</body>
 </html>
