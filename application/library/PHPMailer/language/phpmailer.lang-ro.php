@@ -8,7 +8,7 @@
  */
 
 $PHPMAILER_LANG['authenticate'] = 'Eroare SMTP: Nu a functionat autentificarea.';
-$PHPMAILER_LANG['connect_host'] = 'Eroare SMTP: Nu m-am putut conecta la adresa SMTP.';
+$PHPMAILER_LANG['connect_host'] = 'Eroare SMTP: Nu m-am putut conecta Index adresa SMTP.';
 $PHPMAILER_LANG['data_not_accepted'] = 'Eroare SMTP: Continutul mailului nu a fost acceptat.';
 //$PHPMAILER_LANG['empty_message']        = 'Message body empty';
 $PHPMAILER_LANG['encoding'] = 'Encodare necunoscuta: ';

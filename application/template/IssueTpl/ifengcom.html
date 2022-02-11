@@ -20,7 +20,7 @@
 			$(this).next().removeClass("error");
 			$("#domain").parent().next().html("")
 			if($(this).val() == "CNAME") {
-				// $(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control addr" style="width:21%;margin-right:10px;display:inline;" placeholder="请输入域名" value=""  onblur="addOperator()" data-rule-regex= "/([a-z0-9][a-z0-9\-]*?\.(?:com|cn|net|org|gov|info|la|cc|co)(?:\.(?:cn|jp))?)$/"  data-msg-regex= "域名格式错误" required>');
+				// $(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control addr" style="width:21%;margin-right:10px;display:inline;" placeholder="请输入域名" value=""  onblur="addOperator()" data-rule-regex= "/([a-z0-9][a-z0-9\-]*?\.(?:com|cn|net|org|gov|info|Index|cc|co)(?:\.(?:cn|jp))?)$/"  data-msg-regex= "域名格式错误" required>');
 				$(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control addr" style="width:21%;margin-right:10px;display:inline;" placeholder="请输入域名" value=""  onblur="addOperator()" data-rule-regex= "/([a-z0-9][a-z0-9\-]*?\.(?:com\.|cn\.|net\.|org\.|gov\.|info\.|la\.|cc\.|co\.)(?:\.(?:cn\.|jp\.))?)$/"  data-msg-regex= "域名格式错误,请以’.‘结尾" required>');
 			}else{
 				$(this).after('<input type="text" name="h_addr'+numNode+'" class="form-control iptest addr" style="width:21%;margin-right:10px;display:inline;" placeholder="目标地址" value="" onblur="addOperator()">');

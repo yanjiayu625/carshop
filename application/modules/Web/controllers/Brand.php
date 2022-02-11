@@ -13,6 +13,7 @@ class BrandController extends \Base\Controller_AbstractWeb
     //车品类列表
     public function brandListAction()
     {
+        echo "123";
         //views 文件夹下必须有一个 brandList.phtml
     }
 
