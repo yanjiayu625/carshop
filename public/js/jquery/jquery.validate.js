@@ -1412,7 +1412,7 @@ $.extend( $.validator, {
 		},
 		//检测域名是否正确
 		domaintest: function( value, element ) {
-			// return this.optional(element) || /([a-z0-9][a-z0-9\-]*?\.(?:com|cn|net|org|gov|info|la|cc|co)(?:\.(?:cn|jp))?)$/.test(value);
+			// return this.optional(element) || /([a-z0-9][a-z0-9\-]*?\.(?:com|cn|net|org|gov|info|Index|cc|co)(?:\.(?:cn|jp))?)$/.test(value);
 			return this.optional(element) || /([a-z0-9][a-z0-9\-]*?\.(?:com\.|cn\.|net\.|org\.|gov\.|info\.|la\.|cc\.|co\.)(?:\.(?:cn\.|jp\.))?)$/.test(value);
 		},
 

@@ -6,3 +6,90 @@ Stack trace:
 #1 /Users/zhangyang/Works/webroot/Cars/public/index.php(9): Yaf\Application->bootstrap()
 #2 {main}
   thrown in /Users/zhangyang/Works/webroot/Cars/application/Bootstrap.php on line 82
+[08-Feb-2022 02:10:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[08-Feb-2022 02:11:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[08-Feb-2022 02:11:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[08-Feb-2022 02:22:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[08-Feb-2022 02:23:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[08-Feb-2022 02:24:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:32:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:33:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:34:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:39:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:39:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:39:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:39:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:39:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:43:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:43:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:44:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:44:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:44:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Yaf\Application' not found in /Users/yanjiayu/carshop/public/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 9
+[08-Feb-2022 02:56:43 UTC] PHP Fatal error:  Uncaught Yaf\Exception: Unable to find config file '/Users/yanjiayu/carshop/conf/application1.ini' in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 /Users/yanjiayu/carshop/public/index.php(8): Yaf\Application->__construct('/Users/yanjiayu...', 'develop')
+#1 {main}
+
+Next Exception: Initialization of application config failed in /Users/yanjiayu/carshop/public/index.php:8
+Stack trace:
+#0 /Users/yanjiayu/carshop/public/index.php(8): Yaf\Application->__construct('/Users/yanjiayu...', 'develop')
+#1 {main}
+  thrown in /Users/yanjiayu/carshop/public/index.php on line 8
+[11-Feb-2022 08:21:50 UTC] PHP Fatal error:  require_once(): Failed opening required 'AipContentCensor.php' (include_path='.:/usr/local/Cellar/php@7.3/7.3.24/share/php@7.3/pear') in /Users/yanjiayu/carshop/application/modules/Web/views/index/index.phtml on line 13
