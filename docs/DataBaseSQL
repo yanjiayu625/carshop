@@ -48,8 +48,10 @@ CREATE TABLE `car_sell_list` (
 DROP TABLE IF EXISTS `car_sell_content`;
 CREATE TABLE `car_sell_content` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `brand_id` int(11) NOT NULL DEFAULT '0' COMMENT '品牌ID',
-  `tags_id` int(11) NOT NULL DEFAULT '1' COMMENT '标签ID',
+ `sell_id` int(11)  NOT NULL DEFAULT 0 COMMENT '列表ID',
+ `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
+  `tags_id` int(11) NOT NULL DEFAULT 0 COMMENT '标签ID',
+
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
   `source` varchar(255) NOT NULL DEFAULT '' COMMENT '来源',
   `new_price` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '新车售价,单位万',
@@ -81,10 +83,10 @@ CREATE TABLE `car_sell_content` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `car_upload_file_list`;
-CREATE TABLE `car_upload_file_list` (
+DROP TABLE IF EXISTS `car_sell_upload_file_list`;
+CREATE TABLE `car_sell_upload_file_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sell_content_id` int(11) NOT NULL DEFAULT 0 COMMENT '内容ID',
+  `sell_id` int(11) NOT NULL DEFAULT 0 COMMENT '列表ID',
   `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,1:滚动图片,2:实拍图片,3:视频,等',
   `file_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '文件地址',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

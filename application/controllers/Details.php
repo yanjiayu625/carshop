@@ -21,7 +21,7 @@ class DetailsController extends \Base\Controller_AbstractWechat
             }
 
             $scrollImage =  MysqlCommon::getInstance()->getListByTableName('car_upload_file_list', ['file_dir'],
-                ['type' => 1, 'sell_content_id' => $postInfo['id']]);
+                ['type' => 1, 'sell_id' => $postInfo['id']]);
 
             $res['code'] = 200;
             $res['data'] = $scrollImage;
@@ -49,7 +49,7 @@ class DetailsController extends \Base\Controller_AbstractWechat
                 throw new \Exception("售卖ID为空");
             }
             $detailInfo = $brandList = MysqlCommon::getInstance()->getListByTableName('car_sell_content', null,
-                ['id' => $postInfo['id']]);
+                ['sell_id' => $postInfo['id']]);
 
             $res['code'] = 200;
             $res['data'] = $detailInfo;
@@ -78,7 +78,7 @@ class DetailsController extends \Base\Controller_AbstractWechat
             }
 
             $allImage =  MysqlCommon::getInstance()->getListByTableName('car_upload_file_list', ['file_dir'],
-                ['type' => 2, 'sell_content_id' => $postInfo['id']]);
+                ['type' => 2, 'sell_id' => $postInfo['id']]);
 
             $res['code'] = 200;
             $res['data'] = $allImage;
