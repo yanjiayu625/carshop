@@ -37,45 +37,45 @@
     <div class="changecity"><a href="/city/" class="changecity">全国<i class="layui-icon"></i></a></div>
 </div>
 <!--图片展示-->
-<!--<div class="mainpic">-->
-<!--    <div class="swiper-container swiper-container-horizontal swiper-container-android">-->
-<!--        <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-856px, 0px, 0px);"><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="1" style="width: 428px;">-->
-<!--                <div style="background: url(/upload/image/20210322/20210322163110_44185.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="swiper-slide swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="0" style="width: 428px;">-->
-<!--                <div style="background: url(/images/20191121125007_41872.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="1" style="width: 428px;">-->
-<!--                <div style="background: url(/images/20210322163110_44185.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" style="width: 428px;">-->
-<!--                <div style="background: url(/upload/image/20191121/20191121125007_41872.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">-->
-<!--                </div>-->
-<!--            </div></div>-->
-<!--        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>-->
-<!--        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>-->
-<!--    <script>-->
-<!--        var mySwiper = new Swiper ('.swiper-container', {-->
-<!--            loop: true,-->
-<!--            autoplay:true,-->
-<!--            pagination: {-->
-<!--                el: '.swiper-pagination',-->
-<!--                clickable:true,-->
-<!--            }-->
-<!--        })-->
-<!--    </script>-->
-<!--</div>-->
+<div class="mainpic">
+    <div class="swiper-container swiper-container-horizontal swiper-container-android">
+        <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-856px, 0px, 0px);"><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="1" style="width: 428px;">
+                <div style="background: url(/upload/image/20210322/20210322163110_44185.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">
+                </div>
+            </div>
+            <div class="swiper-slide swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="0" style="width: 428px;">
+                <div style="background: url(/images/20191121125007_41872.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">
+                </div>
+            </div>
+            <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="1" style="width: 428px;">
+                <div style="background: url(/images/20210322163110_44185.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">
+                </div>
+            </div>
+            <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" style="width: 428px;">
+                <div style="background: url(/upload/image/20191121/20191121125007_41872.jpg) no-repeat center center;background-size:100% auto;background-size:cover;height:120px;">
+                </div>
+            </div></div>
+        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    <script>
+        var mySwiper = new Swiper ('.swiper-container', {
+            loop: true,
+            autoplay:true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable:true,
+            }
+        })
+    </script>
+</div>
 <!-- 图片展示 -->
 <div class="index-service">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-xs6">
-            <a href="/buycar/" class="layui-btn layui-btn-danger layui-btn-fluid layui-btn-lg">我要买车</a>
+            <a href="/buycar/buycar" class="layui-btn layui-btn-danger layui-btn-fluid layui-btn-lg">我要买车</a>
         </div>
         <div class="layui-col-xs6">
-            <a href="/sellcar/" class="layui-btn layui-btn-warm layui-btn-fluid layui-btn-lg">快速卖车</a>
+            <a href="/sellcar/sellcar" class="layui-btn layui-btn-warm layui-btn-fluid layui-btn-lg">快速卖车</a>
         </div>
     </div>
 </div>
@@ -109,11 +109,11 @@
             <li><a href="/buycar/list-ob12"><img src="/upload/brand/large/b12.jpg" width="15"> 奔腾</a></li>
             <li><a href="/buycar/list-ob11"><img src="/upload/brand/large/b11.jpg" width="15"> 保时捷</a></li>
         </ul>
-        <a href="/buycar/" class="morecars">查看全部</a>
+        <a href="/buycar/buycar" class="morecars">查看全部</a>
     </div>
 </div>
 <div class="index-box">
-    <h3><a href="/buycar/" class="more">更多</a><span>最新上架</span></h3>
+    <h3><a href="/buycar/buycar" class="more">更多</a><span>最新上架</span></h3>
     <div class="listcar">
         <a href="/cars/253">
             <div class="carimg">
@@ -233,9 +233,9 @@
 <div class="toolbar">
     <ul>
         <li><a href="/" class="selected"><i class="a01"></i>首页</a></li>
-        <li><a href="/buycar/"><i class="a02"></i>买车</a></li>
-        <li><a href="/sellcar/"><i class="a03"></i>卖车</a></li>
-        <li><a href="/user.php"><i class="a04"></i>我的</a></li>
+        <li><a href="/buycar/buycar"><i class="a02"></i>买车</a></li>
+        <li><a href="/sellcar/sellcar"><i class="a03"></i>卖车</a></li>
+        <li><a href="/center/center"><i class="a04"></i>我的</a></li>
     </ul>
 </div>
 <style>
