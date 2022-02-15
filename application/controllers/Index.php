@@ -11,7 +11,7 @@ class IndexController extends \Base\Controller_AbstractWechat
 
     public function getSellListAction()
     {
-        $list = $brandList = MysqlCommon::getInstance()->getListByTableName('car_sell_list', ['title', 'pic_dir',
+        $list = $brandList = MysqlCommon::getInstance()->getListByTableName('car_sell_list', ['id', 'title', 'pic_dir',
             'register_date', 'mileage', 'sell_price'], ['is_home'=>1,'status'=>1], 'id desc');
 
         $res['code'] = 200;
@@ -19,8 +19,5 @@ class IndexController extends \Base\Controller_AbstractWechat
 
         Tools::returnAjaxJson($res);
     }
-
-    
-
 
 }

@@ -11,12 +11,6 @@ use \Mongodb\Issue\CommonModel as MongoDBIssue;
  */
 class SellController extends \Base\Controller_AbstractWeb
 {
-
-    /**
-     * 图片上传 附带压缩
-     * @author tanghan <tanghan@ifeng.com>
-     * @time 2020/6/8 9:58
-     */
     /**
      * 上传附件
      * @author zhangyang7
@@ -186,4 +180,5 @@ class SellController extends \Base\Controller_AbstractWeb
         Tools::returnAjaxJson($res);
     }
 
+    
 }

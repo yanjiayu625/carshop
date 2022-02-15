@@ -47,16 +47,15 @@ CREATE TABLE `car_sell_list` (
 
 DROP TABLE IF EXISTS `car_sell_content`;
 CREATE TABLE `car_sell_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
-  `tags_id` int(11)  NOT NULL DEFAULT 1 COMMENT '标签ID',
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_id` int(11) NOT NULL DEFAULT '0' COMMENT '品牌ID',
+  `tags_id` int(11) NOT NULL DEFAULT '1' COMMENT '标签ID',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
   `source` varchar(255) NOT NULL DEFAULT '' COMMENT '来源',
-  `new_price` float(8,2) NOT NULL DEFAULT 0.00 COMMENT '新车售价,单位万',
+  `new_price` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '新车售价,单位万',
   `update_date` varchar(20) NOT NULL DEFAULT '' COMMENT '更新日期.2022-02-15',
-
   `register_date` varchar(20) NOT NULL DEFAULT '' COMMENT '上牌时间,2015-01',
-  `mileage` float(8,2) NOT NULL DEFAULT 0.00 COMMENT '里程数',
+  `mileage` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '里程数',
   `car_engines` varchar(20) NOT NULL DEFAULT '' COMMENT '排量',
   `emission` varchar(20) NOT NULL DEFAULT '' COMMENT '排放标准',
 
@@ -68,8 +67,7 @@ CREATE TABLE `car_sell_content` (
   `basic_import` varchar(20) NOT NULL DEFAULT '' COMMENT '国产/进口',
   `basic_register` varchar(20) NOT NULL DEFAULT '' COMMENT '上牌日期',
   `basic_fuel` varchar(20) NOT NULL DEFAULT '' COMMENT '燃油类型',
-  `basic_emission` varchar(20) NOT NULL DEFAULT '' COMMENT '排放标准',
-  `basic_emission` varchar(20) NOT NULL DEFAULT '' COMMENT '排放标准',
+  `basic_emission_rule` varchar(20) NOT NULL DEFAULT '' COMMENT '排放标准',
   `basic_survey` varchar(20) NOT NULL DEFAULT '' COMMENT '年检到期',
   `basic_insurance` varchar(20) NOT NULL DEFAULT '' COMMENT '保险到期',
   `basic_purpose` varchar(20) NOT NULL DEFAULT '' COMMENT '车辆用途',
@@ -77,18 +75,18 @@ CREATE TABLE `car_sell_content` (
 
   `owner_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '车主描述',
 
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用,2:已售',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态,0:禁用,1:启用,2:已售',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `car_sell_pic_list`;
-CREATE TABLE `car_sell_pic_list` (
+DROP TABLE IF EXISTS `car_upload_file_list`;
+CREATE TABLE `car_upload_file_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sell_content_id` int(11) NOT NULL DEFAULT 0 COMMENT '内容ID',
-  `pic_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用',
+  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,1:滚动图片,2:实拍图片,3:视频,等',
+  `file_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '文件地址',
   `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
