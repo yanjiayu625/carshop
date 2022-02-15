@@ -34,7 +34,7 @@ class SellController extends \Base\Controller_AbstractWeb
                 throw new \Exception("上传文件类型不能为空");
             }
 
-            if(!in_array($postInfo['file_type'], ['image', 'video'])){
+            if (!in_array($postInfo['file_type'], ['image', 'video'])) {
                 throw new \Exception("上传文件类型不能非法");
             }
 
@@ -90,7 +90,7 @@ class SellController extends \Base\Controller_AbstractWeb
     public function getSellListAction()
     {
         $list = $brandList = MysqlCommon::getInstance()->getListByTableName('car_sell_list', ['id', 'title', 'pic_dir',
-            'register_date', 'mileage', 'sell_price'], ['is_home'=>1,'status'=>1], 'id desc');
+            'register_date', 'mileage', 'sell_price'], ['is_home' => 1, 'status' => 1], 'id desc');
 
         $res['code'] = 200;
         $res['data'] = $list;
@@ -113,56 +113,50 @@ class SellController extends \Base\Controller_AbstractWeb
                 throw new \Exception("售卖ID为空");
             }
 
-            $existInfo = MysqlCommon::getInstance()->getInfoByTableName('car_sell_list', ['brand_name'], ['id'=>$postInfo['id']]);
-            if(empty($existInfo)){
+            $existInfo = MysqlCommon::getInstance()->getInfoByTableName('car_sell_list', ['title'], ['id' => $postInfo['id']]);
+            if (empty($existInfo)) {
                 throw new \Exception("售卖信息ID值非法");
             }
 
-            if (!empty(trim($postInfo['brand_name']))) {
-                $brandName = addslashes(trim($postInfo['brand_name']));
-                $existName = MysqlCommon::getInstance()->getInfoByTableName('car_brand', ['id'], ['id <>' => $postInfo['id'],
-                    'brand_name'=>$brandName]);
-                if(!empty($existName)){
-                    throw new \Exception("品牌名称已存在");
-                }
-                $modifyInfo['brand_name']  = $brandName;
-            }
-
-            if (!empty($postInfo['sort_letter'])) {
-                $sortLetter =trim($postInfo['sort_letter']);
-                if (!Validate::isUpperLetter($sortLetter)) {
-                    throw new \Exception('品牌首字母缩写必须为大写字母!');
-                }
-                $modifyInfo['sort_letter']  = $sortLetter;
-            }
-
-            if (!empty($postInfo['sort_id'])) {
-                $sortId =trim($postInfo['sort_id']);
-                if (!Validate::isNumber($sortId)) {
-                    throw new \Exception('品牌排序数字必须为数字!');
-                }
-                $modifyInfo['sort_id']  = $sortId;
+            if (!empty(trim($postInfo['title']))) {
+                $modifyInfo['title'] = addslashes(trim($postInfo['title']));
             }
 
             if (!empty($postInfo['pic_dir'])) {
                 $modifyInfo['pic_dir'] = trim($postInfo['pic_dir']);
             }
 
-            if(empty($postInfo['status'])){
-                throw new \Exception('品牌状态参数为空!');
-            }
-            if(!in_array($postInfo['status'], ['1', '2'])){
-                throw new \Exception('品牌状态参数值非法!');
-            }
-            $modifyInfo['status'] = $postInfo['status'];
-
-            if(empty($modifyInfo)){
-                throw new \Exception('品牌信息修改数据为空!');
+            if (!empty($postInfo['register_date'])) {
+                $registerDate = trim($postInfo['register_date']);
+                if (!strtotime($registerDate)) {
+                    throw new \Exception('上牌日期非法!');
+                }
+                $modifyInfo['register_date'] = $registerDate;
             }
 
-            $modifyRes = MysqlCommon::getInstance()->updateListByTableName('car_brand', $modifyInfo, ['id'=>$postInfo['id']]);
-            if(!$modifyRes){
-                throw new \Exception('Mysql操作错误:修改品信信息时失败!');
+            if (!empty($postInfo['mileage'])) {
+                $mileage = trim($postInfo['mileage']);
+                if (!preg_match('/^[0-9]+(.[0-9]{1,2})?$/', $mileage)) {
+                    throw new \Exception('里程数非法!');
+                }
+                $modifyInfo['mileage'] = $mileage;
+            }
+
+            if (!empty($postInfo['sell_price'])) {
+                $sellPrice = trim($postInfo['sell_price']);
+                if (!preg_match('/^[0-9]+(.[0-9]{1,2})?$/', $sellPrice)) {
+                    throw new \Exception('里程数非法!');
+                }
+                $modifyInfo['sell_price'] = $sellPrice;
+            }
+
+            if (empty($modifyInfo)) {
+                throw new \Exception('售卖列表信息修改数据为空!');
+            }
+
+            $modifyRes = MysqlCommon::getInstance()->updateListByTableName('car_sell_list', $modifyInfo, ['id' => $postInfo['id']]);
+            if (!$modifyRes) {
+                throw new \Exception('Mysql操作错误:修改售卖信息时失败!');
             }
 
             $res['code'] = 200;
