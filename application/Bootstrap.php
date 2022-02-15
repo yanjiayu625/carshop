@@ -83,4 +83,46 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract {
         $dispatcher->registerPlugin($user);
     }
 
+
+    public function _initConst()
+    {
+
+        if (isset($this->config->storage->params->dir))
+        {
+            define('STORAGE_DIR', $this->config->storage->params->dir);
+        }
+        
+    }
+
+
+    /**
+     * 将邮件数据保存
+     */
+    public function _initMailer() {
+        if (isset($this->config->smtp))
+        {
+            if (isset($this->config->smtp->server))
+            {
+                define('SMTP_SERVER', $this->config->smtp->server);
+            }
+            if (isset($this->config->smtp->ssl))
+            {
+                define('SMTP_SSL', $this->config->smtp->ssl);
+            }
+            if (isset($this->config->smtp->username))
+            {
+                define('SMTP_USERNAME', $this->config->smtp->username);
+            }
+            if (isset($this->config->smtp->password))
+            {
+                define('SMTP_PASSWORD', $this->config->smtp->password);
+            }
+            if (isset($this->config->smtp->helo))
+            {
+                define('SMTP_HELO', $this->config->smtp->helo);
+            }
+        }
+    }
+
+
 }

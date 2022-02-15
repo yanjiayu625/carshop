@@ -2,12 +2,11 @@
 
 namespace DAO\Data;
 
-use Yaf\Registry;
-use Jobby\Exception;
+use jamesiarmes\PhpEws\Response\UpdateDelegateResponseMessageType;
 use Mysql\Common\CommonModel as MysqlCommon;
+use Yaf\Registry;
 
-class FileModel
-{
+class FileModel {
     private static $_tableName = 'file';
     private $_id = null;
     private $_uid = null;
@@ -33,7 +32,7 @@ class FileModel
      */
     public static function getFileById($id)
     {
-        $fileInfo = MysqlCommon::getInstance()->getInfoByTableName(self::$_tableName, null, ['id' => $id]);
+        $fileInfo = MysqlCommon::getInstance()->getInfoByTableName(self::$_tableName,null, ['id' => $id]);
         if (empty($fileInfo))
             return null;
 
@@ -116,10 +115,10 @@ class FileModel
                     case 'purpose':
                         $this->_purpose = $value;
                         break;
-                    case 'project':
+                    case 'project' :
                         $this->_project = $value;
                         break;
-                    case 'path':
+                    case 'path' :
                         $this->_path = $value;
                 }
             }
@@ -168,7 +167,7 @@ class FileModel
     {
         $relPath = str_replace(APPLICATION_PATH, '', $this->_path);
 
-        $domain = Registry::get('config')->get('system.host');
+        $domain = Registry::get('config')->get('Wechat.domain');
         if (empty($domain))
             throw new Exception('服务器错误: 未配置域名');
 
@@ -184,18 +183,7 @@ class FileModel
         return $image;
     }
 
-    /**
-     * 文件上传
-     * @author likexin
-     * @time   2020-08-11 10:37:46
-     * @param 所属用户 $uid
-     * @param 属性 $purpose
-     * @param 项目 $project
-     * @param 文件信息 $fileInfo
-     * @param 处理参数 $options
-     * @return void
-     */
-    public static function stashFile($uid, $purpose = 'uploads', $project = 'default', array $fileInfo = [], array $options = [])
+    public static function stashFile($uid, $purpose = 'uploads', $project = 'default', array $fileInfo = [] , $options = [])
     {
         if (empty($purpose) || empty($project) || empty($fileInfo)) {
             throw new \Exception('暂存文件参数为空');
@@ -213,21 +201,25 @@ class FileModel
         if (!move_uploaded_file($fileInfo['tmp_name'], $filePath)) {
             throw new \Exception('上传文件失败');
         }
-        $uidInfo = MysqlCommon::getInstance()->getInfoByTableName('data_center_all_user', ['name'], ['uid' => $uid]);
-        if (empty($uidInfo)) {
+
+        $uidInfo = \Bll\Data\UserModel::getUserInfo($uid);
+        if (empty($uidInfo))
             throw new \Exception('用户信息查询失败');
-        }
 
         $file = new self($uid, $uidInfo['name'],  $purpose, $project, $filePath);
         $file->save();
 
-        $detectedType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $filePath);
+        $res = [
+            'url' => $file->url(),
+        ];
+
+        $detectedType = finfo_file(finfo_open(FILEINFO_MIME_TYPE),$filePath);
         if ($detectedType === false) {
             throw new \Exception('mime type error!');
         }
 
-        // 图片压缩
-        if (strpos($detectedType, 'image/') === 0 && !empty($options['compression'])) {
+        // 图片类型
+        if (strpos($detectedType, 'image/') === 0) {
 
             $image = $file->getImage();
 
@@ -243,6 +235,6 @@ class FileModel
             $image->save();
         }
 
-        return $file->url();
+        return $res;
     }
 }

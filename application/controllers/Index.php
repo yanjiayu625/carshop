@@ -20,6 +20,7 @@ class IndexController extends \Base\Controller_AbstractWechat
         Tools::returnAjaxJson($res);
     }
 
+    
 
 
 }
