@@ -150,6 +150,22 @@ class SellController extends \Base\Controller_AbstractWeb
                 $modifyInfo['sell_price'] = $sellPrice;
             }
 
+            if(!isset($postInfo['is_home'])){
+                throw new \Exception('首页推荐参数为空!');
+            }
+            if(!in_array($postInfo['is_home'], ['0', '1'])){
+                throw new \Exception('首页推荐参数值非法!');
+            }
+            $modifyInfo['is_home'] = $postInfo['is_home'];
+
+            if(!isset($postInfo['status'])){
+                throw new \Exception('售卖状态参数为空!');
+            }
+            if(!in_array($postInfo['status'], ['0', '1'])){
+                throw new \Exception('售卖状态参数值非法!');
+            }
+            $modifyInfo['status'] = $postInfo['status'];
+
             if (empty($modifyInfo)) {
                 throw new \Exception('售卖列表信息修改数据为空!');
             }
