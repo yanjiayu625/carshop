@@ -1,0 +1,532 @@
+<html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>选择城市 - 锐车</title>
+    <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netran<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>dom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="keywords">
+    <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="description">
+    <link rel="stylesheet" href="/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css?t=7">
+    <script charset="utf-8" src="//47.99.156.104:8080/clicklogs/rrweb.sdk.js"></script><script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="/js/layui.js"></script>
+    <script src="/js/common.js"></script>
+    <script type="text/javascript">
+        var _variable = new Array();
+        _variable["startPage"] = false; //第一个页面设置为true
+        (function() {
+            var yfxjs = document.createElement("script");
+            yfxjs.charset = "utf-8";
+            yfxjs.src = "//47.99.156.104:"+(location.protocol === "https:"? "8443" : "8080")+"/clicklogs/rrweb.sdk.js";
+            var yfxjs_t = document.getElementsByTagName("script")[0];
+            yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t);
+        })();
+    </script>
+    <script language="JavaScript">
+        $(function() {
+            layui.use(['layer'], function(){
+                var layer = layui.layer;
+            })
+            $(".changecity").click(function() {
+                var city = $(this).attr("data");
+                $.ajax({
+                    url: "/index.php?m=ajax&ajax=1&changecity=1",
+                    data:{city:city},
+                    type: "get",
+                    dataType: "json",
+                    success: function(data){
+                        if(data.status == 'y'){
+                            location.href="/"+city;
+                        }
+                    }
+                });
+            });
+            $(".city_tab").click(function() {
+                var key = $(this).text();
+                layer.msg(key);
+            });
+        })
+    </script>
+    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all"></head>
+<body>
+<header class="mo-header">
+    <div class="mo-header-left">
+        <a href="/" class="reback">
+            <i class="layui-icon"></i>
+        </a>
+    </div>
+    <div class="mo-header-title">选择城市</div>
+</header>
+<div class="citylist-box">
+    <ul class="city-list">
+        <li id="cityquanguo">
+            <span class="key">全</span>
+            <a href="javascript:;" class="changecity" data="quanguo">全国</a>
+        </li>
+        <li id="A">
+            <span class="key">A</span>
+            <a href="javascript:;" class="changecity" data="anshan">鞍山</a>
+            <a href="javascript:;" class="changecity" data="aba">阿坝</a>
+            <a href="javascript:;" class="changecity" data="alashan">阿拉善</a>
+            <a href="javascript:;" class="changecity" data="atushi">阿图什</a>
+            <a href="javascript:;" class="changecity" data="ankang">安康</a>
+            <a href="javascript:;" class="changecity" data="akesu">阿克苏</a>
+            <a href="javascript:;" class="changecity" data="anqing">安庆</a>
+            <a href="javascript:;" class="changecity" data="ali">阿里</a>
+            <a href="javascript:;" class="changecity" data="anyang">安阳</a>
+            <a href="javascript:;" class="changecity" data="alaer">阿拉尔</a>
+            <a href="javascript:;" class="changecity" data="anshun">安顺</a>
+            <a href="javascript:;" class="changecity" data="aletai">阿勒泰</a>
+        </li>
+        <li id="B">
+            <span class="key">B</span>
+            <a href="javascript:;" class="changecity" data="beijing">北京</a>
+            <a href="javascript:;" class="changecity" data="bayannaoer">巴彦淖尔</a>
+            <a href="javascript:;" class="changecity" data="baise">百色</a>
+            <a href="javascript:;" class="changecity" data="baisha">白沙</a>
+            <a href="javascript:;" class="changecity" data="bayinguoleng">巴音郭楞</a>
+            <a href="javascript:;" class="changecity" data="zhou">亳州</a>
+            <a href="javascript:;" class="changecity" data="binzhou">滨州</a>
+            <a href="javascript:;" class="changecity" data="bazhong">巴中</a>
+            <a href="javascript:;" class="changecity" data="baoting">保亭</a>
+            <a href="javascript:;" class="changecity" data="bole">博乐</a>
+            <a href="javascript:;" class="changecity" data="baicheng">白城</a>
+            <a href="javascript:;" class="changecity" data="bijie">毕节</a>
+            <a href="javascript:;" class="changecity" data="baotou">包头</a>
+            <a href="javascript:;" class="changecity" data="bangbu">蚌埠</a>
+            <a href="javascript:;" class="changecity" data="baiyin">白银</a>
+            <a href="javascript:;" class="changecity" data="baoji">宝鸡</a>
+            <a href="javascript:;" class="changecity" data="baoshan">保山</a>
+            <a href="javascript:;" class="changecity" data="benxi">本溪</a>
+            <a href="javascript:;" class="changecity" data="beihai">北海</a>
+            <a href="javascript:;" class="changecity" data="baoding">保定</a>
+            <a href="javascript:;" class="changecity" data="baishan">白山</a>
+            <a href="javascript:;" class="changecity" data="boertala">博尔塔拉</a>
+        </li>
+        <li id="C">
+            <span class="key">C</span>
+            <a href="javascript:;" class="changecity" data="zhongqing">重庆</a>
+            <a href="javascript:;" class="changecity" data="chuzhou">滁州</a>
+            <a href="javascript:;" class="changecity" data="chenzhou">郴州</a>
+            <a href="javascript:;" class="changecity" data="chuxiong">楚雄</a>
+            <a href="javascript:;" class="changecity" data="chaoyang">朝阳</a>
+            <a href="javascript:;" class="changecity" data="chaohu">巢湖</a>
+            <a href="javascript:;" class="changecity" data="changjiang">昌江</a>
+            <a href="javascript:;" class="changecity" data="chongzuo">崇左</a>
+            <a href="javascript:;" class="changecity" data="changji">昌吉</a>
+            <a href="javascript:;" class="changecity" data="chizhou">池州</a>
+            <a href="javascript:;" class="changecity" data="chengmai">澄迈</a>
+            <a href="javascript:;" class="changecity" data="cangzhou">沧州</a>
+            <a href="javascript:;" class="changecity" data="changchun">长春</a>
+            <a href="javascript:;" class="changecity" data="changsha">长沙</a>
+            <a href="javascript:;" class="changecity" data="chengdu">成都</a>
+            <a href="javascript:;" class="changecity" data="changdu">昌都</a>
+            <a href="javascript:;" class="changecity" data="changzhi">长治</a>
+            <a href="javascript:;" class="changecity" data="changzhou">常州</a>
+            <a href="javascript:;" class="changecity" data="chifeng">赤峰</a>
+            <a href="javascript:;" class="changecity" data="changde">常德</a>
+            <a href="javascript:;" class="changecity" data="chengde">承德</a>
+            <a href="javascript:;" class="changecity" data="chaozhou">潮州</a>
+        </li>
+        <li id="D">
+            <span class="key">D</span>
+            <a href="javascript:;" class="changecity" data="datong">大同</a>
+            <a href="javascript:;" class="changecity" data="diqing">迪庆</a>
+            <a href="javascript:;" class="changecity" data="dazhou">达州</a>
+            <a href="javascript:;" class="changecity" data="dehong">德宏</a>
+            <a href="javascript:;" class="changecity" data="dezhou">德州</a>
+            <a href="javascript:;" class="changecity" data="dali">大理</a>
+            <a href="javascript:;" class="changecity" data="daxinganling">大兴安岭</a>
+            <a href="javascript:;" class="changecity" data="dingxi">定西</a>
+            <a href="javascript:;" class="changecity" data="dingan">定安</a>
+            <a href="javascript:;" class="changecity" data="dongfang">东方</a>
+            <a href="javascript:;" class="changecity" data="daqing">大庆</a>
+            <a href="javascript:;" class="changecity" data="dandong">丹东</a>
+            <a href="javascript:;" class="changecity" data="zhou">儋州</a>
+            <a href="javascript:;" class="changecity" data="deyang">德阳</a>
+            <a href="javascript:;" class="changecity" data="dongying">东营</a>
+            <a href="javascript:;" class="changecity" data="dalian">大连</a>
+            <a href="javascript:;" class="changecity" data="dong">东莞</a>
+        </li>
+        <li id="E">
+            <span class="key">E</span>
+            <a href="javascript:;" class="changecity" data="eerduosi">鄂尔多斯</a>
+            <a href="javascript:;" class="changecity" data="ezhou">鄂州</a>
+            <a href="javascript:;" class="changecity" data="enshi">恩施</a>
+        </li>
+        <li id="F">
+            <span class="key">F</span>
+            <a href="javascript:;" class="changecity" data="fuzhou">福州</a>
+            <a href="javascript:;" class="changecity" data="fushun">抚顺</a>
+            <a href="javascript:;" class="changecity" data="foshan">佛山</a>
+            <a href="javascript:;" class="changecity" data="fangchenggang">防城港</a>
+            <a href="javascript:;" class="changecity" data="fuxin">阜新</a>
+            <a href="javascript:;" class="changecity" data="fuzhou">抚州</a>
+            <a href="javascript:;" class="changecity" data="fuyang">阜阳</a>
+            <a href="javascript:;" class="changecity" data="fukang">阜康</a>
+        </li>
+        <li id="G">
+            <span class="key">G</span>
+            <a href="javascript:;" class="changecity" data="guangzhou">广州</a>
+            <a href="javascript:;" class="changecity" data="guangan">广安</a>
+            <a href="javascript:;" class="changecity" data="gannan">甘南</a>
+            <a href="javascript:;" class="changecity" data="guigang">贵港</a>
+            <a href="javascript:;" class="changecity" data="guangyuan">广元</a>
+            <a href="javascript:;" class="changecity" data="ganzhou">赣州</a>
+            <a href="javascript:;" class="changecity" data="guoluo">果洛</a>
+            <a href="javascript:;" class="changecity" data="guyuan">固原</a>
+            <a href="javascript:;" class="changecity" data="guilin">桂林</a>
+            <a href="javascript:;" class="changecity" data="guiyang">贵阳</a>
+            <a href="javascript:;" class="changecity" data="ganzi">甘孜</a>
+        </li>
+        <li id="H">
+            <span class="key">H</span>
+            <a href="javascript:;" class="changecity" data="haerbin">哈尔滨</a>
+            <a href="javascript:;" class="changecity" data="huaian">淮安</a>
+            <a href="javascript:;" class="changecity" data="haixi">海西</a>
+            <a href="javascript:;" class="changecity" data="huangshan">黄山</a>
+            <a href="javascript:;" class="changecity" data="huanggang">黄冈</a>
+            <a href="javascript:;" class="changecity" data="honghe">红河</a>
+            <a href="javascript:;" class="changecity" data="hami">哈密</a>
+            <a href="javascript:;" class="changecity" data="hengshui">衡水</a>
+            <a href="javascript:;" class="changecity" data="heihe">黑河</a>
+            <a href="javascript:;" class="changecity" data="huizhou">惠州</a>
+            <a href="javascript:;" class="changecity" data="hezhou">贺州</a>
+            <a href="javascript:;" class="changecity" data="hetian">和田</a>
+            <a href="javascript:;" class="changecity" data="huaihua">怀化</a>
+            <a href="javascript:;" class="changecity" data="hechi">河池</a>
+            <a href="javascript:;" class="changecity" data="huludao">葫芦岛</a>
+            <a href="javascript:;" class="changecity" data="heyuan">河源</a>
+            <a href="javascript:;" class="changecity" data="hulunbeier">呼伦贝尔</a>
+            <a href="javascript:;" class="changecity" data="hanzhong">汉中</a>
+            <a href="javascript:;" class="changecity" data="hebi">鹤壁</a>
+            <a href="javascript:;" class="changecity" data="hangzhou">杭州</a>
+            <a href="javascript:;" class="changecity" data="hefei">合肥</a>
+            <a href="javascript:;" class="changecity" data="haikou">海口</a>
+            <a href="javascript:;" class="changecity" data="huhehaote">呼和浩特</a>
+            <a href="javascript:;" class="changecity" data="huangshi">黄石</a>
+            <a href="javascript:;" class="changecity" data="haidong">海东</a>
+            <a href="javascript:;" class="changecity" data="hegang">鹤岗</a>
+            <a href="javascript:;" class="changecity" data="haibei">海北</a>
+            <a href="javascript:;" class="changecity" data="handan">邯郸</a>
+            <a href="javascript:;" class="changecity" data="huainan">淮南</a>
+            <a href="javascript:;" class="changecity" data="hengyang">衡阳</a>
+            <a href="javascript:;" class="changecity" data="huangnan">黄南</a>
+            <a href="javascript:;" class="changecity" data="huzhou">湖州</a>
+            <a href="javascript:;" class="changecity" data="hainancangzu">海南藏族</a>
+            <a href="javascript:;" class="changecity" data="huaibei">淮北</a>
+            <a href="javascript:;" class="changecity" data="heze">菏泽</a>
+        </li>
+        <li id="J">
+            <span class="key">J</span>
+            <a href="javascript:;" class="changecity" data="jinan">济南</a>
+            <a href="javascript:;" class="changecity" data="jinhua">金华</a>
+            <a href="javascript:;" class="changecity" data="jiangmen">江门</a>
+            <a href="javascript:;" class="changecity" data="jian">吉安</a>
+            <a href="javascript:;" class="changecity" data="jining">济宁</a>
+            <a href="javascript:;" class="changecity" data="jiaozuo">焦作</a>
+            <a href="javascript:;" class="changecity" data="jingmen">荆门</a>
+            <a href="javascript:;" class="changecity" data="jiamusi">佳木斯</a>
+            <a href="javascript:;" class="changecity" data="jiuquan">酒泉</a>
+            <a href="javascript:;" class="changecity" data="jiyuan">济源</a>
+            <a href="javascript:;" class="changecity" data="jinzhou">锦州</a>
+            <a href="javascript:;" class="changecity" data="jinzhong">晋中</a>
+            <a href="javascript:;" class="changecity" data="jilin">吉林</a>
+            <a href="javascript:;" class="changecity" data="jingdezhen">景德镇</a>
+            <a href="javascript:;" class="changecity" data="jinchang">金昌</a>
+            <a href="javascript:;" class="changecity" data="jiaxing">嘉兴</a>
+            <a href="javascript:;" class="changecity" data="jiujiang">九江</a>
+            <a href="javascript:;" class="changecity" data="jingzhou">荆州</a>
+            <a href="javascript:;" class="changecity" data="jincheng">晋城</a>
+            <a href="javascript:;" class="changecity" data="jixi">鸡西</a>
+            <a href="javascript:;" class="changecity" data="jiayuguan">嘉峪关</a>
+            <a href="javascript:;" class="changecity" data="jieyang">揭阳</a>
+        </li>
+        <li id="K">
+            <span class="key">K</span>
+            <a href="javascript:;" class="changecity" data="kunming">昆明</a>
+            <a href="javascript:;" class="changecity" data="kaifeng">开封</a>
+            <a href="javascript:;" class="changecity" data="kelamayi">克拉玛依</a>
+            <a href="javascript:;" class="changecity" data="kashi">喀什</a>
+            <a href="javascript:;" class="changecity" data="kuitun">奎屯</a>
+            <a href="javascript:;" class="changecity" data="kezilesu">克孜勒苏</a>
+        </li>
+        <li id="L">
+            <span class="key">L</span>
+            <a href="javascript:;" class="changecity" data="lanzhou">兰州</a>
+            <a href="javascript:;" class="changecity" data="lishui">丽水</a>
+            <a href="javascript:;" class="changecity" data="he">漯河</a>
+            <a href="javascript:;" class="changecity" data="laiwu">莱芜</a>
+            <a href="javascript:;" class="changecity" data="longnan">陇南</a>
+            <a href="javascript:;" class="changecity" data="lingao">临高</a>
+            <a href="javascript:;" class="changecity" data="linyi">临沂</a>
+            <a href="javascript:;" class="changecity" data="loudi">娄底</a>
+            <a href="javascript:;" class="changecity" data="linxia">临夏</a>
+            <a href="javascript:;" class="changecity" data="laibin">来宾</a>
+            <a href="javascript:;" class="changecity" data="liuan">六安</a>
+            <a href="javascript:;" class="changecity" data="liaocheng">聊城</a>
+            <a href="javascript:;" class="changecity" data="ledong">乐东</a>
+            <a href="javascript:;" class="changecity" data="lingshui">陵水</a>
+            <a href="javascript:;" class="changecity" data="lvliang">吕梁</a>
+            <a href="javascript:;" class="changecity" data="leshan">乐山</a>
+            <a href="javascript:;" class="changecity" data="liaoyang">辽阳</a>
+            <a href="javascript:;" class="changecity" data="lasa">拉萨</a>
+            <a href="javascript:;" class="changecity" data="liupanshui">六盘水</a>
+            <a href="javascript:;" class="changecity" data="liuzhou">柳州</a>
+            <a href="javascript:;" class="changecity" data="luoyang">洛阳</a>
+            <a href="javascript:;" class="changecity" data="liaoyuan">辽源</a>
+            <a href="javascript:;" class="changecity" data="zhou">泸州</a>
+            <a href="javascript:;" class="changecity" data="lijiang">丽江</a>
+            <a href="javascript:;" class="changecity" data="lianyungang">连云港</a>
+            <a href="javascript:;" class="changecity" data="linzhi">林芝</a>
+            <a href="javascript:;" class="changecity" data="longyan">龙岩</a>
+            <a href="javascript:;" class="changecity" data="lincang">临沧</a>
+            <a href="javascript:;" class="changecity" data="langfang">廊坊</a>
+            <a href="javascript:;" class="changecity" data="linfen">临汾</a>
+            <a href="javascript:;" class="changecity" data="liangshan">凉山</a>
+        </li>
+        <li id="M">
+            <span class="key">M</span>
+            <a href="javascript:;" class="changecity" data="maanshan">马鞍山</a>
+            <a href="javascript:;" class="changecity" data="mianyang">绵阳</a>
+            <a href="javascript:;" class="changecity" data="mudanjiang">牡丹江</a>
+            <a href="javascript:;" class="changecity" data="maoming">茂名</a>
+            <a href="javascript:;" class="changecity" data="meizhou">梅州</a>
+            <a href="javascript:;" class="changecity" data="meishan">眉山</a>
+            <a href="javascript:;" class="changecity" data="miquan">米泉</a>
+        </li>
+        <li id="N">
+            <span class="key">N</span>
+            <a href="javascript:;" class="changecity" data="nanjing">南京</a>
+            <a href="javascript:;" class="changecity" data="nanyang">南阳</a>
+            <a href="javascript:;" class="changecity" data="nanchong">南充</a>
+            <a href="javascript:;" class="changecity" data="neijiang">内江</a>
+            <a href="javascript:;" class="changecity" data="ningde">宁德</a>
+            <a href="javascript:;" class="changecity" data="nanping">南平</a>
+            <a href="javascript:;" class="changecity" data="nantong">南通</a>
+            <a href="javascript:;" class="changecity" data="naqu">那曲</a>
+            <a href="javascript:;" class="changecity" data="ningbo">宁波</a>
+            <a href="javascript:;" class="changecity" data="nanning">南宁</a>
+            <a href="javascript:;" class="changecity" data="nanchang">南昌</a>
+            <a href="javascript:;" class="changecity" data="nujiang">怒江</a>
+        </li>
+        <li id="P">
+            <span class="key">P</span>
+            <a href="javascript:;" class="changecity" data="putian">莆田</a>
+            <a href="javascript:;" class="changecity" data="pingxiang">萍乡</a>
+            <a href="javascript:;" class="changecity" data="panzhihua">攀枝花</a>
+            <a href="javascript:;" class="changecity" data="pingdingshan">平顶山</a>
+            <a href="javascript:;" class="changecity" data="puer">普洱</a>
+            <a href="javascript:;" class="changecity" data="pingliang">平凉</a>
+            <a href="javascript:;" class="changecity" data="yang">濮阳</a>
+            <a href="javascript:;" class="changecity" data="panjin">盘锦</a>
+        </li>
+        <li id="Q">
+            <span class="key">Q</span>
+            <a href="javascript:;" class="changecity" data="qiqihaer">齐齐哈尔</a>
+            <a href="javascript:;" class="changecity" data="qingyuan">清远</a>
+            <a href="javascript:;" class="changecity" data="qianjiang">潜江</a>
+            <a href="javascript:;" class="changecity" data="qingyang">庆阳</a>
+            <a href="javascript:;" class="changecity" data="qitaihe">七台河</a>
+            <a href="javascript:;" class="changecity" data="qiannan">黔南</a>
+            <a href="javascript:;" class="changecity" data="qiandongnan">黔东南</a>
+            <a href="javascript:;" class="changecity" data="zhou">衢州</a>
+            <a href="javascript:;" class="changecity" data="qinzhou">钦州</a>
+            <a href="javascript:;" class="changecity" data="qianxinan">黔西南</a>
+            <a href="javascript:;" class="changecity" data="quanzhou">泉州</a>
+            <a href="javascript:;" class="changecity" data="qionghai">琼海</a>
+            <a href="javascript:;" class="changecity" data="qinhuangdao">秦皇岛</a>
+            <a href="javascript:;" class="changecity" data="qujing">曲靖</a>
+            <a href="javascript:;" class="changecity" data="qingdao">青岛</a>
+            <a href="javascript:;" class="changecity" data="qiongzhong">琼中</a>
+        </li>
+        <li id="R">
+            <span class="key">R</span>
+            <a href="javascript:;" class="changecity" data="rikaze">日喀则</a>
+            <a href="javascript:;" class="changecity" data="rizhao">日照</a>
+        </li>
+        <li id="S">
+            <span class="key">S</span>
+            <a href="javascript:;" class="changecity" data="shanghai">上海</a>
+            <a href="javascript:;" class="changecity" data="shaoxing">绍兴</a>
+            <a href="javascript:;" class="changecity" data="songyuan">松原</a>
+            <a href="javascript:;" class="changecity" data="suining">遂宁</a>
+            <a href="javascript:;" class="changecity" data="shangluo">商洛</a>
+            <a href="javascript:;" class="changecity" data="shangrao">上饶</a>
+            <a href="javascript:;" class="changecity" data="suihua">绥化</a>
+            <a href="javascript:;" class="changecity" data="suzhou">宿州</a>
+            <a href="javascript:;" class="changecity" data="sanmenxia">三门峡</a>
+            <a href="javascript:;" class="changecity" data="suizhou">随州</a>
+            <a href="javascript:;" class="changecity" data="suqian">宿迁</a>
+            <a href="javascript:;" class="changecity" data="shanwei">汕尾</a>
+            <a href="javascript:;" class="changecity" data="shangqiu">商丘</a>
+            <a href="javascript:;" class="changecity" data="shennongjialinqu">神农架林区</a>
+            <a href="javascript:;" class="changecity" data="shuozhou">朔州</a>
+            <a href="javascript:;" class="changecity" data="shaoguan">韶关</a>
+            <a href="javascript:;" class="changecity" data="shaoyang">邵阳</a>
+            <a href="javascript:;" class="changecity" data="shijiazhuang">石家庄</a>
+            <a href="javascript:;" class="changecity" data="shenyang">沈阳</a>
+            <a href="javascript:;" class="changecity" data="shen">深圳</a>
+            <a href="javascript:;" class="changecity" data="sanya">三亚</a>
+            <a href="javascript:;" class="changecity" data="shizuishan">石嘴山</a>
+            <a href="javascript:;" class="changecity" data="siping">四平</a>
+            <a href="javascript:;" class="changecity" data="shiyan">十堰</a>
+            <a href="javascript:;" class="changecity" data="shihezi">石河子</a>
+            <a href="javascript:;" class="changecity" data="shuangyashan">双鸭山</a>
+            <a href="javascript:;" class="changecity" data="sanming">三明</a>
+            <a href="javascript:;" class="changecity" data="shantou">汕头</a>
+            <a href="javascript:;" class="changecity" data="shannan">山南</a>
+            <a href="javascript:;" class="changecity" data="suzhou">苏州</a>
+            <a href="javascript:;" class="changecity" data="sansha">三沙</a>
+        </li>
+        <li id="T">
+            <span class="key">T</span>
+            <a href="javascript:;" class="changecity" data="tianjin">天津</a>
+            <a href="javascript:;" class="changecity" data="tianmen">天门</a>
+            <a href="javascript:;" class="changecity" data="taizhou">泰州</a>
+            <a href="javascript:;" class="changecity" data="tieling">铁岭</a>
+            <a href="javascript:;" class="changecity" data="tunchang">屯昌</a>
+            <a href="javascript:;" class="changecity" data="taizhou">台州</a>
+            <a href="javascript:;" class="changecity" data="taian">泰安</a>
+            <a href="javascript:;" class="changecity" data="tulufan">吐鲁番</a>
+            <a href="javascript:;" class="changecity" data="tongling">铜陵</a>
+            <a href="javascript:;" class="changecity" data="tongliao">通辽</a>
+            <a href="javascript:;" class="changecity" data="tumushuke">图木舒克</a>
+            <a href="javascript:;" class="changecity" data="tongren">铜仁</a>
+            <a href="javascript:;" class="changecity" data="tonghua">通化</a>
+            <a href="javascript:;" class="changecity" data="tianshui">天水</a>
+            <a href="javascript:;" class="changecity" data="tongchuan">铜川</a>
+            <a href="javascript:;" class="changecity" data="tangshan">唐山</a>
+            <a href="javascript:;" class="changecity" data="taiyuan">太原</a>
+            <a href="javascript:;" class="changecity" data="tacheng">塔城</a>
+        </li>
+        <li id="W">
+            <span class="key">W</span>
+            <a href="javascript:;" class="changecity" data="wuhan">武汉</a>
+            <a href="javascript:;" class="changecity" data="weihai">威海</a>
+            <a href="javascript:;" class="changecity" data="wulanchabu">乌兰察布</a>
+            <a href="javascript:;" class="changecity" data="wenshan">文山</a>
+            <a href="javascript:;" class="changecity" data="wanning">万宁</a>
+            <a href="javascript:;" class="changecity" data="weifang">潍坊</a>
+            <a href="javascript:;" class="changecity" data="wujiaqu">五家渠</a>
+            <a href="javascript:;" class="changecity" data="wenchang">文昌</a>
+            <a href="javascript:;" class="changecity" data="wuwei">武威</a>
+            <a href="javascript:;" class="changecity" data="weinan">渭南</a>
+            <a href="javascript:;" class="changecity" data="wuzhou">梧州</a>
+            <a href="javascript:;" class="changecity" data="wuhai">乌海</a>
+            <a href="javascript:;" class="changecity" data="wuzhong">吴忠</a>
+            <a href="javascript:;" class="changecity" data="wuzhishan">五指山</a>
+            <a href="javascript:;" class="changecity" data="wenzhou">温州</a>
+            <a href="javascript:;" class="changecity" data="wuhu">芜湖</a>
+            <a href="javascript:;" class="changecity" data="wuxi">无锡</a>
+            <a href="javascript:;" class="changecity" data="wulumuqi">乌鲁木齐</a>
+            <a href="javascript:;" class="changecity" data="wusu">乌苏</a>
+        </li>
+        <li id="X">
+            <span class="key">X</span>
+            <a href="javascript:;" class="changecity" data="xining">西宁</a>
+            <a href="javascript:;" class="changecity" data="xuchang">许昌</a>
+            <a href="javascript:;" class="changecity" data="xilinguole">锡林郭勒</a>
+            <a href="javascript:;" class="changecity" data="xianning">咸宁</a>
+            <a href="javascript:;" class="changecity" data="xishuangbanna">西双版纳</a>
+            <a href="javascript:;" class="changecity" data="xingan">兴安</a>
+            <a href="javascript:;" class="changecity" data="xiantao">仙桃</a>
+            <a href="javascript:;" class="changecity" data="xiangxi">湘西</a>
+            <a href="javascript:;" class="changecity" data="xinyang">信阳</a>
+            <a href="javascript:;" class="changecity" data="xiaogan">孝感</a>
+            <a href="javascript:;" class="changecity" data="xinzhou">忻州</a>
+            <a href="javascript:;" class="changecity" data="xinxiang">新乡</a>
+            <a href="javascript:;" class="changecity" data="xian">西安</a>
+            <a href="javascript:;" class="changecity" data="xiamen">厦门</a>
+            <a href="javascript:;" class="changecity" data="xuzhou">徐州</a>
+            <a href="javascript:;" class="changecity" data="xiangtan">湘潭</a>
+            <a href="javascript:;" class="changecity" data="xianyang">咸阳</a>
+            <a href="javascript:;" class="changecity" data="xingtai">邢台</a>
+            <a href="javascript:;" class="changecity" data="xinyu">新余</a>
+            <a href="javascript:;" class="changecity" data="xiangyang">襄阳</a>
+            <a href="javascript:;" class="changecity" data="xuancheng">宣城</a>
+        </li>
+        <li id="Y">
+            <span class="key">Y</span>
+            <a href="javascript:;" class="changecity" data="yinchuan">银川</a>
+            <a href="javascript:;" class="changecity" data="yancheng">盐城</a>
+            <a href="javascript:;" class="changecity" data="yichun">宜春</a>
+            <a href="javascript:;" class="changecity" data="yiyang">益阳</a>
+            <a href="javascript:;" class="changecity" data="yulin">玉林</a>
+            <a href="javascript:;" class="changecity" data="yangzhou">扬州</a>
+            <a href="javascript:;" class="changecity" data="yongzhou">永州</a>
+            <a href="javascript:;" class="changecity" data="yibin">宜宾</a>
+            <a href="javascript:;" class="changecity" data="yangjiang">阳江</a>
+            <a href="javascript:;" class="changecity" data="yaan">雅安</a>
+            <a href="javascript:;" class="changecity" data="yining">伊宁</a>
+            <a href="javascript:;" class="changecity" data="yunfu">云浮</a>
+            <a href="javascript:;" class="changecity" data="yanbian">延边</a>
+            <a href="javascript:;" class="changecity" data="yulin">榆林</a>
+            <a href="javascript:;" class="changecity" data="yangquan">阳泉</a>
+            <a href="javascript:;" class="changecity" data="yuxi">玉溪</a>
+            <a href="javascript:;" class="changecity" data="yichang">宜昌</a>
+            <a href="javascript:;" class="changecity" data="yingtan">鹰潭</a>
+            <a href="javascript:;" class="changecity" data="yantai">烟台</a>
+            <a href="javascript:;" class="changecity" data="yueyang">岳阳</a>
+            <a href="javascript:;" class="changecity" data="yanan">延安</a>
+            <a href="javascript:;" class="changecity" data="yichun">伊春</a>
+            <a href="javascript:;" class="changecity" data="yushu">玉树</a>
+            <a href="javascript:;" class="changecity" data="yuncheng">运城</a>
+            <a href="javascript:;" class="changecity" data="yingkou">营口</a>
+            <a href="javascript:;" class="changecity" data="yili">伊犁</a>
+        </li>
+        <li id="Z">
+            <span class="key">Z</span>
+            <a href="javascript:;" class="changecity" data="zhengzhou">郑州</a>
+            <a href="javascript:;" class="changecity" data="zhangjiajie">张家界</a>
+            <a href="javascript:;" class="changecity" data="zhanjiang">湛江</a>
+            <a href="javascript:;" class="changecity" data="zhoushan">舟山</a>
+            <a href="javascript:;" class="changecity" data="zhaoqing">肇庆</a>
+            <a href="javascript:;" class="changecity" data="zhenjiang">镇江</a>
+            <a href="javascript:;" class="changecity" data="zhoukou">周口</a>
+            <a href="javascript:;" class="changecity" data="zhumadian">驻马店</a>
+            <a href="javascript:;" class="changecity" data="zhongshan">中山</a>
+            <a href="javascript:;" class="changecity" data="zhangye">张掖</a>
+            <a href="javascript:;" class="changecity" data="zhangjiakou">张家口</a>
+            <a href="javascript:;" class="changecity" data="zhangzhou">漳州</a>
+            <a href="javascript:;" class="changecity" data="zhuzhou">株洲</a>
+            <a href="javascript:;" class="changecity" data="zigong">自贡</a>
+            <a href="javascript:;" class="changecity" data="zibo">淄博</a>
+            <a href="javascript:;" class="changecity" data="zhuhai">珠海</a>
+            <a href="javascript:;" class="changecity" data="zunyi">遵义</a>
+            <a href="javascript:;" class="changecity" data="zaozhuang">枣庄</a>
+            <a href="javascript:;" class="changecity" data="zhaotong">昭通</a>
+            <a href="javascript:;" class="changecity" data="zhongwei">中卫</a>
+            <a href="javascript:;" class="changecity" data="ziyang">资阳</a>
+        </li>
+    </ul>
+</div>
+<div class="citytab">
+    <ul>
+        <li><a href="#A" class="city_tab">A</a></li>
+        <li><a href="#B" class="city_tab">B</a></li>
+        <li><a href="#C" class="city_tab">C</a></li>
+        <li><a href="#D" class="city_tab">D</a></li>
+        <li><a href="#E" class="city_tab">E</a></li>
+        <li><a href="#F" class="city_tab">F</a></li>
+        <li><a href="#G" class="city_tab">G</a></li>
+        <li><a href="#H" class="city_tab">H</a></li>
+        <li><a href="#J" class="city_tab">J</a></li>
+        <li><a href="#K" class="city_tab">K</a></li>
+        <li><a href="#L" class="city_tab">L</a></li>
+        <li><a href="#M" class="city_tab">M</a></li>
+        <li><a href="#N" class="city_tab">N</a></li>
+        <li><a href="#P" class="city_tab">P</a></li>
+        <li><a href="#Q" class="city_tab">Q</a></li>
+        <li><a href="#R" class="city_tab">R</a></li>
+        <li><a href="#S" class="city_tab">S</a></li>
+        <li><a href="#T" class="city_tab">T</a></li>
+        <li><a href="#W" class="city_tab">W</a></li>
+        <li><a href="#X" class="city_tab">X</a></li>
+        <li><a href="#Y" class="city_tab">Y</a></li>
+        <li><a href="#Z" class="city_tab">Z</a></li>
+    </ul>
+</div>
+
+
+</body></html>
