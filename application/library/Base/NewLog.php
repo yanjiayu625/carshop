@@ -76,7 +76,7 @@ class NewLog
         $logStr = date("Y-m-d H:i:s") . substr(microtime(), 1, 4)
             . " server_ip:" . gethostbyname(gethostname())
             . " type:" . $type
-            . " tag:" . $_SERVER['customTag']
+//            . " tag:" . $_SERVER['customTag']
             . " uri:" . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '')
             . " ref:" . (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '')
             . " cli:" . (!empty($cli) ? $cli : '')

@@ -5,15 +5,22 @@ use \Mysql\Common\CommonModel as MysqlCommon;
 
 class DetailsController extends \Base\Controller_AbstractWechat
 {
+
+    public function detailsAction()
+    {
+//        $scrollImages = $this->getScrollImageAction();
+//        var_dump($scrollImages);die;
+        $this->display("details");
+    }
     /**
      * 获取详情页面中滚动图片
      * @author zhangyang7
      * @time   2022-02-15
      * @return json
      */
-    public function getScrollImageAction()
+    public function getScrollImageAction($postInfo)
     {
-        $postInfo = $this->getRequest()->getPost();
+//        $postInfo = $this->getRequest()->getPost();
 
         try {
             if (empty($postInfo['id'])) {
