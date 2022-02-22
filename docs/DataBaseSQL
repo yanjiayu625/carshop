@@ -94,7 +94,35 @@ CREATE TABLE `car_sell_upload_file_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+//首页
+DROP TABLE IF EXISTS `car_buy_car_list`;
+CREATE TABLE `car_buy_car_list` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `brand_id` int(11) NOT NULL DEFAULT 0 COMMENT '品牌ID',
+ `tags_id` int(11) NOT NULL DEFAULT 0 COMMENT '标签ID',
+ `register_date` varchar(20) NOT NULL DEFAULT '' COMMENT '上牌时间,2015-01',
+ `mileage` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '里程数',
+ `color` varchar(20) NOT NULL DEFAULT '' COMMENT '颜色',
+ `owner_name` varchar(255) NOT NULL DEFAULT '' COMMENT '车主联系方式',
+ `owner_mobile` varchar(255) NOT NULL DEFAULT '' COMMENT '车主联系方式',
+ `owner_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '车主描述',
+ `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态,1:未受理,2:已受理',
+ `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+ `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+DROP TABLE IF EXISTS `car_buy_upload_file_list`;
+CREATE TABLE `car_buy_upload_file_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `buy_id` int(11) NOT NULL DEFAULT 0 COMMENT '列表ID',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '类型,1:图片,2:视频',
+  `file_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '文件地址',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 ========================HRC=========================
 部门树
