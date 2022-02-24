@@ -26,7 +26,7 @@ abstract class AbstractModel
     private function getPdoLink()
     {
         if (!self::$pdo_link) {
-            $conf = \Yaf\Registry::get('config')->get('mysql.database.params.');
+            $conf = \Yaf\Registry::get('config')->get('mysql.database.params');
             if (!$conf) {
                 throw new \PDOException('mysql数据库必须设置');
             }

@@ -8,8 +8,9 @@ class DetailsController extends \Base\Controller_AbstractWechat
 
     public function detailsAction()
     {
-//        $scrollImages = $this->getScrollImageAction();
-//        var_dump($scrollImages);die;
+        $id = $this->getRequest()->getQuery("id");
+        $scrollImages = $this->getScrollImageAction($id);
+//var_dump(["id" => $id]);die;
         $this->display("details");
     }
     /**
@@ -18,27 +19,26 @@ class DetailsController extends \Base\Controller_AbstractWechat
      * @time   2022-02-15
      * @return json
      */
-    public function getScrollImageAction($postInfo)
+    public function getScrollImageAction($id)
     {
-//        $postInfo = $this->getRequest()->getPost();
-
         try {
-            if (empty($postInfo['id'])) {
+            if (empty($id)) {
                 throw new \Exception("内容ID为空");
             }
 
-            $scrollImage =  MysqlCommon::getInstance()->getListByTableName('car_upload_file_list', ['file_dir'],
-                ['type' => 1, 'sell_id' => $postInfo['id']]);
-
-            $res['code'] = 200;
-            $res['data'] = $scrollImage;
+            $scrollImage =  MysqlCommon::getInstance()->getListByTableName('car_sell_upload_file_list', ['file_dir'],
+                ['type' => 1, 'sell_id' => $id]);
+var_dump($scrollImage);die;
+//            $res['code'] = 200;
+//            $res['data'] = $scrollImage;
 
         } catch (Exception $e) {
-            $res['code'] = 400;
-            $res['msg'] = $e->getMessage();
+//            $res['code'] = 400;
+//            $res['msg'] = $e->getMessage();
         }
 
-        Tools::returnAjaxJson($res);
+//        Tools::returnAjaxJson($res);
+//            return 1;
     }
 
     /**
@@ -47,9 +47,12 @@ class DetailsController extends \Base\Controller_AbstractWechat
      * @time   2022-02-15
      * @return json
      */
-    public function getDetailsAction()
+    public function getDetailsAction($postInfo)
     {
-        $postInfo = $this->getRequest()->getPost();
+
+        if (empty($postInfo)) {
+            $postInfo = $this->getRequest()->getPost();
+        }
 
         try {
             if (empty($postInfo['id'])) {

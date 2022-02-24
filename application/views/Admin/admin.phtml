@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>二手车交易平台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <!-- Ionicons -->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/css/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="/css/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="/css/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="/css/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/css/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="/css/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="/css/select2.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="/admin/admin" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>二手车</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>二手车</b>平台</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <!--这里预留右上角操作按钮-->
+            </div>
+        </nav>
+    </header>
+    <!-- 侧边栏 -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索......">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>内容录入</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="/admin/admin"><i class="fa fa-circle-o"></i> 卖车信息</a></li>
+                        <li><a href="index2.html"><i class="fa fa-circle-o"></i> 内容页信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                内容录入
+                <small>卖车信息</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">内容录入</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Horizontal Form -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">参数列表</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">列表ID</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="sell_id" placeholder="列表ID">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">品牌</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" id="brand_id" aria-hidden="true" name="brand_id" >
+                                            <option value="">请选择品牌</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">系列</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" id="tags_id" aria-hidden="true" name="tags_id" >
+                                            <option value="">请选择系列</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">标题</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="title" placeholder="标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">来源</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="source" placeholder="来源">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">新车售价</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="new_price" placeholder="新车售价,单位万">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">上牌时间</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="register_date" placeholder="上牌时间">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">里程数</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="mileage" placeholder="里程数">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">排量</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_emission" placeholder="排量">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">排放标准</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="emission" placeholder="排放标准">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">归属地</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_belong" placeholder="归属地">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">车型</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_models" placeholder="车型">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">颜色</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_color" placeholder="颜色">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">变速箱</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_gearbox" placeholder="变速箱">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">国产/进口</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" id="basic_import" aria-hidden="true" name="basic_import" >
+                                            <option value="">请选择</option>
+                                            <option value="1">国产</option>
+                                            <option value="2">进口</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">动力类型</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" id="basic_fuel" aria-hidden="true" name="basic_fuel" >
+                                            <option value="">请选择</option>
+                                            <option value="1">汽油</option>
+                                            <option value="2">柴油</option>
+                                            <option value="3">纯电</option>
+                                            <option value="4">油电混动</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">年检到期</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="basic_survey" placeholder="年检到期">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">保险到期</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="basic_insurance" placeholder="保险到期">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">车辆用途</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_purpose" placeholder="车辆用途">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">定期保养</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="basic_maintenance" placeholder="定期保养">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">车主描述</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="owner_desc" placeholder="车主描述">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-info pull-right" onclick="sellCarInfo()">确定</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+
+</div>
+<!-- ./wrapper -->
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.7
+    </div>
+    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    reserved.
+</footer>
+<div id="loading" class="modal fade bs-example-modal-sm" style="padding-top: 300px;">
+    <div class="modal-dialog modal-sm" style="width: 300px; height: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">操作中，请稍候……</h4>
+            </div>
+            <div class="modal-body">
+                <div class="overlay">
+                    <p style="text-align: center">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 2.2.3 -->
+<script src="/js/jquery-2.2.3.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- Bootstrap 3.3.6 -->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="/js/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="/js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/js/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/js/jquery.knob.js"></script>
+<script src="/js/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="/js/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/js/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/js/app.min.js"></script>
+<script src="/js/demo.js"></script>
+<script src="/js/select2.full.js"></script>
+
+
+<script>
+
+    $(".select2").select2();
+    $('#loading').modal('show');
+    $.ajax({
+        url: "/admin/getBrandList",
+        type: "POST",
+        data: {
+
+        },
+        dataType: "json",
+        success: function (responseData) {
+            if (responseData.code == 200) {
+                $.each(responseData.data, function(key, val){
+                    $("#brand_id").append("<option value="+val['id']+">"+val['brand_name']+"</option>");
+                })
+                $('#loading').modal('hide');
+            } else {
+
+            }
+        }
+    });
+
+    $("#brand_id").on("select2:select",function(e){
+        $('#loading').modal('show');
+        var brand_id = $("#brand_id").val();
+        $("#tags_id").select2("val", "");
+        $.ajax({
+            url: "/admin/getBrandTags",
+            type: "POST",
+            data: {
+                brand_id: brand_id
+            },
+            dataType: "json",
+            success: function (responseData) {
+
+                $("#tags_id").empty();
+                if (responseData.code == 200) {
+                $("#tags_id").append("<option value=''>请选择系列</option>");
+                    $.each(responseData.data, function(key, val){
+                        $("#tags_id").append("<option value="+val['id']+">"+val['name']+"</option>");
+                    });
+                    $('#loading').modal('hide');
+                } else {
+
+                }
+            }
+        });
+    });
+
+
+    function sellCarInfo() {
+
+        var sell_id = $("#sell_id").val();
+        var brand_id = $("#brand_id").val();
+        var tags_id = $("#tags_id").val();
+        var title = $("#title").val();
+        var source = $("#source").val();
+        var new_price = $("#new_price").val();
+        var register_date = $("#register_date").val();
+        var mileage = $("#mileage").val();
+        var basic_emission = $("#basic_emission").val();
+        var emission = $("#emission").val();
+        var basic_belong = $("#basic_belong").val();
+        var basic_models = $("#basic_models").val();
+        var basic_color = $("#basic_color").val();
+        var basic_gearbox = $("#basic_gearbox").val();
+        var basic_import = $("#basic_import").val();
+        var basic_fuel = $("#basic_fuel").val();
+        var basic_survey = $("#basic_survey").val();
+        var basic_insurance = $("#basic_insurance").val();
+        var basic_purpose = $("#basic_purpose").val();
+        var basic_maintenance = $("#basic_maintenance").val();
+        var owner_desc = $("#owner_desc").val();
+
+        $.ajax({
+            url: "/admin/setSellContent",
+            type: "POST",
+            data: {
+                sell_id: sell_id,
+                brand_id: brand_id,
+                tags_id: tags_id,
+                title: title,
+                source: source,
+                new_price: new_price,
+                register_date: register_date,
+                mileage: mileage,
+                basic_emission: basic_emission,
+                emission: emission,
+                basic_belong: basic_belong,
+                basic_models: basic_models,
+                basic_color: basic_color,
+                basic_gearbox: basic_gearbox,
+                basic_import: basic_import,
+                basic_survey: basic_survey,
+                basic_fuel: basic_fuel,
+                basic_insurance: basic_insurance,
+                basic_purpose: basic_purpose,
+                basic_maintenance: basic_maintenance,
+                owner_desc: owner_desc
+            },
+            dataType: "json",
+            success: function (responseData) {
+                if (responseData.code == 200) {
+                    alert("添加成功！");
+                } else {
+                    alert("添加失败！");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
