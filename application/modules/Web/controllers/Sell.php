@@ -1,10 +1,7 @@
 <?php
 
 use \Tools\Tools;
-use \Validate\Validate;
-use \DAO\Data\FileModel;
 use \Mysql\Common\CommonModel as MysqlCommon;
-use \Mongodb\Issue\CommonModel as MongoDBIssue;
 
 /**
  * 卖车模块
