@@ -8,10 +8,14 @@ class DetailsController extends \Base\Controller_AbstractWechat
 
     public function detailsAction()
     {
-        $id = $this->getRequest()->getQuery("id");
-        $scrollImages = $this->getScrollImageAction($id);
-//var_dump(["id" => $id]);die;
-        $this->display("details");
+        $id = $this->getRequest()->getQuery("cid");
+        if (empty($id) || !is_numeric($id)) {
+            return false;
+        }
+
+        $info = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.id=$id");
+        $info = array_shift($info);
+        $this->getView()->assign($info);
     }
     /**
      * 获取详情页面中滚动图片

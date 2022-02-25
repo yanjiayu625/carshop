@@ -10,6 +10,30 @@ class BuycarController extends \Base\Controller_AbstractWeb
         $this->display("buycar");
     }
 
+    // 买车列表
+    public function ListAction()
+    {
+        // TODO::暂未添加搜索条件，待后续完善
+        $postInfo = $this->getRequest()->getPost();
+        try{
+
+//            $brands = MysqlCommon::getInstance()->getListByTableName("car_sell_content", null, null, $order = null, $group = null);
+            $brands = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id");
+
+
+
+            $res['code'] = 200;
+            $res['data'] = $brands;
+
+        } catch (Exception $e) {
+            $res['code'] = 400;
+            $res['msg'] = $e->getMessage();
+        }
+
+        Tools::returnAjaxJson($res);
+
+    }
+
     /**
      * 卖家上传车辆信息
      */
