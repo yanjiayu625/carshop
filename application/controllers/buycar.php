@@ -10,7 +10,7 @@ class BuycarController extends \Base\Controller_AbstractWeb
         $this->display("buycar");
     }
 
-    // 买车列表
+    // 买车列表o
     public function ListAction()
     {
         // TODO::暂未添加搜索条件，待后续完善
