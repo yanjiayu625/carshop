@@ -107,6 +107,15 @@ class CenterController extends \Base\Controller_AbstractWeb
         $this->commonReturn(200,'获取成功!',$areaInfo);
     }
 
+    //微信公众号授权登录
+    public function wxLoginAction(){
+        $WxAppkey = 'wx1647b3429377748f';
+        $reurl = "http://121.196.217.164/center/wxLogin";
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$WxAppkey."&redirect_uri='.$reurl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        echo $url;die;
+        echo 123;die;
+    }
+
     /**
      * 预约申请
      */
