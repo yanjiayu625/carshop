@@ -86,6 +86,27 @@ class CenterController extends \Base\Controller_AbstractWeb
         $this->commonReturn(200,'密码修改成功!');
     }
 
+    //获取地区 - 省 列表
+    public function getProvinceListAction()
+    {
+
+        $fields = ['code','parentCode','name','fullName','initial'];
+        $areaInfo = MysqlCommon::getInstance()->getListLimitByTableName('ly_region', $fields,['parentCode'=> '100000']);
+        $this->commonReturn(200,'获取成功!',$areaInfo);
+    }
+
+    //获取地区 - 市 列表
+    public function getCityListAction()
+    {
+        $postInfo = $this->getRequest()->getPost();
+        if (empty($postInfo['code'])) {
+            $this->commonReturn(400,'省份code不能为空');
+        }
+        $fields = ['code','parentCode','name','fullName','initial'];
+        $areaInfo = MysqlCommon::getInstance()->getListLimitByTableName('ly_region', $fields,['parentCode'=> $postInfo['code']]);
+        $this->commonReturn(200,'获取成功!',$areaInfo);
+    }
+
     /**
      * 预约申请
      */
