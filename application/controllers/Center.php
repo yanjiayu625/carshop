@@ -46,6 +46,46 @@ class CenterController extends \Base\Controller_AbstractWeb
         $this->commonReturn(200,'修改成功!');
     }
 
+    //用户中心 - 修改密码
+    public function editUserPassAction()
+    {
+
+        $postInfo = $this->getRequest()->getPost();
+
+        //默认整一个
+        $postInfo['uid'] = 1;
+
+        if (empty($postInfo['uid'])) {
+            $this->commonReturn(400,'用户id不能为空');
+        }
+
+        if (empty($postInfo['old_pass'])) {
+            $this->commonReturn(400,'请输入原密码');
+        }
+
+        if (empty($postInfo['new_pass'])) {
+            $this->commonReturn(400,'请输入新密码');
+        }
+
+        if ($postInfo['new_pass'] != $postInfo['new_pass_repeat']) {
+            $this->commonReturn(400,'两次输入密码不一致!');
+        }
+        $pass = $this->encryptionPass($postInfo['old_pass']);
+        $userInfo = MysqlCommon::getInstance()->getInfoByTableName('car_user', ['password'],['id'=> $postInfo['uid']]);
+
+        if($pass != $userInfo['password']){
+            $this->commonReturn(400,'原密码错误!');
+        }
+
+        $paras['password'] = $this->encryptionPass($postInfo['new_pass']);
+        $up_re = MysqlCommon::getInstance()->updateListByTableName('car_user', $paras, ['id'=>$postInfo['uid']]);
+        if (!$up_re) {
+            $this->commonReturn(400,'密码修改失败!');
+        }
+
+        $this->commonReturn(200,'密码修改成功!');
+    }
+
     /**
      * 预约申请
      */

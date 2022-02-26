@@ -38,4 +38,8 @@ abstract class Controller_AbstractWeb extends \Yaf\Controller_Abstract {
         Tools::returnAjaxJson($res);
     }
 
+    public function encryptionPass($pass){
+        return md5(md5($pass));
+    }
+
 }
