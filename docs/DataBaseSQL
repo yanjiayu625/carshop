@@ -27,7 +27,7 @@ CREATE TABLE `car_brand_tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-//首页
+//卖车列表
 DROP TABLE IF EXISTS `car_sell_list`;
 CREATE TABLE `car_sell_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -88,7 +88,7 @@ CREATE TABLE `car_sell_upload_file_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-//首页
+//收车列表
 DROP TABLE IF EXISTS `car_buy_car_list`;
 CREATE TABLE `car_buy_car_list` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -106,7 +106,7 @@ CREATE TABLE `car_buy_car_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
+//收车列表的图片
 DROP TABLE IF EXISTS `car_buy_upload_file_list`;
 CREATE TABLE `car_buy_upload_file_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -119,4 +119,27 @@ CREATE TABLE `car_buy_upload_file_list` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
+//内容列表
+DROP TABLE IF EXISTS `content_list`;
+CREATE TABLE `content_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `channel_id` int(11) NOT NULL DEFAULT 0 COMMENT '频道ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `abstract` varchar(255) NOT NULL DEFAULT '' COMMENT '摘要',
+  `thumbnail_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0:禁用,1:启用',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+//内容详情
+DROP TABLE IF EXISTS `content_details`;
+CREATE TABLE `content_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) NOT NULL DEFAULT 0 COMMENT '频道ID',
+  `details` text DEFAULT '' COMMENT '内容',
+  `c_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `u_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
