@@ -111,9 +111,27 @@ class CenterController extends \Base\Controller_AbstractWeb
     public function wxLoginAction(){
         $WxAppkey = 'wx1647b3429377748f';
         $reurl = "http://121.196.217.164/center/wxLogin";
-        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$WxAppkey."&redirect_uri='.$reurl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$WxAppkey."&redirect_uri=".$reurl."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         echo $url;die;
         echo 123;die;
+    }
+
+    public function wxAction(){
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = '123122e2e2e';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
