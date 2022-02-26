@@ -31,4 +31,11 @@ abstract class Controller_AbstractWeb extends \Yaf\Controller_Abstract {
 
     }
 
+    public function commonReturn($code,$msg='',$result = []){
+        $res['code'] = $code;
+        $res['msg']  = $msg;
+        $res['data'] = $result;
+        Tools::returnAjaxJson($res);
+    }
+
 }
