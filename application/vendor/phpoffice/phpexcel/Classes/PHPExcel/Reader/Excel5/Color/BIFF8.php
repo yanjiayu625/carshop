@@ -62,7 +62,7 @@ class PHPExcel_Reader_Excel5_Color_BIFF8
     );
 
    /**
-     * Map color array from BIFF8 built-in color index
+     * map color array from BIFF8 built-in color index
      *
      * @param int $color
      * @return array

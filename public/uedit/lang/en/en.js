@@ -139,7 +139,7 @@ UE.I18N['en'] = {
         'aligncell':'Align cell',
         'aligntable':'Table alignment',
         'tableleft':'Left float',
-        'tablecenter':'Center',
+        'tablecenter':'center',
         'tableright':'Right float',
         'aligntd':'Cell alignment',
         'edittd':"Cell property",
@@ -147,7 +147,7 @@ UE.I18N['en'] = {
         'table':"Table",
         'justifyleft':'Justify Left',
         'justifyright':'Justify Right',
-        'justifycenter':'Justify Center',
+        'justifycenter':'Justify center',
         'justifyjustify':'Default',
         'deletetable':"Delete table",
         'insertparagraphbefore':"InsertedBeforeLine",
@@ -205,7 +205,7 @@ UE.I18N['en'] = {
     'modify':'Modify',
     'justifyleft':'Justify Left',
     'justifyright':'Justify Right',
-    'justifycenter':'Justify Center',
+    'justifycenter':'Justify center',
     'justify':'Default',
     'clear':'Clear',
     'anchorMsg':'Anchor',
@@ -247,7 +247,7 @@ UE.I18N['en'] = {
             'lang_background_netimg':'Net-Image',
             'lang_background_align':'Align Type',
             'lang_background_position':'Position',
-            'repeatType':{'options':["Center", "Repeat-x", "Repeat-y", "Tile","Custom"]}
+            'repeatType':{'options':["center", "Repeat-x", "Repeat-y", "Tile","Custom"]}
         },
         'noUploadImage':"No pictures has been uploaded！",
         'toggleSelect':'Change the active state by click!\n Image Size: '
@@ -277,7 +277,7 @@ UE.I18N['en'] = {
             'noneAlign':{'title':'None Float'},
             'leftAlign':{'title':'Left Float'},
             'rightAlign':{'title':'Right Float'},
-            'centerAlign':{'title':'Center In A Line'}
+            'centerAlign':{'title':'center In A Line'}
         },
         'uploadSelectFile':'Select File',
         'uploadAddFile':'Add File',
@@ -546,7 +546,7 @@ UE.I18N['en'] = {
             'lang_input_isScroll':'Enable scrollbars：',
             'lang_input_frameborder':'Show frame border：',
             'lang_input_alignMode':'Alignment：',
-            'align':{title:"Alignment", options:["Default", "Left", "Right", "Center"]}
+            'align':{title:"Alignment", options:["Default", "Left", "Right", "center"]}
         },
         'enterAddress':'Please enter an address!'
     },

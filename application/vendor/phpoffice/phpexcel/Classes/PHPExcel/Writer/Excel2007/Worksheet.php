@@ -1068,7 +1068,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
             // If cell value is supplied, write cell value
             $cellValue = $pCell->getValue();
             if (is_object($cellValue) || $cellValue !== '') {
-                // Map type
+                // map type
                 $mappedType = $pCell->getDataType();
 
                 // Write data type depending on its type

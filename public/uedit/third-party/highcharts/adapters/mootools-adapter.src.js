@@ -166,7 +166,7 @@ win.HighchartsAdapter = {
 	},
 
 	/**
-	 * Map an array
+	 * map an array
 	 * @param {Array} arr
 	 * @param {Function} fn
 	 */

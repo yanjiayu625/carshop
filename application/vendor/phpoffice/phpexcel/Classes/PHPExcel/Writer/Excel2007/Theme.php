@@ -36,7 +36,7 @@
 class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPart
 {
     /**
-     * Map of Major fonts to write
+     * map of Major fonts to write
      * @static    array of string
      *
      */
@@ -74,7 +74,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
     );
 
     /**
-     * Map of Minor fonts to write
+     * map of Minor fonts to write
      * @static    array of string
      *
      */
@@ -112,7 +112,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
     );
 
     /**
-     * Map of core colours
+     * map of core colours
      * @static    array of string
      *
      */

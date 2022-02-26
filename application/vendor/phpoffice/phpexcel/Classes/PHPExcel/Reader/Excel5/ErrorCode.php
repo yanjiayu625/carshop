@@ -13,7 +13,7 @@ class PHPExcel_Reader_Excel5_ErrorCode
     );
 
     /**
-     * Map error code, e.g. '#N/A'
+     * map error code, e.g. '#N/A'
      *
      * @param int $code
      * @return string

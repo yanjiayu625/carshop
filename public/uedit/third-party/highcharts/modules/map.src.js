@@ -955,7 +955,7 @@
 
 	
 	/**
-	 * A wrapper for Chart with all the default values for a Map
+	 * A wrapper for Chart with all the default values for a map
 	 */
 	Highcharts.Map = function (options, callback) {
 		

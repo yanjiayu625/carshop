@@ -484,7 +484,7 @@ return {
 	},
 
 	/**
-	 * Map an array
+	 * map an array
 	 */
 	map: function (arr, fn) {
 		var results = [], i = 0, len = arr.length;

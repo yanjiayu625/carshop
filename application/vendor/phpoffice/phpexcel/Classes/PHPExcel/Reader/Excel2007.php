@@ -630,7 +630,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                 continue;
                             }
 
-                            // Map old sheet id in original workbook to new sheet id.
+                            // map old sheet id in original workbook to new sheet id.
                             // They will differ if loadSheetsOnly() is being used
                             $mapSheetId[$oldSheetId] = $oldSheetId - $countSkippedSheets;
 

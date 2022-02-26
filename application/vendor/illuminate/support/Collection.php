@@ -911,7 +911,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * Map a collection and flatten the result by a single level.
+     * map a collection and flatten the result by a single level.
      *
      * @param  callable  $callback
      * @return static
@@ -922,7 +922,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * Map the values into a new class.
+     * map the values into a new class.
      *
      * @param  string  $class
      * @return static

@@ -20,7 +20,7 @@ class PHPExcel_Reader_Excel5_Style_Border
     );
 
     /**
-     * Map border style
+     * map border style
      * OpenOffice documentation: 2.5.11
      *
      * @param int $index

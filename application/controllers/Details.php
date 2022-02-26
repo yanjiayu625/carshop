@@ -32,7 +32,7 @@ class DetailsController extends \Base\Controller_AbstractWechat
 
             $scrollImage =  MysqlCommon::getInstance()->getListByTableName('car_sell_upload_file_list', ['file_dir'],
                 ['type' => 1, 'sell_id' => $id]);
-var_dump($scrollImage);die;
+//var_dump($scrollImage);die;
 //            $res['code'] = 200;
 //            $res['data'] = $scrollImage;
 

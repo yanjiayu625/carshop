@@ -365,7 +365,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for border styles
+     * map of BIFF2-BIFF8 codes for border styles
      * @static    array of int
      *
      */
@@ -387,7 +387,7 @@ class PHPExcel_Writer_Excel5_Xf
     );
 
     /**
-     * Map border style
+     * map border style
      *
      * @param string $borderStyle
      * @return int
@@ -401,7 +401,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for fill types
+     * map of BIFF2-BIFF8 codes for fill types
      * @static    array of int
      *
      */
@@ -430,7 +430,7 @@ class PHPExcel_Writer_Excel5_Xf
     );
 
     /**
-     * Map fill type
+     * map fill type
      *
      * @param string $fillType
      * @return int
@@ -444,7 +444,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for horizontal alignment
+     * map of BIFF2-BIFF8 codes for horizontal alignment
      * @static    array of int
      *
      */
@@ -459,7 +459,7 @@ class PHPExcel_Writer_Excel5_Xf
     );
 
     /**
-     * Map to BIFF2-BIFF8 codes for horizontal alignment
+     * map to BIFF2-BIFF8 codes for horizontal alignment
      *
      * @param string $hAlign
      * @return int
@@ -473,7 +473,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for vertical alignment
+     * map of BIFF2-BIFF8 codes for vertical alignment
      * @static    array of int
      *
      */
@@ -485,7 +485,7 @@ class PHPExcel_Writer_Excel5_Xf
     );
 
     /**
-     * Map to BIFF2-BIFF8 codes for vertical alignment
+     * map to BIFF2-BIFF8 codes for vertical alignment
      *
      * @param string $vAlign
      * @return int
@@ -499,7 +499,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map to BIFF8 codes for text rotation angle
+     * map to BIFF8 codes for text rotation angle
      *
      * @param int $textRotation
      * @return int
@@ -516,7 +516,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map locked
+     * map locked
      *
      * @param string
      * @return int
@@ -536,7 +536,7 @@ class PHPExcel_Writer_Excel5_Xf
     }
 
     /**
-     * Map hidden
+     * map hidden
      *
      * @param string
      * @return int

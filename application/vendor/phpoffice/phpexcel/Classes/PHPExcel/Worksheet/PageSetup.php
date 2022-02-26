@@ -247,14 +247,14 @@ class PHPExcel_Worksheet_PageSetup
     private $rowsToRepeatAtTop = array(0, 0);
 
     /**
-     * Center page horizontally
+     * center page horizontally
      *
      * @var boolean
      */
     private $horizontalCentered = false;
 
     /**
-     * Center page vertically
+     * center page vertically
      *
      * @var boolean
      */

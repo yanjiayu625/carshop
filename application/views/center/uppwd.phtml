@@ -1,0 +1,77 @@
+<html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>修改密码 - 锐车</title>
+    <link rel="stylesheet" href="/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script src="/js/layui.js"></script>
+    <script src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/search.js?v=3.0"></script>
+    <script language="JavaScript">
+        layui.use('layer', function(){
+            var layer = layui.layer;
+        });
+        $(function() {
+            //表单提交
+            var ajax_option={
+                success:function(data){
+                    var result = $.parseJSON(data);
+                    if(result.code==1){
+                        layer.msg(result.msg, {time: 1000, icon: 1});
+                        setTimeout(function(){//两秒后跳转
+                            location.href = result.url;
+                        },1000);
+                    }
+                    else{
+                        layer.msg(result.msg, {time: 1000, icon: 2});
+                    }
+                }
+            };
+            $("#ajaxForm").submit(function () {
+                $(this).ajaxSubmit(ajax_option);
+                return false;
+            });
+        });
+    </script>
+    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all"></head>
+<body>
+<div id="mainbox">
+    <!--内容-->
+    <header class="mo-header">
+        <div class="mo-header-left">
+            <a href="/">
+                首页
+            </a>
+            <i class="layui-icon"></i>
+            <a href="/user.php">
+                会员中心
+            </a>
+            <i class="layui-icon"></i>
+            <a href="#">
+                完善资料
+            </a>
+        </div>
+    </header>
+    <form method="post" action="user.php?m=userinfo" id="ajaxForm">
+        <div class="formlist">
+            <ul>
+                <li><span class="value"><input type="password" name="oldpassword" size="26" placeholder="请输入"></span>原始密码</li>
+                <li><span class="value"><input type="password" name="password" size="26" placeholder="请输入"></span>新密码</li>
+                <li><span class="value"><input type="password" name="repassword" size="26" placeholder="请输入"></span>重复新密码</li>
+                <ul>
+                </ul></ul></div>
+        <div class="btn-box">
+            <input type="submit" value="提交" class="layui-btn layui-btn-danger" style="width:100%;"><input type="hidden" name="a" value="uppwd">
+        </div>
+    </form>
+</div>
+<div id="selectbox">
+</div>
+<div id="selectsubbox">
+</div>
+
+
+</body></html>

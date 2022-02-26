@@ -34,10 +34,10 @@ var
 	document = window.document,
 	docElem = document.documentElement,
 
-	// Map over jQuery in case of overwrite
+	// map over jQuery in case of overwrite
 	_jQuery = window.jQuery,
 
-	// Map over the $ in case of overwrite
+	// map over the $ in case of overwrite
 	_$ = window.$,
 
 	// [[Class]] -> type pairs

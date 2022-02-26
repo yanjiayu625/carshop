@@ -1276,7 +1276,7 @@ pathAnim = {
 		grep: $.grep,
 	
 		/**
-		 * Map an array
+		 * map an array
 		 * @param {Array} arr
 		 * @param {Function} fn
 		 */
@@ -5583,7 +5583,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 				w = h = 2 * wrapper.r;
 			}
 
-			// Center correction, #1682
+			// center correction, #1682
 			if (wrapper && wrapper.isCircle) {
 				x -= w / 2;
 				y -= h / 2;

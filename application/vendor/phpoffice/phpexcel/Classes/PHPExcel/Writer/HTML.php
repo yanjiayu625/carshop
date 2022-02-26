@@ -183,7 +183,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
     }
 
     /**
-     * Map VAlign
+     * map VAlign
      *
      * @param    string        $vAlign        Vertical alignment
      * @return string
@@ -204,7 +204,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
     }
 
     /**
-     * Map HAlign
+     * map HAlign
      *
      * @param    string        $hAlign        Horizontal alignment
      * @return string|false
@@ -229,7 +229,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
     }
 
     /**
-     * Map border style
+     * map border style
      *
      * @param    int        $borderStyle        Sheet index
      * @return    string

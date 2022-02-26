@@ -2953,7 +2953,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
     }
 
     /**
-     * Map Error code
+     * map Error code
      *
      * @param string $errorCode
      * @return int

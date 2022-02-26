@@ -30,7 +30,7 @@
  * There are a number of formatting codes that can be written inline with the actual header / footer text, which
  * affect the formatting in the header or footer.
  *
- * Example: This example shows the text "Center Bold Header" on the first line (center section), and the date on
+ * Example: This example shows the text "center Bold Header" on the first line (center section), and the date on
  * the second line (center section).
  *         &CCenter &"-,Bold"Bold&"-,Regular"Header_x000A_&D
  *

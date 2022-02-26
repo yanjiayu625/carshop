@@ -50,7 +50,7 @@ class PHPExcel_Reader_Excel2007_Theme
     private $colourSchemeName;
 
     /**
-     * Colour Map indexed by position
+     * Colour map indexed by position
      *
      * @var array of string
      */
@@ -58,7 +58,7 @@ class PHPExcel_Reader_Excel2007_Theme
 
 
     /**
-     * Colour Map
+     * Colour map
      *
      * @var array of string
      */
@@ -98,7 +98,7 @@ class PHPExcel_Reader_Excel2007_Theme
     }
 
     /**
-     * Get colour Map Value by Position
+     * Get colour map Value by Position
      *
      * @return string
      */

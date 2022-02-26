@@ -124,7 +124,7 @@ class PHPExcel_Writer_Excel5_Font
     }
 
     /**
-     * Map to BIFF5-BIFF8 codes for bold
+     * map to BIFF5-BIFF8 codes for bold
      *
      * @param boolean $bold
      * @return int
@@ -138,7 +138,7 @@ class PHPExcel_Writer_Excel5_Font
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for underline styles
+     * map of BIFF2-BIFF8 codes for underline styles
      * @static    array of int
      *
      */
@@ -151,7 +151,7 @@ class PHPExcel_Writer_Excel5_Font
     );
 
     /**
-     * Map underline
+     * map underline
      *
      * @param string
      * @return int
