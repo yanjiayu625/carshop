@@ -129,7 +129,7 @@ class CenterController extends \Base\Controller_AbstractWeb
         $tmpStr = implode( $tmpArr );
         $tmpStr = sha1( $tmpStr );
         if( $tmpStr == $signature ){
-            return $echostr;
+            echo $echostr;
         }else{
             return false;
         }
