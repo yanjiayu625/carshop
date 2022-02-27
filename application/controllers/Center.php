@@ -121,15 +121,15 @@ class CenterController extends \Base\Controller_AbstractWeb
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
+        $echostr = $_GET["echostr"];
 
         $token = '12345';
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr, SORT_STRING);
         $tmpStr = implode( $tmpArr );
         $tmpStr = sha1( $tmpStr );
-
         if( $tmpStr == $signature ){
-            return true;
+            return $echostr;
         }else{
             return false;
         }
