@@ -117,10 +117,10 @@ class CenterController extends \Base\Controller_AbstractWeb
     }
 
     public function wxAction(){
-        $postInfo = $this->getRequest()->getPost();
-        $signature = $postInfo["signature"];
-        $timestamp = $postInfo["timestamp"];
-        $nonce = $postInfo["nonce"];
+
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
 
         $token = '12345';
         $tmpArr = array($token, $timestamp, $nonce);
