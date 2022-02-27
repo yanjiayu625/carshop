@@ -110,18 +110,19 @@ class CenterController extends \Base\Controller_AbstractWeb
     //微信公众号授权登录
     public function wxLoginAction(){
         $WxAppkey = 'wx1647b3429377748f';
-        $reurl = "http://121.196.217.164/center/wxLogin";
+        $reurl = urlencode("http://121.196.217.164/center/wxLogin");
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$WxAppkey."&redirect_uri=".$reurl."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         echo $url;die;
         echo 123;die;
     }
 
     public function wxAction(){
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
+        $postInfo = $this->getRequest()->getPost();
+        $signature = $postInfo["signature"];
+        $timestamp = $postInfo["timestamp"];
+        $nonce = $postInfo["nonce"];
 
-        $token = '123122e2e2e';
+        $token = '12345';
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr, SORT_STRING);
         $tmpStr = implode( $tmpArr );
