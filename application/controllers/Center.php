@@ -147,13 +147,13 @@ class CenterController extends \Base\Controller_AbstractWeb
         if ($code) {
             $get_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $appId . "&secret=" . $secret . "&code=" . $code . "&grant_type=authorization_code";
             $get_token = $this->curl_request($get_token_url);
-            if($get_token['errcode'] == '40163'){
+            if(isset($get_token['errcode'])){
                 $this->commonReturn(400, '微信code已失效!');
             }
 
             $get_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=" . $get_token['access_token'] . "&openid=" . $get_token['openid'] . "&lang=zh_CN";
             $get_info = $this->curl_request($get_info_url);
-            if($get_info['errcode'] == '41001'){
+            if(isset($get_token['errcode'])){
                 $this->commonReturn(400, '微信code已失效!');
             }
 
