@@ -112,12 +112,34 @@ class CenterController extends \Base\Controller_AbstractWeb
         $appId = 'wx1647b3429377748f';
         $redirect_uri = urlencode("http://121.196.217.164/center/wx");
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appId . "&redirect_uri=" . $redirect_uri . "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        echo $url;die;
         Header("HTTP/1.1 303 See Other");
         Header("Location: $url");
         exit;
     }
 
     public function wxLoginAction()
+    {
+
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $echostr = $_GET["echostr"];
+
+        $token = '12345';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+        if ($tmpStr == $signature) {
+            echo $echostr;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function wxAction()
     {
         $appId = 'wx1647b3429377748f';
         $secret = '7c837f2ff2887845c13558742232a43d';
@@ -152,27 +174,6 @@ class CenterController extends \Base\Controller_AbstractWeb
                 $this->commonReturn(200, '微信登陆成功!');
             }
             $this->commonReturn(400, '微信登陆失败!');
-        }
-
-    }
-
-    public function wxAction()
-    {
-
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
-        $echostr = $_GET["echostr"];
-
-        $token = '12345';
-        $tmpArr = array($token, $timestamp, $nonce);
-        sort($tmpArr, SORT_STRING);
-        $tmpStr = implode($tmpArr);
-        $tmpStr = sha1($tmpStr);
-        if ($tmpStr == $signature) {
-            echo $echostr;
-        } else {
-            return false;
         }
     }
 
