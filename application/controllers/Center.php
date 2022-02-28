@@ -157,7 +157,7 @@ class CenterController extends \Base\Controller_AbstractWeb
                 $this->commonReturn(400, '微信code已失效!');
             }
 
-            $userInfo = MysqlCommon::getInstance()->getInfoByTableName('car_user', ['id'], ['openid' => $get_info['openid']]);
+            $userInfo = MysqlCommon::getInstance()->getInfoByTableName('car_user', ['id'], ['wx_open_id' => $get_info['openid']]);
             if ($userInfo['id']) {
                 $this->commonReturn(200, '微信登陆成功!');
             }
