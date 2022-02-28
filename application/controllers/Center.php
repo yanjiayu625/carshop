@@ -112,7 +112,6 @@ class CenterController extends \Base\Controller_AbstractWeb
         $appId = 'wx1647b3429377748f';
         $redirect_uri = urlencode("http://121.196.217.164/center/wx");
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appId . "&redirect_uri=" . $redirect_uri . "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-        echo $url;die;
         Header("HTTP/1.1 303 See Other");
         Header("Location: $url");
         exit;
