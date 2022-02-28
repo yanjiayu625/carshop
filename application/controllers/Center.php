@@ -158,7 +158,7 @@ class CenterController extends \Base\Controller_AbstractWeb
             }
 
             $userInfo = MysqlCommon::getInstance()->getInfoByTableName('car_user', ['id'], ['wx_open_id' => $get_info['openid']]);
-            if ($userInfo['id']) {
+            if (isset($userInfo['id'])) {
                 $this->commonReturn(200, '微信登陆成功!');
             }
 
