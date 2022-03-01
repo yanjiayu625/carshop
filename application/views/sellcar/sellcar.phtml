@@ -1,4 +1,5 @@
-<html lang="zh-CN"><head>
+<html lang="zh-CN">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -7,24 +8,15 @@
     <meta content="" name="description">
     <link rel="stylesheet" href="/css/layui.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
     <script type="text/javascript" src="/js/jquery.form.js"></script>
     <script src="/js/layui.js"></script>
     <script src="/js/search.js"></script>
     <script language="JavaScript">
-        layui.config({
-            dir: '/static/layui/'
-            ,version: false
-            ,debug: false
-            ,base: '/static/layui/lay/modules/'
-        });
 
-        layui.use('layer', function(){
-            var layer = layui.layer;
-        });
 
-        $(function() {
+        $(function () {
 
             //alert(document.getElementsByTagName('meta')['ArticleTitle'].getAttribute('content'));
             //选择省份城市
@@ -33,104 +25,143 @@
             $("#brand").selectOption('brand');
 
             //选择车系
-            $(document).on("click",".selectbrand",function(){
+            $(document).on("click", ".selectbrand", function () {
                 var brandid = $(this).attr("data-index");
-                $.get("/index.php?m=ajax&ajax=1&subbrand=1&abrandid="+brandid, {
-                }, function (data, textStatus){
-                    $('#selectsubbox').show().html(data);
+                $.get("/sellcar/getInfo?m=ajax&ajax=1&subbrand=1&abrandid=" + brandid, {}, function (data, textStatus) {
+                    $('#selectsubbox').show().html(data.data);
                 });
             });
 
             //选择车款
-            $(document).on("click",".selectseries",function(){
+            $(document).on("click", ".selectseries", function () {
                 var subbrandid = $(this).attr("data-index");
-                $.get("/index.php?m=ajax&ajax=1&subsubbrand=1&asubbrandid="+subbrandid, {
-                }, function (data, textStatus){
+                $.get("/sellcar/getInfo?m=ajax&ajax=1&subsubbrand=1&asubbrandid=" + subbrandid, {}, function (data, textStatus) {
                     $('#selectsubsubbox').show().html(data);
                 });
             });
 
-            $(document).on("click",".optionlist li",function(){
+            $(document).on("click", ".optionlist li", function () {
                 var idname = $(this).attr('option-name');
                 var idvalue = $(this).attr('data-index');
-                if(idname=="province"){
-                    if(idvalue==0){
+                if (idname == "province") {
+                    if (idvalue == 0) {
                         $("#selectbox").hide();
-                        $("#province").children("input[name="+idname+"]").val(idvalue);
+                        $("#province").children("input[name=" + idname + "]").val(idvalue);
                         $("#province").children("span").text($(this).text());
                     }
-                    else{
-                        $.get("/index.php?m=ajax&ajax=1&city=1&provinceid="+idvalue, {
-                        }, function (data, textStatus){
+                    else {
+                        $.get("/sellcar/getInfo?m=ajax&ajax=1&city=1&provinceid=" + idvalue, {}, function (data, textStatus) {
                             $('#selectsubbox').show().html(data);
                         });
                     }
                 }
-                else{
+                else {
                     $(window).scrollTop(pagetop);
-                    $('html').css({"overflow":"auto"});
-                    $('body').css({"overflow":"auto"});
-                    if(idname=="city"){
+                    $('html').css({"overflow": "auto"});
+                    $('body').css({"overflow": "auto"});
+                    if (idname == "city") {
                         $("#selectbox").hide();
                         $("#selectsubbox").hide();
                         $("#province").children("input[name=cid]").val(idvalue);
                         $("#province").children("span").text($(this).text());
                     }
-                    else if(idname=="styles"){
+                    else if (idname == "series") {
                         $("#selectbox").hide();
                         $("#selectsubbox").hide();
                         $("#selectsubsubbox").hide();
                         $("#brand").children("input[name=subsubbrand]").val(idvalue);
                         $("#brand").children("span").text($(this).text());
                     }
-                    else{
+                    else {
                         $("#selectbox").hide();
-                        $("#"+idname+"").children("input[name="+idname+"]").val(idvalue);
-                        $("#"+idname+"").children("span").text($(this).text());
+                        $("#" + idname + "").children("input[name=" + idname + "]").val(idvalue);
+                        $("#" + idname + "").children("span").text($(this).text());
                     }
                 }
             });
 
-            $(document).on("click","#reback",function(){
+            $(document).on("click", "#reback", function () {
                 $("#selectbox").hide();
-                $('html').css({"overflow":"auto"});
-                $('body').css({"overflow":"auto"});
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
             });
 
-            $(document).on("click","#reback_subbrand",function(){
+            $(document).on("click", "#reback_subbrand", function () {
                 $("#selectsubbox").hide();
             });
-            $(document).on("click","#reback_subsubbrand",function(){
+            $(document).on("click", "#reback_subsubbrand", function () {
                 $("#selectsubsubbox").hide();
             });
-            $(document).on("click","#reback_city",function(){
+            $(document).on("click", "#reback_city", function () {
                 $("#selectsubbox").hide();
             });
 
             //表单提交
-            var ajax_option={
-                success:function(data){
-                    var result = $.parseJSON(data);
-                    if(result.code==1){
-                        layer.msg(result.msg, {time: 1000, icon: 1});
-                        setTimeout(function(){//两秒后跳转
-                            location.href = result.url;
-                        },1000);
-                    }
-                    else{
-                        layer.msg(result.msg, {time: 1000, icon: 2});
-                    }
-                }
-            };
+            $("#st").click(function () {
+                var tags_id = $("#tags_id").val();
+                var true_price = $("#true_price").val();
+                var new_price = $("#new_price").val();
+                var register_date = $("#register_date").val();
+                var mileage = $("#mileage").val();
+                var basic_emission = $("#basic_emission").val();
+                var emission = $("#emission").val();
+                var basic_belong = $("#basic_belong").val();
+                var basic_models = $("#basic_models").val();
+                var basic_color = $("#basic_color").val();
+                var basic_gearbox = $("#basic_gearbox").val();
+                var basic_import = $("#basic_import").val();
+                var basic_fuel = $("#basic_fuel").val();
+                var basic_survey = $("#basic_survey").val();
+                var basic_insurance = $("#basic_insurance").val();
+                var basic_purpose = $("#basic_purpose").val();
+                var basic_maintenance = $("#basic_maintenance").val();
+                var owner_desc = $("#owner_desc").val();
 
-            $("#ajaxForm").submit(function () {
-                $(this).ajaxSubmit(ajax_option);
-                return false;
+                $.ajax({
+                    url: "/sellcar/carinfo",
+                    type: "POST",
+                    data: {
+//                        brand_id: brand_id,
+                        tags_id: tags_id,
+                        true_price: true_price,
+                        new_price: new_price,
+                        register_date: register_date,
+                        mileage: mileage,
+                        basic_emission: basic_emission,
+                        emission: emission,
+                        basic_belong: basic_belong,
+                        basic_models: basic_models,
+                        basic_color: basic_color,
+                        basic_gearbox: basic_gearbox,
+                        basic_import: basic_import,
+                        basic_survey: basic_survey,
+                        basic_fuel: basic_fuel,
+                        basic_insurance: basic_insurance,
+                        basic_purpose: basic_purpose,
+                        basic_maintenance: basic_maintenance,
+                        owner_desc: owner_desc
+                    },
+                    dataType: "json",
+                    success: function (responseData) {
+                        if (responseData.code == 200) {
+                            alert("添加成功！");
+                        } else {
+                            alert("添加失败！");
+                        }
+                    }
+                });
+
             });
+
+
+
+
+
 
         });
     </script>
-    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all"></head>
+    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all">
+</head>
 <body>
 <div id="mainbox">
     <!--内容-->
@@ -145,22 +176,61 @@
             </a>
         </div>
     </header>
-    <form method="post" action="/sellcar/" id="ajaxForm">
+    <form method="post" action="/sellcar/carinfo" id="ajaxForm">
         <div class="addformlist">
             <ul>
-                <li data="province" id="province"><span class="value">请选择城市</span>城市<i class="layui-icon"></i><input type="hidden" name="cid" value=""></li>
-                <li data="brand" id="brand"><span class="value">请选择品牌</span>品牌<i class="layui-icon"></i><input type="hidden" name="subsubbrand" value=""></li>
-                <li><span class="value"><input type="text" name="p_tel" value="" size="16" placeholder="请输入手机号"></span>手机号</li>
+<!--                <li data="province" id="province"><span class="value">请选择城市</span>城市<i class="layui-icon"></i><input-->
+<!--                            type="hidden" name="cid" value=""></li>-->
+                <li data="brand" id="brand"><span class="value">请选择品牌</span>品牌<i class="layui-icon"></i><input type="hidden" id="tags_id" name="subsubbrand" value=""></li>
+                <li><span class="value"><input type="text" id="true_price" value="" size="16" placeholder="请输入当前售价"></span>当前售价
+                </li>
+                <li><span class="value"><input type="text" id="basic_models" value="" size="16" placeholder="请输入车型"></span>车型
+                </li>
+                <li><span class="value"><input type="text" id="basic_color" value="" size="16" placeholder="请输入车身颜色"></span>颜色
+                </li>
+                <li><span class="value"><input type="text" id="new_price" value="" size="16" placeholder="请输入新车售价"></span>新车售价
+                </li>
+                <li><span class="value"><input type="text" id="register_date" value="" size="16" placeholder="请输入上牌时间"></span>上牌时间
+                </li>
+                <li><span class="value"><input type="text" id="mileage" size="16" placeholder="请输入里程数"></span>里程数
+                </li>
+                <li><span class="value"><input type="text" id="basic_emission" value="" size="16" placeholder="请输入排量"></span>排量
+                </li>
+                <li><span class="value"><input type="text" id="emission" value="" size="16" placeholder="请输入排放标准"></span>排放标准
+                </li>
+                <li><span class="value"><input type="text" id="basic_belong" value="" size="16" placeholder="请输入归属地"></span>归属地
+                </li>
+                <li><span class="value"><input type="text" id="basic_gearbox" value="" size="16"
+                                               placeholder="请输入变速箱类型"></span>变速箱
+                </li>
+                <li><span class="value"><input type="text" id="basic_import" value="" size="16" placeholder="请选择"></span>国产/进口
+                </li>
+                <li><span class="value"><input type="text" id="basic_fuel" value="" size="16" placeholder="请选择"></span>动力类型
+                </li>
+                <li><span class="value"><input type="text" id="basic_survey" value="" size="16"
+                                               placeholder="年检到期截止时间"></span>年检到期
+                </li>
+                <li><span class="value"><input type="text" id="basic_insurance" value="" size="16"
+                                               placeholder="保险到期截止时间"></span>保险到期
+                </li>
+                <li><span class="value"><input type="text" id="basic_purpose" value="" size="16" placeholder="请输入车辆用途"></span>车辆用途
+                </li>
+                <li><span class="value"><input type="text" id="basic_maintenance" value="" size="16" placeholder="是否定期保养"></span>定期保养
+                </li>
+                <li><span class="value"><input type="text" id="owner_desc" value="" size="16" placeholder="请输入车主描述"></span>车主描述
+                </li>
             </ul>
         </div>
         <div class="btn-box">
-            <input type="submit" value="提交" class="layui-btn layui-btn-fluid layui-btn-danger"><input type="hidden" name="a" value="sell">
+            <input id="st" type="button" value="提交" class="layui-btn layui-btn-fluid layui-btn-danger"><input type="hidden"
+                                                                                                      name="a"
+                                                                                                      value="sell">
         </div>
     </form>
 </div>
 <div id="selectbox">
 </div>
-<div id="selectsubbox">
+<div id="selectsubbox" style="display: none;">
 </div>
 <div id="selectsubsubbox">
 </div>
@@ -174,6 +244,9 @@
     </ul>
 </div>
 <style>
-    body{padding-bottom:70px;}
+    body {
+        padding-bottom: 70px;
+    }
 </style>
-</body></html>
+</body>
+</html>
