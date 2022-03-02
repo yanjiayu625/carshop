@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <title>全国 - 卖车 - 锐车</title>
+    <title>全国 - 卖车</title>
     <meta content="" name="keywords">
     <meta content="" name="description">
     <link rel="stylesheet" href="/css/layui.css">
@@ -24,9 +24,31 @@
             //选择品牌车型
             $("#brand").selectOption('brand');
 
+            //选择车型
+            $("#cx").selectOption('cx');
+
+            //选择变速箱
+            $("#bsx").selectOption('bsx');
+
+            //选择变速箱
+            $("#import").selectOption('import');
+
+            //选择动力类型
+            $("#dl").selectOption('dl');
+
+            //选择车辆用途
+            $("#clyt").selectOption('clyt');
+
+            //选择是否定期保养
+            $("#by").selectOption('by');
+
+            //选择排放标准
+            $("#pf").selectOption('pf');
+
             //选择车系
             $(document).on("click", ".selectbrand", function () {
                 var brandid = $(this).attr("data-index");
+                $("#brand_id").val(brandid);
                 $.get("/sellcar/getInfo?m=ajax&ajax=1&subbrand=1&abrandid=" + brandid, {}, function (data, textStatus) {
                     $('#selectsubbox').show().html(data.data);
                 });
@@ -38,6 +60,83 @@
                 $.get("/sellcar/getInfo?m=ajax&ajax=1&subsubbrand=1&asubbrandid=" + subbrandid, {}, function (data, textStatus) {
                     $('#selectsubsubbox').show().html(data);
                 });
+            });
+
+            // 选择车型
+            $(document).on("click", ".selectcx", function () {
+                var cx = $(this).attr("data-index");
+                $("#cx").children("input[name=cx]").val(cx);
+                $("#cx").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择变速箱
+            $(document).on("click", ".selectbsx", function () {
+                var bsx = $(this).attr("data-index");
+                $("#bsx").children("input[name=bsx]").val(bsx);
+                $("#bsx").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择国产进口
+            $(document).on("click", ".selectimport", function () {
+                var imp = $(this).attr("data-index");
+                $("#import").children("input[name=import]").val(imp);
+                $("#import").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择动力类型
+            $(document).on("click", ".selectdl", function () {
+                var dl = $(this).attr("data-index");
+                $("#dl").children("input[name=dl]").val(dl);
+                $("#dl").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择车辆用途
+            $(document).on("click", ".selectclyt", function () {
+                var clyt = $(this).attr("data-index");
+                $("#clyt").children("input[name=clyt]").val(clyt);
+                $("#clyt").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择是否定期保养
+            $(document).on("click", ".selectby", function () {
+                var by = $(this).attr("data-index");
+                $("#by").children("input[name=by]").val(by);
+                $("#by").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
+            });
+
+            // 选择排放标准
+            $(document).on("click", ".selectpf", function () {
+                var pf = $(this).attr("data-index");
+                $("#pf").children("input[name=pf]").val(pf);
+                $("#pf").children("span").text($(this).text());
+                $("#selectbox").hide();
+                $('html').css({"overflow": "auto"});
+                $('body').css({"overflow": "auto"});
+
             });
 
             $(document).on("click", ".optionlist li", function () {
@@ -98,6 +197,7 @@
 
             //表单提交
             $("#st").click(function () {
+                var brand_id = $("#brand_id").val();
                 var tags_id = $("#tags_id").val();
                 var true_price = $("#true_price").val();
                 var new_price = $("#new_price").val();
@@ -121,7 +221,7 @@
                     url: "/sellcar/carinfo",
                     type: "POST",
                     data: {
-//                        brand_id: brand_id,
+                        brand_id: brand_id,
                         tags_id: tags_id,
                         true_price: true_price,
                         new_price: new_price,
@@ -181,41 +281,39 @@
             <ul>
 <!--                <li data="province" id="province"><span class="value">请选择城市</span>城市<i class="layui-icon"></i><input-->
 <!--                            type="hidden" name="cid" value=""></li>-->
-                <li data="brand" id="brand"><span class="value">请选择品牌</span>品牌<i class="layui-icon"></i><input type="hidden" id="tags_id" name="subsubbrand" value=""></li>
-                <li><span class="value"><input type="text" id="true_price" value="" size="16" placeholder="请输入当前售价"></span>当前售价
+                <input type="hidden" id="brand_id" value="">
+                <li data="brand" id="brand"><span class="value">请选择品牌</span>品牌<i class="layui-icon"></i><input type="hidden" id="tags_id" name="subsubbrand" value=""></li>
+                <li><span class="value"><input type="text" id="true_price" value="" size="16" placeholder="请输入当前售价"></span>当前售价（万元）
                 </li>
-                <li><span class="value"><input type="text" id="basic_models" value="" size="16" placeholder="请输入车型"></span>车型
-                </li>
+                <li data="cx" id="cx"><span class="value">请选择车型</span>车型<input type="hidden" id="basic_models" value="" size="16" name="cx"></li>
                 <li><span class="value"><input type="text" id="basic_color" value="" size="16" placeholder="请输入车身颜色"></span>颜色
                 </li>
-                <li><span class="value"><input type="text" id="new_price" value="" size="16" placeholder="请输入新车售价"></span>新车售价
+                <li><span class="value"><input type="text" id="new_price" value="" size="16" placeholder="请输入新车售价"></span>新车售价（万元）
                 </li>
-                <li><span class="value"><input type="text" id="register_date" value="" size="16" placeholder="请输入上牌时间"></span>上牌时间
+                <li><span class="value"><input type="date" id="register_date" value="" size="16" placeholder="请输入上牌时间"></span>上牌时间
                 </li>
-                <li><span class="value"><input type="text" id="mileage" size="16" placeholder="请输入里程数"></span>里程数
+                <li><span class="value"><input type="text" id="mileage" size="16" placeholder="请输入里程数"></span>里程数（万公里）
                 </li>
                 <li><span class="value"><input type="text" id="basic_emission" value="" size="16" placeholder="请输入排量"></span>排量
                 </li>
-                <li><span class="value"><input type="text" id="emission" value="" size="16" placeholder="请输入排放标准"></span>排放标准
+                <li data="pf" id="pf"><span class="value">请选择排放标准</span>排放标准<input type="hidden" id="emission" value="" size="16" name="pf">
                 </li>
                 <li><span class="value"><input type="text" id="basic_belong" value="" size="16" placeholder="请输入归属地"></span>归属地
                 </li>
-                <li><span class="value"><input type="text" id="basic_gearbox" value="" size="16"
-                                               placeholder="请输入变速箱类型"></span>变速箱
+                <li data="bsx" id="bsx"><span class="value">请选择变速箱</span>变速箱<input type="hidden" id="basic_gearbox" value="" size="16" name="bsx">
                 </li>
-                <li><span class="value"><input type="text" id="basic_import" value="" size="16" placeholder="请选择"></span>国产/进口
+                <li data="import" id="import"><span class="value">请选择国产/进口</span>国产/进口<input type="hidden" id="basic_import" value="" size="16" name="import"></li>
+                <li data="dl" id="dl"><span class="value">请选择动力类型</span>动力类型<input type="hidden" id="basic_fuel" value="" size="16" name="dl">
                 </li>
-                <li><span class="value"><input type="text" id="basic_fuel" value="" size="16" placeholder="请选择"></span>动力类型
-                </li>
-                <li><span class="value"><input type="text" id="basic_survey" value="" size="16"
+                <li><span class="value"><input type="date" id="basic_survey" value="" size="16"
                                                placeholder="年检到期截止时间"></span>年检到期
                 </li>
-                <li><span class="value"><input type="text" id="basic_insurance" value="" size="16"
+                <li><span class="value"><input type="date" id="basic_insurance" value="" size="16"
                                                placeholder="保险到期截止时间"></span>保险到期
                 </li>
-                <li><span class="value"><input type="text" id="basic_purpose" value="" size="16" placeholder="请输入车辆用途"></span>车辆用途
+                <li data="clyt" id="clyt"><span class="value">请选择车辆用途</span>车辆用途<input type="hidden" id="basic_purpose" value="" size="16" name="clyt">
                 </li>
-                <li><span class="value"><input type="text" id="basic_maintenance" value="" size="16" placeholder="是否定期保养"></span>定期保养
+                <li data="by" id="by"><span class="value">是否定期保养</span>定期保养<input type="hidden" id="basic_maintenance" value="" size="16" name="by">
                 </li>
                 <li><span class="value"><input type="text" id="owner_desc" value="" size="16" placeholder="请输入车主描述"></span>车主描述
                 </li>

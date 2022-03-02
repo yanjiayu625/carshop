@@ -94,6 +94,42 @@
 
         })
 
+        // 添加 或者 修改 url中参数的值
+        function UpdateUrlParam(name, val) {
+            var thisURL = document.location.href;
+
+            // 如果 url中包含这个参数 则修改
+            if (thisURL.indexOf(name+'=') > 0) {
+                var v = getUrlParam(name);
+                if (v != null) {
+                    // 是否包含参数
+                    thisURL = thisURL.replace(name + '=' + v, name + '=' + val);
+
+                }
+                else {
+                    thisURL = thisURL.replace(name + '=', name + '=' + val);
+                }
+
+            } // 不包含这个参数 则添加
+            else {
+                if (thisURL.indexOf("?") > 0) {
+                    thisURL = thisURL + "&" + name + "=" + val;
+                }
+                else {
+                    thisURL = thisURL + "?" + name + "=" + val;
+                }
+            }
+            location.href = thisURL;
+
+        };
+
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+
     </script>
 </head>
 <body style="">
@@ -138,7 +174,7 @@
         </a>
     </div>
     <div class="order-item order-item-border selectoption">
-        <a href="/filter/">
+        <a href="/buycar/filter">
             筛选
             <i class="layui-icon" style="font-size:12px;"></i>
         </a>
@@ -147,8 +183,8 @@
         <div class="filterbox-price" style="display:none;">
             <ul class="layui-clear optionlist">
                 <li><a href="/buycar/list-1" class="selected">不限</a></li>
-                <li><a href="/buycar/list-1op1">3万以下</a></li>
-                <li><a href="/buycar/list-1op2">3-5万</a></li>
+                <li><a onclick="UpdateUrlParam('m',2)">3万以下</a></li>
+                <li><a onclick="UpdateUrlParam('m',3)">3-5万</a></li>
                 <li><a href="/buycar/list-1op3">5-8万</a></li>
                 <li><a href="/buycar/list-1op4">8-10万</a></li>
                 <li><a href="/buycar/list-1op5">10-20万</a></li>
@@ -159,7 +195,7 @@
         <div class="filterbox-age" style="display:none;">
             <ul class="layui-clear optionlist">
                 <li><a href="/buycar/list-1" class="selected">不限</a></li>
-                <li><a href="/buycar/list-1oa1">1年以内</a></li>
+                <li><a onclick="UpdateUrlParam('y',3)">1年以内</a></li>
                 <li><a href="/buycar/list-1oa2">3年以内</a></li>
                 <li><a href="/buycar/list-1oa3">5年以内</a></li>
                 <li><a href="/buycar/list-1oa4">5年以上</a></li>
@@ -168,7 +204,7 @@
         <div class="filterbox-order" style="display:none;">
             <ul class="filterlist">
                 <li><a href="/buycar/list-1ox1">默认</a></li>
-                <li><a href="/buycar/list-1ox3">按价格升序</a></li>
+                <li><a onclick="UpdateUrlParam('s',2)">按价格升序</a></li>
                 <li><a href="/buycar/list-1ox4">按价格降序</a></li>
                 <li><a href="/buycar/list-1ox5">按年限升序</a></li>
                 <li><a href="/buycar/list-1ox6">按年限降序</a></li>
@@ -179,7 +215,7 @@
 <div class="carnum" style="display: none;"><div class="carnum-box">为您找到 <span class="orange">81</span> 条信息</div></div>
 <div id="listcar">
 
-    </div>
+</div>
 <div class="brand-indexs-div" style="display:none;">
     <ul class="brand-indexs">
         <li dataid="A">A</li>
@@ -540,28 +576,12 @@
     body{padding-bottom:70px;}
 </style>
 <script language="JavaScript">
-//    layui.use('flow', function(){
-//        var $ = layui.jquery;
-//        var flow = layui.flow;
-//        flow.load({
-//            elem: '#listcar'
-//            ,done: function(page, next){
-//                var lis = [];
-//                $.get('/index.php?m=buycar&ajax=1&con=&k=&page='+page, function(res){
-//                    layui.each(res.data, function(index, item){
-//                        lis.push('<li>'+ item +'</li>');
-//                    });
-//                    next(lis.join(''), page < res.pages);
-//                },'json');
-//            }
-//        });
-//    });
 
     $.ajax({
         url: "/buycar/list",
         type: "POST",
         data: {
-
+            location: "buycar"
         },
         dataType: "json",
         success: function (responseData) {
@@ -581,7 +601,7 @@
                         "        </div>\n" +
                         "    </li>");
                 });
-                $("#listcar").append("<div class=\"layui-flow-more\"><a href=\"javascript:;\"><cite>加载更多</cite></a></div>");
+                $("#listcar").append("<div class=\"layui-flow-more\"><a href=\"javascript:;\"><cite>没有更多了</cite></a></div>");
 
                 console.log(responseData.data);
                 $('#loading').modal('hide');

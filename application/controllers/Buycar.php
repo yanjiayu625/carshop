@@ -7,6 +7,44 @@ class BuycarController extends \Base\Controller_AbstractWeb
 {
     public function BuycarAction()
     {
+        $type = $this->getRequest()->getQuery("sp");
+        if (!empty($type) && is_numeric($type)) {
+
+            switch ($type) {
+                case 1: // 城市SUV
+
+                    break;
+                case 2: // 练手车
+                    break;
+                case 3: // 准新车3年1万公里内
+                    break;
+                case 4: // 3万以下
+                    break;
+                case 5: // 3-5万
+                    break;
+                case 6: // 5-8万
+                    break;
+                case 7: // 8-10万
+                    break;
+                case 8: // 奥迪
+                    break;
+                case 9: // 宝马
+                    break;
+                case 10: // 巴博斯
+                    break;
+                case 11: // 布加迪
+                    break;
+                case 12: // 北汽
+                    break;
+                case 13: // 宾利
+                    break;
+                case 14: // 奔腾
+                    break;
+                case 15: // 保时捷
+                    break;
+            }
+        }
+
         $this->display("buycar");
     }
 
@@ -15,10 +53,19 @@ class BuycarController extends \Base\Controller_AbstractWeb
     {
         // TODO::暂未添加搜索条件，待后续完善
         $postInfo = $this->getRequest()->getPost();
+        if (!empty($postInfo)) {
+            if ($postInfo['location'] == "index") {
+                $sort = "order by id DESC";
+                $count = "limit 0,10";
+            } else if ($postInfo['location'] == "buycar") {
+                $sort = "order by id DESC";
+                $count = "";
+            }
+        }
         try{
 
 //            $brands = MysqlCommon::getInstance()->getListByTableName("car_sell_content", null, null, $order = null, $group = null);
-            $brands = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id");
+            $brands = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id $sort $count");
 
 
 
@@ -141,4 +188,13 @@ class BuycarController extends \Base\Controller_AbstractWeb
 
         Tools::returnAjaxJson($res);
     }
+
+    /**
+     * 筛选页面
+     */
+    public function filterAction()
+    {
+        $this->display("filter");
+    }
+
 }

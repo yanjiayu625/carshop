@@ -24,6 +24,44 @@
                     $(".hidden-nav").hide();
                 }
             });
+
+            //加载最新上架模块
+            $.ajax({
+                url: "/buycar/list",
+                type: "POST",
+                data: {
+                    location: "index"
+                },
+                dataType: "json",
+                success: function (responseData) {
+                    if (responseData.code == 200) {
+                        $.each(responseData.data, function(key, val){
+                            $("#new_shop").append("<li><div class=\"listcar layui-clear\">\n" +
+                                "            <a href=\"/details/details?cid="+val['id']+"\">\n" +
+                                "                <div class=\"carimg\">\n" +
+                                "                    <img src="+val['pic_dir']+" width=\"300\" height=\"230\" class=\"img-responsive\"><div class=\"isreport\"></div>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"carinfo\">\n" +
+                                "                    <h4>"+val['tags_name']+"("+val['basic_import']+")  "+val['basic_models']+" "+val['basic_emission']+"</h4>\n" +
+                                "                    <p class=\"caritem\">"+val['register_date']+"上牌 / "+val['mileage']+"万公里</p>\n" +
+                                "                    <p class=\"carprice\">"+val['true_price']+"万</p>\n" +
+                                "                </div>\n" +
+                                "            </a>\n" +
+                                "        </div>\n" +
+                                "    </li>");
+                        });
+                        $("#listcar").append("<div class=\"layui-flow-more\"><a href=\"javascript:;\"><cite>加载更多</cite></a></div>");
+
+                        console.log(responseData.data);
+                        $('#loading').modal('hide');
+                    } else {
+
+                    }
+                }
+            });
+
+
+
         });
     </script>
 
@@ -114,93 +152,16 @@
 </div>
 <div class="index-box">
     <h3><a href="/buycar/buycar" class="more">更多</a><span>最新上架</span></h3>
-    <div class="listcar">
-        <a href="/cars/253">
-            <div class="carimg">
-                <div class="isreport"></div>				<img src="http://ershouche.simcms.net/upload/image/20220105/20220105193129_38774_small.jpg">			</div>
-            <div class="carinfo">
-                <h4>奔驰CLS级(进口) 2005款 奔驰CLS级(进口) CLS350 CGI </h4>
-                <p class="caritem">2005-01上牌 / 16.00万公里</p>
-                <p class="carprice">7.00万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/252">
-            <div class="carimg">
-                <div class="isreport"></div>				<img src="http://ershouche.simcms.net/upload/image/20211105/20211105121859_90866_small.jpg">			</div>
-            <div class="carinfo">
-                <h4>大众 迈腾 2018款 迈腾 330TSI DSG 领先型 </h4>
-                <p class="caritem">2018-10上牌 / 5.60万公里</p>
-                <p class="carprice">16.28万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/251">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20210829/20210829144943_50077_small.jpeg">			</div>
-            <div class="carinfo">
-                <h4>别克 君威 2020款 君威 652T 豪华型 </h4>
-                <p class="caritem">2021-06上牌 / 1.00万公里</p>
-                <p class="carprice">14.00万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/245">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20210615/20210615174715_54598_small.jpg">			</div>
-            <div class="carinfo">
-                <h4>别克 威朗 2015款 威朗 20T 双离合 旗舰型 </h4>
-                <p class="caritem">2016-06上牌 / 66666.00万公里</p>
-                <p class="carprice">8.60万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/244">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20211110/20211110153926_75616_small.jpg">			</div>
-            <div class="carinfo">
-                <h4>AUXUN傲旋 傲旋V-Class 2021款 傲旋V-Class 2.0T AUXUN傲旋大白鲨 </h4>
-                <p class="caritem">2021-05上牌 / 200.00万公里</p>
-                <p class="carprice">1.00万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/243">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20200914/20200914095317_47258_small.jpeg">			</div>
-            <div class="carinfo">
-                <h4>奥迪A3 2017款 奥迪A3 Limousine 40 TFSI 运动型 </h4>
-                <p class="caritem">2020-08上牌 / 3.00万公里</p>
-                <p class="carprice">12.00万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/242">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20200909/20200909131629_62392_small.jpeg">			</div>
-            <div class="carinfo">
-                <h4>日产 天籁 2016款 天籁 2.0L XE时尚版 </h4>
-                <p class="caritem">2020-01上牌 / 1.00万公里</p>
-                <p class="carprice">10.00万</p>
-            </div>
-        </a>
-    </div>
-    <div class="listcar">
-        <a href="/cars/241">
-            <div class="carimg">
-                <img src="http://ershouche.simcms.net/upload/image/20210325/20210325114009_89042_small.jpg">			</div>
-            <div class="carinfo">
-                <h4>奥迪A3 2017款 奥迪A3 Limousine 35 TFSI 时尚型 </h4>
-                <p class="caritem">2020-07上牌 / 22.00万公里</p>
-                <p class="carprice">222.00万</p>
-            </div>
-        </a>
+    <div id="new_shop" class="listcar">
+<!--        <a href="/cars/253">-->
+<!--            <div class="carimg">-->
+<!--                <div class="isreport"></div>				<img src="http://ershouche.simcms.net/upload/image/20220105/20220105193129_38774_small.jpg">			</div>-->
+<!--            <div class="carinfo">-->
+<!--                <h4>奔驰CLS级(进口) 2005款 奔驰CLS级(进口) CLS350 CGI </h4>-->
+<!--                <p class="caritem">2005-01上牌 / 16.00万公里</p>-->
+<!--                <p class="carprice">7.00万</p>-->
+<!--            </div>-->
+<!--        </a>-->
     </div>
 </div>
 <div class="index-box">
