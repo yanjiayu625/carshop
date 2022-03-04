@@ -279,7 +279,7 @@ class BuycarController extends \Base\Controller_AbstractWeb
                     break;
             }
         }
-
+var_dump("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id $filter $sort ");die;
         $brands = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id $filter $sort ");
 
         return $brands;

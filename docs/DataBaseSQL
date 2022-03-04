@@ -45,6 +45,8 @@ CREATE TABLE `car_sell_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `car_sell_content`;
+
 CREATE TABLE `car_sell_content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sell_id` int(11) NOT NULL DEFAULT '0' COMMENT '列表ID',
@@ -53,7 +55,6 @@ CREATE TABLE `car_sell_content` (
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
   `source` varchar(255) NOT NULL DEFAULT '' COMMENT '来源',
   `new_price` varchar(20) NOT NULL DEFAULT '' COMMENT '新车售价,单位万',
-  `true_price` varchar(20) DEFAULT NULL COMMENT '当前售价,单位万',
   `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期.2022-02-15',
   `register_date` date NOT NULL COMMENT '上牌时间,2015-01',
   `mileage` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '里程数',
@@ -63,7 +64,7 @@ CREATE TABLE `car_sell_content` (
   `basic_color` varchar(20) NOT NULL DEFAULT '' COMMENT '颜色',
   `basic_emission` varchar(20) NOT NULL DEFAULT '' COMMENT '排量',
   `basic_gearbox` varchar(20) NOT NULL DEFAULT '' COMMENT '变速箱',
-  `basic_import` varchar(20) NOT NULL DEFAULT '' COMMENT '国产/进口',
+  `basic_import` tinyint(1) NOT NULL COMMENT '国产/进口 1国产；2进口',
   `basic_fuel` tinyint(1) NOT NULL COMMENT '动力类型:1汽油，2柴油，3纯电，4油电混动',
   `basic_survey` date NOT NULL COMMENT '年检到期',
   `basic_insurance` date NOT NULL COMMENT '保险到期',
@@ -73,9 +74,8 @@ CREATE TABLE `car_sell_content` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态,0:禁用,1:启用,2:已售',
   `c_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `u_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `pic_dir` varchar(255) DEFAULT '' COMMENT '列表页预览图片路径',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `car_sell_upload_file_list`;
 CREATE TABLE `car_sell_upload_file_list` (
