@@ -55,7 +55,7 @@ class buycarController extends \Base\Controller_AbstractWeb
                     $sort = " ";
                     break;
             }
-            array_shift($params);
+            unset($params['s']);
         } else {
             $sort = " ORDER BY c.id DESC";
         }
