@@ -7,48 +7,286 @@ class BuycarController extends \Base\Controller_AbstractWeb
 {
     public function BuycarAction()
     {
-        $type = $this->getRequest()->getQuery("sp");
-        if (!empty($type) && is_numeric($type)) {
+        $params = $this->getRequest()->getQuery();
+        $arr = [
+            's'=>isset($params['s'])?$params['s']:0,
+            'b'=>isset($params['b'])?$params['b']:0,
+            'p'=>isset($params['p'])?$params['p']:0,
+        ];
 
-            switch ($type) {
-                case 1: // 城市SUV
+        array_shift($params);
+        $lists = $this->getListByFilterAction($params);
+        $brands = $this->getBrandAction();
+        $this->getView()->assign(["lists" => $lists, "params" =>$arr, "brands"=>$brands]);
+        $this->display("buycar");
+    }
 
+    /**
+     * 获取car_brand
+     */
+    public function getBrandAction() {
+        try {
+            $brandInfo = MysqlCommon::getInstance()->getListByTableName('car_brand', ['id','brand_name','pic_dir'], ['status'=>1],  " sort_id ASC");
+            return $brandInfo;
+        } catch(Exception $e) {
+            echo $e->getMessage();
+        }
+
+    }
+
+    /**
+     * 为买车页条件查询数据
+     */
+    public function getListByFilterAction($params)
+    {
+        // 排序方式
+        if (isset($params['s'])) {
+            switch ($params['s']) {
+                case 1:
+                    $sort = " ORDER BY c.true_price ASC";
                     break;
-                case 2: // 练手车
+                case 2:
+                    $sort = " ORDER BY c.true_price DESC";
                     break;
-                case 3: // 准新车3年1万公里内
+                case 3:
+                    $sort = " ";
                     break;
-                case 4: // 3万以下
+                case 4:
+                    $sort = " ";
                     break;
-                case 5: // 3-5万
+            }
+            array_shift($params);
+        } else {
+            $sort = " ORDER BY c.id DESC";
+        }
+
+        if (!empty($params)) {
+            $filter = " WHERE ";
+        } else {
+            $filter = "";
+        }
+
+        // 汽车品牌
+        if (isset($params['b'])) {
+            $filter .= "c.brand_id=".$params['b']." ";
+        }
+
+        // 车型
+        if (isset($params['m'])) {
+
+            if (isset($params['b'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['m']) {
+                case 1:
+                    $filter .= "c.basic_models='小型车' ";
                     break;
-                case 6: // 5-8万
+                case 2:
+                    $filter .= "c.basic_models='中型车' ";
                     break;
-                case 7: // 8-10万
+                case 3:
+                    $filter .= "c.basic_models='中大型车' ";
                     break;
-                case 8: // 奥迪
+                case 4:
+                    $filter .= "c.basic_models='微型车' ";
                     break;
-                case 9: // 宝马
+                case 5:
+                    $filter .= "c.basic_models='豪华车' ";
                     break;
-                case 10: // 巴博斯
+                case 6:
+                    $filter .= "c.basic_models='紧凑车型' ";
                     break;
-                case 11: // 布加迪
+                case 7:
+                    $filter .= "c.basic_models='MPV' ";
                     break;
-                case 12: // 北汽
+                case 8:
+                    $filter .= "c.basic_models='SUV' ";
                     break;
-                case 13: // 宾利
+                case 9:
+                    $filter .= "c.basic_models='跑车' ";
                     break;
-                case 14: // 奔腾
+                case 10:
+                    $filter .= "c.basic_models='皮卡' ";
                     break;
-                case 15: // 保时捷
+                case 11:
+                    $filter .= "c.basic_models='面包车' ";
                     break;
             }
         }
 
-        $this->display("buycar");
+        // 价格
+        if (isset($params['p'])) {
+
+            if (isset($params['m']) || isset($params['b'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['p']) {
+                case 1:
+                    $filter .= "c.true_price<3 ";
+                    break;
+                case 2:
+                    $filter .= "c.true_price>=3 AND c.true_price<5 ";
+                    break;
+                case 3:
+                    $filter .= "c.true_price>=5 AND c.true_price<8 ";
+                    break;
+                case 4:
+                    $filter .= "c.true_price>=8 AND c.true_price<10 ";
+                    break;
+                case 5:
+                    $filter .= "c.true_price>=10 AND c.true_price<20 ";
+                    break;
+                case 6:
+                    $filter .= "c.true_price>=20 AND c.true_price<30 ";
+                    break;
+                case 7:
+                    $filter .= "c.true_price>=30 ";
+                    break;
+            }
+        }
+
+        // TODO::车龄后面补充
+        if (isset($params['a'])) {
+
+            if (isset($params['m']) || isset($params['b']) || isset($params['p'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['a']) {
+                case 1:
+//                    $filter .= "c.true_price<3 ";
+                    break;
+                case 2:
+//                    $filter .= "c.true_price>=3 AND c.true_price<5 ";
+                    break;
+                case 3:
+//                    $filter .= "c.true_price>=5 AND c.true_price<8 ";
+                    break;
+                case 4:
+//                    $filter .= "c.true_price>=8 AND c.true_price<10 ";
+                    break;
+            }
+        }
+
+        // 里程
+        if (isset($params['k'])) {
+
+            if (isset($params['m']) || isset($params['b']) || isset($params['p']) || isset($params['a'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['k']) {
+                case 1:
+                    $filter .= "c.mileage<=1 ";
+                    break;
+                case 2:
+                    $filter .= "c.mileage<=3 ";
+                    break;
+                case 3:
+                    $filter .= "c.mileage<=5 ";
+                    break;
+                case 4:
+                    $filter .= "c.mileage<=8 ";
+                    break;
+                case 5:
+                    $filter .= "c.mileage>8 ";
+                    break;
+            }
+        }
+
+        // 变速箱
+        if (isset($params['t'])) {
+
+            if (isset($params['m']) || isset($params['b']) || isset($params['p']) || isset($params['a']) || isset($params['k'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['t']) {
+                case 1:
+                    $filter .= "c.basic_gearbox='自动' ";
+                    break;
+                case 2:
+                    $filter .= "c.basic_gearbox='手动' ";
+                    break;
+                case 3:
+                    $filter .= "c.basic_gearbox='手自一体' ";
+                    break;
+                case 4:
+                    $filter .= "c.basic_gearbox='双离合' ";
+                    break;
+            }
+        }
+
+        // 排量
+        if (isset($params['g'])) {
+
+            if (isset($params['m']) || isset($params['b']) || isset($params['p']) || isset($params['a']) || isset($params['k']) || isset($params['t'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['g']) {
+                case 1:
+                    $filter .= "c.basic_emission<=1 ";
+                    break;
+                case 2:
+                    $filter .= "c.basic_emission>=1.1 AND c.basic_emission<1.6 ";
+                    break;
+                case 3:
+                    $filter .= "c.basic_emission>=1.6 AND c.basic_emission<2 ";
+                    break;
+                case 4:
+                    $filter .= "c.basic_emission>=2 AND c.basic_emission<2.5 ";
+                    break;
+                case 5:
+                    $filter .= "c.basic_emission>=2.5 AND c.basic_emission<3 ";
+                    break;
+                case 6:
+                    $filter .= "c.basic_emission>=3 AND c.basic_emission<4 ";
+                    break;
+                case 7:
+                    $filter .= "c.basic_emission>=4 ";
+                    break;
+            }
+        }
+
+        // 排放标准
+        if (isset($params['e'])) {
+
+            if (isset($params['m']) || isset($params['b']) || isset($params['p']) || isset($params['a']) || isset($params['k']) || isset($params['t']) || isset($params['g'])) {
+                $filter .= " AND ";
+            }
+
+            switch ($params['e']) {
+                case 1:
+                    $filter .= "c.emission='国一' ";
+                    break;
+                case 2:
+                    $filter .= "c.emission='国二' ";
+                    break;
+                case 3:
+                    $filter .= "c.emission='国三' ";
+                    break;
+                case 4:
+                    $filter .= "c.emission='国四' ";
+                    break;
+                case 5:
+                    $filter .= "c.emission='国五' ";
+                    break;
+                case 6:
+                    $filter .= "c.emission='国六' ";
+                    break;
+            }
+        }
+
+        $brands = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id $filter $sort ");
+
+        return $brands;
+
     }
 
-    // 买车列表o
+    // 买车列表
     public function ListAction()
     {
         // TODO::暂未添加搜索条件，待后续完善
@@ -194,6 +432,21 @@ class BuycarController extends \Base\Controller_AbstractWeb
      */
     public function filterAction()
     {
+        $params = $this->getRequest()->getQuery();
+
+        $arr = [
+            's'=>isset($params['s'])?$params['s']:0,
+            'b'=>isset($params['b'])?$params['b']:0,
+            'm'=>isset($params['m'])?$params['m']:0,
+            'p'=>isset($params['p'])?$params['p']:0,
+            'a'=>isset($params['a'])?$params['a']:0,
+            'k'=>isset($params['k'])?$params['k']:0,
+            't'=>isset($params['t'])?$params['t']:0,
+            'g'=>isset($params['g'])?$params['g']:0,
+            'e'=>isset($params['e'])?$params['e']:0
+        ];
+
+        $this->getView()->assign($arr);
         $this->display("filter");
     }
 

@@ -13,6 +13,19 @@
     <script src="/js/common.js"></script>
     <script language="JavaScript">
         $(function() {
+
+            //获取url中的参数
+            function getUrlParam(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+
+            var price = getUrlParam("p");
+            if(price!="" &&  price!=0 && price!=null){
+
+            }
+
             $(".onebrand").click(function(){
                 var brandid = $(this).attr("data-index");
                 $.get("/index.php?m=ajax&ajax=1&brandid="+brandid, {
@@ -32,55 +45,114 @@
                 $(this).parent().parent().siblings('input').val(value);
             });
             $(".comfirm").click(function(){
+
                 var con = "";
-                var orderby = $("input[name=orderby]").val();
-                if(orderby!="" && orderby!=0){
-                    con += "s"+orderby;
+                var orderby = getUrlParam("s"); // 获取buycar页面的排序方式
+                if(orderby!="" && orderby!=0 && orderby!=null){
+                    con += "&s="+orderby;
                 }
-                var brand = $("input[name=brand]").val();
-                if(brand!="" &&  brand!=0){
-                    con += "b"+brand;
+                var brand = getUrlParam("b");
+                if(brand!="" &&  brand!=0 && brand!=null){
+                    con += "&b="+brand;
                 }
                 var subbrand = $("input[name=subbrand]").val();
                 if(subbrand!="" && subbrand!=0){
                     con += "os"+subbrand;
                 }
                 var model = $("input[name=model]").val();
-                if(model!="" && model!=0){
-                    con += "oj"+model;
+                if (model != 100) {
+                    if(model!="" && model!=0){
+                        con += "&m="+model;
+                    } else {
+                        var m = getUrlParam("m");
+                        if(m!="" &&  m!=0 && m!=null){
+                            con += "&m="+m;
+                        }
+                    }
                 }
+
                 var price = $("input[name=price]").val();
-                if(price!="" && price!=0){
-                    con += "op"+price;
+                if (price != 100) {
+                    if(price!="" && price!=0){
+                        con += "&p="+price;
+                    } else {
+                        var p = getUrlParam("p");
+                        if(p!="" &&  p!=0 && p!=null){
+                            con += "&p="+p;
+                        }
+                    }
                 }
-                var age = $("input[name=age]").val();
-                if(age!="" && age!=0){
-                    con += "oa"+age;
-                }
+
+//                var age = $("input[name=age]").val();
+//                if (age != 100) {
+//                    if(age!="" && age!=0){
+//                        con += "&a="+age;
+//                    } else {
+//                        var a = getUrlParam("a");
+//                        if(a!="" &&  a!=0 && a!=null){
+//                            con += "&a="+a;
+//                        }
+//                    }
+//                }
+
                 var kilometre = $("input[name=kilometre]").val();
-                if(kilometre!="" && price!=0){
-                    con += "ok"+kilometre;
+                if (kilometre != 100) {
+                    if(kilometre!="" && kilometre!=0){
+                        con += "&k="+kilometre;
+                    } else {
+                        var k = getUrlParam("k");
+                        if(k!="" &&  k!=0 && k!=null){
+                            con += "&k="+k;
+                        }
+                    }
                 }
+
                 var transmission = $("input[name=transmission]").val();
-                if(transmission!="" && transmission!=0){
-                    con += "ot"+transmission;
+                if (transmission != 100) {
+                    if(transmission!="" && transmission!=0){
+                        con += "&t="+transmission;
+                    } else {
+                        var t = getUrlParam("t");
+                        if(t!="" &&  t!=0 && t!=null){
+                            con += "&t="+t;
+                        }
+                    }
                 }
+
                 var gas = $("input[name=gas]").val();
-                if(gas!="" && gas!=0){
-                    con += "og"+gas;
+                if (gas != 100) {
+                    if(gas!="" && gas!=0){
+                        con += "&g="+gas;
+                    } else {
+                        var g = getUrlParam("g");
+                        if(g!="" &&  g!=0 && g!=null){
+                            con += "&g="+g;
+                        }
+                    }
                 }
+
                 var emstandard = $("input[name=emstandard]").val();
-                if(emstandard!="" && emstandard!=0){
-                    con += "oe"+emstandard;
+                if (emstandard != 100) {
+                    if(emstandard!="" && emstandard!=0){
+                        con += "&e="+emstandard;
+                    } else {
+                        var e = getUrlParam("e");
+                        if(e!="" &&  e!=0 && e!=null){
+                            con += "&e="+e;
+                        }
+                    }
                 }
+
+                con = con.substr(1);
                 if(con!=""){
-                    window.location.href="/buycar/list-"+con;
+                    window.location.href="/buycar/buycar?"+con;
                 }
                 else{
-                    window.location.href="/buycar/";
+                    window.location.href="/buycar/buycar";
                 }
             });
             $(".reset").click(function(){
+                window.location.href="/buycar/filter";
                 $("input").attr("value","");
                 $(".option-item").removeClass('selected');
             });
@@ -99,99 +171,100 @@
         <div class="mo-header-title">筛选</div>
     </header>
 </div>
-<input type="hidden" name="orderby" value="3">
-<input type="hidden" name="brand" value="2">
-<input type="hidden" name="subbrand" value="351">
+<input type="hidden" id="orderby" name="orderby" value="">
+<input type="hidden" id="brand" name="brand" value="">
+<input type="hidden" id="subbrand" name="subbrand" value="">
 <div class="filter-box">
     <input type="hidden" name="model" value="">
     <div class="filter-title">级别</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="0" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">小型车</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">中型车</a></li>
-        <li><a href="javascript:;" data="5" class="option-item">中大型车</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">微型车</a></li>
-        <li><a href="javascript:;" data="6" class="option-item">豪华车</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">紧凑型车</a></li>
-        <li><a href="javascript:;" data="7" class="option-item">MPV</a></li>
-        <li><a href="javascript:;" data="8" class="option-item">SUV</a></li>
-        <li><a href="javascript:;" data="9" class="option-item">跑车</a></li>
-        <li><a href="javascript:;" data="38" class="option-item">皮卡</a></li>
-        <li><a href="javascript:;" data="39" class="option-item">面包车</a></li>
+        <li><a href="javascript:;" data="100" class="option-item">不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($m==1){echo "selected";}?>">小型车</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($m==2){echo "selected";}?>">中型车</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($m==3){echo "selected";}?>">中大型车</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($m==4){echo "selected";}?>">微型车</a></li>
+        <li><a href="javascript:;" data="5" class="option-item <?php if($m==5){echo "selected";}?>">豪华车</a></li>
+        <li><a href="javascript:;" data="6" class="option-item <?php if($m==6){echo "selected";}?>">紧凑型车</a></li>
+        <li><a href="javascript:;" data="7" class="option-item <?php if($m==7){echo "selected";}?>">MPV</a></li>
+        <li><a href="javascript:;" data="8" class="option-item <?php if($m==8){echo "selected";}?>">SUV</a></li>
+        <li><a href="javascript:;" data="9" class="option-item <?php if($m==9){echo "selected";}?>">跑车</a></li>
+        <li><a href="javascript:;" data="10" class="option-item <?php if($m==10){echo "selected";}?>">皮卡</a></li>
+        <li><a href="javascript:;" data="11" class="option-item <?php if($m==11){echo "selected";}?>">面包车</a></li>
     </ul>
 </div>
 <div class="filter-box">
-    <input type="hidden" name="price" value="5">
+    <input type="hidden" name="price" value="">
     <div class="filter-title">价格</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">3万以下</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">3-5万</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">5-8万</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">8-10万</a></li>
-        <li><a href="javascript:;" data="5" class="option-item">10-20万</a></li>
-        <li><a href="javascript:;" data="6" class="option-item">20-30万</a></li>
-        <li><a href="javascript:;" data="7" class="option-item">30万以上</a></li>
+        <li><a href="javascript:;" data="100" class="option-item" >不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($p==1){echo "selected";}?>">3万以下</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($p==2){echo "selected";}?>">3-5万</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($p==3){echo "selected";}?>">5-8万</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($p==4){echo "selected";}?>">8-10万</a></li>
+        <li><a href="javascript:;" data="5" class="option-item <?php if($p==5){echo "selected";}?>">10-20万</a></li>
+        <li><a href="javascript:;" data="6" class="option-item <?php if($p==6){echo "selected";}?>">20-30万</a></li>
+        <li><a href="javascript:;" data="7" class="option-item <?php if($p==7){echo "selected";}?>">30万以上</a></li>
     </ul>
 </div>
-<div class="filter-box">
-    <input type="hidden" name="age" value="">
-    <div class="filter-title">车龄</div>
-    <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">1年以内</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">3年以内</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">5年以内</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">5年以上</a></li>
-    </ul>
-</div>
+<!--<div class="filter-box">-->
+<!--    <input type="hidden" name="age" value="">-->
+<!--    <div class="filter-title">车龄</div>-->
+<!--    <ul class="filter-option-list layui-clear">-->
+<!--        <li><a href="javascript:;" data="100" class="option-item">不限</a></li>-->
+<!--        <li><a href="javascript:;" data="1" class="option-item --><?php //if($a==1){echo "selected";}?><!--">1年以内</a></li>-->
+<!--        <li><a href="javascript:;" data="2" class="option-item --><?php //if($a==2){echo "selected";}?><!--">3年以内</a></li>-->
+<!--        <li><a href="javascript:;" data="3" class="option-item --><?php //if($a==3){echo "selected";}?><!--">5年以内</a></li>-->
+<!--        <li><a href="javascript:;" data="4" class="option-item --><?php //if($a==4){echo "selected";}?><!--">5年以上</a></li>-->
+<!--    </ul>-->
+<!--</div>-->
 <div class="filter-box">
     <input type="hidden" name="kilometre" value="">
     <div class="filter-title">里程</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">1万公里以下</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">3万公里以下</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">5万公里以下</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">8万公里以下</a></li>
-        <li><a href="javascript:;" data="5" class="option-item">8万公里以上</a></li>
+        <li><a href="javascript:;" data="100" class="option-item">不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($k==1){echo "selected";}?>">1万公里以下</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($k==2){echo "selected";}?>">3万公里以下</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($k==3){echo "selected";}?>">5万公里以下</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($k==4){echo "selected";}?>">8万公里以下</a></li>
+        <li><a href="javascript:;" data="5" class="option-item <?php if($k==5){echo "selected";}?>">8万公里以上</a></li>
     </ul>
 </div>
 <div class="filter-box">
     <input type="hidden" name="transmission" value="">
     <div class="filter-title">变速箱</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="0" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">自动</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">手动</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">手自一体</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">双离合</a></li>
+        <li><a href="javascript:;" data="100" class="option-item">不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($t==1){echo "selected";}?>">自动</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($t==2){echo "selected";}?>">手动</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($t==3){echo "selected";}?>">手自一体</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($t==4){echo "selected";}?>">双离合</a></li>
     </ul>
 </div>
 <div class="filter-box">
     <input type="hidden" name="gas" value="">
     <div class="filter-title">排量</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">1.0L以下</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">1.1-1.6L</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">1.6-2.0L</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">2.0-2.5L</a></li>
-        <li><a href="javascript:;" data="5" class="option-item">2.5-3.0L</a></li>
-        <li><a href="javascript:;" data="6" class="option-item">3.0-4.0L</a></li>
-        <li><a href="javascript:;" data="7" class="option-item">4.0L以上</a></li>
+        <li><a href="javascript:;" data="100" class="option-item">不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($g==1){echo "selected";}?>">1.0L以下</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($g==2){echo "selected";}?>">1.1-1.6L</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($g==3){echo "selected";}?>">1.6-2.0L</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($g==4){echo "selected";}?>">2.0-2.5L</a></li>
+        <li><a href="javascript:;" data="5" class="option-item <?php if($g==5){echo "selected";}?>">2.5-3.0L</a></li>
+        <li><a href="javascript:;" data="6" class="option-item <?php if($g==6){echo "selected";}?>">3.0-4.0L</a></li>
+        <li><a href="javascript:;" data="7" class="option-item <?php if($g==7){echo "selected";}?>">4.0L以上</a></li>
     </ul>
 </div>
 <div class="filter-box">
     <input type="hidden" name="emstandard" value="">
     <div class="filter-title">排放标准</div>
     <ul class="filter-option-list layui-clear">
-        <li><a href="javascript:;" data="" class="option-item">不限</a></li>
-        <li><a href="javascript:;" data="1" class="option-item">国一</a></li>
-        <li><a href="javascript:;" data="2" class="option-item">国二</a></li>
-        <li><a href="javascript:;" data="3" class="option-item">国三</a></li>
-        <li><a href="javascript:;" data="4" class="option-item">国四</a></li>
-        <li><a href="javascript:;" data="5" class="option-item">国五</a></li>
+        <li><a href="javascript:;" data="100" class="option-item ">不限</a></li>
+        <li><a href="javascript:;" data="1" class="option-item <?php if($e==1){echo "selected";}?>">国一</a></li>
+        <li><a href="javascript:;" data="2" class="option-item <?php if($e==2){echo "selected";}?>">国二</a></li>
+        <li><a href="javascript:;" data="3" class="option-item <?php if($e==3){echo "selected";}?>">国三</a></li>
+        <li><a href="javascript:;" data="4" class="option-item <?php if($e==4){echo "selected";}?>">国四</a></li>
+        <li><a href="javascript:;" data="5" class="option-item <?php if($e==5){echo "selected";}?>">国五</a></li>
+        <li><a href="javascript:;" data="6" class="option-item <?php if($e==6){echo "selected";}?>">国六</a></li>
     </ul>
 </div>
 <div class="comfirm-box"></div>

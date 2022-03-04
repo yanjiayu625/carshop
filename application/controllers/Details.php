@@ -15,7 +15,18 @@ class DetailsController extends \Base\Controller_AbstractWechat
 
         $info = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.id=$id");
         $info = array_shift($info);
-        $this->getView()->assign($info);
+        if (empty($info)) {
+            return false;
+        }
+        $bid = $info['brand_id'];
+        $price = $info['true_price'];
+        $price_s = $price-3;
+        $price_e = $price+3;
+
+        $sameBrand = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.brand_id='$bid' AND c.id<>$id ORDER BY c.id DESC limit 4");
+        $samePrice = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.true_price>=$price_s AND c.true_price<=$price_e AND c.id<>$id ORDER BY c.id DESC limit 4");
+
+        $this->getView()->assign(['info'=>$info, 'sameBrand'=>$sameBrand, 'samePrice'=>$samePrice]);
     }
     /**
      * 获取详情页面中滚动图片

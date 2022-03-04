@@ -304,50 +304,50 @@
     <!-- 图片展示 -->
     <div class="car-detail-box layui-clear">
 <!--        <h3 class="car-allname">奥迪A3 2017款 奥迪A3 Limousine 40 TFSI 运动型</h3>-->
-        <h3 class="car-allname"><?=$tags_name ?>(<?=$basic_import?>) <?=$basic_models?> <?=$basic_emission?></h3>
+        <h3 class="car-allname"><?=$info['tags_name'] ?>(<?=$info['basic_import']?>) <?=$info['basic_models']?> <?=$info['basic_emission']?>L</h3>
         <div class="layui-clear new-tags">
             <em class="s-01">商家车源</em>
         </div>
-        <p class="mt10"><span class="nowprice"><?=$true_price?>万元</span> &nbsp;&nbsp;&nbsp;&nbsp; <span class="newprice">新车 <?=$new_price?>万</span></p>
-        <p class="listtime"><?=$update_date?> 更新</p>
+        <p class="mt10"><span class="nowprice"><?=$info['true_price']?>万元</span> &nbsp;&nbsp;&nbsp;&nbsp; <span class="newprice">新车 <?=$info['new_price']?>万</span></p>
+        <p class="listtime"><?=$info['update_date']?> 更新</p>
     </div>
-    <div class="top-instalment layui-clear">
-        <span>首付3.6万</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>月供53900元</span><a href="javascript:;">分期详情 <i class="layui-icon"></i></a>
-    </div>
-    <div class="instalment-box">
-        <a href="javascript:;" class="closeinstalment"><i class="iconfont"></i></a>
-        <p class="selectinstalment">您可以自由选择首付金融方案 </p>
-        <ul class="instalment-tab-title layui-clear">
-            <li class="selected">3成首付</li>
-        </ul>
-        <div class="instalment-tab-content">
-            <div class="paymentbox">
-                <div class="pownpayment">首付款： <span>3.6 万</span></div>
-                <ul class="paymentlist">
-                    <li>
-                        <div class="paymentlistdiv layui-clear">
-                            <span class="stage">月供 53900元</span>
-                            <span class="for-month-price">24期</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <a href="javascript:;" class="layui-btn layui-btn-danger instalment-btn" id="loanbut">在线申请</a>
-        <div class="instalment-notice">提供手机号、借记卡号、身份证即可申请 / 申请无户籍、房产、职业限制 / 首付比例以实际金融方案为准 / 首付最终价格以您通过信审后的实际价格为准 / GPS等费用根据实际情况另外收取 / 我们将严格保密用户隐私信息请放心填写</div>
-    </div>
+<!--    <div class="top-instalment layui-clear">-->
+<!--        <span>首付3.6万</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>月供53900元</span><a href="javascript:;">分期详情 <i class="layui-icon"></i></a>-->
+<!--    </div>-->
+<!--    <div class="instalment-box">-->
+<!--        <a href="javascript:;" class="closeinstalment"><i class="iconfont"></i></a>-->
+<!--        <p class="selectinstalment">您可以自由选择首付金融方案 </p>-->
+<!--        <ul class="instalment-tab-title layui-clear">-->
+<!--            <li class="selected">3成首付</li>-->
+<!--        </ul>-->
+<!--        <div class="instalment-tab-content">-->
+<!--            <div class="paymentbox">-->
+<!--                <div class="pownpayment">首付款： <span>3.6 万</span></div>-->
+<!--                <ul class="paymentlist">-->
+<!--                    <li>-->
+<!--                        <div class="paymentlistdiv layui-clear">-->
+<!--                            <span class="stage">月供 53900元</span>-->
+<!--                            <span class="for-month-price">24期</span>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <a href="javascript:;" class="layui-btn layui-btn-danger instalment-btn" id="loanbut">在线申请</a>-->
+<!--        <div class="instalment-notice">提供手机号、借记卡号、身份证即可申请 / 申请无户籍、房产、职业限制 / 首付比例以实际金融方案为准 / 首付最终价格以您通过信审后的实际价格为准 / GPS等费用根据实际情况另外收取 / 我们将严格保密用户隐私信息请放心填写</div>-->
+<!--    </div>-->
     <div class="item-box layui-clear">
         <div class="itemlist rightline">
             <p class="title">上牌</p>
-            <p class="info"><?=$register_date?></p>
+            <p class="info"><?=$info['register_date']?></p>
         </div>
         <div class="itemlist rightline">
             <p class="title">里程</p>
-            <p class="info"><?=$mileage?>万公里</p>
+            <p class="info"><?=$info['mileage']?>万公里</p>
         </div>
         <div class="itemlist">
             <p class="title">排量</p>
-            <p class="info"><?=$basic_emission?></p>
+            <p class="info"><?=$info['basic_emission']?>L</p>
         </div>
     </div>
     <ul class="carmenulist layui-clear">
@@ -358,7 +358,7 @@
         <h3><span class="title">商家信息</span><a href="/" target="_blank" class="entershop">进入<i class="layui-icon"></i></a></h3>
         <div class="box">
             <ul>
-                <li class="name"><?=$owner_desc?></li>
+                <li class="name"><?=$info['owner_desc']?></li>
             </ul>
         </div>
     </div>
@@ -367,31 +367,39 @@
         <div class="box">
             <ul class="carinfobox layui-clear">
                 <li>
-                    <span class="gray">归属地</span><?=$basic_belong;?>
+                    <span class="gray">归属地</span><?=$info['basic_belong'];?>
                 </li>
                 <li>
-                    <span class="gray">级别</span><?=$basic_models;?></li>
+                    <span class="gray">级别</span><?=$info['basic_models'];?></li>
                 <li>
-                    <span class="gray">颜色</span><?=$basic_color;?>			</li>
+                    <span class="gray">颜色</span><?=$info['basic_color'];?>			</li>
                 <li>
-                    <span class="gray">变速箱</span><?=$basic_gearbox;?>			</li>
+                    <span class="gray">变速箱</span><?=$info['basic_gearbox'];?>			</li>
                 <li>
-                    <span class="gray">燃油类型</span><?php if($basic_fuel == 1) {echo "汽油";} elseif ($basic_fuel == 2) {echo "柴油";} elseif ($basic_fuel == 3) {echo "纯电";} elseif ($basic_fuel == 4) {echo "油电混动";}?>			</li>
+                    <span class="gray">燃油类型</span><?php if($info['basic_fuel'] == 1) {echo "汽油";} elseif ($info['basic_fuel'] == 2) {echo "柴油";} elseif ($info['basic_fuel'] == 3) {echo "纯电";} elseif ($info['basic_fuel'] == 4) {echo "油电混动";}?>			</li>
                 <li>
-                    <span class="gray">排放标准</span><?=$emission;?>			</li>
+                    <span class="gray">排放标准</span><?=$info['emission'];?>			</li>
                 <li>
-                    <span class="gray">年检到期</span><?=$basic_survey;?>			</li>
+                    <span class="gray">年检到期</span><?=$info['basic_survey'];?>			</li>
                 <li>
-                    <span class="gray">保险到期</span><?=$basic_insurance;?>			</li>
+                    <span class="gray">保险到期</span><?=$info['basic_insurance'];?>			</li>
                 <li>
-                    <span class="gray">车辆用途</span><?=$basic_purpose;?>			</li>
+                    <span class="gray">车辆用途</span><?=$info['basic_purpose'];?>			</li>
                 <li>
-                    <span class="gray">定期保养</span><?=$basic_maintenance;?>			</li>
+                    <span class="gray">定期保养</span><?=$info['basic_maintenance'];?>			</li>
             </ul>
             <ul class="configlist layui-clear">
-                <li><div><img src="/upload/image/20181127/20181127230901_32049.jpg"><p>天窗</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127230941_62893.jpg"><p>倒车影像</p></div></li>
-                <li><a href="javascript:;" class="moreld"><div><div class="layui-icon-div"><i class="layui-icon"></i></div><p>更多</p></div></a></li>
+                <li><div><img src="/images/good_icons/天窗.jpg"><p>天窗</p></div></li>
+                <li><div><img src="/images/good_icons/倒车影像.jpg"><p>倒车影像</p></div></li>
+                <li><div><img src="/images/good_icons/涡轮增压.jpg"><p>涡轮增压</p></div></li>
+                <li><div><img src="/images/good_icons/无钥匙启动.jpg"><p>无钥匙启动</p></div></li>
+                <li><div><img src="/images/good_icons/真皮座椅.jpg"><p>真皮座椅</p></div></li>
+                <li><div><img src="/images/good_icons/氙气大灯.jpg"><p>氙气大灯</p></div></li>
+                <li><div><img src="/images/good_icons/定速巡航.jpg"><p>定速巡航</p></div></li>
+                <li><div><img src="/images/good_icons/自动空调.jpg"><p>自动空调</p></div></li>
+                <li><div><img src="/images/good_icons/空气净化器.jpg"><p>空气净化器</p></div></li>
+                <li><div><img src="/images/good_icons/电动座椅.jpg"><p>电动座椅</p></div></li>
+<!--                <li><a href="javascript:;" class="moreld"><div><div class="layui-icon-div"><i class="layui-icon">...</i></div><p>更多</p></div></a></li>-->
             </ul>
         </div>
     </div>
@@ -399,23 +407,23 @@
         <div class="configlist-box">
             <h3>亮点配置</h3>
             <ul class="configlist layui-clear">
-                <li><div><img src="/upload/image/20181127/20181127230901_32049.jpg"><p>天窗</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127230941_62893.jpg"><p>倒车影像</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231339_69963.jpg"><p>涡轮增压</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231348_88664.jpg"><p>无钥匙启动</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231409_68905.jpg"><p>真皮座椅</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231426_38907.jpg"><p>氙气大灯</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231434_15322.jpg"><p>定速巡航</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231449_81287.jpg"><p>自动空调</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231516_17640.jpg"><p>空气净化器</p></div></li>
-                <li><div><img src="/upload/image/20181127/20181127231539_26556.jpg"><p>电动座椅</p></div></li>
+                <li><div><img src="/images/good_icons/天窗.jpg"><p>天窗</p></div></li>
+                <li><div><img src="/images/good_icons/倒车影像.jpg"><p>倒车影像</p></div></li>
+                <li><div><img src="/images/good_icons/涡轮增压.jpg"><p>涡轮增压</p></div></li>
+                <li><div><img src="/images/good_icons/无钥匙启动.jpg"><p>无钥匙启动</p></div></li>
+                <li><div><img src="/images/good_icons/真皮座椅.jpg"><p>真皮座椅</p></div></li>
+                <li><div><img src="/images/good_icons/氙气大灯.jpg"><p>氙气大灯</p></div></li>
+                <li><div><img src="/images/good_icons/定速巡航.jpg"><p>定速巡航</p></div></li>
+                <li><div><img src="/images/good_icons/自动空调.jpg"><p>自动空调</p></div></li>
+                <li><div><img src="/images/good_icons/空气净化器.jpg"><p>空气净化器</p></div></li>
+                <li><div><img src="/images/good_icons/电动座椅.jpg"><p>电动座椅</p></div></li>
             </ul>
         </div>
-        <a href="javascript:;" class="closeconfig"></a>
+        <a href="javascript:;" class="closeconfig">关闭</a>
     </div>
     <div class="car-box">
         <h3><span class="title">车况描述</span></h3>
-        <div class="box"><?=$owner_desc?></div>
+        <div class="box"><?=$info['owner_desc']?></div>
     </div>
     <div class="car-box">
         <h3><span class="title">实拍照片</span></h3>
@@ -432,97 +440,45 @@
     </div>
     <div class="car-box">
         <h3><span class="title">同车系推荐</span></h3>
-        <div class="listcar">
-            <a href="/cars/241">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20210325/20210325114009_89042_small.jpg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A3 2017款 奥迪A3 Limousine 35 TFSI 时尚型 </h4>
-                    <p class="caritem">2020-07上牌 / 22.00万公里</p>
-                    <p class="carprice">222.00万</p>
+        <?php
+            foreach($sameBrand as $b_val) {
+                ?>
+                <div class="listcar">
+                    <a href="/details/details?cid=<?=$b_val['id']?>">
+                        <div class="carimg">
+                            <img src="<?=$b_val['pic_dir']?>">		</div>
+                        <div class="carinfo">
+                            <h4> <?=$b_val['tags_name'] ?>(<?=$b_val['basic_import']?>) <?=$b_val['basic_models']?> <?=$b_val['basic_emission']?>L </h4>
+                            <p class="caritem"><?=$b_val['register_date'] ?>上牌 / <?=$b_val['mileage'] ?>万公里</p>
+                            <p class="carprice"><?=$b_val['true_price'] ?>万</p>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/240">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200706/20200706180604_67614_small.jpg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A4L 2017款 奥迪A4L 40 TFSI 运动型 </h4>
-                    <p class="caritem">2020-07上牌 / 1.00万公里</p>
-                    <p class="carprice">11.00万</p>
-                </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/234">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200627/20200627143649_15581_small.jpg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A4L 2013款 奥迪A4L 30 TFSI 手动 舒适型 </h4>
-                    <p class="caritem">2012-01上牌 / 12.00万公里</p>
-                    <p class="carprice">32.00万</p>
-                </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/233">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200627/20200627143649_15581_small.jpg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A4L 2013款 奥迪A4L 30 TFSI 手动 舒适型 </h4>
-                    <p class="caritem">2012-01上牌 / 12.00万公里</p>
-                    <p class="carprice">32.00万</p>
-                </div>
-            </a>
-        </div>
+        <?php
+            }
+        ?>
+
+
     </div>
     <div class="car-box">
         <h3><span class="title">同价位推荐</span></h3>
-        <div class="listcar">
-            <a href="/cars/251">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20210829/20210829144943_50077_small.jpeg">		</div>
-                <div class="carinfo">
-                    <h4>别克 君威 2020款 君威 652T 豪华型 </h4>
-                    <p class="caritem">2021-06上牌 / 1.00万公里</p>
-                    <p class="carprice">14.00万</p>
-                </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/243">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200914/20200914095317_47258_small.jpeg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A3 2017款 奥迪A3 Limousine 40 TFSI 运动型 </h4>
-                    <p class="caritem">2020-08上牌 / 3.00万公里</p>
-                    <p class="carprice">12.00万</p>
-                </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/242">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200909/20200909131629_62392_small.jpeg">		</div>
-                <div class="carinfo">
-                    <h4>日产 天籁 2016款 天籁 2.0L XE时尚版 </h4>
-                    <p class="caritem">2020-01上牌 / 1.00万公里</p>
-                    <p class="carprice">10.00万</p>
-                </div>
-            </a>
-        </div>
-        <div class="listcar">
-            <a href="/cars/240">
-                <div class="carimg">
-                    <img src="http://ershouche.simcms.net/upload/image/20200706/20200706180604_67614_small.jpg">		</div>
-                <div class="carinfo">
-                    <h4>奥迪A4L 2017款 奥迪A4L 40 TFSI 运动型 </h4>
-                    <p class="caritem">2020-07上牌 / 1.00万公里</p>
-                    <p class="carprice">11.00万</p>
-                </div>
-            </a>
-        </div>
+        <?php
+        foreach($samePrice as $p_val) {
+            ?>
+            <div class="listcar">
+                <a href="/details/details?cid=<?=$p_val['id']?>">
+                    <div class="carimg">
+                        <img src="<?=$p_val['pic_dir']?>">		</div>
+                    <div class="carinfo">
+                        <h4> <?=$p_val['tags_name'] ?>(<?=$p_val['basic_import']?>) <?=$p_val['basic_models']?> <?=$p_val['basic_emission']?>L </h4>
+                        <p class="caritem"><?=$p_val['register_date'] ?>上牌 / <?=$p_val['mileage'] ?>万公里</p>
+                        <p class="carprice"><?=$p_val['true_price'] ?>万</p>
+                    </div>
+                </a>
+            </div>
+            <?php
+        }
+        ?>
     </div>
     <div class="yuyue-box layui-hide" id="order-box">
         <div class="title">预约<span class="close"><i class="layui-icon">ဆ</i></span></div>
