@@ -3,7 +3,7 @@
 use \Tools\Tools;
 use \Mysql\Common\CommonModel as MysqlCommon;
 
-class BuycarController extends \Base\Controller_AbstractWeb
+class buycarController extends \Base\Controller_AbstractWeb
 {
     public function buycarAction()
     {
@@ -14,7 +14,7 @@ class BuycarController extends \Base\Controller_AbstractWeb
             'p'=>isset($params['p'])?$params['p']:0,
         ];
 
-        array_shift($params);
+//        array_shift($params);
         $lists = $this->getListByFilterAction($params);
         $brands = $this->getBrandAction();
         $this->getView()->assign(["lists" => $lists, "params" =>$arr, "brands"=>$brands]);
