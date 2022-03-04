@@ -5,7 +5,7 @@ use \Mysql\Common\CommonModel as MysqlCommon;
 
 class CenterController extends \Base\Controller_AbstractWeb
 {
-    public function CenterAction()
+    public function centerAction()
     {
         $this->display("center");
     }
