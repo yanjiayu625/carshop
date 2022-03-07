@@ -5,6 +5,11 @@ use \Mysql\Common\CommonModel as MysqlCommon;
 
 class CenterController extends \Base\Controller_AbstractWeb
 {
+    public function loginAction()
+    {
+        $this->display("login");
+    }
+
     public function centerAction()
     {
         $this->display("center");
@@ -16,8 +21,12 @@ class CenterController extends \Base\Controller_AbstractWeb
 
         $postInfo = $this->getRequest()->getPost();
 
-        //默认整一个
-        $postInfo['uid'] = 1;
+        if(!isset($_COOKIE['uid'])) {
+//            $this->commonReturn(400, "请登录");
+            $postInfo['uid'] = 14;
+        } else {
+            $postInfo['uid'] = $_COOKIE['uid'];
+        }
 
         if (empty($postInfo['uid'])) {
             $this->commonReturn(400, '用户id不能为空');
@@ -31,20 +40,20 @@ class CenterController extends \Base\Controller_AbstractWeb
             $this->commonReturn(400, '手机号不能为空!');
         }
 
-        if (empty($postInfo['area'])) {
-            $this->commonReturn(400, '地区不能为空!');
-        }
+//        if (empty($postInfo['area'])) {
+//            $this->commonReturn(400, '地区不能为空!');
+//        }
 
         $paras['name'] = $postInfo['name'];
         $paras['phone'] = $postInfo['phone'];
-        $paras['area'] = $postInfo['area'];
+//        $paras['area'] = $postInfo['area'];
 
         $up_re = MysqlCommon::getInstance()->updateListByTableName('car_user', $paras, ['id' => $postInfo['uid']]);
         if (!$up_re) {
             $this->commonReturn(400, '修改失败!');
         }
-
-        $this->commonReturn(200, '修改成功!');
+            $this->centerAction();
+//        $this->commonReturn(200, '修改成功!');
     }
 
     //用户中心 - 修改密码
@@ -53,8 +62,12 @@ class CenterController extends \Base\Controller_AbstractWeb
 
         $postInfo = $this->getRequest()->getPost();
 
-        //默认整一个
-        $postInfo['uid'] = 1;
+        if(!isset($_COOKIE['uid'])) {
+            $this->commonReturn(400, "请登录");
+        } else {
+            $postInfo['uid'] = $_COOKIE['uid'];
+        }
+
 
         if (empty($postInfo['uid'])) {
             $this->commonReturn(400, '用户id不能为空');
@@ -159,6 +172,7 @@ class CenterController extends \Base\Controller_AbstractWeb
 
             $userInfo = MysqlCommon::getInstance()->getInfoByTableName('car_user', ['id'], ['wx_open_id' => $get_info['openid']]);
             if (isset($userInfo['id'])) {
+                setcookie("uid", $userInfo['id']);
                 $this->commonReturn(200, '微信登陆成功!');
             }
 
@@ -170,6 +184,7 @@ class CenterController extends \Base\Controller_AbstractWeb
             $add_params["type"] = 'wx';
             $add_re = MysqlCommon::getInstance()->addInfoByTableName('car_user', $add_params);
             if ($add_re) {
+                setcookie("uid", $add_re);
                 $this->commonReturn(200, '微信登陆成功!');
             }
             $this->commonReturn(400, '微信登陆失败!');
@@ -199,6 +214,17 @@ class CenterController extends \Base\Controller_AbstractWeb
      */
     public function DataAction()
     {
+        // TODO::先用测试数据
+        $uid = 14;
+//       if(isset($_COOKIE['uid'])) {
+//           $uid = $_COOKIE['uid'];
+//       } else {
+//           $this->wxHeaderAction();
+//       }
+
+        $info = MysqlCommon::getInstance()->getInfoByTableName("car_user", [ 'id', 'phone', 'name'],['id'=>$uid], null);
+        $this->getView()->assign(['info'=>$info]);
+
         $this->display("data");
     }
 
@@ -211,11 +237,32 @@ class CenterController extends \Base\Controller_AbstractWeb
     }
 
     /**
-     *
+     * 更新
      */
     public function UpPwdAction()
     {
         $this->display("uppwd");
+    }
+
+    /**
+     * 卖家买车列表
+     */
+    public function SellListAction()
+    {
+        $this->display("selllist");
+    }
+
+    /**
+     * 买家收藏列表
+     */
+    public function CollectAction()
+    {
+        // TODO::测试uid
+        $uid = 14;
+
+        $collect_list = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id left join car_collect cc on cc.cid=c.id where cc.uid=$uid ORDER BY cc.id DESC");
+        $this->getView()->assign(['collect_list'=>$collect_list]);
+        $this->display("collect");
     }
 
 

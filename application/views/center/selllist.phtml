@@ -1,18 +1,102 @@
 <html lang="zh-CN"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="pragma" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>会员中心</title>
+    <title>我的收藏</title>
     <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netran<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>dom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="keywords">
     <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="description">
     <link rel="stylesheet" href="/css/layui.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script src="/js/layui.js"></script>
-    <script src="/js/common.js?t=9"></script>
-</head>
-<body style="background:#f5f5f5;">
+    <script src="/js/common.js"></script>
+    <script language="JavaScript">
+        layui.use(['layer','flow'], function(){
+            var layer = layui.layer;
+            var $ = layui.jquery;
+            var flow = layui.flow;
+            flow.load({
+                elem: '#listcar'
+                ,done: function(page, next){
+                    var lis = [];
+                    $.get('/user.php?m=cars&a=list&isshow=1&ajax=1&page='+page, function(res){
+                        layui.each(res.data, function(index, item){
+                            lis.push('<li>'+ item +'</li>');
+                        });
+                        next(lis.join(''), page < res.pages);
+                    },'json');
+                }
+            });
+        });
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+        });
+        $(function() {
+            //删除
+            $(document).on("click",".del",function(){
+                var thisitem = $(this);
+                var id = parseInt(thisitem.attr('data-index'));
+                $.get("/user.php?m=cars&a=del&id="+id,
+                    function (data, textStatus){
+                        var result = $.parseJSON(data);
+                        if(result.code==1){
+                            layer.msg(result.msg, {time: 1000, icon: 1});
+                            thisitem.parent().parent('li').remove();
+                        }
+                        else{
+                            layer.msg(result.msg, {time: 1000, icon: 2});
+                        }
+                    }
+                );
+            });
+
+            //刷新
+            $(document).on("click",".refresh",function(){
+                var thisitem = $(this);
+                var id = parseInt(thisitem.attr('data-index'));
+                $.get("/user.php?m=cars&a=refresh&id="+id,
+                    function (data, textStatus){
+                        var result = $.parseJSON(data);
+                        if(result.code==1){
+                            layer.msg(result.msg, {time: 1000, icon: 1});
+                            setTimeout(function(){//两秒后跳转
+                                location.href = result.url;
+                            },1000);
+                        }
+                        else{
+                            layer.msg(result.msg, {time: 1000, icon: 2});
+                        }
+                    }
+                );
+            });
+
+            //上下架
+            $(document).on("click",".sell",function(){
+                var thisitem = $(this);
+                var id = parseInt(thisitem.attr('data-index'));
+                $.get("/user.php?m=cars&a=sell&id="+id,
+                    function (data, textStatus){
+                        var result = $.parseJSON(data);
+                        if(result.code==1){
+                            if(result.msg=="取消下架成功"){
+                                thisitem.html("下架");
+                            }
+                            else{
+                                thisitem.html("上架");
+                            }
+                            thisitem.parent().parent('li').remove();
+                            layer.msg(result.msg, {time: 1000, icon: 1});
+                        }
+                        else{
+                            layer.msg(result.msg, {time: 1000, icon: 2});
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all"></head>
+<body>
 <div class="black_overlay"></div>
 <!--内容-->
 <header class="mo-header">
@@ -21,53 +105,24 @@
             首页
         </a>
         <i class="layui-icon"></i>
-        <a href="/user.php">
+        <a href="/center/center">
             会员中心
+        </a>
+        <i class="layui-icon"></i>
+        <a href="#">
+            在售车源
         </a>
     </div>
 </header>
-<div class="user-logo-box">
-    <div class="user-logo"></div>
-    <div class="user-name">闫佳宇</div>
-<!--    <div><a href="/user.php?m=userinfo&amp;a=certifyf" class="layui-btn layui-btn-sm layui-btn-normal">去认证</a></div>-->
+<ul class="car_tab layui-clear">
+    <li><a href="/center/selllist?m=cars&amp;a=list&amp;isshow=1" class="selected">在售</a></li>
+    <li><a href="/center/selllist?m=cars&amp;a=list&amp;isshow=2">已售</a></li>
+</ul>
+<div class="btn-box">
+    <a href="/center/selllist?m=cars&amp;a=add" class="layui-btn layui-btn-fluid layui-btn-danger">添加车源</a>
 </div>
-<div class="user-tools">
-    <h3>我是买家</h3>
-    <ul>
-<!--        <li><a href="/center/order"><span class="help-word"><i class="layui-icon"></i></span>我的预约申请</a></li>-->
-<!--        <li><a href="/center/bargain"><span class="help-word"><i class="layui-icon"></i></span>我的砍价申请</a></li>-->
-<!--        <li><a href="/user.php?m=myloan&amp;a=list"><span class="help-word"><i class="layui-icon"></i></span>我的贷款申请</a></li>-->
-        <li><a href="/center/collect"><span class="help-word"><i class="layui-icon"></i></span>我的收藏</a></li>
-    </ul>
-</div>
-<div class="user-tools">
-    <h3>我是卖家</h3>
-    <ul>
-        <li><a href="/center/selllist?m=cars&amp;a=list"><span class="help-word"><i class="layui-icon"></i></span>在售车源</a></li>
-<!--        <li><a href="/user.php?m=subscribe&amp;a=list"><span class="help-word"><i class="layui-icon"></i></span>预约管理</a></li>-->
-<!--        <li><a href="/user.php?m=bargain&amp;a=list"><span class="help-word"><i class="layui-icon"></i></span>砍价管理</a></li>-->
-<!--        <li><a href="/user.php?m=loan&amp;a=list"><span class="help-word"><i class="layui-icon"></i></span>贷款管理</a></li>-->
-    </ul>
-</div>
-<div class="user-tools">
-    <h3>用户中心</h3>
-    <ul>
-        <li><a href="/center/data"><span class="help-word"><i class="layui-icon"></i></span>基本资料</a></li>
-<!--        <li><a href="/center/approve"><span class="help-word"><i class="layui-icon"></i></span>身份认证</a></li>-->
-<!--        <li><a href="/center/uppwd"><span class="help-word"><i class="layui-icon"></i></span>修改密码</a></li>-->
-    </ul>
-</div>
-<div class="btn-box"><a href="/user.php?m=userinfo&amp;a=logout" class="layui-btn  layui-btn-danger layui-btn-fluid">退出登录</a></div>
-<div class="toolbar">
-    <ul>
-        <li><a href="/"><i class="a01"></i>首页</a></li>
-        <li><a href="/buycar/buycar"><i class="a02"></i>买车</a></li>
-        <li><a href="/sellcar/sellcar"><i class="a03"></i>卖车</a></li>
-        <li><a href="/center/center" class="selected"><i class="a04"></i>我的</a></li>
-    </ul>
-</div>
-<style>
-    body{padding-bottom:70px;}
-</style>
+<div id="listcar">
+    <div class="layui-flow-more">没有更多了</div></div>
+
 
 </body></html>

@@ -26,7 +26,15 @@ class DetailsController extends \Base\Controller_AbstractWechat
         $sameBrand = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.brand_id='$bid' AND c.id<>$id ORDER BY c.id DESC limit 4");
         $samePrice = MysqlCommon::getInstance()->querySQL("select c.*, b.brand_name, t.name as tags_name from `car_sell_content` c left join car_brand b on c.brand_id=b.id left join car_brand_tags t on c.tags_id=t.id where c.true_price>=$price_s AND c.true_price<=$price_e AND c.id<>$id ORDER BY c.id DESC limit 4");
 
-        $this->getView()->assign(['info'=>$info, 'sameBrand'=>$sameBrand, 'samePrice'=>$samePrice]);
+        // 获取用户收藏状态 TODO::用户uid暂时用测试数据
+        $uid = 14;
+        $collect = MysqlCommon::getInstance()->getInfoByTableName("car_collect",['id'],["uid"=>$uid, "cid"=>$id]);
+        if(empty($collect)) {
+            $collect_status = "收藏";
+        } else {
+            $collect_status = "取消收藏";
+        }
+        $this->getView()->assign(['info'=>$info, 'sameBrand'=>$sameBrand, 'samePrice'=>$samePrice, 'collect_status'=>$collect_status]);
     }
     /**
      * 获取详情页面中滚动图片
@@ -113,6 +121,42 @@ class DetailsController extends \Base\Controller_AbstractWechat
             $res['msg'] = $e->getMessage();
         }
 
+        Tools::returnAjaxJson($res);
+    }
+
+    /**
+     * 收藏与取消收藏
+     */
+    public function collectAction()
+    {
+        $postInfo = $this->getRequest()->getQuery();
+        if (!isset($postInfo['carid']) || empty($postInfo['carid'])) {
+            return false;
+        }
+        // TODO::测试uid，上线后替换
+        $uid = 14;
+
+        $cid = $postInfo['carid'];
+
+        try {
+            $result =  MysqlCommon::getInstance()->getInfoByTableName('car_collect', ['id'],['uid'=>$uid,'cid'=>$cid]);
+
+            if (empty($result)) {
+                // 加入收藏
+                $ad = MysqlCommon::getInstance()->addInfoByTableName("car_collect", ['uid'=>$uid, 'cid'=>$cid]);
+                if ($ad) {
+                    $res['data'] = 1;
+                }
+
+            } else {
+                // 取消收藏
+                MysqlCommon::getInstance()->deleteListByTableName("car_collect", ['uid'=>$uid, 'cid'=>$cid]);
+                $res['data'] = 3;
+            }
+        } catch (Exception $e) {
+            $res['code'] = 400;
+            $res['msg'] = $e->getMessage();
+        }
         Tools::returnAjaxJson($res);
     }
 }

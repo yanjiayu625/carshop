@@ -89,7 +89,7 @@
                 首页
             </a>
             <i class="layui-icon"></i>
-            <a href="/user.php">
+            <a href="/center/center">
                 会员中心
             </a>
             <i class="layui-icon"></i>
@@ -98,12 +98,12 @@
             </a>
         </div>
     </header>
-    <form method="post" action="user.php?m=userinfo" id="ajaxForm">
+    <form method="post" action="/center/editUser" id="ajaxForm">
         <div class="formlist">
             <ul>
-                <li><span class="value">15116926791</span>手机号</li>
-                <li><span class="value"><input type="text" name="nicname" value="" size="26" placeholder="请输入"></span>姓名</li>
-                <li data="province" id="province"><span class="value"></span>地区<i class="layui-icon"></i><input type="hidden" name="cid" value="0"></li>
+                <li><span class="value"><input type="text" name="name" value="<?php $name = isset($info['name'])?$info['name']:''; echo $name; ?>" size="26" placeholder="请输入"></span>姓名</li>
+                <li><span class="value"><input type="text" name="phone" value="<?php $phone = isset($info['phone'])?$info['phone']:''; echo $phone; ?>" size="26" placeholder="请输入"></span>手机号</li>
+<!--                <li data="province" id="province"><span class="value"></span>地区<i class="layui-icon"></i><input type="hidden" name="cid" value="0"></li>-->
                 <ul>
                 </ul></ul></div>
         <div class="btn-box">

@@ -8,13 +8,15 @@ class buycarController extends \Base\Controller_AbstractWeb
     public function buycarAction()
     {
         $params = $this->getRequest()->getQuery();
+        if(isset($params['buycar/buycar'])) {
+            unset($params['buycar/buycar']);
+        }
         $arr = [
             's'=>isset($params['s'])?$params['s']:0,
             'b'=>isset($params['b'])?$params['b']:0,
             'p'=>isset($params['p'])?$params['p']:0,
         ];
 
-//        array_shift($params);
         $lists = $this->getListByFilterAction($params);
         $brands = $this->getBrandAction();
         $this->getView()->assign(["lists" => $lists, "params" =>$arr, "brands"=>$brands]);

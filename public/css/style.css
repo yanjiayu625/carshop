@@ -333,7 +333,7 @@ h5{margin:10px 0;color:#333;}
 
 /*会员中心*/
 .user-logo-box{padding:50px 15px;background:#fff;text-align:center;margin-bottom:10px}
-.user-logo-box .user-logo{margin:10px auto;width:60px;height:60px;border-radius:30px;background:url(../img/user.jpg) no-repeat;background-size:100% 100%;}
+.user-logo-box .user-logo{margin:10px auto;width:60px;height:60px;border-radius:30px;background:url(/images/user_pic.jpg) no-repeat;background-size:100% 100%;}
 .user-logo-box .user-name{text-align:center;}
 .reeche-badge{display:inline-block;padding:4px 8px;border-radius:2px;background:#5FB878;color:#fff;font-size:12px;margin-top:10px;}
 
