@@ -76,16 +76,25 @@ class AdminController extends \Base\Controller_AbstractWechat
      */
     public function setContentAction()
     {
-        $content = $this->getRequest()->getPost();
-        if (empty($content)) {
-            $res['code'] = 400;
-            $res['msg'] = "内容为空";
-        }
+        $postInfo = $this->getRequest()->getPost();
+        
         try{
+            if (empty($postInfo['title'])) {
+                throw new \Exception('文章标题为空!');
+            }
 
-            MysqlCommon::getInstance()->addInfoByTableName("car_news",['title'=>$content['title'], 'content'=>$content['content']]);
+            if (empty($postInfo['content'])) {
+                throw new \Exception('文章内容为空!');
+            }
+
+            $addContent = MysqlCommon::getInstance()->addInfoByTableName("car_news",['title'=>$postInfo['title'],
+                'content'=>$postInfo['content']]);
+            if(!$addContent){
+                throw new \Exception('添加文章失败,请重试!');
+            }
+
             $res['code'] = 200;
-            $res['data'] = "上传成功";
+            $res['data'] = "添加成功";
 
         } catch (Exception $e) {
             $res['code'] = 400;
