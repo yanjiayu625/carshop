@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+</head>
+
+<body>
+标题：<input type="text" id="title">
+<!-- 加载编辑器的容器 -->
+<script id="container" name="content" type="text/plain">
+        这里写你的初始化内容
+    </script>
+<button onclick="setContent()">保存</button>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/ueditor-dev/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<!--<script type="text/javascript" src="ueditor.all.js"></script>-->
+<script type="text/javascript" src="/js/ueditor-dev/_examples/editor_api.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    function setContent (){
+        var title = $("#title").val();
+        var content = UE.getEditor('container').getContent();
+
+        $.ajax({
+            url: "/admin/setcontent",
+            type: "POST",
+            data: {
+                title: title,
+                content: content
+            },
+            dataType: "json",
+            success: function (responseData) {
+
+                if (responseData.code == 200) {
+                    alert("保存成功");
+                } else {
+
+                }
+            }
+        });
+
+    }
+</script>
+</body>
+
+</html>

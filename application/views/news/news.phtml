@@ -1,0 +1,73 @@
+<html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>汽车新闻</title>
+    <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netran<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>dom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="keywords">
+    <meta content="<script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script><script language=&quot;javascript&quot;> var _yfx_domrandom = 100; var _yfx_netrandom = 100; var _yfx_sendserverurl = _yfx_sendserverurl || []; _yfx_sendserverurl.push(['//java.yeefx.cn/logcount.html', '10000225']); var _yfx_website = &quot;10000023&quot;; var _yfx_isopenimg = true; (function() {     var yfxjs = document.createElement(&quot;script&quot;);     yfxjs.charset = &quot;utf-8&quot;;     yfxjs.src = &quot;//cdn.yeefx.cn/yeefxcount.js&quot;;     var yfxjs_t = document.getElementsByTagName(&quot;script&quot;)[0];     yfxjs_t.parentNode.insertBefore(yfxjs, yfxjs_t); })(); </script>" name="description">
+    <link rel="stylesheet" href="/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script src="/js/layui.js"></script>
+    <script src="/js/common.js"></script>
+    <script language="JavaScript">
+        layui.use(['layer','flow'], function(){
+            var layer = layui.layer;
+            var $ = layui.jquery;
+            var flow = layui.flow;
+            flow.load({
+                elem: '#listnews'
+                ,done: function(page, next){
+                    var lis = [];
+                    $.get('/index.php?m=news&ajax=1&catid=0&page='+page, function(res){
+                        layui.each(res.data, function(index, item){
+                            lis.push('<li>'+ item +'</li>');
+                        });
+                        next(lis.join(''), page < res.pages);
+                    },'json');
+                }
+            });
+        });
+    </script>
+    <link id="layuicss-layer" rel="stylesheet" href="/css/layer.css?v=3.1.1" media="all"></head>
+<body>
+<!--内容-->
+<header class="mo-header">
+    <div class="mo-header-left">
+        <a href="/">
+            首页
+        </a>
+        <i class="layui-icon"></i>
+        <a href="#">
+            宝典
+        </a>
+    </div>
+</header>
+<!--<ul class="newscatlist layui-clear">-->
+<!--    <li><a href="/news/1/1">车况鉴别</a></li>-->
+<!--    <li><a href="/news/2/1">选车技巧</a></li>-->
+<!--    <li><a href="/news/21/1">过户缴费</a></li>-->
+<!--    <li><a href="/news/6/1">市场政策</a></li>-->
+<!--    <li><a href="/news/25/1">卖车问题</a></li>-->
+<!--</ul>-->
+<div id="listnews">
+    <?php
+        foreach ($news as $v) {
+            ?>
+            <li><div class="listnews">
+                    <a href="/news/content?id=<?=$v['id']?>" class="layui-clear">
+                        <div class="newsinfo">
+                            <h4><?=$v['title']?></h4>
+                            <p class="listtime"><?=$v['update_time']?></p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+    <?php
+        }
+    ?>
+
+</div>
+
+
+</body></html>

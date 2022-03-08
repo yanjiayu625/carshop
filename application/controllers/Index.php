@@ -7,6 +7,8 @@ class IndexController extends \Base\Controller_AbstractWechat
 {
     public function indexAction()
     {
+        $news = MysqlCommon::getInstance()->getListByTableName("car_news",['id','title', 'content', 'update_time'],['status'=>1], 'id limit 4');
+        $this->getView()->assign(['news'=>$news]);
     }
 
     public function getSellListAction()
