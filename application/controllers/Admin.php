@@ -79,6 +79,11 @@ class AdminController extends \Base\Controller_AbstractWechat
         $postInfo = $this->getRequest()->getPost();
         
         try{
+
+            if (empty($postInfo['type'])) {
+                throw new \Exception('未选择文章发布的频道!');
+            }
+
             if (empty($postInfo['title'])) {
                 throw new \Exception('文章标题为空!');
             }
@@ -88,7 +93,7 @@ class AdminController extends \Base\Controller_AbstractWechat
             }
 
             $addContent = MysqlCommon::getInstance()->addInfoByTableName("car_news",['title'=>$postInfo['title'],
-                'content'=>$postInfo['content']]);
+                'content'=>$postInfo['content'], 'type'=>$postInfo['type']]);
             if(!$addContent){
                 throw new \Exception('添加文章失败,请重试!');
             }

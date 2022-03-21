@@ -6,7 +6,14 @@
     <title>ueditor demo</title>
 </head>
 
-<body>
+<br>
+频道：<select id="type">
+    <option value="0">请选择频道</option>
+    <option value="1">老车翻新</option>
+    <option value="2">对比</option>
+    <option value="3">肯定</option>
+    <option value="4">否定</option>
+</select></br>
 标题：<input type="text" id="title">
 <!-- 加载编辑器的容器 -->
 <script id="container" name="content" type="text/plain">
@@ -23,15 +30,32 @@
 <script type="text/javascript">
     var ue = UE.getEditor('container');
     function setContent (){
+        var type = $("#type").val();
         var title = $("#title").val();
         var content = UE.getEditor('container').getContent();
+
+        if (type==0 || type=="") {
+            alert("请选择文章发布的频道！");
+            return false;
+        }
+
+        if (title == "") {
+            alert("请输入文章标题！");
+            return false;
+        }
+
+        if (content == "") {
+            alert("文章内容不能为空！");
+            return false;
+        }
 
         $.ajax({
             url: "/admin/setcontent",
             type: "POST",
             data: {
                 title: title,
-                content: content
+                content: content,
+                type: type
             },
             dataType: "json",
             success: function (responseData) {

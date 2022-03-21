@@ -39,7 +39,7 @@
         </a>
         <i class="layui-icon"></i>
         <a href="#">
-            宝典
+            新闻
         </a>
     </div>
 </header>
@@ -57,7 +57,7 @@
             <li><div class="listnews">
                     <a href="/news/content?id=<?=$v['id']?>" class="layui-clear">
                         <div class="newsinfo">
-                            <h4><?=$v['title']?></h4>
+                            <h4><?php if($v['type'] == 1){echo "<span style='color:red;'>「老车翻新」</span>";} elseif ($v['type'] == 2){echo "<span style='color:red;'>「对比」</span>";}elseif ($v['type'] == 3) {echo "<span style='color:red;'>「肯定」</span>";} elseif ($v['type'] == 4) {echo "<span style='color:red;'>「否定」</span>";} ?><?=$v['title']?></h4>
                             <p class="listtime"><?=$v['update_time']?></p>
                         </div>
                     </a>
