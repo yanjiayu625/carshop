@@ -363,14 +363,14 @@ h5{margin:10px 0;color:#333;}
 .toolbar li a{display:block;color:#999;font-size:12px;}
 .toolbar li a.selected{color:#f60;}
 .toolbar li a i{display:block;width:20px;height:20px;margin:0 auto;margin-bottom:3px;}
-.toolbar li a i.a01{background:url(../img/home.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a.selected i.a01{background:url(../img/home_hover.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a i.a02{background:url(../img/buy.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a.selected i.a02{background:url(../img/buy_hover.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a i.a03{background:url(../img/qiugou.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a.selected i.a03{background:url(../img/qiugou_hover.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a i.a04{background:url(../img/my.png) no-repeat center 0;background-size:20px 20px;}
-.toolbar li a.selected i.a04{background:url(../img/my_hover.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a i.a01{background:url(/img/icons/home.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a.selected i.a01{background:url(/img/icons/home_hover.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a i.a02{background:url(/img/icons/buy.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a.selected i.a02{background:url(/img/icons/buy_hover.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a i.a03{background:url(/img/icons/qiugou.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a.selected i.a03{background:url(/img/icons/qiugou_hover.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a i.a04{background:url(/img/icons/my.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a.selected i.a04{background:url(/img/icons/my_hover.png) no-repeat center 0;background-size:20px 20px;}
 
 
 /*登录*/
