@@ -43,13 +43,13 @@
         </a>
     </div>
 </header>
-<!--<ul class="newscatlist layui-clear">-->
-<!--    <li><a href="/news/1/1">车况鉴别</a></li>-->
-<!--    <li><a href="/news/2/1">选车技巧</a></li>-->
-<!--    <li><a href="/news/21/1">过户缴费</a></li>-->
-<!--    <li><a href="/news/6/1">市场政策</a></li>-->
-<!--    <li><a href="/news/25/1">卖车问题</a></li>-->
-<!--</ul>-->
+<ul class="newscatlist layui-clear">
+    <li><a href="/news/news" class="<?php if($here == ""){echo "here";}?>">全部</a></li>
+    <li><a href="/news/news?t=1" class="<?php if($here == 1){echo "here";}?>">老车翻新</a></li>
+    <li><a href="/news/news?t=2" class="<?php if($here == 2){echo "here";}?>">对比</a></li>
+    <li><a href="/news/news?t=3" class="<?php if($here == 3){echo "here";}?>">肯定</a></li>
+    <li><a href="/news/news?t=4" class="<?php if($here == 4){echo "here";}?>">否定</a></li>
+</ul>
 <div id="listnews">
     <?php
         foreach ($news as $v) {
@@ -69,5 +69,7 @@
 
 </div>
 
+<script>
 
+</script>
 </body></html>
