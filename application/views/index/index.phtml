@@ -164,29 +164,30 @@
 <!--        </a>-->
     </div>
 </div>
-<div class="index-box">
-    <h3><a href="/news/news" class="more">更多</a><span>新闻</span></h3>
-    <?php
-        foreach ($news as $v) {
-            ?>
-            <div class="listnews">
-                <a href="/news/content?id=<?=$v['id']?>">
-                    <div class="newsinfo">
-                        <h4><?php if($v['type'] == 1){echo "<span style='color:red;'>「老车翻新」</span>";} elseif ($v['type'] == 2){echo "<span style='color:red;'>「对比」</span>";}elseif ($v['type'] == 3) {echo "<span style='color:red;'>「肯定」</span>";} elseif ($v['type'] == 4) {echo "<span style='color:red;'>「否定」</span>";} ?><?=$v['title']?> </h4>
-                        <p class="listtime"><?=$v['update_time']?></p>
-                    </div>
-                </a>
-            </div>
-    <?php
-        }
-    ?>
-
-</div>
+<!--<div class="index-box">-->
+<!--    <h3><a href="/news/news" class="more">更多</a><span>新闻</span></h3>-->
+<!--    --><?php
+//        foreach ($news as $v) {
+//            ?>
+<!--            <div class="listnews">-->
+<!--                <a href="/news/content?id=--><?//=$v['id']?><!--">-->
+<!--                    <div class="newsinfo">-->
+<!--                        <h4>--><?php //if($v['type'] == 1){echo "<span style='color:red;'>「老车翻新」</span>";} elseif ($v['type'] == 2){echo "<span style='color:red;'>「对比」</span>";}elseif ($v['type'] == 3) {echo "<span style='color:red;'>「肯定」</span>";} elseif ($v['type'] == 4) {echo "<span style='color:red;'>「否定」</span>";} ?><!----><?//=$v['title']?><!-- </h4>-->
+<!--                        <p class="listtime">--><?//=$v['update_time']?><!--</p>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--    --><?php
+//        }
+//    ?>
+<!---->
+<!--</div>-->
 <div class="toolbar">
     <ul>
         <li><a href="/" class="selected"><i class="a01"></i>首页</a></li>
         <li><a href="/buycar/buycar"><i class="a02"></i>买车</a></li>
         <li><a href="/sellcar/sellcar"><i class="a03"></i>卖车</a></li>
+        <li><a href="/news/news"><i class="a05"></i>新闻</a></li>
         <li><a href="/center/center"><i class="a04"></i>我的</a></li>
     </ul>
 </div>
