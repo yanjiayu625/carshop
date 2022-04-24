@@ -371,7 +371,8 @@ h5{margin:10px 0;color:#333;}
 .toolbar li a.selected i.a03{background:url(/img/icons/qiugou_hover.png) no-repeat center 0;background-size:20px 20px;}
 .toolbar li a i.a04{background:url(/img/icons/my.png) no-repeat center 0;background-size:20px 20px;}
 .toolbar li a.selected i.a04{background:url(/img/icons/my_hover.png) no-repeat center 0;background-size:20px 20px;}
-
+.toolbar li a i.a05{background:url(/img/icons/news.png) no-repeat center 0;background-size:20px 20px;}
+.toolbar li a.selected i.a05{background:url(/img/icons/news_hover.png) no-repeat center 0;background-size:20px 20px;}
 
 /*登录*/
 .login_main{margin-top:40px;}

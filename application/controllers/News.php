@@ -9,9 +9,9 @@ class NewsController extends \Base\Controller_AbstractWechat
     {
         $type = $this->getRequest()->getQuery("t");
         if (!empty($type) && is_numeric($type)) {
-            $news = MysqlCommon::getInstance()->getListByTableName("car_news",['id','title', 'content', 'update_time', 'type'],['status'=>1, 'type'=>$type],"id DESC");
+            $news = MysqlCommon::getInstance()->getListByTableName("car_news",['id','title', 'content', 'update_time', 'type', 'title_pic'],['status'=>1, 'type'=>$type],"id DESC");
         } else {
-            $news = MysqlCommon::getInstance()->getListByTableName("car_news",['id','title', 'content', 'update_time', 'type'],['status'=>1],"id DESC");
+            $news = MysqlCommon::getInstance()->getListByTableName("car_news",['id','title', 'content', 'update_time', 'type', 'title_pic'],['status'=>1],"id DESC");
         }
 
         $this->getView()->assign(['news'=>$news, 'here'=>$type]);

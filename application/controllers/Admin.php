@@ -92,8 +92,11 @@ class AdminController extends \Base\Controller_AbstractWechat
                 throw new \Exception('文章内容为空!');
             }
 
+            preg_match_all("/<img([^>]*)\s*src=('|\")([^'\"]+)('|\")/i",$postInfo['content'],$match);
+            $logo_pic = $match[0][0];
+
             $addContent = MysqlCommon::getInstance()->addInfoByTableName("car_news",['title'=>$postInfo['title'],
-                'content'=>$postInfo['content'], 'type'=>$postInfo['type']]);
+                'content'=>$postInfo['content'], 'title_pic'=>$logo_pic, 'type'=>$postInfo['type']]);
             if(!$addContent){
                 throw new \Exception('添加文章失败,请重试!');
             }

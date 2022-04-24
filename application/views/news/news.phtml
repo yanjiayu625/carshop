@@ -60,8 +60,16 @@
 <!--                            <h4>--><?php //if($v['type'] == 1){echo "<span style='color:red;'>「老车翻新」</span>";} elseif ($v['type'] == 2){echo "<span style='color:red;'>「对比」</span>";}elseif ($v['type'] == 3) {echo "<span style='color:red;'>「肯定」</span>";} elseif ($v['type'] == 4) {echo "<span style='color:red;'>「否定」</span>";} ?><!----><?//=$v['title']?><!--</h4>-->
                             <h4><?=$v['title']?></h4>
                             <br>
-                            <img src="/images/20191121125007_41872.jpg" alt="" style="width: 100%">
-<!--                            <p class="listtime">--><?//=$v['update_time']?><!-- <span style="margin-left: 74%;">查看全文>></span></p>-->
+                            <?php
+                                if (empty($v['title_pic'])) {
+                                    ?>
+                                    <img src="/images/20191121125007_41872.jpg" alt="" style="width: 100%">
+                            <?php
+                                }else {
+                                    echo $v['title_pic'];
+                                }
+                            ?>
+<!--                            <p class="listtime"><?//=$v['update_time']?><!-- <span style="margin-left: 74%;">查看全文>></span></p>-->
                             <p class="listtime"><?=$v['update_time']?> </p>
                         </div>
                     </a>
